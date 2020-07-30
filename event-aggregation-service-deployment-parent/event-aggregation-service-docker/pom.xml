@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    ******************************************************************************
+     WARNING: EXPORT CONTROLLED - EAR
+     THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+     GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+     REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+     FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+     VIOLATION OF FEDERAL LAW.
+    ******************************************************************************
+     Unlimited Government Rights
+     WARNING: Do Not Use On A Privately Funded Program Without Permission.
+    ******************************************************************************
+     CLASSIFICATION:   Unclassified
+
+     LIMITATIONS:      None
+    ******************************************************************************
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>atlas.event-aggregation-service</groupId>
+        <artifactId>event-aggregation-service-deployment-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>event-aggregation-service-deployment-docker</artifactId>
+
+    <packaging>pom</packaging>
+
+    <name>ATLAS: event-aggregation-service Docker Deployment</name>
+    <description>Docker deployment scripts etc for the event-aggregation-service service</description>
+
+    <properties>
+        <docker.base.image.name>atlas/release/base/ubi7-jre8</docker.base.image.name>
+        <docker.base.image.tag>1.0.0</docker.base.image.tag>
+        <docker.base.image>${docker.base.image.name}:${docker.base.image.tag}</docker.base.image>
+        <docker.removeMode>run</docker.removeMode>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>run-java-sh</artifactId>
+            <version>${io.fabric8.runjava.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                            <useDefaultDelimiters>false</useDefaultDelimiters>
+                            <delimiters>
+                                <delimiter>${*}</delimiter>
+                            </delimiters>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>Dockerfile</include>
+                                        <!-- Add any additional includes here that require filtering -->
+                                    </includes>
+                                    <excludes>
+                                        <!-- Add any additional EXCLUDES here that should NOT be copied with filtering
+                                         Add them below in an includes block-->
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <!-- Add any additional INCLUDES here that should be copied WITHOUT filtering-->
+                                    </includes>
+                                    <excludes>
+                                        <exclude>
+                                            <!-- Add any additional EXCLUDES here that should NOT be copied WITHOUT filtering
+                                            Add them above in an includes block-->
+                                        </exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependency</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeTransitive>true</excludeTransitive>
+                        <!-- This outputDirectory is PRIMARILY used for ATLAS services.  CHANGE AS REQUIRED -->
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/spring-boot-app</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- This execution block is PRIMARILY used for ATLAS services.  REMOVE if not required -->
+                        <id>unpack-run-java</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>io.fabric8</includeGroupIds>
+                            <includeArtifactIds>run-java-sh</includeArtifactIds>
+                            <includes>**/run-java.sh</includes>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/spring-boot-app</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <logDate>default</logDate>
+                    <imagePullPolicy>IfNotPresent</imagePullPolicy>
+                    <dockerHost>${docker.url}</dockerHost>
+                    <useColor>true</useColor>
+
+                    <!--Push configs...-->
+                    <skipPush>false</skipPush>
+                    <retries>3</retries>
+
+                    <images>
+                        <image>
+                            <alias>${project.artifactId}</alias>
+                            <name>${docker.registry.host}/atlas/service/event-aggregation-service:latest</name>
+                            <build>
+                                <dockerFileDir>${project.build.directory}/${project.build.finalName}</dockerFileDir>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
