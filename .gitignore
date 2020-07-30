@@ -1,0 +1,60 @@
+#############################################
+# Eclipse IDE ignored files
+# https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore
+#############################################
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.vscode/
+# External tool builders
+.externalToolBuilders/
+# Locally stored "Eclipse launch configurations"
+*.launch
+# CDT-specific
+.cproject
+# PDT-specific
+.buildpath
+
+#############################################
+# IntelliJ IDE ignored files
+# https://github.com/github/gitignore/blob/master/Global/IntelliJ.gitignore
+#############################################
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#############################################
+# Java
+#############################################
+*.class
+
+#############################################
+# Maven ignored files
+# https://github.com/github/gitignore/blob/master/Maven.gitignore
+#############################################
+target/
+*.orig
+
+#############################################
+# NetBeans specific
+# https://gist.github.com/chhh/4961200
+#############################################
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml

@@ -1,0 +1,8 @@
+* text eol=lf
+*.sql eol=lf
+*.jpg binary
+*.png binary
+*.tif binary
+*.gz binary
+*.zip binary
+*.FPT binary
