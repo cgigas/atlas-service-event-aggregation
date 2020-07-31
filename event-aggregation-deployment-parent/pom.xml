@@ -35,6 +35,7 @@
     <description>Parent definition for any deployment specific requirements for event-aggregation service</description>
 
     <modules>
+        <module>event-aggregation-app</module>
         <module>event-aggregation-docker</module>
     </modules>
 </project>

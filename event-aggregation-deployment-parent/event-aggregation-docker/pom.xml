@@ -148,7 +148,7 @@
                     <images>
                         <image>
                             <alias>${project.artifactId}</alias>
-                            <name>${docker.registry.host}/atlas/service/event-aggregation-service:latest</name>
+                            <name>${docker.registry.host}/atlas/event-aggregation/event-aggregation-service:latest</name>
                             <build>
                                 <dockerFileDir>${project.build.directory}/${project.build.finalName}</dockerFileDir>
                             </build>
