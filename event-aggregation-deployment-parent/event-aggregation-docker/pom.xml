@@ -48,6 +48,11 @@
             <artifactId>run-java-sh</artifactId>
             <version>${io.fabric8.runjava.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>event-aggregation-app</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

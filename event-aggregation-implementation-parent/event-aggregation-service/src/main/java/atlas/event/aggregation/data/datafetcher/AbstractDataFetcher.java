@@ -123,7 +123,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
 
     protected DataFetcherResult<T> buildWarningResult(DataFetchingEnvironment environment, EventAggregationQueryException e)
     {
-        log.info("An warning occurred while fetching data.", e);
+        log.info("A warning occurred while fetching data.", e);
         Map<String, Object> ext = getExtensions(environment);
         if (e.getExtensions() != null)
         {
