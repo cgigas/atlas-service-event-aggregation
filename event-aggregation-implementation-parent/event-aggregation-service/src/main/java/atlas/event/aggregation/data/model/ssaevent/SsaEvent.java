@@ -17,8 +17,11 @@
  */
 package atlas.event.aggregation.data.model.ssaevent;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -31,6 +34,8 @@ import java.util.Date;
  * one or many satellites.
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class SsaEvent extends Audited implements Serializable
 {

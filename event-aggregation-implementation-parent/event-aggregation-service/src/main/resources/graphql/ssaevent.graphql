@@ -4,12 +4,12 @@ schema {
 }
 
 type EasQuery {
-    ssaEvents: [SsaEvent]!
+    ssaEvents: [SsaEvent]
 }
 
 type EasMutation {
-    createSsaEvent(input: SsaEventInput!): SsaEvent
-    updateSsaEvent(id: ID!, input: SsaEventInput!): SsaEvent
+    createSsaEvent(input: SsaEventCreateInput!): SsaEvent!
+    updateSsaEvent(id: ID!, input: SsaEventUpdateInput!): SsaEvent
     deleteSsaEvent(id: ID!): SsaEvent
 }
 
@@ -33,14 +33,28 @@ type SsaEvent {
     version: Long
 }
 
-input SsaEventInput {
+input SsaEventUpdateInput {
+    classificationMarking: String
+    ssaPredecessorEventUuid: ID
+    eventType: SsaEventType
+    eventName: String
+    eventStatus: SsaEventStatus
+    startDt: DateTime
+    endDt: DateTime
+    eventDesc: String
+    bigBoardFlag: Boolean
+    internalNotes: String
+    eventPostingId: String
+}
+
+input SsaEventCreateInput {
     classificationMarking: String!
     ssaPredecessorEventUuid: ID
     eventType: SsaEventType!
     eventName: String!
     eventStatus: SsaEventStatus!
-    startDt: DateTime
-    endDt: DateTime
+    startDt: DateTime!
+    endDt: DateTime!
     eventDesc: String
     bigBoardFlag: Boolean
     internalNotes: String

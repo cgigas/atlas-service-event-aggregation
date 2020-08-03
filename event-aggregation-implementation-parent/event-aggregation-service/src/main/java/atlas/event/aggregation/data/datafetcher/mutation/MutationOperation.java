@@ -16,19 +16,9 @@
  *  ******************************************************************************
  */
 
-package atlas.event.aggregation;
+package atlas.event.aggregation.data.datafetcher.mutation;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-
-@SpringBootApplication
-@ComponentScan("atlas")
-public class EventAggregationGQLServerApplication
+public enum MutationOperation
 {
-
-    public static void main(String[] args)
-    {
-        SpringApplication.run(EventAggregationGQLServerApplication.class, args);
-    }
+    CREATE, UPDATE, DELETE;
 }
