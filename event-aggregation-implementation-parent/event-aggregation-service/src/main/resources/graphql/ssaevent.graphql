@@ -1,0 +1,78 @@
+schema {
+    query: EasQuery
+    mutation: EasMutation
+}
+
+type EasQuery {
+    ssaEvents: [SsaEvent]!
+}
+
+type EasMutation {
+    createSsaEvent(input: SsaEventInput!): SsaEvent
+    updateSsaEvent(id: ID!, input: SsaEventInput!): SsaEvent
+    deleteSsaEvent(id: ID!): SsaEvent
+}
+
+type SsaEvent {
+    ssaEventUuid: ID!
+    classificationMarking: String!
+    ssaPredecessorEventUuid: ID
+    eventType: SsaEventType!
+    eventName: String!
+    eventStatus: SsaEventStatus!
+    startDt: DateTime
+    endDt: DateTime
+    eventDesc: String
+    bigBoardFlag: Boolean
+    internalNotes: String
+    eventPostingId: String
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+input SsaEventInput {
+    classificationMarking: String!
+    ssaPredecessorEventUuid: ID
+    eventType: SsaEventType!
+    eventName: String!
+    eventStatus: SsaEventStatus!
+    startDt: DateTime
+    endDt: DateTime
+    eventDesc: String
+    bigBoardFlag: Boolean
+    internalNotes: String
+    eventPostingId: String
+}
+
+enum SsaEventStatus
+{
+    ACTIVE,
+    ADVISORY,
+    CANCELLED,
+    CLOSED,
+    CONFIRMED,
+    POSSIBLE,
+    PROJECTED,
+    VERIFIED
+}
+
+enum SsaEventType
+{
+    BREAKUP,
+    CONJUNCTION,
+    DEORBIT,
+    DOCK,
+    EMI,
+    LAUNCH,
+    MANEUVER,
+    NUDET,
+    OTHER,
+    PROXIMITY,
+    REENTRY,
+    RENDEZVOUS,
+    SEPARATION,
+    UNDOCK
+}
