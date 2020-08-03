@@ -20,6 +20,7 @@ package atlas.event.aggregation.data.model.ssaevent;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -38,6 +39,7 @@ public class SsaEvent extends Audited implements Serializable
     /**
      * Unique identifier
      */
+    @Id
     private String ssaEventUuid;
 
     /**
