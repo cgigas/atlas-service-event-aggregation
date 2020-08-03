@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    ******************************************************************************
+     WARNING: EXPORT CONTROLLED - EAR
+     THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+     GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+     REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+     FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+     VIOLATION OF FEDERAL LAW.
+    ******************************************************************************
+     Unlimited Government Rights
+     WARNING: Do Not Use On A Privately Funded Program Without Permission.
+    ******************************************************************************
+     CLASSIFICATION:   Unclassified
+
+     LIMITATIONS:      None
+    ******************************************************************************
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>atlas.event-aggregation</groupId>
+        <artifactId>event-aggregation-deployment-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <!--
+        Module to package the Event Aggregation Service as a SpringBoot Application
+        - this allows the build output of the event-aggregation-service module to be a standard jar file
+          for use by satellite-query-docker for packaging.
+    -->
+    <artifactId>event-aggregation-app</artifactId>
+    <packaging>jar</packaging>
+
+    <name>ATLAS: event-aggregation Service App</name>
+    <description>The Event Aggregation Service App</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>event-aggregation-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+             <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>get-git-info</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+                <configuration>
+                    <mainClass>atlas.event.aggregation.EventAggregationGQLServerApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-build-info</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

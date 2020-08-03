@@ -1,0 +1,1 @@
+This is the event-aggregation-service documentation folder.  Store any additional documentation or notes etc. required by this service.
