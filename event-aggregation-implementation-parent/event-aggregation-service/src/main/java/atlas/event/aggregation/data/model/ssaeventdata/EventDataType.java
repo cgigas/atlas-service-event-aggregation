@@ -15,36 +15,12 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaevent;
+package atlas.event.aggregation.data.model.ssaeventdata;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
-import java.util.Date;
-
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Audited extends Versioned
+public enum EventDataType
 {
-    /**
-     * Entry creation date..
-     */
-    private Date createDate;
-
-    /**
-     * Origin or source of the entry..
-     */
-    private String createOrigin;
-
-    /**
-     * Date of last update..
-     */
-    private Date updateDate;
-
-    /**
-     * Origin or source of the last update..
-     */
-    private String updateOrigin;
+    PDF,
+    DOCX,
+    DOC,
+    TXT
 }

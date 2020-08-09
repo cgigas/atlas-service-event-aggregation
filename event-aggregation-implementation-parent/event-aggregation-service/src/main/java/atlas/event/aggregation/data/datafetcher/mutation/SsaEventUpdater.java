@@ -18,20 +18,16 @@
 
 package atlas.event.aggregation.data.datafetcher.mutation;
 
-import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.AbstractDataFetcher;
 import atlas.event.aggregation.data.mapper.ObjectFieldUpdater;
 import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
-import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
-
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
+import java.util.UUID;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -75,18 +71,11 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
             switch (operation)
             {
                 case CREATE:
-                    try
-                    {
-                        SsaEvent ssaEvent = new SsaEvent();
-                        ssaEvent.setId(UUID.randomUuid());
-                        ssaEvent = (SsaEvent) fieldUpdater.updateFields(ssaEvent, fieldsMap);
-                        ssaEvent = repository.save(ssaEvent);
-                        returnValue = ssaEvent;
-                    }
-                    catch (IllegalAccessException | InstantiationException e)
-                    {
-                        throw new EventAggregationQueryException(String.format("An error occurred while creating a new %s. %s", SsaEvent.getSimpleName(), e.getMessage()), Event);
-                    }
+                    SsaEvent ssaEvent = new SsaEvent();
+                    ssaEvent.setSsaEventUuid(UUID.randomUUID().toString());
+                    ssaEvent = (SsaEvent) fieldUpdater.updateFields(ssaEvent, fieldsMap);
+                    ssaEvent = repository.save(ssaEvent);
+                    returnValue = ssaEvent;
                     break;
 //                case UPDATE:
 //                    Optional<T> entity = repository.findById(idValue);

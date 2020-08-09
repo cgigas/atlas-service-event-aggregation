@@ -17,22 +17,16 @@
  */
 package atlas.event.aggregation.data.model.ssaevent;
 
+import atlas.event.aggregation.data.model.Audited;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Records various types of Space Situational Awareness events across the system, including LAUNCH, BREAKUP, REENTRY,
- * DEORBIT, DECAY, PROXIMITY, RENDEZVOUS, SEPARATION, DOCKING, EMI, and CA. SSA events can be recorded against
- * one or many satellites.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -52,7 +46,6 @@ public class SsaEvent extends Audited implements Serializable
      */
     @NotNull
     private String classificationMarking;
-
 
     /**
      * Related or preceding SSA event.
@@ -107,4 +100,129 @@ public class SsaEvent extends Audited implements Serializable
      * Contains an identifier associated with the posting of this event to an external system, such as SKIWeb.
      */
     private String eventPostingId;
+
+    public static long getSerialVersionUID()
+    {
+        return serialVersionUID;
+    }
+
+    public String getSsaEventUuid()
+    {
+        return ssaEventUuid;
+    }
+
+    public void setSsaEventUuid(String ssaEventUuid)
+    {
+        this.ssaEventUuid = ssaEventUuid;
+    }
+
+    public String getClassificationMarking()
+    {
+        return classificationMarking;
+    }
+
+    public void setClassificationMarking(String classificationMarking)
+    {
+        this.classificationMarking = classificationMarking;
+    }
+
+    public String getSsaPredecessorEventUuid()
+    {
+        return ssaPredecessorEventUuid;
+    }
+
+    public void setSsaPredecessorEventUuid(String ssaPredecessorEventUuid)
+    {
+        this.ssaPredecessorEventUuid = ssaPredecessorEventUuid;
+    }
+
+    public SsaEventType getEventType()
+    {
+        return eventType;
+    }
+
+    public void setEventType(SsaEventType eventType)
+    {
+        this.eventType = eventType;
+    }
+
+    public String getEventName()
+    {
+        return eventName;
+    }
+
+    public void setEventName(String eventName)
+    {
+        this.eventName = eventName;
+    }
+
+    public SsaEventStatus getEventStatus()
+    {
+        return eventStatus;
+    }
+
+    public void setEventStatus(SsaEventStatus eventStatus)
+    {
+        this.eventStatus = eventStatus;
+    }
+
+    public Date getStartDt()
+    {
+        return startDt;
+    }
+
+    public void setStartDt(Date startDt)
+    {
+        this.startDt = startDt;
+    }
+
+    public Date getEndDt()
+    {
+        return endDt;
+    }
+
+    public void setEndDt(Date endDt)
+    {
+        this.endDt = endDt;
+    }
+
+    public String getEventDesc()
+    {
+        return eventDesc;
+    }
+
+    public void setEventDesc(String eventDesc)
+    {
+        this.eventDesc = eventDesc;
+    }
+
+    public Boolean getBigBoardFlag()
+    {
+        return bigBoardFlag;
+    }
+
+    public void setBigBoardFlag(Boolean bigBoardFlag)
+    {
+        this.bigBoardFlag = bigBoardFlag;
+    }
+
+    public String getInternalNotes()
+    {
+        return internalNotes;
+    }
+
+    public void setInternalNotes(String internalNotes)
+    {
+        this.internalNotes = internalNotes;
+    }
+
+    public String getEventPostingId()
+    {
+        return eventPostingId;
+    }
+
+    public void setEventPostingId(String eventPostingId)
+    {
+        this.eventPostingId = eventPostingId;
+    }
 }

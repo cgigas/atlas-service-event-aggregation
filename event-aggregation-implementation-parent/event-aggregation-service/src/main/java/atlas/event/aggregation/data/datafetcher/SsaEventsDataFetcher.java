@@ -25,6 +25,7 @@ import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -35,11 +36,13 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
+@Profile("dev")
 public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
 {
-    private final SsaEventRepository repository;
+    private SsaEventRepository repository;
 
-    public SsaEventsDataFetcher(SsaEventRepository repo,  RuntimeWiringTypeCollector collector){
+    public SsaEventsDataFetcher(SsaEventRepository repo,  RuntimeWiringTypeCollector collector)
+    {
         this.repository = repo;
         this.collector = collector;
     }
@@ -47,7 +50,6 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     @Override
     protected void performFetch(DataFetchingEnvironment environment)
     {
-        log.debug("Fetching an SSAEvent");
         returnValue = Lists.newArrayList(repository.findAll());
     }
 
