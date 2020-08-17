@@ -87,6 +87,11 @@
                 <version>${com.graphql-java.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.11</version>
+            </dependency>
+            <dependency>
                 <groupId>com.graphql-java</groupId>
                 <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
                 <version>${com.graphql-java-spring-boot-starter.version}</version>

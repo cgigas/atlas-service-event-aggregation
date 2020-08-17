@@ -51,7 +51,7 @@ public class GraphQLWebAutoConfiguration
     @ConditionalOnProperty(value = "graphql.web.corsEnabled", havingValue = "true", matchIfMissing = true)
     public CorsFilter corsConfigurer()
     {
-        log.info("Configuring Cross Domain Origin (CORS) support.");
+        //log.info("Configuring Cross Domain Origin (CORS) support.");
         Map<String, CorsConfiguration> corsConfigurations = new LinkedHashMap<>(1);
         CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
         corsConfigurations.put(getCorsMapping(), corsConfiguration);

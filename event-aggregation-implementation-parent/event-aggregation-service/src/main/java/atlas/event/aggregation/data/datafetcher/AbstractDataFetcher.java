@@ -30,8 +30,8 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 
@@ -47,6 +47,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
     private static final String QUERY_TYPE = "queryType";
     private static final Object SUBOBJECT_QUERY_TYPE = "subObjectQuery";
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
+    protected static final String ID_ARG = "id";
 
 
     // Derived classes should instantiate and populate this object.
@@ -75,6 +76,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
+        LocalDateTime start = LocalDateTime.now();
         try
         {
             // if the environment local context is set, cast it to our local var.
@@ -93,6 +95,8 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
             // We don't want our localContext variable to persist to the next use of this fetcher, so clear it here
             // check this - we just undid whatever was done in performFetch()
             localContext = null;
+            LocalDateTime end = LocalDateTime.now();
+            System.out.println("Total Time: " + (end.getNano() - start.getNano()));
             return result;
         }
         catch (EventAggregationQueryException e)
@@ -107,7 +111,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
 
     protected DataFetcherResult<T> buildErrorResult(DataFetchingEnvironment environment, RuntimeException e)
     {
-        log.error("An unexpected error occurred while fetching data.", e);
+        //log.error("An unexpected error occurred while fetching data.", e);
         GraphQLError error = GraphqlErrorBuilder.newError(environment)
             .errorType(ErrorType.DataFetchingException)
             .message(e.getMessage())
@@ -123,7 +127,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
 
     protected DataFetcherResult<T> buildWarningResult(DataFetchingEnvironment environment, EventAggregationQueryException e)
     {
-        log.info("A warning occurred while fetching data.", e);
+        //log.info("A warning occurred while fetching data.", e);
         Map<String, Object> ext = getExtensions(environment);
         if (e.getExtensions() != null)
         {
@@ -142,6 +146,18 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
             .build();
         localContext = null;
         return warningResult;
+    }
+
+    protected String getRequestPath(DataFetchingEnvironment environment)
+    {
+        String requestPath = null;
+
+        if (environment != null)
+        {
+            requestPath = environment.getExecutionStepInfo().getPath().toString();
+        }
+
+        return requestPath;
     }
 
     protected Map<String, Object> getExtensions(DataFetchingEnvironment environment)

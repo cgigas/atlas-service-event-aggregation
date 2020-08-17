@@ -60,7 +60,7 @@ public class GraphQLService
             TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql/*.graphql");
             SchemaGenerator schemaGenerator = new SchemaGenerator();
 
-            log.info("Initializing graphql query and mutation processing engine.");
+            //log.info("Initializing graphql query and mutation processing engine.");
             GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
             // Turn on instrumentation for query tracing in GraphQL Playground, etc.
             this.graphQL = GraphQL.newGraphQL(graphQLSchema)
@@ -70,7 +70,7 @@ public class GraphQLService
         catch (IllegalStateException | IOException e)
         {
             // log the error and abort the application
-            log.error("Error initializing the Satellite Query GraphQL service. Aborting startup.", e);
+            //log.error("Error initializing the Satellite Query GraphQL service. Aborting startup.", e);
             throw new IllegalStateException("Unable to initialize the Satellite Query Service");
         }
     }

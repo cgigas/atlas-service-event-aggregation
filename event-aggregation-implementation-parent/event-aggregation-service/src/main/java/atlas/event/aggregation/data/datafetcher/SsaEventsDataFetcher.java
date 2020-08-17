@@ -27,9 +27,10 @@ import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
+import org.springframework.util.StringUtils;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -50,7 +51,28 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     @Override
     protected void performFetch(DataFetchingEnvironment environment)
     {
-        returnValue = Lists.newArrayList(repository.findAll());
+        returnValue = null;
+
+        String path = getRequestPath(environment);
+        if (!StringUtils.isEmpty(path))
+        {
+            switch (path)
+            {
+                case "/getSsaEventById":
+                case "/eventDetail":
+                    String id = getIdArgument(environment);
+                    Optional<SsaEvent> result = repository.findById(id);
+                    returnValue = Lists.newArrayList(result.get());
+                    break;
+                case "/ssaEvents":
+                    returnValue  = Lists.newArrayList(repository.findAll());
+            }
+        }
+    }
+
+    protected String getIdArgument(DataFetchingEnvironment environment)
+    {
+        return environment.getArgument(ID_ARG);
     }
 
     @Override
@@ -58,7 +80,9 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("EasQuery")
-            .dataFetcher("ssaEvents", this));
+            .dataFetcher("ssaEvents", this)
+            .dataFetcher("eventDetail", this)
+            .dataFetcher("getSsaEventById", this));
         return builders;
     }
 }

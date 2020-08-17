@@ -19,15 +19,20 @@ package atlas.event.aggregation.data.model.ssaevent;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
 public abstract class Versioned
 {
-    @NonNull
-    @NotNull
     private Long version;
+
+    public Long getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(Long version)
+    {
+        this.version = version;
+    }
 }

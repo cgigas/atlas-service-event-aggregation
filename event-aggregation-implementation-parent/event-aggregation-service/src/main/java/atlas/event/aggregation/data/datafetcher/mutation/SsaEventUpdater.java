@@ -25,12 +25,16 @@ import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
-
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
+@Slf4j
+@Component
 public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
 {
     protected final SsaEventRepository repository;
@@ -72,37 +76,42 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
             {
                 case CREATE:
                     SsaEvent ssaEvent = new SsaEvent();
-                    ssaEvent.setSsaEventUuid(UUID.randomUUID().toString());
+                    ssaEvent.setId(UUID.randomUUID().toString());
                     ssaEvent = (SsaEvent) fieldUpdater.updateFields(ssaEvent, fieldsMap);
                     ssaEvent = repository.save(ssaEvent);
                     returnValue = ssaEvent;
                     break;
-//                case UPDATE:
-//                    Optional<T> entity = repository.findById(idValue);
-//
-//                    if (entity.isPresent())
-//                    {
-//                        returnValue = entity.get();  // not sure this is necessary but may help return a partial result.
-//                        // Map changed fields onto object
-//                        T updatedControl = (T) fieldUpdater.updateFields(entity.get(), fieldsMap);
-//                        // save the updated object
-//                        updatedControl = repository.update(updatedControl);
-//                        returnValue = updatedControl;
-//                    }
-//                    else
-//                    {
-//                        String msg = MessageFormat.format("A record of type {0} with id {1} was not found.", clazz.getName(), controlId);
-//                        throw new UiAggregationQueryException(msg, UiAggregationExceptionCodes.WARNING);
-//                    }
-//                    break;
-//                case DELETE:
-//                    entity = repository.findById(idValue);
-//                    if (entity.isPresent())
-//                    {
-//                        repository.deleteById(idValue);
-//                        returnValue = entity.get();
-//                    }
-//                    break;
+                case UPDATE:
+                    Optional entity = repository.findById(idValue);
+                    System.out.println("HH");
+/*
+                    if (entity.isPresent())
+                    {
+                        returnValue = entity.get();  // not sure this is necessary but may help return a partial result.
+                        // Map changed fields onto object
+                        T updatedControl = (T) fieldUpdater.updateFields(entity.get(), fieldsMap);
+                        // save the updated object
+                        updatedControl = repository.update(updatedControl);
+                        returnValue = updatedControl;
+                    }
+                    else
+                    {
+                        String msg = MessageFormat.format("A record of type {0} with id {1} was not found.", clazz.getName(), controlId);
+                        throw new UiAggregationQueryException(msg, UiAggregationExceptionCodes.WARNING);
+                    }
+
+ */
+                    break;
+                case DELETE:
+/*                    entity = repository.findById(idValue);
+                    if (entity.isPresent())
+                    {
+                        repository.deleteById(idValue);
+                        returnValue = entity.get();
+                    }
+
+ */
+                    break;
                 default:
                     throw new IllegalStateException("An unexpected mutation operation was encountered.");
             }
@@ -119,6 +128,8 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
             .dataFetcher("updateSsaEvent", this));
         builders.add(newTypeWiring("EasMutation")
             .dataFetcher("deleteSsaEvent", this));
+        builders.add(newTypeWiring("EasQuery")
+                .dataFetcher("raven", this));
         return builders;
     }
 }

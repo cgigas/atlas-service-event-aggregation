@@ -5,15 +5,37 @@ schema {
 
 type EasQuery {
     ssaEvents: [SsaEvent]
+    getSsaEventById(id: String!): [SsaEvent]
+    eventDetail(id: String!): [SsaEvent]
 }
 
 type EasMutation {
-    createSsaEvent(input: SsaEventCreateInput!): SsaEvent!
+    createSsaEvent(input: CreateSsaEvent!): SsaEvent!
     updateSsaEvent(id: ID!, input: SsaEventUpdateInput!): SsaEvent
     deleteSsaEvent(id: ID!): SsaEvent
 }
 
 type SsaEvent {
+    ssaEventUuid: ID!
+    classificationMarking: String!
+    ssaPredecessorEventUuid: ID
+    eventType: SsaEventType!
+    eventName: String!
+    eventStatus: SsaEventStatus!
+    startDt: DateTime
+    endDt: DateTime
+    eventDesc: String
+    bigBoardFlag: Boolean
+    internalNotes: String
+    eventPostingId: String
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+input CreateSsaEvent {
     ssaEventUuid: ID!
     classificationMarking: String!
     ssaPredecessorEventUuid: ID

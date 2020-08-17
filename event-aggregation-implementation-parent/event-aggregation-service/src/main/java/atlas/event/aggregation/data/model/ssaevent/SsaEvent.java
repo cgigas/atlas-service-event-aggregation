@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.model.ssaevent;
 
 import atlas.event.aggregation.data.model.Audited;
+import atlas.event.aggregation.data.model.GqlSchemaCommon;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,13 +26,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SsaEvent extends Audited implements Serializable
+public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
 {
     private static final long serialVersionUID = -2933110789647766059L;
 
@@ -74,12 +75,12 @@ public class SsaEvent extends Audited implements Serializable
      * Date/time when the event began or was detected.
      */
     @NotNull
-    private Date startDt;
+    private OffsetDateTime startDt;
 
     /**
      * Date/time when the event ended.
      */
-    private Date endDt;
+    private OffsetDateTime endDt;
 
     /**
      * Expanded description of the event.
@@ -104,16 +105,6 @@ public class SsaEvent extends Audited implements Serializable
     public static long getSerialVersionUID()
     {
         return serialVersionUID;
-    }
-
-    public String getSsaEventUuid()
-    {
-        return ssaEventUuid;
-    }
-
-    public void setSsaEventUuid(String ssaEventUuid)
-    {
-        this.ssaEventUuid = ssaEventUuid;
     }
 
     public String getClassificationMarking()
@@ -166,22 +157,22 @@ public class SsaEvent extends Audited implements Serializable
         this.eventStatus = eventStatus;
     }
 
-    public Date getStartDt()
+    public OffsetDateTime getStartDt()
     {
         return startDt;
     }
 
-    public void setStartDt(Date startDt)
+    public void setStartDt(OffsetDateTime startDt)
     {
         this.startDt = startDt;
     }
 
-    public Date getEndDt()
+    public OffsetDateTime getEndDt()
     {
         return endDt;
     }
 
-    public void setEndDt(Date endDt)
+    public void setEndDt(OffsetDateTime endDt)
     {
         this.endDt = endDt;
     }
@@ -224,5 +215,17 @@ public class SsaEvent extends Audited implements Serializable
     public void setEventPostingId(String eventPostingId)
     {
         this.eventPostingId = eventPostingId;
+    }
+
+    @Override
+    public String getId()
+    {
+        return ssaEventUuid;
+    }
+
+    @Override
+    public void setId(Object o)
+    {
+        ssaEventUuid = (String) o;
     }
 }
