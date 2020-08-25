@@ -19,6 +19,9 @@
 
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.exception.EventAggregateException;
+import atlas.event.aggregation.handlers.IDigitalHandler;
 import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Maps;
@@ -30,7 +33,10 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
 import javax.annotation.PostConstruct;
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
@@ -39,7 +45,7 @@ import java.util.Map;
  * This is the base class for SatelliteQuery Datafetchers. It centralizes the handling of exceptions and adding standard information to the error extensions map.
  */
 @Slf4j
-public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherResult<T>>
+public abstract class AbstractDataFetcher<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>
 {
 
     private static final String QUERY_SOURCE_TYPE = "queryParentType";
@@ -62,6 +68,39 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
 
     protected RuntimeWiringTypeCollector collector;
 
+    protected IDigitalHandler getBusinessHandlerByPath(String path)
+    {
+        IDigitalHandler handler = null;
+
+        if (StringUtils.isNotBlank(path))
+        {
+            String anchorName = getDigitalCache().getBusinessHandler(path);
+            if (StringUtils.isNotBlank(anchorName))
+            {
+                handler = getBusinessHandler(anchorName);
+            }
+        }
+
+        return handler;
+    }
+
+    protected IDigitalHandler getBusinessHandler(String anchorId)
+    {
+        IDigitalHandler handler = null;
+
+        if (StringUtils.isNotBlank(anchorId))
+        {
+            Object o = locateService(anchorId);
+            if (o instanceof IDigitalHandler)
+            {
+                handler = (IDigitalHandler) o;
+            }
+        }
+
+        return handler;
+    }
+
+
 
     @PostConstruct
     public void initializeRuntimeTypeInformation()
@@ -72,6 +111,35 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
         }
     }
 
+    public DataFetcher<T> processRequest(DataFetchingEnvironment environment) throws EventAggregateException
+    {
+        return processRequest(getRequestPath(environment), environment);
+    }
+
+    public DataFetcher<T> processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
+    {
+        DataFetcher<T> result = null;
+        IDigitalHandler handler = null;
+        if (StringUtils.isNotBlank(path))
+        {
+            handler = getBusinessHandlerByPath(path);
+        }
+        else
+        {
+            throw new EventAggregateException("Path is required");
+        }
+
+        if (handler != null)
+        {
+            handler.processRequest(environment);
+        }
+        else
+        {
+            throw new EventAggregateException("No registered handler for path: " + path);
+        }
+
+        return result;
+    }
 
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
@@ -102,6 +170,10 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
         catch (EventAggregationQueryException e)
         {
             return buildWarningResult(environment, e);
+        }
+        catch (EventAggregateException eae)
+        {
+            return buildErrorResult(environment, eae);
         }
         catch (RuntimeException e)
         {
@@ -146,18 +218,6 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
             .build();
         localContext = null;
         return warningResult;
-    }
-
-    protected String getRequestPath(DataFetchingEnvironment environment)
-    {
-        String requestPath = null;
-
-        if (environment != null)
-        {
-            requestPath = environment.getExecutionStepInfo().getPath().toString();
-        }
-
-        return requestPath;
     }
 
     protected Map<String, Object> getExtensions(DataFetchingEnvironment environment)

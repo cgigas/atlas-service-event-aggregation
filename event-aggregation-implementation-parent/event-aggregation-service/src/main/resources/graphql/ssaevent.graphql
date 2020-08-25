@@ -7,12 +7,13 @@ type EasQuery {
     ssaEvents: [SsaEvent]
     getSsaEventById(id: String!): [SsaEvent]
     eventDetail(id: String!): [SsaEvent]
+    eventSummaries(EventType: String!, StartDate: DateTime!, EndDate: DateTime!): [SsaEvent]
+    deleteSsaEvent(id: ID!): SsaEvent
 }
 
 type EasMutation {
     createSsaEvent(input: CreateSsaEvent!): SsaEvent!
     updateSsaEvent(id: ID!, input: SsaEventUpdateInput!): SsaEvent
-    deleteSsaEvent(id: ID!): SsaEvent
 }
 
 type SsaEvent {

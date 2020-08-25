@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.data.datafetcher.loader;
 
+import atlas.event.aggregation.base.DigitalBase;
 import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.data.model.ssaevent.SsaEventStatus;
@@ -33,13 +34,14 @@ import java.io.BufferedReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Slf4j
 @Component
 @Profile("dev")
-public final class DataLoader
+public final class DataLoader extends DigitalBase
 {
     private final SsaEventRepository ssaEventRepository;
 
@@ -53,15 +55,56 @@ public final class DataLoader
     @PostConstruct
     public void init()
     {
+        String businessHandlerCacheFile = "configuration/BusinessHandlerCache.csv";
+        String externalServiceurlFile = "configuration/ExternalServiceUrl.csv";
         BufferedReader reader = null;
         try
         {
+            List<String> businessCacheList = new ArrayList<>();
+            URL businessCacheFileUrl = Resources.getResource(businessHandlerCacheFile);
+            CharSource charSource = Resources.asCharSource(businessCacheFileUrl, StandardCharsets.UTF_8);
+            reader = charSource.openBufferedStream();
+            String line = null;
+            while ((line = reader.readLine()) != null)
+            {
+                businessCacheList.add(line);
+            }
+            if (businessCacheList != null)
+            {
+                for (String item: businessCacheList)
+                {
+                    String[] items = item.split(",");
+                    String key = items[0];
+                    String value = items[1];
+                    getDigitalCache().addBusinessHandler(key, value);
+                }
+            }
+
+            List<String> externalUrlCacheList = new ArrayList<>();
+            URL externalServiceCacheFileUrl = Resources.getResource(externalServiceurlFile);
+            charSource = Resources.asCharSource(externalServiceCacheFileUrl, StandardCharsets.UTF_8);
+            reader = charSource.openBufferedStream();
+            line = null;
+            while ((line = reader.readLine()) != null)
+            {
+                externalUrlCacheList.add(line);
+            }
+            if (externalUrlCacheList != null)
+            {
+                for (String item: externalUrlCacheList)
+                {
+                    String[] items = item.split(",");
+                    String key = items[0];
+                    String value = items[1];
+                    getDigitalCache().addExternalServiceUrl(key, value);
+                }
+            }
 
             List<String> ssaevent = Lists.newArrayList();
             URL ssaEventUrl = Resources.getResource("data/ssa_event.csv");
-            CharSource charSource = Resources.asCharSource(ssaEventUrl, StandardCharsets.UTF_8);
+            charSource = Resources.asCharSource(ssaEventUrl, StandardCharsets.UTF_8);
             reader = charSource.openBufferedStream();
-            String line = null;
+            line = null;
             while ((line = reader.readLine()) != null)
             {
                 String[] lineSplit = line.split(",");
@@ -76,7 +119,7 @@ public final class DataLoader
                 event.setStartDt(OffsetDateTime.now());
                 event.setEndDt(OffsetDateTime.now());
                 event.setEventDesc(lineSplit[cnt++]);
-                event.setBigBoardFlag((lineSplit[cnt++].equals("0") ?Boolean.TRUE :Boolean.FALSE));
+                event.setBigBoardFlag(Boolean.TRUE);
                 event.setInternalNotes(lineSplit[cnt++]);
                 event.setEventPostingId(lineSplit[cnt++]);
                 event.setUpdateDate(new Date());

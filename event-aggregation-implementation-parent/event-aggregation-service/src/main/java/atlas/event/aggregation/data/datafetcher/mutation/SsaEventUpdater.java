@@ -37,6 +37,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Component
 public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
 {
+
     protected final SsaEventRepository repository;
     protected final ObjectFieldUpdater fieldUpdater;
 
@@ -50,6 +51,7 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
     protected void performFetch(DataFetchingEnvironment environment)
     {
         returnValue = null;
+        String path = getRequestPath(environment);
         String idValue = environment.getArgument("id");
 
         Map<String, Object> fieldsMap = environment.getArgument("input");
@@ -126,10 +128,6 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
             .dataFetcher("createSsaEvent", this));
         builders.add(newTypeWiring("EasMutation")
             .dataFetcher("updateSsaEvent", this));
-        builders.add(newTypeWiring("EasMutation")
-            .dataFetcher("deleteSsaEvent", this));
-        builders.add(newTypeWiring("EasQuery")
-                .dataFetcher("raven", this));
         return builders;
     }
 }
