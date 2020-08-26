@@ -22,7 +22,6 @@ import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.data.model.ssaevent.SsaEventStatus;
 import atlas.event.aggregation.data.model.ssaevent.SsaEventType;
 import atlas.event.aggregation.exception.EventAggregateException;
-import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
@@ -30,14 +29,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 @Component("eventDetailHandler")
@@ -52,13 +45,15 @@ public class EventDataHandler extends MasterHandler implements IDigitalHandler
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
 
-        if (StringUtils.isNotBlank(resultRequestedData)) {
+        if (StringUtils.isNotBlank(resultRequestedData))
+        {
             try
             {
                 JSONObject json = (JSONObject) new JSONParser().parse(resultRequestedData);
                 JSONArray ja = (JSONArray) json.get("eventDetail");
                 Iterator it = ja.iterator();
-                while (it.hasNext()) {
+                while (it.hasNext())
+                {
                     Map<String, String> map = (Map)it.next();
                     String eventUuid = map.get("ssaEventUuid");
                     String marking = map.get("classificationMarking");
@@ -90,7 +85,8 @@ public class EventDataHandler extends MasterHandler implements IDigitalHandler
                 }
 
             }
-            catch (ParseException pe) {
+            catch (ParseException pe)
+            {
                 throw new EventAggregateException(pe);
             }
         }

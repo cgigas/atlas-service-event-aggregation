@@ -26,13 +26,11 @@ import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -57,7 +55,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     {
         String path = getRequestPath(environment);
         processRequest(path, environment);
-        if (StringUtils.isEmpty(path))
+/*        if (StringUtils.isEmpty(path))
         {
 
             //returnValue = processRequest(path, environment);
@@ -78,7 +76,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
 
             }
         }
-
+*/
     }
 
     @Override

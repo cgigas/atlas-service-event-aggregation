@@ -114,6 +114,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
 
     public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
     {
+        returnValue = null;
         Object result = null;
         IDigitalHandler handler = null;
         if (StringUtils.isNotBlank(path))

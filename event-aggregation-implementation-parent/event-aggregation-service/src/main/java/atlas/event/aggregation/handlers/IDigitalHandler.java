@@ -17,10 +17,7 @@
  */
 package atlas.event.aggregation.handlers;
 
-import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
-
-import java.util.List;
 
 public interface IDigitalHandler
 {
