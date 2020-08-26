@@ -26,10 +26,10 @@ import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -55,34 +55,30 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     @Override
     protected void performFetch(DataFetchingEnvironment environment)
     {
-        returnValue = null;
-
         String path = getRequestPath(environment);
-        if (!StringUtils.isEmpty(path))
+        processRequest(path, environment);
+        if (StringUtils.isEmpty(path))
         {
 
-            processRequest(path, environment);
+            //returnValue = processRequest(path, environment);
             switch (path)
             {
                 case "/getSsaEventById":
                 case "/eventDetail":
-                    String id = getIdArgument(environment);
+                    String id = (String) environment.getArguments().get("id");
                     Optional<SsaEvent> result = repository.findById(id);
-                    Object o = result.get();
-                    returnValue = Lists.newArrayList(result.get());
+                    SsaEvent event = result.get();
+                    returnValue = Lists.newArrayList(event);
                     break;
                 case "/ssaEvents":
+                    Object all = repository.findAll();
                     returnValue  = Lists.newArrayList(repository.findAll());
                     break;
                 case "/eventSummaries":
 
             }
         }
-    }
 
-    protected String getIdArgument(DataFetchingEnvironment environment)
-    {
-        return environment.getArgument(ID_ARG);
     }
 
     @Override

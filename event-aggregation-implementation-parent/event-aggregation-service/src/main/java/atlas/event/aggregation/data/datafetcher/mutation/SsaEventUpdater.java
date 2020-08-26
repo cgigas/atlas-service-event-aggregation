@@ -50,7 +50,7 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
     @Override
     protected void performFetch(DataFetchingEnvironment environment)
     {
-        returnValue = null;
+        Object returnValue = null;
         String path = getRequestPath(environment);
         String idValue = environment.getArgument("id");
 

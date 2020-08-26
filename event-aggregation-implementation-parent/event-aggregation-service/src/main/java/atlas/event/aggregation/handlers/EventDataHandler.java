@@ -17,56 +17,84 @@
  */
 package atlas.event.aggregation.handlers;
 
-import atlas.event.aggregation.base.DigitalBase;
 import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.model.ssaevent.SsaEventStatus;
+import atlas.event.aggregation.data.model.ssaevent.SsaEventType;
 import atlas.event.aggregation.exception.EventAggregateException;
+import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Component("eventDetailHandler")
-public class EventDataHandler extends DigitalBase implements IDigitalHandler
+public class EventDataHandler extends MasterHandler implements IDigitalHandler
 {
     @Override
-    public List processRequest(DataFetchingEnvironment environment)
+    public Object processRequest(DataFetchingEnvironment environment)
     {
-        List<SsaEvent> datalist = null;
-        HttpClient httpClient = HttpClients.createDefault();
+        SsaEvent eventResult = null;
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         url += "/eventDetail/" + environment.getArgument("id");
 
-        HttpGet httpGetRequest = new HttpGet(url);
-        try
-        {
-            HttpResponse httpResponse = httpClient.execute(httpGetRequest);
-            HttpEntity entity = httpResponse.getEntity();
-            InputStream entityOutStream = null;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
 
+        if (StringUtils.isNotBlank(resultRequestedData)) {
             try
             {
-                entityOutStream = entity.getContent();
-                System.out.println(IOUtils.toString(entityOutStream));
+                JSONObject json = (JSONObject) new JSONParser().parse(resultRequestedData);
+                JSONArray ja = (JSONArray) json.get("eventDetail");
+                Iterator it = ja.iterator();
+                while (it.hasNext()) {
+                    Map<String, String> map = (Map)it.next();
+                    String eventUuid = map.get("ssaEventUuid");
+                    String marking = map.get("classificationMarking");
+                    String ssaPreEvent = map.get("ssaPredecessorEventUuid");
+                    String eventType = map.get("eventType");
+                    String eventName = map.get("eventName");
+                    String eventStatus = map.get("eventStatus");
+                    String startDate = map.get("startDt");
+                    String endDate = map.get("endDt");
+                    String eventDesc = map.get("eventDesc");
+                    Boolean bigBoard = Boolean.TRUE;
+                    String notes = map.get("internalNotes");
+                    String postingId = map.get("eventPostingId");
+                    SsaEvent event = new SsaEvent();
+                    event.setId(eventUuid);
+                    event.setClassificationMarking(marking);
+                    event.setSsaPredecessorEventUuid(ssaPreEvent);
+                    event.setEventType(SsaEventType.valueOf(eventType));
+                    event.setEventStatus(SsaEventStatus.valueOf(eventStatus));
+                    event.setEventName(eventName);
+                    event.setStartDt(OffsetDateTime.now());
+                    event.setEndDt(OffsetDateTime.now());
+                    event.setEventDesc(eventDesc);
+                    event.setBigBoardFlag(bigBoard);
+                    event.setInternalNotes(notes);
+                    event.setEventPostingId(postingId);
+
+                    eventResult = event;
+                }
+
             }
-            catch (IOException ioe)
-            {
-                IOUtils.closeQuietly(entityOutStream);
+            catch (ParseException pe) {
+                throw new EventAggregateException(pe);
             }
         }
-        catch (IOException ioe)
-        {
-            throw new EventAggregateException(ioe);
-        }
 
-
-        return datalist;
+        return eventResult;
     }
 }

@@ -20,10 +20,12 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.handlers.IDigitalHandler;
 import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import graphql.ErrorType;
 import graphql.GraphQLError;
@@ -34,9 +36,7 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.annotation.PostConstruct;
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
@@ -55,16 +55,12 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
     protected static final String ID_ARG = "id";
 
-
-    // Derived classes should instantiate and populate this object.
-    // This allows this class to return a default, or partially populated result.
     protected T returnValue = null;
 
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
     // See https://www.graphql-java.com/blog/deep-dive-data-fetcher-results/
     protected Map<String, Object> localContext;
-
 
     protected RuntimeWiringTypeCollector collector;
 
@@ -111,14 +107,14 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
         }
     }
 
-    public DataFetcher<T> processRequest(DataFetchingEnvironment environment) throws EventAggregateException
+    public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
     {
         return processRequest(getRequestPath(environment), environment);
     }
 
-    public DataFetcher<T> processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
+    public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
     {
-        DataFetcher<T> result = null;
+        Object result = null;
         IDigitalHandler handler = null;
         if (StringUtils.isNotBlank(path))
         {
@@ -131,13 +127,14 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
 
         if (handler != null)
         {
-            handler.processRequest(environment);
+            result = handler.processRequest(environment);
         }
         else
         {
             throw new EventAggregateException("No registered handler for path: " + path);
         }
-
+        SsaEvent event = (SsaEvent) result;
+        returnValue = (T) Lists.newArrayList(event);
         return result;
     }
 
@@ -169,19 +166,19 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
         }
         catch (EventAggregationQueryException e)
         {
-            return buildWarningResult(environment, e);
+            return buildWarningResult(environment, returnValue, e);
         }
         catch (EventAggregateException eae)
         {
-            return buildErrorResult(environment, eae);
+            return buildErrorResult(environment, returnValue, eae);
         }
         catch (RuntimeException e)
         {
-            return buildErrorResult(environment, e);
+            return buildErrorResult(environment, returnValue, e);
         }
     }
 
-    protected DataFetcherResult<T> buildErrorResult(DataFetchingEnvironment environment, RuntimeException e)
+    protected DataFetcherResult<T> buildErrorResult(DataFetchingEnvironment environment, Object returnValue, RuntimeException e)
     {
         //log.error("An unexpected error occurred while fetching data.", e);
         GraphQLError error = GraphqlErrorBuilder.newError(environment)
@@ -197,7 +194,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
         return errorResult;
     }
 
-    protected DataFetcherResult<T> buildWarningResult(DataFetchingEnvironment environment, EventAggregationQueryException e)
+    protected DataFetcherResult<T> buildWarningResult(DataFetchingEnvironment environment, Object returnValue, EventAggregationQueryException e)
     {
         //log.info("A warning occurred while fetching data.", e);
         Map<String, Object> ext = getExtensions(environment);

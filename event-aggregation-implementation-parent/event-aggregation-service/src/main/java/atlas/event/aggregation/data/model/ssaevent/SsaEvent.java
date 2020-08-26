@@ -26,7 +26,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -132,6 +134,26 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
         return eventType;
     }
 
+    public OffsetDateTime getStartDt()
+    {
+        return startDt;
+    }
+
+    public void setStartDt(OffsetDateTime startDt)
+    {
+        this.startDt = startDt;
+    }
+
+    public OffsetDateTime getEndDt()
+    {
+        return endDt;
+    }
+
+    public void setEndDt(OffsetDateTime endDt)
+    {
+        this.endDt = endDt;
+    }
+
     public void setEventType(SsaEventType eventType)
     {
         this.eventType = eventType;
@@ -155,26 +177,6 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
     public void setEventStatus(SsaEventStatus eventStatus)
     {
         this.eventStatus = eventStatus;
-    }
-
-    public OffsetDateTime getStartDt()
-    {
-        return startDt;
-    }
-
-    public void setStartDt(OffsetDateTime startDt)
-    {
-        this.startDt = startDt;
-    }
-
-    public OffsetDateTime getEndDt()
-    {
-        return endDt;
-    }
-
-    public void setEndDt(OffsetDateTime endDt)
-    {
-        this.endDt = endDt;
     }
 
     public String getEventDesc()
