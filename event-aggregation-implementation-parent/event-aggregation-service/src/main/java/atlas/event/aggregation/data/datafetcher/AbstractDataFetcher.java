@@ -20,6 +20,9 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.data.model.query.Direction;
+import atlas.event.aggregation.data.model.query.Order;
+import atlas.event.aggregation.data.model.query.PageInfo;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.handlers.IDigitalHandler;
@@ -36,9 +39,13 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,7 +61,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
     private static final Object SUBOBJECT_QUERY_TYPE = "subObjectQuery";
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
     protected static final String ID_ARG = "id";
-
+    protected Integer maxPageSize = 1000;
 
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
@@ -254,5 +261,34 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
             this.localContext = Maps.newHashMap();
         }
         this.localContext.put(key, value);
+    }
+
+    private PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
+    {
+        PageInfo pageInfo = new PageInfo();
+        Pageable pageable = getPageRequestArgument(dataFetchingEnvironment, "pageInfo");
+        if (pageable != null)
+        {
+            pageInfo.setPage(pageable.getPageNumber());
+            pageInfo.setSize(pageable.getPageSize());
+            // convert Spring domain Sort to crud sort
+            if (pageable.getSort() != Sort.unsorted())
+            {
+                List<Order> orders = Lists.newArrayList();
+                for (Sort.Order order : pageable.getSort().toList())
+                {
+                    orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
+                }
+                Sort crudSort = Sort.builder().withOrders(orders).build();
+                pageInfo.setSort(crudSort);
+            }
+        }
+        else
+        {
+            // default pageInfo
+            pageInfo.setPage(0);
+            pageInfo.setSize(maxPageSize);
+        }
+        return pageInfo;
     }
 }
