@@ -19,7 +19,7 @@ package atlas.event.aggregation.data.model.ssaevent;
 
 public enum SsaEventType
 {
-    BREddddAKUP,
+    BREAKUP,
     CONJUNCTION,
     DEORBIT,
     DOCK,

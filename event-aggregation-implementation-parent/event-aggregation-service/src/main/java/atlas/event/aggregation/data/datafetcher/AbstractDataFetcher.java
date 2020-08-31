@@ -55,7 +55,6 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
     protected static final String ID_ARG = "id";
 
-    protected T returnValue = null;
 
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
@@ -114,7 +113,6 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
 
     public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
     {
-        returnValue = null;
         Object result = null;
         IDigitalHandler handler = null;
         if (StringUtils.isNotBlank(path))
@@ -135,13 +133,14 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
             throw new EventAggregateException("No registered handler for path: " + path);
         }
         SsaEvent event = (SsaEvent) result;
-        returnValue = (T) Lists.newArrayList(event);
+        result = Lists.newArrayList(event);
         return result;
     }
 
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
+        Object returnValue = null;
         LocalDateTime start = LocalDateTime.now();
         try
         {
@@ -153,7 +152,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
             }
 
             // Do the main work of the fetcher. This could throw an unanticipated error, or a SatelliteQueryException (probably an info or warning message)
-            performFetch(environment);
+            returnValue = performFetch(environment);
             DataFetcherResult<T> result = (DataFetcherResult<T>) DataFetcherResult.newResult()
                 .data(returnValue)
                 .localContext(localContext)
@@ -244,7 +243,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
     // The localContext map is also available for derived classes to use to pass prefetched objects to subsequent data fetchers
     // performFetch will be retried if an exception is thrown by REST clients
     //    @Retryable(value = {RestClientException.class, ResourceAccessException.class}, maxAttempts = 3, backoff = @Backoff(delay = 1000, maxDelay = 5000))
-    protected abstract void performFetch(DataFetchingEnvironment environment);
+    protected abstract Object performFetch(DataFetchingEnvironment environment);
 
     protected abstract Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring();
 

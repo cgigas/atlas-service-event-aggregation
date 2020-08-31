@@ -26,25 +26,15 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
-
-import javax.annotation.PostConstruct;
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class MasterHandler extends DigitalBase
 {
-    HttpClient httpClient = null;
-
-    @PostConstruct
-    private void init()
-    {
-        httpClient = HttpClients.createDefault();
-    }
-
     public String sendHttpGetRestRequestAsString(String url)
     {
+        HttpClient httpClient = HttpClients.createDefault();
         String responseString = null;
         if (StringUtils.isNotBlank(url))
         {
@@ -68,6 +58,7 @@ public class MasterHandler extends DigitalBase
         {
             try
             {
+                HttpClient httpClient = HttpClients.createDefault();
                 HttpGet httpGetRequest = new HttpGet(url);
                 HttpResponse httpResponse = httpClient.execute(httpGetRequest);
                 HttpEntity entity = httpResponse.getEntity();

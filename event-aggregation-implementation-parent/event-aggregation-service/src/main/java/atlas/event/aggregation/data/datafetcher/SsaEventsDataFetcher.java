@@ -21,11 +21,14 @@ package atlas.event.aggregation.data.datafetcher;
 import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.handlers.EventDataHandler;
+import atlas.event.aggregation.handlers.EventTypeSummaryHandler;
+import atlas.event.aggregation.handlers.GetEventTypeHandler;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -42,7 +45,11 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
 {
     private SsaEventRepository repository;
     @Autowired
-    private EventDataHandler eventDataHandler;
+    EventTypeSummaryHandler eventTypeSummaryHandler;
+    @Autowired
+    EventDataHandler eventDataHandler;
+    @Autowired
+    GetEventTypeHandler getEventTypeHandler;
 
     public SsaEventsDataFetcher(SsaEventRepository repo,  RuntimeWiringTypeCollector collector)
     {
@@ -51,10 +58,25 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     }
 
     @Override
-    protected void performFetch(DataFetchingEnvironment environment)
+    protected Object performFetch(DataFetchingEnvironment environment)
     {
         String path = getRequestPath(environment);
-        processRequest(path, environment);
+        Object result = null;
+        if (StringUtils.isNotBlank(path))
+        {
+            switch (path)
+            {
+                case "/eventTypeSummariesByTimePeriod":
+                    result = eventTypeSummaryHandler.processRequest(environment);
+                    break;
+                case "/eventDetail":
+                    result = eventDataHandler.processRequest(environment);
+                    break;
+                case "/getEventTypes":
+                    result = getEventTypeHandler.processRequest(environment);
+                    break;
+            }
+        }
 /*        if (StringUtils.isEmpty(path))
         {
 
@@ -77,6 +99,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
             }
         }
 */
+        return result;
     }
 
     @Override
@@ -88,7 +111,8 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
             .dataFetcher("eventDetail", this)
             .dataFetcher("eventSummaries", this)
             .dataFetcher("getSsaEventById", this)
-        .dataFetcher("deleteSsaEvent", this));
+            .dataFetcher("eventTypeSummariesByTimePeriod", this)
+            .dataFetcher("deleteSsaEvent", this));
         return builders;
     }
 }

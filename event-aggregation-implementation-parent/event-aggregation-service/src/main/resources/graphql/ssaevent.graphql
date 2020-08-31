@@ -7,13 +7,28 @@ type EasQuery {
     ssaEvents: [SsaEvent]
     getSsaEventById(id: String!): [SsaEvent]
     eventDetail(id: String!): [SsaEvent]
-    eventSummaries(EventType: String!, StartDate: DateTime!, EndDate: DateTime!): [SsaEvent]
-    deleteSsaEvent(id: ID!): SsaEvent
+    eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod): EventTypeSummaryResults
+}
+
+type TypeQuery {
+    getEventTypes: [EventType]
 }
 
 type EasMutation {
     createSsaEvent(input: CreateSsaEvent!): SsaEvent!
     updateSsaEvent(id: ID!, input: SsaEventUpdateInput!): SsaEvent
+}
+
+type EventTypeSummaryResults {
+    id: String
+    type: String
+    planned: Int
+    active: Int
+    typename: String
+}
+
+type EventType {
+    eventType: String
 }
 
 type SsaEvent {
@@ -34,6 +49,16 @@ type SsaEvent {
     updateDate: DateTime
     updateOrigin: String
     version: Long
+}
+
+input EventTypeSummaryTimePeriod {
+    timePeriod: TimePeriod
+}
+
+input TimePeriod {
+    type: TimePeriodTypes
+    start: DateTime
+    end: DateTime
 }
 
 input CreateSsaEvent {
@@ -112,4 +137,31 @@ enum SsaEventType
     RENDEZVOUS,
     SEPARATION,
     UNDOCK
+}
+
+enum TimePeriodTypes {
+    RANGE
+}
+
+type PageRequestSection {
+    pageRequest: SortSection
+}
+
+type SortSection {
+    sort: OrdersSection
+}
+
+type OrdersSection {
+    orders: SortOrders
+}
+
+type SortOrders {
+    property: String
+    direction: SortDirection
+}
+
+
+enum SortDirection {
+    ASC
+    DESC
 }

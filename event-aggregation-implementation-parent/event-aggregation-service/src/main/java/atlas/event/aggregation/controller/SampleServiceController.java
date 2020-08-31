@@ -29,6 +29,105 @@ import java.io.OutputStream;
 @Controller
 public class SampleServiceController
 {
+    @RequestMapping("/eventTypeSummariesByTimePeriod/{startTime}/{endTime}")
+    public void processEventTypeSummaries(@PathVariable long startTime, @PathVariable long endTime, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("        \"eventTypeSummariesByTimePeriod\": [\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97e6\",\n");
+        buffer.append("                \"type\": \"Launch\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97e7\",\n");
+        buffer.append("                \"type\": \"Multipayload\",\n");
+        buffer.append("                \"planned\": 24,\n");
+        buffer.append("                \"active\": 1\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97e8\",\n");
+        buffer.append("                \"type\": \"Docking\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97e9\",\n");
+        buffer.append("                \"type\": \"Separation\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97ea\",\n");
+        buffer.append("                \"type\": \"Breakup\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97eb\",\n");
+        buffer.append("                \"type\": \"Reentry\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97ec\",\n");
+        buffer.append("                \"type\": \"Maneuver\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97ed\",\n");
+        buffer.append("                \"type\": \"Conjunction\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-806162ac97e7\",\n");
+        buffer.append("                \"type\": \"ASAT\",\n");
+        buffer.append("                \"planned\": 72,\n");
+        buffer.append("                \"active\": 3,\n");
+        buffer.append("                \"typename\": \"EventTypeSummary\"\n");
+        buffer.append("            }\n");
+        buffer.append("        ]\n");
+        buffer.append(" }\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
+    @RequestMapping("/getEventTypes")
+    public void processGetEventTypes(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"eventTypes\": [\n");
+        buffer.append("\"Breakup\",");
+        buffer.append("\"Conjunction\",");
+        buffer.append("\"Deorbit\",");
+        buffer.append("\"Dock\",");
+        buffer.append("\"EMI\",");
+        buffer.append("\"Launch\",");
+        buffer.append("\"Maneuver\",");
+        buffer.append("\"Nudet\",");
+        buffer.append("\"Other\",");
+        buffer.append("\"Proximity\",");
+        buffer.append("\"ReEntry\",");
+        buffer.append("\"Rendezvous\",");
+        buffer.append("\"Separation\",");
+        buffer.append("\"Undock\",");
+        buffer.append("]\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
     @RequestMapping({"/eventDetail/{ssaEventId}"})
     public void processEventDetail(@PathVariable String ssaEventId, HttpServletRequest request, HttpServletResponse response, HttpSession session)
     {
@@ -51,7 +150,7 @@ public class SampleServiceController
         buffer.append("      }\n");
         buffer.append("    ]\n");
         buffer.append("}\n");
-        sendResponse(response, "text/html", buffer.toString().getBytes());
+        sendResponse(response, "application/json", buffer.toString().getBytes());
 
     }
 

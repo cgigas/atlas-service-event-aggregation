@@ -48,7 +48,7 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
     }
 
     @Override
-    protected void performFetch(DataFetchingEnvironment environment)
+    protected Object performFetch(DataFetchingEnvironment environment)
     {
         Object returnValue = null;
         String path = getRequestPath(environment);
@@ -118,6 +118,8 @@ public class SsaEventUpdater extends AbstractDataFetcher<SsaEvent>
                     throw new IllegalStateException("An unexpected mutation operation was encountered.");
             }
         }
+
+        return returnValue;
     }
 
     @Override
