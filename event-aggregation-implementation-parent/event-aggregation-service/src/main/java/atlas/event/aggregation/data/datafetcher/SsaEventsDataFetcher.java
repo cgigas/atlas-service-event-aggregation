@@ -99,7 +99,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
             }
         }
 */
-        return result;
+        return Lists.newArrayList(result);
     }
 
     @Override
