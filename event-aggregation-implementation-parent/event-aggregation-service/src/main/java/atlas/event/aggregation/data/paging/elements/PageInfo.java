@@ -16,7 +16,7 @@
  *  ******************************************************************************
  */
 
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.data.paging.elements;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -16,9 +16,15 @@
  *  ******************************************************************************
  */
 
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.data.paging.elements;
 
-public enum Direction
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data @NoArgsConstructor
+public class Sort
 {
-    ASC, DESC
+    private List<Order> orders;
 }

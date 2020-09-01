@@ -16,9 +16,34 @@
  *  ******************************************************************************
  */
 
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.data.paging.elements;
 
-public enum TagSource
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @NoArgsConstructor
+public class Order
 {
-    CURRENT, ORIGINAL
+    private String property;
+    private Direction direction;
+
+    public String getProperty()
+    {
+        return property;
+    }
+
+    public void setProperty(String property)
+    {
+        this.property = property;
+    }
+
+    public Direction getDirection()
+    {
+        return direction;
+    }
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
+    }
 }

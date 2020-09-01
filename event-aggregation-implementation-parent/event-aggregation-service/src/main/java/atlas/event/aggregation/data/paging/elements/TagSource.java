@@ -15,8 +15,10 @@
  *   LIMITATIONS:      None
  *  ******************************************************************************
  */
-package atlas.event.aggregation.data.paging;
 
-public class Sort
+package atlas.event.aggregation.data.paging.elements;
+
+public enum TagSource
 {
+    CURRENT, ORIGINAL
 }

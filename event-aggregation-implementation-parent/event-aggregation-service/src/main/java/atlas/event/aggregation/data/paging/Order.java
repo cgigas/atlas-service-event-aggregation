@@ -15,15 +15,111 @@
  *   LIMITATIONS:      None
  *  ******************************************************************************
  */
-
 package atlas.event.aggregation.data.paging;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import atlas.event.aggregation.data.paging.elements.Direction;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data @NoArgsConstructor
 public class Order
 {
-    private String property;
-    private Direction direction;
+    public Order()
+    {
+        // No action
+    }
+
+    @JsonProperty("property")
+    String property;
+    Direction direction;
+
+    public void setProperty(String property)
+    {
+        this.property = property;
+    }
+
+    public String getProperty()
+    {
+        return property;
+    }
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
+    }
+
+    public Direction getDirection()
+    {
+        return direction;
+    }
+
+    public String toString()
+    {
+        return "Order {"
+                + "property: " + property
+                + ", "
+                + "direction: " + direction
+                + "}";
+    }
+
+    /**
+     * Enum of field names
+     */
+    public static enum Field
+    {
+        Property("property"),
+        Direction("direction");
+
+        private String fieldName;
+
+        Field(String fieldName)
+        {
+            this.fieldName = fieldName;
+        }
+
+        public String getFieldName()
+        {
+            return fieldName;
+        }
+
+        public Class<?> getGraphQLType()
+        {
+            return this.getClass().getDeclaringClass();
+        }
+
+    }
+
+    public static Builder builder()
+    {
+        return new Builder();
+    }
+
+
+
+    /**
+     * Builder
+     */
+    public static class Builder
+    {
+        private String property;
+        private Direction direction;
+
+
+        public Builder withProperty(String property)
+        {
+            this.property = property;
+            return this;
+        }
+        public Builder withDirection(Direction direction)
+        {
+            this.direction = direction;
+            return this;
+        }
+
+        public Order build()
+        {
+            Order _object = new Order();
+            _object.setProperty(property);
+            _object.setDirection(direction);
+            return _object;
+        }
+    }
 }

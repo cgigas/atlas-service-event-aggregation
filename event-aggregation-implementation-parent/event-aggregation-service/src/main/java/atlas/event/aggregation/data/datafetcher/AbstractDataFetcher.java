@@ -20,10 +20,10 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.base.DigitalBase;
-import atlas.event.aggregation.data.model.query.Direction;
-import atlas.event.aggregation.data.model.query.Order;
-import atlas.event.aggregation.data.model.query.PageInfo;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.paging.PageableBuilder;
+import atlas.event.aggregation.data.paging.elements.Order;
+import atlas.event.aggregation.data.paging.elements.PageInfo;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.handlers.IDigitalHandler;
 import atlas.event.aggregation.server.exception.EventAggregationQueryException;
@@ -40,8 +40,6 @@ import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -263,25 +261,32 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
         this.localContext.put(key, value);
     }
 
+    protected Pageable getPageRequestArgument(DataFetchingEnvironment environment, String argumentName)
+    {
+        return PageableBuilder.from(environment.getArgument(argumentName));
+    }
+
+
     private PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
     {
         PageInfo pageInfo = new PageInfo();
-        Pageable pageable = getPageRequestArgument(dataFetchingEnvironment, "pageInfo");
+        Pageable pageable = null;
+        //getPageRequestArgument(dataFetchingEnvironment, "pageInfo");
         if (pageable != null)
         {
             pageInfo.setPage(pageable.getPageNumber());
             pageInfo.setSize(pageable.getPageSize());
             // convert Spring domain Sort to crud sort
-            if (pageable.getSort() != Sort.unsorted())
-            {
+//            if (pageable.getSort() != Sort.unsorted())
+//            {
                 List<Order> orders = Lists.newArrayList();
-                for (Sort.Order order : pageable.getSort().toList())
-                {
-                    orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
-                }
-                Sort crudSort = Sort.builder().withOrders(orders).build();
-                pageInfo.setSort(crudSort);
-            }
+//                for (Order order : pageable.getSort().toList())
+//                {
+                    //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
+//                }
+//                Sort crudSort = null;//Sort.builder().withOrders(orders).build();
+//                pageInfo.setSort(crudSort);
+//            }
         }
         else
         {
@@ -291,4 +296,6 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
         }
         return pageInfo;
     }
+
+
 }
