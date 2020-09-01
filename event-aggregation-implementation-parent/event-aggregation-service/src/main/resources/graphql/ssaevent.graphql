@@ -7,7 +7,7 @@ type EasQuery {
     ssaEvents: [SsaEvent]
     getSsaEventById(id: String!): [SsaEvent]
     eventDetail(id: String!): [SsaEvent]
-    eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod): EventTypeSummaryResults
+    eventTypeSummariesByTimePeriod(categories: EventTypeSummaryTimePeriod, pageRequest: PageInfo!): EventTypeSummaryResults
 }
 
 type TypeQuery {
@@ -53,12 +53,6 @@ type SsaEvent {
 
 input EventTypeSummaryTimePeriod {
     timePeriod: TimePeriod
-}
-
-input TimePeriod {
-    type: TimePeriodTypes
-    start: DateTime
-    end: DateTime
 }
 
 input CreateSsaEvent {
@@ -141,27 +135,4 @@ enum SsaEventType
 
 enum TimePeriodTypes {
     RANGE
-}
-
-type PageRequestSection {
-    pageRequest: SortSection
-}
-
-type SortSection {
-    sort: OrdersSection
-}
-
-type OrdersSection {
-    orders: SortOrders
-}
-
-type SortOrders {
-    property: String
-    direction: SortDirection
-}
-
-
-enum SortDirection {
-    ASC
-    DESC
 }

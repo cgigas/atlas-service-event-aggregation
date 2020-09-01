@@ -1,0 +1,40 @@
+"""An input to specify paging parameters for a query."""
+input PageInfo {
+    "The page of results to return - zero based"
+    page: NonNegativeInt!
+    "Number of results in a page"
+    size: PositiveInt!
+    "Result sort specification"
+    sort: Sort
+}
+
+input Sort {
+    orders: [Order!]!
+}
+
+"""An input to specify sort criteria for a query"""
+input Order {
+    "The base object field to sort on"
+    property: String!
+    "The direction to sort"
+    direction: Direction!
+}
+
+"""A sort precedence enumeration"""
+enum Direction {
+    ASC,
+    DESC
+}
+
+"""A time period input.
+Discrete time periods are specified by values for startref and end fields with a type of RANGE.
+Relative time periods are specified by a type of DURATION, a startref time, a duration (positive or negative), and a duration unit value.
+The time format is rfc3339 ISO Offset Date Time (yyyy-MM-ddTHH:mm:ssZ or yyy-MM-ddTHH:mm:ss+xx:xx)
+"""
+input TimePeriod {
+    type: TimePeriodType!
+    startref: DateTime
+    end: DateTime
+    duration: Int
+    durationUnit: DurationUnits
+}
