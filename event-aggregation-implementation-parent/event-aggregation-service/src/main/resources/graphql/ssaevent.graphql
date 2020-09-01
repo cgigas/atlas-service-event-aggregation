@@ -7,7 +7,7 @@ type EasQuery {
     ssaEvents: [SsaEvent]
     getSsaEventById(id: String!): [SsaEvent]
     eventDetail(id: String!): [SsaEvent]
-    eventTypeSummariesByTimePeriod(categories: EventTypeSummaryTimePeriod, pageRequest: PageInfo!): EventTypeSummaryResults
+    eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
 }
 
 type TypeQuery {
@@ -133,6 +133,3 @@ enum SsaEventType
     UNDOCK
 }
 
-enum TimePeriodTypes {
-    RANGE
-}

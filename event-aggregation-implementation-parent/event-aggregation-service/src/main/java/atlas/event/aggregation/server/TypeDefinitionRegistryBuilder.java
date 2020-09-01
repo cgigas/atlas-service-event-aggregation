@@ -53,12 +53,10 @@ public class TypeDefinitionRegistryBuilder
     {
         try
         {
-            log.info("Collecting graphql schema definition resources...");
             Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            log.info("Creating graphql type registry from schema definition files.");
             for (Resource resource: graphqlResources)
             {
                 String schemaString = Resources.toString(resource.getURL(), UTF_8);
@@ -68,7 +66,6 @@ public class TypeDefinitionRegistryBuilder
         }
         catch (Throwable e)
         {
-            log.error("Error configuring the Satellite Query GraphQL type registry", e);
             throw new IllegalStateException(e);
         }
     }
