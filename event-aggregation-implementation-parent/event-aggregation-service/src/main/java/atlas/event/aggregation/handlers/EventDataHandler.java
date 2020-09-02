@@ -30,14 +30,15 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 @Component("eventDetailHandler")
-public class EventDataHandler extends MasterHandler implements IDigitalHandler
+public class EventDataHandler extends MasterHandler
 {
-    @Override
-    public Object processRequest(DataFetchingEnvironment environment)
+    public Object processEventDetail(DataFetchingEnvironment environment)
     {
         SsaEvent eventResult = null;
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
@@ -54,7 +55,7 @@ public class EventDataHandler extends MasterHandler implements IDigitalHandler
                 Iterator it = ja.iterator();
                 while (it.hasNext())
                 {
-                    Map<String, String> map = (Map)it.next();
+                    Map<String, String> map = (Map) it.next();
                     String eventUuid = map.get("ssaEventUuid");
                     String marking = map.get("classificationMarking");
                     String ssaPreEvent = map.get("ssaPredecessorEventUuid");
@@ -92,5 +93,46 @@ public class EventDataHandler extends MasterHandler implements IDigitalHandler
         }
 
         return eventResult;
+    }
+
+    public List<SsaEvent> processEventsByTimePeriodAndType(DataFetchingEnvironment environment)
+    {
+        List<SsaEvent> datalist = null;
+        SsaEvent eventResult = null;
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        url += "/eventsByTimePeriodAndType/abc/123/456";
+
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+
+        if (StringUtils.isNotBlank(resultRequestedData))
+        {
+            datalist = new ArrayList<>();
+            try
+            {
+                JSONObject json = (JSONObject) new JSONParser().parse(resultRequestedData);
+                JSONArray ja = (JSONArray) json.get("eventsByTimePeriodAndType");
+                Iterator it = ja.iterator();
+                while (it.hasNext())
+                {
+                    SsaEvent event = new SsaEvent();
+                    Map<String, String> map = (Map) it.next();
+                    event.setId(map.get("id"));
+                    event.setState(map.get("state"));
+                    event.setClassificationMarking(map.get("classification"));
+                    event.setEventType(SsaEventType.valueOf(map.get("type")));
+                    event.setEventName(map.get("typename"));
+                    event.setStartDt(OffsetDateTime.now());
+                    event.setEndDt(OffsetDateTime.now());
+                    datalist.add(event);
+                }
+
+            }
+            catch (ParseException pe)
+            {
+                throw new EventAggregateException(pe);
+            }
+
+        }
+        return datalist;
     }
 }

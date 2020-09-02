@@ -48,6 +48,7 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
     @NotNull
     private String classificationMarking;
 
+    private String state;
     /**
      * Related or preceding SSA event.
      */
@@ -115,6 +116,16 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
     public void setClassificationMarking(String classificationMarking)
     {
         this.classificationMarking = classificationMarking;
+    }
+
+    public String getState()
+    {
+        return state;
+    }
+
+    public void setState(String state)
+    {
+        this.state = state;
     }
 
     public String getSsaPredecessorEventUuid()

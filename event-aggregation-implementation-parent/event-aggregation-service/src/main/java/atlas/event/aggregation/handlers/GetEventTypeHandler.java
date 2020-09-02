@@ -32,9 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("getEventTypeHandler")
-public class GetEventTypeHandler extends MasterHandler implements IDigitalHandler
+public class GetEventTypeHandler extends MasterHandler
 {
-    @Override
     public Object processRequest(DataFetchingEnvironment environment)
     {
         List<SsaEvent> datalist = new ArrayList<>();

@@ -154,6 +154,48 @@ public class SampleServiceController
 
     }
 
+    @RequestMapping({"/eventsByTimePeriodAndType/{eventType}/{startDate}/{endDate}"})
+    public void processEventByTimePeriod(@PathVariable String eventType, Long startDate, Long endDate, HttpServletRequest request, HttpServletResponse response)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("        \"eventsByTimePeriodAndType\": [\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
+        buffer.append("                \"state\": \"Planned\",\n");
+        buffer.append("                \"classification\": \"U\",\n");
+        buffer.append("                \"type\": \"Multi-payload\",\n");
+        buffer.append("                \"name\": \"an event\",\n");
+        buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
+        buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
+        buffer.append("                \"typename\": \"Event\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789001\",\n");
+        buffer.append("                \"state\": \"Active\",\n");
+        buffer.append("                \"classification\": \"U\",\n");
+        buffer.append("                \"type\": \"Multi-payload\",\n");
+        buffer.append("                \"name\": \"some other event\",\n");
+        buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
+        buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
+        buffer.append("                \"typename\": \"Event\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789002\",\n");
+        buffer.append("                \"state\": \"Closed\",\n");
+        buffer.append("                \"classification\": \"U\",\n");
+        buffer.append("                \"type\": \"Multi-payload\",\n");
+        buffer.append("                \"name\": \"yet another event\",\n");
+        buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
+        buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
+        buffer.append("                \"typename\": \"Event\"\n");
+        buffer.append("            }\n");
+        buffer.append("        ]\n");
+        buffer.append(" }\n");
+
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
 
     private void sendResponse(HttpServletResponse response, String mimeType, byte[] messageBody)
     {

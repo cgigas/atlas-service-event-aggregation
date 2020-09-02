@@ -20,12 +20,10 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.base.DigitalBase;
-import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.data.paging.PageableBuilder;
 import atlas.event.aggregation.data.paging.elements.Order;
 import atlas.event.aggregation.data.paging.elements.PageInfo;
 import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.handlers.IDigitalHandler;
 import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
@@ -38,7 +36,6 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -68,7 +65,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
 
     protected RuntimeWiringTypeCollector collector;
 
-    protected IDigitalHandler getBusinessHandlerByPath(String path)
+/*    protected IDigitalHandler getBusinessHandlerByPath(String path)
     {
         IDigitalHandler handler = null;
 
@@ -100,7 +97,7 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
         return handler;
     }
 
-
+*/
 
     @PostConstruct
     public void initializeRuntimeTypeInformation()
@@ -110,38 +107,38 @@ public abstract class AbstractDataFetcher<T> extends DigitalBase implements Data
             this.collector.addTypeWiring(this.provideRuntimeTypeWiring());
         }
     }
-
-    public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
-    {
-        return processRequest(getRequestPath(environment), environment);
-    }
-
-    public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
-    {
-        Object result = null;
-        IDigitalHandler handler = null;
-        if (StringUtils.isNotBlank(path))
+    /*
+        public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
         {
-            handler = getBusinessHandlerByPath(path);
-        }
-        else
-        {
-            throw new EventAggregateException("Path is required");
+            return processRequest(getRequestPath(environment), environment);
         }
 
-        if (handler != null)
+        public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
         {
-            result = handler.processRequest(environment);
-        }
-        else
-        {
-            throw new EventAggregateException("No registered handler for path: " + path);
-        }
-        SsaEvent event = (SsaEvent) result;
-        result = Lists.newArrayList(event);
-        return result;
-    }
+            Object result = null;
+            IDigitalHandler handler = null;
+            if (StringUtils.isNotBlank(path))
+            {
+                handler = getBusinessHandlerByPath(path);
+            }
+            else
+            {
+                throw new EventAggregateException("Path is required");
+            }
 
+            if (handler != null)
+            {
+                result = handler.processRequest(environment);
+            }
+            else
+            {
+                throw new EventAggregateException("No registered handler for path: " + path);
+            }
+            SsaEvent event = (SsaEvent) result;
+            result = Lists.newArrayList(event);
+            return result;
+        }
+    */
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {

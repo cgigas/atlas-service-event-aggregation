@@ -8,6 +8,7 @@ type EasQuery {
     getSsaEventById(id: String!): [SsaEvent]
     eventDetail(id: String!): [SsaEvent]
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
+    eventsByTimePeriodAndType(type: String!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
 }
 
 type TypeQuery {

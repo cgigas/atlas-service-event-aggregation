@@ -34,9 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 @Component("eventTypeSummaryHandler")
-public class EventTypeSummaryHandler extends MasterHandler implements IDigitalHandler
+public class EventTypeSummaryHandler extends MasterHandler
 {
-    @Override
     public List<EventTypeSummary> processRequest(DataFetchingEnvironment environment)
     {
         List<EventTypeSummary> datalist = null;

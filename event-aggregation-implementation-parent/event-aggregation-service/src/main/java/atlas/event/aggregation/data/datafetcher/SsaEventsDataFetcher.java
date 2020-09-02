@@ -70,10 +70,13 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
                     result = eventTypeSummaryHandler.processRequest(environment);
                     break;
                 case "/eventDetail":
-                    result = eventDataHandler.processRequest(environment);
+                    result = eventDataHandler.processEventDetail(environment);
                     break;
                 case "/getEventTypes":
                     result = getEventTypeHandler.processRequest(environment);
+                    break;
+                case "/eventsByTimePeriodAndType":
+                    result = eventDataHandler.processEventsByTimePeriodAndType(environment);
                     break;
             }
         }
@@ -112,7 +115,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
             .dataFetcher("eventSummaries", this)
             .dataFetcher("getSsaEventById", this)
             .dataFetcher("eventTypeSummariesByTimePeriod", this)
-            .dataFetcher("deleteSsaEvent", this));
+            .dataFetcher("eventsByTimePeriodAndType", this));
         return builders;
     }
 }
