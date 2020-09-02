@@ -12,6 +12,9 @@ CMD ./run-java.sh
 
 COPY spring-boot-app/run-java-sh/fp-files/run-java.sh /opt/atlas/
 COPY spring-boot-app/event-aggregation-app-${project.version}.jar /opt/atlas/
+
+WORKDIR /opt/atlas
+
 # Uncomment the RUN and add any new image configuration requirements here. Use the \ newline format for more than 1.
 # If using a package manager (yum/apt) to install new packages, ALWAYS USE A SPECIFIC VERSION NUMBER DEFINED IN YOUR PARENT POM
 RUN useradd -s /sbin/nologin -d /opt/atlas -c "Atlas User" atlas; \

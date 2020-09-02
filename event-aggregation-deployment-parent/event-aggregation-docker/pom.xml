@@ -36,7 +36,7 @@
     <description>Docker deployment scripts etc for the event-aggregation service</description>
 
     <properties>
-        <docker.base.image.name>release/atlas/base/ubi7-jre8</docker.base.image.name>
+        <docker.base.image.name>atlas/release/base/ubi7-jre8</docker.base.image.name>
         <docker.base.image.tag>1.0.0</docker.base.image.tag>
         <docker.base.image>${docker.base.image.name}:${docker.base.image.tag}</docker.base.image>
         <docker.removeMode>run</docker.removeMode>
