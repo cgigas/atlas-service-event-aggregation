@@ -110,12 +110,12 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("EasQuery")
-            .dataFetcher("ssaEvents", this)
-            .dataFetcher("eventDetail", this)
-            .dataFetcher("eventSummaries", this)
-            .dataFetcher("getSsaEventById", this)
-            .dataFetcher("eventTypeSummariesByTimePeriod", this)
-            .dataFetcher("eventsByTimePeriodAndType", this));
+                .dataFetcher("ssaEvents", this)
+                .dataFetcher("eventDetail", this)
+                .dataFetcher("eventSummaries", this)
+                .dataFetcher("getSsaEventById", this)
+                .dataFetcher("eventTypeSummariesByTimePeriod", this)
+                .dataFetcher("eventsByTimePeriodAndType", this));
         return builders;
     }
 }
