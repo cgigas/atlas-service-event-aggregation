@@ -25,10 +25,10 @@ public class ObservationSatMedley
     private String satelliteId;
     private String observationId;
     private String classification;
-    private Boolean isPromotable;
-    private Boolean isCataloged;
-    private Boolean isAnalyst;
-    private Boolean isCandidate;
+    private Long isPromotable;
+    private Long isCataloged;
+    private Long isAnalyst;
+    private Long isCandidate;
     private Long satNo;
     private Long ucn;
     private String commonName;
@@ -84,42 +84,42 @@ public class ObservationSatMedley
         this.classification = classification;
     }
 
-    public Boolean getPromotable()
+    public Long getPromotable()
     {
         return isPromotable;
     }
 
-    public void setPromotable(Boolean promotable)
+    public void setPromotable(Long promotable)
     {
         isPromotable = promotable;
     }
 
-    public Boolean getCataloged()
+    public Long getCataloged()
     {
         return isCataloged;
     }
 
-    public void setCataloged(Boolean cataloged)
+    public void setCataloged(Long cataloged)
     {
         isCataloged = cataloged;
     }
 
-    public Boolean getAnalyst()
+    public Long getAnalyst()
     {
         return isAnalyst;
     }
 
-    public void setAnalyst(Boolean analyst)
+    public void setAnalyst(Long analyst)
     {
         isAnalyst = analyst;
     }
 
-    public Boolean getCandidate()
+    public Long getCandidate()
     {
         return isCandidate;
     }
 
-    public void setCandidate(Boolean candidate)
+    public void setCandidate(Long candidate)
     {
         isCandidate = candidate;
     }

@@ -88,10 +88,10 @@ public class EventDataHandler extends MasterHandler
                     medley.setSatelliteId((String) itemMap.get("satelliteId"));
                     medley.setObservationId((String) itemMap.get("observationId"));
                     medley.setClassification((String) itemMap.get("classification"));
-                    medley.setPromotable(Boolean.TRUE);
-                    medley.setCataloged(Boolean.TRUE);
-                    medley.setAnalyst(Boolean.TRUE);
-                    medley.setCandidate(Boolean.TRUE);
+                    medley.setPromotable((Long) itemMap.get("isPromotable"));
+                    medley.setCataloged((Long) itemMap.get("isCataloged"));
+                    medley.setAnalyst((Long) itemMap.get("isAnalyst"));
+                    medley.setCandidate((Long) itemMap.get("isCandidate"));
                     medley.setSatNo((Long) itemMap.get("satno"));
                     medley.setUcn((Long) itemMap.get("ucn"));
                     medley.setCommonName((String) itemMap.get("commonName"));
