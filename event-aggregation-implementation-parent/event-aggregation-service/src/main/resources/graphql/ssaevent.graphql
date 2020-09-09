@@ -17,6 +17,8 @@ type TypeQuery {
 
 type EasMutation {
     updateType(id: String, type: String): SsaEvent
+    closeSdaEvent(id: String, endDate: DateTime): SsaEvent
+    updateEventStatus(id: String, eventStatus: SsaEventStatus): SsaEvent
 }
 
 type EventTypeSummaryResults {
