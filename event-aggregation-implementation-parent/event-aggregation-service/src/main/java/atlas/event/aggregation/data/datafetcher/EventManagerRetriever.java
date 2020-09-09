@@ -34,14 +34,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
-
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 
 @Slf4j
 @Component
 @Profile("dev")
-public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
+public class EventManagerRetriever extends AbstractDataFetcher<List<SsaEvent>>
 {
     private SsaEventRepository repository;
     @Autowired
@@ -51,7 +50,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
     @Autowired
     GetEventTypeHandler getEventTypeHandler;
 
-    public SsaEventsDataFetcher(SsaEventRepository repo,  RuntimeWiringTypeCollector collector)
+    public EventManagerRetriever(SsaEventRepository repo, RuntimeWiringTypeCollector collector)
     {
         this.repository = repo;
         this.collector = collector;
@@ -80,28 +79,7 @@ public class SsaEventsDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
                     break;
             }
         }
-/*        if (StringUtils.isEmpty(path))
-        {
 
-            //returnValue = processRequest(path, environment);
-            switch (path)
-            {
-                case "/getSsaEventById":
-                case "/eventDetail":
-                    String id = (String) environment.getArguments().get("id");
-                    Optional<SsaEvent> result = repository.findById(id);
-                    SsaEvent event = result.get();
-                    returnValue = Lists.newArrayList(event);
-                    break;
-                case "/ssaEvents":
-                    Object all = repository.findAll();
-                    returnValue  = Lists.newArrayList(repository.findAll());
-                    break;
-                case "/eventSummaries":
-
-            }
-        }
-*/
         return Lists.newArrayList(result);
     }
 

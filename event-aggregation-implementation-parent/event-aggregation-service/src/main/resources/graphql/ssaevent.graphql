@@ -16,8 +16,7 @@ type TypeQuery {
 }
 
 type EasMutation {
-    createSsaEvent(input: CreateSsaEvent!): SsaEvent!
-    updateSsaEvent(id: ID!, input: SsaEventUpdateInput!): SsaEvent
+    updateType(id: String, type: String): SsaEvent
 }
 
 type EventTypeSummaryResults {
