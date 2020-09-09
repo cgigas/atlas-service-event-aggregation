@@ -1,0 +1,6 @@
+library 'atlas-pipeline-scripts'
+
+Map templateParams = [:] as Map
+templateParams["APP"] = "atlas-service-event-aggregation"
+
+siteGenerationTemplate(templateParams)
