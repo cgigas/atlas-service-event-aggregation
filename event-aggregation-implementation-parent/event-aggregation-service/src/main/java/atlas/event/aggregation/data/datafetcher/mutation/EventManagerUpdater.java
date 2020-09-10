@@ -24,6 +24,7 @@ import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.util.Collection;
@@ -43,6 +44,25 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
     protected Object performFetch(DataFetchingEnvironment environment)
     {
         String path = getRequestPath(environment);
+        if (StringUtils.isNotBlank(path))
+        {
+            switch (path)
+            {
+                case "/closeSdaEvent":
+                    break;
+                case "/updateEventStatus":
+                    break;
+                case "/deleteSdaEvent":
+                    break;
+                case "/addSatelliteToEvent":
+                    break;
+                case "/releaseSatelliteFromEvent":
+                    break;
+                case "/addEditEventprocessingConfiguration":
+                    break;
+            }
+        }
+
         Object result = null;
 
         return result;
@@ -52,7 +72,14 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("EasMutation").dataFetcher("updateType", this));
+        builders.add(newTypeWiring("EasMutation")
+                .dataFetcher("closeSdaEvent", this)
+                .dataFetcher("updateEventStatus", this)
+                .dataFetcher("deleteSdaEvent", this)
+                .dataFetcher("addSatelliteToEvent", this)
+                .dataFetcher("releaseSatelliteFromEvent", this)
+                .dataFetcher("addEditEventprocessingConfiguration", this)
+        .dataFetcher("closeSdaEvent", this));
 
         return builders;
     }
