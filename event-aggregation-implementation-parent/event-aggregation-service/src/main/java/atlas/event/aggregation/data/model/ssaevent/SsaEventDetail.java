@@ -26,7 +26,7 @@ public class SsaEventDetail
     private String id;
     private String state;
     private String classification;
-    private String type;
+    private Long type;
     private String name;
     private OffsetDateTime startDate;
     private OffsetDateTime endDate;
@@ -79,12 +79,12 @@ public class SsaEventDetail
         this.classification = classification;
     }
 
-    public String getType()
+    public Long getType()
     {
         return type;
     }
 
-    public void setType(String type)
+    public void setType(Long type)
     {
         this.type = type;
     }

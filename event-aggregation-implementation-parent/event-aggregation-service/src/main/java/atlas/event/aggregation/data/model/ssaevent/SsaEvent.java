@@ -58,7 +58,7 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
      * Identifies the type of Space Situational Awareness event
      */
     @NotNull
-    private SsaEventType eventType;
+    private Long eventType;
 
     /**
      * Name, title or designator assigned to the event.
@@ -70,7 +70,7 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
      * Event status varies by event type
      */
     @NotNull
-    private SsaEventStatus eventStatus;
+    private Long eventStatus;
 
     /**
      * Date/time when the event began or was detected.
@@ -138,7 +138,7 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
         this.ssaPredecessorEventUuid = ssaPredecessorEventUuid;
     }
 
-    public SsaEventType getEventType()
+    public Long getEventType()
     {
         return eventType;
     }
@@ -163,7 +163,7 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
         this.endDt = endDt;
     }
 
-    public void setEventType(SsaEventType eventType)
+    public void setEventType(Long eventType)
     {
         this.eventType = eventType;
     }
@@ -178,12 +178,12 @@ public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
         this.eventName = eventName;
     }
 
-    public SsaEventStatus getEventStatus()
+    public Long getEventStatus()
     {
         return eventStatus;
     }
 
-    public void setEventStatus(SsaEventStatus eventStatus)
+    public void setEventStatus(Long eventStatus)
     {
         this.eventStatus = eventStatus;
     }

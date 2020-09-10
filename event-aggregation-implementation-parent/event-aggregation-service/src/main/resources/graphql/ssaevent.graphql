@@ -85,15 +85,14 @@ type ObservationSatMedley {
 
 type SsaEvent {
     ssaEventUuid: ID!
-    classificationMarking: String!
+    classificationMarking: String
     ssaPredecessorEventUuid: ID
-    eventType: SsaEventType!
-    eventName: String!
-    eventStatus: SsaEventStatus!
+    eventType: Long
+    eventName: String
+    eventStatus: Long
     startDt: DateTime
     endDt: DateTime
     eventDesc: String
-    bigBoardFlag: Boolean
     internalNotes: String
     eventPostingId: String
     createDate: DateTime

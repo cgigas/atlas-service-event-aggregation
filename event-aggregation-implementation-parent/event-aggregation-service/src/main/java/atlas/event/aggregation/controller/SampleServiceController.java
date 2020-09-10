@@ -129,6 +129,28 @@ public class SampleServiceController
         sendResponse(response, "application/json", buffer.toString().getBytes());
     }
 
+    @RequestMapping({"/closeSdaEvent/{id}/{endDate}"})
+    public void processCloseSdaEvent(@PathVariable String id, @PathVariable String endDate, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
     @RequestMapping({"/eventDetail/{ssaEventId}"})
     public void processEventDetail(@PathVariable String ssaEventId, HttpServletRequest request, HttpServletResponse response, HttpSession session)
     {
@@ -138,22 +160,22 @@ public class SampleServiceController
         buffer.append("\"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
         buffer.append("\"state\": \"Planned\",\n");
         buffer.append("\"classification\": \"U\",\n");
-        buffer.append("\"type\": \"Multi-payload\",\n");
+        buffer.append("\"type\": 4,\n");
         buffer.append("\"name\": \"an event\",\n");
-        buffer.append("\"startDt\": \"2020 159 23:59:59\",\n");
-        buffer.append("\"endDt\": \"2020 160 01:23:23\",\n");
+        buffer.append("\"startDt\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDt\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"catalogObjectCount\": 12,\n");
         buffer.append("\"analystObjects\": 20,\n");
         buffer.append("\"candidateObjectCount\": 28,\n");
         buffer.append("\"promotableObjectCount\": 23,\n");
         buffer.append("\"parentEvent\": {\n");
-        buffer.append("\"id\": \"293558d4-938a-4c58-8ca1-123456789001\",\n");
+        buffer.append("\"eventUuid\": \"293558d4-938a-4c58-8ca1-123456789001\",\n");
         buffer.append("\"eventName\": \"the parent event\",\n");
         buffer.append("\"typeName\": \"Event\"\n");
         buffer.append("},\n");
         buffer.append("\"launch\": {\n");
         buffer.append("\"id\": \"293558d4-938a-4c58-8ca1-123456789002\",\n");
-        buffer.append("\"launchTimestamp\": \"2020 159 23:59:59\",\n");
+        buffer.append("\"launchTimestamp\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"launchSite\": \"SpaceX-MT\",\n");
         buffer.append("\"launchCountry\": \"US\",\n");
         buffer.append("\"typeName\": \"Launch\"\n");
@@ -171,9 +193,9 @@ public class SampleServiceController
         buffer.append("\"ucn\": 123456,\n");
         buffer.append("\"commonName\": \"ISS (ZARYA)\",\n");
         buffer.append("\"group\": \"Group\",\n");
-        buffer.append("\"type\": \"Auto\",\n");
+        buffer.append("\"type\": 5,\n");
         buffer.append("\"radarCrossSection\": 2.12345,\n");
-        buffer.append("\"epoch\": \"2020 145 21:03:04\",\n");
+        buffer.append("\"epoch\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"result\": \"P/Reason\",\n");
         buffer.append("\"period\": 123.45,\n");
         buffer.append("\"inclination\": 45.45,\n");
@@ -195,9 +217,9 @@ public class SampleServiceController
         buffer.append("\"ucn\": 234567,\n");
         buffer.append("\"commonName\": \"Yellow satellite\",\n");
         buffer.append("\"group\": \"Group\",\n");
-        buffer.append("\"type\": \"Auto\",\n");
+        buffer.append("\"type\": 5,\n");
         buffer.append("\"radarCrossSection\": 2.22345,\n");
-        buffer.append("\"epoch\": \"2020 245 21:03:04\",\n");
+        buffer.append("\"epoch\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"result\": \"P/Reason\",\n");
         buffer.append("\"period\": 234.56,\n");
         buffer.append("\"inclination\": 55.45,\n");
@@ -219,9 +241,9 @@ public class SampleServiceController
         buffer.append("\"ucn\": 345678,\n");
         buffer.append("\"commonName\": \"Green satellite\",\n");
         buffer.append("\"group\": \"Group\",\n");
-        buffer.append("\"type\": \"Auto\",\n");
+        buffer.append("\"type\": 5,\n");
         buffer.append("\"radarCrossSection\": 3.12345,\n");
-        buffer.append("\"epoch\": \"2020 345 21:03:04\",\n");
+        buffer.append("\"epoch\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"result\": \"P/Reason\",\n");
         buffer.append("\"period\": 345.67,\n");
         buffer.append("\"inclination\": 65.45,\n");
@@ -235,7 +257,6 @@ public class SampleServiceController
         buffer.append("}\n");
         buffer.append("}\n");
         sendResponse(response, "application/json", buffer.toString().getBytes());
-
     }
 
     @RequestMapping({"/eventsByTimePeriodAndType/{eventType}/{startDate}/{endDate}"})
@@ -248,7 +269,7 @@ public class SampleServiceController
         buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
         buffer.append("                \"state\": \"Planned\",\n");
         buffer.append("                \"classification\": \"U\",\n");
-        buffer.append("                \"type\": \"Multi-payload\",\n");
+        buffer.append("                \"type\": 5,\n");
         buffer.append("                \"name\": \"an event\",\n");
         buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
         buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
@@ -258,7 +279,7 @@ public class SampleServiceController
         buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789001\",\n");
         buffer.append("                \"state\": \"Active\",\n");
         buffer.append("                \"classification\": \"U\",\n");
-        buffer.append("                \"type\": \"Multi-payload\",\n");
+        buffer.append("                \"type\": 5,\n");
         buffer.append("                \"name\": \"some other event\",\n");
         buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
         buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
@@ -268,7 +289,7 @@ public class SampleServiceController
         buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789002\",\n");
         buffer.append("                \"state\": \"Closed\",\n");
         buffer.append("                \"classification\": \"U\",\n");
-        buffer.append("                \"type\": \"Multi-payload\",\n");
+        buffer.append("                \"type\": 5,\n");
         buffer.append("                \"name\": \"yet another event\",\n");
         buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
         buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");

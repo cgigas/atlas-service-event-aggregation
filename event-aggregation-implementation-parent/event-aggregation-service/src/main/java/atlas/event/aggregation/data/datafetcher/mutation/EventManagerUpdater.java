@@ -19,12 +19,14 @@ package atlas.event.aggregation.data.datafetcher.mutation;
 
 import atlas.event.aggregation.data.datafetcher.AbstractDataFetcher;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.util.Collection;
@@ -35,6 +37,9 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Profile("dev")
 public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
 {
+    @Autowired
+    private EventDataHandler eventDetailHandler;
+
     public EventManagerUpdater(RuntimeWiringTypeCollector collector)
     {
         this.collector = collector;
@@ -43,12 +48,14 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
     @Override
     protected Object performFetch(DataFetchingEnvironment environment)
     {
+        Object result = null;
         String path = getRequestPath(environment);
         if (StringUtils.isNotBlank(path))
         {
             switch (path)
             {
                 case "/closeSdaEvent":
+                    result = eventDetailHandler.processCloseSdaEvent(environment);
                     break;
                 case "/updateEventStatus":
                     break;
@@ -62,8 +69,6 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
                     break;
             }
         }
-
-        Object result = null;
 
         return result;
     }

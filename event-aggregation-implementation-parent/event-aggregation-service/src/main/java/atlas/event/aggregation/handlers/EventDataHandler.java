@@ -20,12 +20,17 @@ package atlas.event.aggregation.handlers;
 import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.*;
 import atlas.event.aggregation.exception.EventAggregateException;
+import atlas.event.aggregation.parser.EventDetailParser;
+import atlas.event.aggregation.parser.EventParser;
+import atlas.event.aggregation.parser.LaunchParser;
+import atlas.event.aggregation.parser.ObservationSatMedleyParser;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -36,6 +41,15 @@ import java.util.Map;
 @Component("eventDetailHandler")
 public class EventDataHandler extends MasterHandler
 {
+    @Autowired
+    private EventParser eventParser;
+    @Autowired
+    private EventDetailParser eventDetailParser;
+    @Autowired
+    private LaunchParser launchParser;
+    @Autowired
+    ObservationSatMedleyParser observationSatMedleyParser;
+
     public Object processEventDetail(DataFetchingEnvironment environment)
     {
         SsaEventDetail eventDetail = null;
@@ -51,63 +65,14 @@ public class EventDataHandler extends MasterHandler
                 JSONObject json = (JSONObject) new JSONParser().parse(resultRequestedData);
                 Map<String, Object> map = (Map)json.get("eventDetail");
 
-                eventDetail = new SsaEventDetail();
-                eventDetail.setId((String)map.get("id"));
-                eventDetail.setState((String)map.get("state"));
-                eventDetail.setClassification((String)map.get("classification"));
-                eventDetail.setType((String)map.get("type"));
-                eventDetail.setName((String)map.get("name"));
-                eventDetail.setStartDate(OffsetDateTime.now());
-                eventDetail.setEndDate(OffsetDateTime.now());
-                eventDetail.setCatalogObjectCount((Long)map.get("catalogObjectCount"));
-                eventDetail.setAnalystObjects((Long)map.get("analystObjects"));
-                eventDetail.setCandidateObjectCount((Long)map.get("candidateObjectCount"));
-                eventDetail.setPromotableObjectCount((Long)map.get("promotableObjectCount"));
-                eventDetail.setTypeName((String)map.get("typeName"));
-                Map<String, Object> parentEventMap = (Map)map.get("parentEvent");
-                SsaEvent event = new SsaEvent();
-                event.setId(parentEventMap.get("id"));
-                event.setEventName((String)parentEventMap.get("eventName"));
-                eventDetail.setParentEvent(event);
-                SsaLaunch launch = new SsaLaunch();
-                Map<String, Object> launchMap = (Map)map.get("launch");
-                launch.setId((String)launchMap.get("id"));
-                launch.setLaunchTimeStamp(OffsetDateTime.now());
-                launch.setLaunchSite((String)launchMap.get("launchSite"));
-                launch.setLaunchCountry((String)launchMap.get("launchCountry"));
-                launch.setTypeName((String)launchMap.get("typeName"));
-                eventDetail.setLaunch(launch);
-
-                JSONArray array = (JSONArray) map.get("observationSatMedleyArray");
-                Iterator it = array.iterator();
-                while (it.hasNext())
+                eventDetail = (SsaEventDetail) eventDetailParser.fromJson(map);
+                if (eventDetail != null)
                 {
-                    Map<String, Object> itemMap = (Map) it.next();
-                    ObservationSatMedley medley = new ObservationSatMedley();
-                    medley.setId((String) itemMap.get("id"));
-                    medley.setSatelliteId((String) itemMap.get("satelliteId"));
-                    medley.setObservationId((String) itemMap.get("observationId"));
-                    medley.setClassification((String) itemMap.get("classification"));
-                    medley.setPromotable((Long) itemMap.get("isPromotable"));
-                    medley.setCataloged((Long) itemMap.get("isCataloged"));
-                    medley.setAnalyst((Long) itemMap.get("isAnalyst"));
-                    medley.setCandidate((Long) itemMap.get("isCandidate"));
-                    medley.setSatNo((Long) itemMap.get("satno"));
-                    medley.setUcn((Long) itemMap.get("ucn"));
-                    medley.setCommonName((String) itemMap.get("commonName"));
-                    medley.setGroup((String) itemMap.get("group"));
-                    medley.setType((String) itemMap.get("type"));
-                    medley.setRadarCrossSection((Float) map.get("radarCrossSection"));
-                    medley.setEpoch(OffsetDateTime.now());
-                    medley.setResult((String) itemMap.get("result"));
-                    medley.setPeriod((Double) itemMap.get("period"));
-                    medley.setInclination((Double) itemMap.get("inclination"));
-                    medley.setApogee((Long) itemMap.get("apogee"));
-                    medley.setPerigee((Long) itemMap.get("perigee"));
-                    medley.setEccentricity((Double) itemMap.get("eccentricity"));
-                    medley.setTypeName((String) itemMap.get("typeName"));
+                    eventDetail.setParentEvent((SsaEvent) eventParser.fromJson((Map) map.get("parentEvent")));
+                    eventDetail.setLaunch((SsaLaunch) launchParser.fromJson((Map) map.get("launch")));
 
-                    eventDetail.getObservationSatMedleyArray().add(medley);
+                    List<ObservationSatMedley> satMedleyList = (List) observationSatMedleyParser.fromJson((JSONArray) map.get("observationSatMedleyArray"));
+                    eventDetail.getObservationSatMedleyArray().addAll(satMedleyList);
                 }
             }
             catch (ParseException pe)
@@ -117,6 +82,21 @@ public class EventDataHandler extends MasterHandler
         }
 
         return eventDetail;
+    }
+
+    public SsaEvent processCloseSdaEvent(DataFetchingEnvironment environment)
+    {
+        SsaEvent event = new SsaEvent();
+
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String id = environment.getArgument("id");
+        OffsetDateTime endDate = environment.getArgument("endDate");
+        url += "/closeSdaEvent/" + id + "/" + endDate;
+
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+
+        return event;
     }
 
     public List<SsaEvent> processEventsByTimePeriodAndType(DataFetchingEnvironment environment)
@@ -141,9 +121,7 @@ public class EventDataHandler extends MasterHandler
                     SsaEvent event = new SsaEvent();
                     Map<String, String> map = (Map) it.next();
                     event.setId(map.get("id"));
-                    event.setState(map.get("state"));
                     event.setClassificationMarking(map.get("classification"));
-                    event.setEventType(SsaEventType.valueOf(map.get("type")));
                     event.setEventName(map.get("typename"));
                     event.setStartDt(OffsetDateTime.now());
                     event.setEndDt(OffsetDateTime.now());

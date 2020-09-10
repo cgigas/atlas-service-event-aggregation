@@ -33,8 +33,8 @@ public class ObservationSatMedley
     private Long ucn;
     private String commonName;
     private String group;
-    private String type;
-    private Float radarCrossSection;
+    private Long type;
+    private Double radarCrossSection;
     private OffsetDateTime epoch;
     private String result;
     private Double period;
@@ -164,22 +164,22 @@ public class ObservationSatMedley
         this.group = group;
     }
 
-    public String getType()
+    public Long getType()
     {
         return type;
     }
 
-    public void setType(String type)
+    public void setType(Long type)
     {
         this.type = type;
     }
 
-    public Float getRadarCrossSection()
+    public Double getRadarCrossSection()
     {
         return radarCrossSection;
     }
 
-    public void setRadarCrossSection(Float radarCrossSection)
+    public void setRadarCrossSection(Double radarCrossSection)
     {
         this.radarCrossSection = radarCrossSection;
     }

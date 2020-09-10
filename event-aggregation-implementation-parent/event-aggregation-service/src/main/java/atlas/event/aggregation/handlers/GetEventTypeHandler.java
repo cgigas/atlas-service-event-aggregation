@@ -19,7 +19,6 @@ package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
-import atlas.event.aggregation.data.model.ssaevent.SsaEventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +54,6 @@ public class GetEventTypeHandler extends MasterHandler
                     for (Object item: items)
                     {
                         SsaEvent event = new SsaEvent();
-                        event.setEventType(SsaEventType.valueOf((String)item));
                         datalist.add(event);
                     }
                 }
