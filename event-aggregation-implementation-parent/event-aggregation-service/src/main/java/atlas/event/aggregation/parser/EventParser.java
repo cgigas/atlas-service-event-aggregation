@@ -19,7 +19,6 @@ package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
 import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.util.JSonUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -71,17 +70,17 @@ public class EventParser implements IParser
     public Object fromJson(Map<String, Object> map)
     {
         SsaEvent event = new SsaEvent();
-        event.setId(JSonUtil.getItemAsString("eventUuid", map));
-        event.setClassificationMarking(JSonUtil.getItemAsString("classification", map));
-        event.setSsaPredecessorEventUuid(JSonUtil.getItemAsString("predecessorEventUuid", map));
-        event.setEventType(JSonUtil.getItemAsLong("type", map));
-        event.setEventName(JSonUtil.getItemAsString("eventName", map));
-        event.setEventStatus(JSonUtil.getItemAsLong("status", map));
-        event.setStartDt(JSonUtil.getItemAsOffSetDate("startDate", map));
-        event.setEndDt(JSonUtil.getItemAsOffSetDate("endDate", map));
-        event.setEventDesc(JSonUtil.getItemAsString("description", map));
-        event.setInternalNotes(JSonUtil.getItemAsString("internalNotes", map));
-        event.setEventPostingId(JSonUtil.getItemAsString("postingId", map));
+        event.setId(getItemAsString("eventUuid", map));
+        event.setClassificationMarking(getItemAsString("classification", map));
+        event.setSsaPredecessorEventUuid(getItemAsString("predecessorEventUuid", map));
+        event.setEventType(getItemAsLong("type", map));
+        event.setEventName(getItemAsString("eventName", map));
+        event.setEventStatus(getItemAsLong("status", map));
+        event.setStartDt(getItemAsOffSetDate("startDate", map));
+        event.setEndDt(getItemAsOffSetDate("endDate", map));
+        event.setEventDesc(getItemAsString("description", map));
+        event.setInternalNotes(getItemAsString("internalNotes", map));
+        event.setEventPostingId(getItemAsString("postingId", map));
 
         return event;
     }

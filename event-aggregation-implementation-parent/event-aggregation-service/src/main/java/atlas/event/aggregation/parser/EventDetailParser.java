@@ -19,7 +19,6 @@ package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.SsaEventDetail;
 import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.util.JSonUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -68,18 +67,18 @@ public class EventDetailParser implements IParser
     public Object fromJson(Map<String, Object> map)
     {
         SsaEventDetail eventDetail = new SsaEventDetail();
-        eventDetail.setId(JSonUtil.getItemAsString("id", map));
-        eventDetail.setState(JSonUtil.getItemAsString("state", map));
-        eventDetail.setClassification(JSonUtil.getItemAsString("classification", map));
-        eventDetail.setType(JSonUtil.getItemAsLong("type", map));
-        eventDetail.setName(JSonUtil.getItemAsString("name", map));
-        eventDetail.setStartDate(JSonUtil.getItemAsOffSetDate("startDt", map));
-        eventDetail.setEndDate(JSonUtil.getItemAsOffSetDate("endDt", map));
-        eventDetail.setCatalogObjectCount(JSonUtil.getItemAsLong("catalogObjectCount", map));
-        eventDetail.setAnalystObjects(JSonUtil.getItemAsLong("analystObjects", map));
-        eventDetail.setCandidateObjectCount(JSonUtil.getItemAsLong("candidateObjectCount", map));
-        eventDetail.setPromotableObjectCount(JSonUtil.getItemAsLong("promotableObjectCount", map));
-        eventDetail.setTypeName(JSonUtil.getItemAsString("typeName", map));
+        eventDetail.setId(getItemAsString("id", map));
+        eventDetail.setState(getItemAsString("state", map));
+        eventDetail.setClassification(getItemAsString("classification", map));
+        eventDetail.setType(getItemAsLong("type", map));
+        eventDetail.setName(getItemAsString("name", map));
+        eventDetail.setStartDate(getItemAsOffSetDate("startDt", map));
+        eventDetail.setEndDate(getItemAsOffSetDate("endDt", map));
+        eventDetail.setCatalogObjectCount(getItemAsLong("catalogObjectCount", map));
+        eventDetail.setAnalystObjects(getItemAsLong("analystObjects", map));
+        eventDetail.setCandidateObjectCount(getItemAsLong("candidateObjectCount", map));
+        eventDetail.setPromotableObjectCount(getItemAsLong("promotableObjectCount", map));
+        eventDetail.setTypeName(getItemAsString("typeName", map));
 
         return eventDetail;
     }

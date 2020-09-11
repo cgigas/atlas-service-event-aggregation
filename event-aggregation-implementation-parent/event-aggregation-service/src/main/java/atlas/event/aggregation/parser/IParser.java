@@ -17,6 +17,10 @@
  */
 package atlas.event.aggregation.parser;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONObject;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public interface IParser
@@ -28,4 +32,112 @@ public interface IParser
     public Object fromJson(Object json);
 
     public Object fromJson(Map<String, Object> map);
+
+    default OffsetDateTime getItemAsOffSetDate(String elementName, Map<String, Object> map)
+    {
+        OffsetDateTime item = null;
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
+        {
+            Object o = map.get(elementName);
+            if (o != null)
+            {
+                item = OffsetDateTime.parse((String) o, DateTimeFormatter.ISO_DATE_TIME);
+            }
+        }
+
+        return item;
+    }
+
+    default Double getItemAsDouble(String elementName, Map<String, Object> map)
+    {
+        Double item = null;
+
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
+        {
+            Object o = map.get(elementName);
+            if (o != null)
+            {
+                item = (Double) o;
+            }
+        }
+
+        return item;
+    }
+
+    default Integer getItemAsInteger(String elementName, JSONObject json)
+    {
+        Integer item = null;
+        if ((StringUtils.isNotBlank(elementName)) && (json != null))
+        {
+            Object o = json.get(elementName);
+            if (o != null)
+            {
+                item = (Integer) o;
+            }
+        }
+
+        return item;
+    }
+
+    default Long getItemAsLong(String elementName, Map<String, Object> map)
+    {
+        Long item = null;
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
+        {
+            Object o = map.get(elementName);
+            if (o != null)
+            {
+                item = (Long) o;
+            }
+        }
+
+        return item;
+    }
+
+    default String getItemAsString(String elementName, Map<String, Object> map)
+    {
+        String item = null;
+
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
+        {
+            Object o = map.get(elementName);
+            if (o != null)
+            {
+                item = (String) o;
+            }
+        }
+
+        return item;
+    }
+
+    default String getItemAsString(String elementName, JSONObject json)
+    {
+        String item = null;
+
+        if ((StringUtils.isNotBlank(elementName)) && (json != null))
+        {
+            Object o = json.get(elementName);
+            if (o != null)
+            {
+                item = (String) o;
+            }
+        }
+
+        return item;
+    }
+
+    default OffsetDateTime getItemAsOffSetDate(String elementName, JSONObject json)
+    {
+        OffsetDateTime item = null;
+        if ((StringUtils.isNotBlank(elementName)) && (json != null))
+        {
+            Object o = json.get(elementName);
+            if (o != null)
+            {
+                item = (OffsetDateTime) o;
+            }
+        }
+
+        return item;
+    }
 }

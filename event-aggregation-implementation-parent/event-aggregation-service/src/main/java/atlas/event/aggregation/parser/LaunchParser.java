@@ -18,7 +18,6 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.SsaLaunch;
-import atlas.event.aggregation.util.JSonUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -48,11 +47,11 @@ public class LaunchParser implements IParser
     public Object fromJson(Map<String, Object> map)
     {
         SsaLaunch launch = new SsaLaunch();
-        launch.setId(JSonUtil.getItemAsString("id", map));
-        launch.setLaunchTimeStamp(JSonUtil.getItemAsOffSetDate("launchTimestamp", map));
-        launch.setLaunchSite(JSonUtil.getItemAsString("launchSite", map));
-        launch.setLaunchCountry(JSonUtil.getItemAsString("launchCountry", map));
-        launch.setTypeName(JSonUtil.getItemAsString("typeName", map));
+        launch.setId(getItemAsString("id", map));
+        launch.setLaunchTimeStamp(getItemAsOffSetDate("launchTimestamp", map));
+        launch.setLaunchSite(getItemAsString("launchSite", map));
+        launch.setLaunchCountry(getItemAsString("launchCountry", map));
+        launch.setTypeName(getItemAsString("typeName", map));
 
         return launch;
     }
