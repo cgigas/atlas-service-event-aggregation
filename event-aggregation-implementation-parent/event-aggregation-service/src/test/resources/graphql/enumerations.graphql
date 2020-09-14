@@ -1,0 +1,11 @@
+enum TimePeriodType {
+    RANGE, DURATION
+}
+enum DurationUnits {
+    SECONDS,
+    MINUTES,
+    HOURS,
+    DAYS,
+    WEEKS,
+    MONTHS
+}

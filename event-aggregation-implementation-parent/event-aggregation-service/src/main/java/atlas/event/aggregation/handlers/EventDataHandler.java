@@ -19,11 +19,9 @@ package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.*;
+import atlas.event.aggregation.data.model.ssaeventsat.SsaEventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.parser.EventDetailParser;
-import atlas.event.aggregation.parser.EventParser;
-import atlas.event.aggregation.parser.LaunchParser;
-import atlas.event.aggregation.parser.ObservationSatMedleyParser;
+import atlas.event.aggregation.parser.*;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
@@ -49,6 +47,8 @@ public class EventDataHandler extends MasterHandler
     private LaunchParser launchParser;
     @Autowired
     ObservationSatMedleyParser observationSatMedleyParser;
+    @Autowired
+    private EventSatelliteParser eventSatelliteParser;
 
     public Object processEventDetail(DataFetchingEnvironment environment)
     {
@@ -82,6 +82,64 @@ public class EventDataHandler extends MasterHandler
         }
 
         return eventDetail;
+    }
+
+    public SsaEvent processUpdateEventStatus(DataFetchingEnvironment environment)
+    {
+        SsaEvent event = new SsaEvent();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String id = environment.getArgument("id");
+        Integer eventStatus = environment.getArgument("eventStatus");
+        url += "/updateEventStatus/" + id + "/" + eventStatus;
+
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+
+        return event;
+    }
+
+    public SsaEvent processDeleteSdaEvent(DataFetchingEnvironment environment)
+    {
+        SsaEvent event = new SsaEvent();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String id = environment.getArgument("id");
+        url += "/deleteSdaEvent/" + id;
+
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+
+        return event;
+    }
+
+    public SsaEvent processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    {
+        SsaEvent event = new SsaEvent();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String eventId = environment.getArgument("eventId");
+        String satelliteUuid = environment.getArgument("satelliteUuid");
+        url += "/releaseSatelliteFromEvent/" + eventId + "/" + satelliteUuid;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+
+        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+
+        return event;
+    }
+
+    public SsaEventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
+    {
+        SsaEventSatellite eventSat = new SsaEventSatellite();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String eventId = environment.getArgument("eventId");
+        String satelliteUuid = environment.getArgument("satelliteUuid");
+        url += "/addSatelliteToEvent/" + eventId + "/" + satelliteUuid;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+
+        if (StringUtils.isNotBlank(resultRequestedData))
+        {
+            eventSat = (SsaEventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+        }
+
+        return eventSat;
     }
 
     public SsaEvent processCloseSdaEvent(DataFetchingEnvironment environment)
