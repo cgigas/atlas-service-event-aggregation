@@ -22,6 +22,7 @@ type EasMutation {
     updateEventStatus(id: String, eventStatus: Int): SsaEvent
     addSatelliteToEvent(eventId: String, satelliteUuid: String): SsaEventSatellite
     releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): SsaEvent
+    promoteEventSatellite(eventId: String, satelliteUuid: String): SsaEventSatellite
 }
 
 type EventTypeSummaryResults {

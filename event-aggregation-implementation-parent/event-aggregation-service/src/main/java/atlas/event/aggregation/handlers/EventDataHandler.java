@@ -111,6 +111,13 @@ public class EventDataHandler extends MasterHandler
         return event;
     }
 
+    public SsaEventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
+    {
+        SsaEventSatellite eventSatellite = null;
+
+        return eventSatellite;
+    }
+
     public SsaEvent processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
         SsaEvent event = new SsaEvent();
