@@ -19,8 +19,14 @@
 
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.data.paging.PageableBuilder;
+import atlas.event.aggregation.data.paging.elements.Order;
+import atlas.event.aggregation.data.paging.elements.PageInfo;
+import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import graphql.ErrorType;
 import graphql.GraphQLError;
@@ -30,16 +36,18 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.data.domain.Pageable;
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
  * This is the base class for SatelliteQuery Datafetchers. It centralizes the handling of exceptions and adding standard information to the error extensions map.
  */
 @Slf4j
-public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherResult<T>>
+public abstract class AbstractDataFetcher<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>
 {
 
     private static final String QUERY_SOURCE_TYPE = "queryParentType";
@@ -47,20 +55,49 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
     private static final String QUERY_TYPE = "queryType";
     private static final Object SUBOBJECT_QUERY_TYPE = "subObjectQuery";
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
-
-
-    // Derived classes should instantiate and populate this object.
-    // This allows this class to return a default, or partially populated result.
-    protected T returnValue = null;
+    protected static final String ID_ARG = "id";
+    protected Integer maxPageSize = 1000;
 
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
     // See https://www.graphql-java.com/blog/deep-dive-data-fetcher-results/
     protected Map<String, Object> localContext;
 
-
     protected RuntimeWiringTypeCollector collector;
 
+/*    protected IDigitalHandler getBusinessHandlerByPath(String path)
+    {
+        IDigitalHandler handler = null;
+
+        if (StringUtils.isNotBlank(path))
+        {
+            String anchorName = getDigitalCache().getBusinessHandler(path);
+            if (StringUtils.isNotBlank(anchorName))
+            {
+                handler = getBusinessHandler(anchorName);
+            }
+        }
+
+        return handler;
+    }
+
+    protected IDigitalHandler getBusinessHandler(String anchorId)
+    {
+        IDigitalHandler handler = null;
+
+        if (StringUtils.isNotBlank(anchorId))
+        {
+            Object o = locateService(anchorId);
+            if (o instanceof IDigitalHandler)
+            {
+                handler = (IDigitalHandler) o;
+            }
+        }
+
+        return handler;
+    }
+
+*/
 
     @PostConstruct
     public void initializeRuntimeTypeInformation()
@@ -70,11 +107,43 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
             this.collector.addTypeWiring(this.provideRuntimeTypeWiring());
         }
     }
+    /*
+        public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
+        {
+            return processRequest(getRequestPath(environment), environment);
+        }
 
+        public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
+        {
+            Object result = null;
+            IDigitalHandler handler = null;
+            if (StringUtils.isNotBlank(path))
+            {
+                handler = getBusinessHandlerByPath(path);
+            }
+            else
+            {
+                throw new EventAggregateException("Path is required");
+            }
 
+            if (handler != null)
+            {
+                result = handler.processRequest(environment);
+            }
+            else
+            {
+                throw new EventAggregateException("No registered handler for path: " + path);
+            }
+            SsaEvent event = (SsaEvent) result;
+            result = Lists.newArrayList(event);
+            return result;
+        }
+    */
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
+        Object returnValue = null;
+        LocalDateTime start = LocalDateTime.now();
         try
         {
             // if the environment local context is set, cast it to our local var.
@@ -85,7 +154,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
             }
 
             // Do the main work of the fetcher. This could throw an unanticipated error, or a SatelliteQueryException (probably an info or warning message)
-            performFetch(environment);
+            returnValue = performFetch(environment);
             DataFetcherResult<T> result = (DataFetcherResult<T>) DataFetcherResult.newResult()
                 .data(returnValue)
                 .localContext(localContext)
@@ -93,21 +162,27 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
             // We don't want our localContext variable to persist to the next use of this fetcher, so clear it here
             // check this - we just undid whatever was done in performFetch()
             localContext = null;
+            LocalDateTime end = LocalDateTime.now();
+            System.out.println("Total Time: " + (end.getNano() - start.getNano()));
             return result;
         }
         catch (EventAggregationQueryException e)
         {
-            return buildWarningResult(environment, e);
+            return buildWarningResult(environment, returnValue, e);
+        }
+        catch (EventAggregateException eae)
+        {
+            return buildErrorResult(environment, returnValue, eae);
         }
         catch (RuntimeException e)
         {
-            return buildErrorResult(environment, e);
+            return buildErrorResult(environment, returnValue, e);
         }
     }
 
-    protected DataFetcherResult<T> buildErrorResult(DataFetchingEnvironment environment, RuntimeException e)
+    protected DataFetcherResult<T> buildErrorResult(DataFetchingEnvironment environment, Object returnValue, RuntimeException e)
     {
-        log.error("An unexpected error occurred while fetching data.", e);
+        //log.error("An unexpected error occurred while fetching data.", e);
         GraphQLError error = GraphqlErrorBuilder.newError(environment)
             .errorType(ErrorType.DataFetchingException)
             .message(e.getMessage())
@@ -121,9 +196,9 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
         return errorResult;
     }
 
-    protected DataFetcherResult<T> buildWarningResult(DataFetchingEnvironment environment, EventAggregationQueryException e)
+    protected DataFetcherResult<T> buildWarningResult(DataFetchingEnvironment environment, Object returnValue, EventAggregationQueryException e)
     {
-        log.info("A warning occurred while fetching data.", e);
+        //log.info("A warning occurred while fetching data.", e);
         Map<String, Object> ext = getExtensions(environment);
         if (e.getExtensions() != null)
         {
@@ -170,7 +245,7 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
     // The localContext map is also available for derived classes to use to pass prefetched objects to subsequent data fetchers
     // performFetch will be retried if an exception is thrown by REST clients
     //    @Retryable(value = {RestClientException.class, ResourceAccessException.class}, maxAttempts = 3, backoff = @Backoff(delay = 1000, maxDelay = 5000))
-    protected abstract void performFetch(DataFetchingEnvironment environment);
+    protected abstract Object performFetch(DataFetchingEnvironment environment);
 
     protected abstract Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring();
 
@@ -182,4 +257,42 @@ public abstract class AbstractDataFetcher<T> implements DataFetcher<DataFetcherR
         }
         this.localContext.put(key, value);
     }
+
+    protected Pageable getPageRequestArgument(DataFetchingEnvironment environment, String argumentName)
+    {
+        return PageableBuilder.from(environment.getArgument(argumentName));
+    }
+
+
+    private PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
+    {
+        PageInfo pageInfo = new PageInfo();
+        Pageable pageable = null;
+        //getPageRequestArgument(dataFetchingEnvironment, "pageInfo");
+        if (pageable != null)
+        {
+            pageInfo.setPage(pageable.getPageNumber());
+            pageInfo.setSize(pageable.getPageSize());
+            // convert Spring domain Sort to crud sort
+//            if (pageable.getSort() != Sort.unsorted())
+//            {
+                List<Order> orders = Lists.newArrayList();
+//                for (Order order : pageable.getSort().toList())
+//                {
+                    //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
+//                }
+//                Sort crudSort = null;//Sort.builder().withOrders(orders).build();
+//                pageInfo.setSort(crudSort);
+//            }
+        }
+        else
+        {
+            // default pageInfo
+            pageInfo.setPage(0);
+            pageInfo.setSize(maxPageSize);
+        }
+        return pageInfo;
+    }
+
+
 }

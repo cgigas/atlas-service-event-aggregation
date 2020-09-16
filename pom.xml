@@ -35,7 +35,12 @@
 
     <name>ATLAS: Event Aggregation Service Parent (POM)</name>
     <description>Parent module for the event-aggregation service</description>
-
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
     <properties>
         <!-- Local properties specific to event-aggregation-service -->
         <atlas.crud.version>1.0.0-SNAPSHOT</atlas.crud.version>
@@ -87,6 +92,21 @@
                 <version>${com.graphql-java.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.11</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.9</version>
+            </dependency>
+            <dependency>
                 <groupId>com.graphql-java</groupId>
                 <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
                 <version>${com.graphql-java-spring-boot-starter.version}</version>
@@ -109,6 +129,11 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
+                <groupId>com.googlecode.json-simple</groupId>
+                <artifactId>json-simple</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -125,6 +150,12 @@
                 <version>${com.opencsv.version}</version>
             </dependency>
             <!--Service Specific Dependencies-->
+            <!--            Service Dev Mode Dependency-->
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${org.hsqldb.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.graphql-java-generator</groupId>

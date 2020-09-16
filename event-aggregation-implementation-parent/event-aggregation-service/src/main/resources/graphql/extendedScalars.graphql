@@ -1,0 +1,25 @@
+# This file lists all of the extended scalars that GraphQL-Java provides.
+# To use them, select just the ones you want to use in your schema, as you'll have to wire in impementations for any
+# that are found in the combined schema, whether they are used or not.
+#
+# To use a custom scalar, define it in SDL as below, and when creating the RuntimeWiring object, register the scalar
+# implementation with RuntimeWiring.newRuntimeWiring().scalar(ExtendedScalars.DateTime) for each scalar used.
+#
+# These are scalar types defined in the GraphQL-Java Extended Scalars library.
+# These definitions are declared here to make them visible to the Intellij GraphQLJS plugin
+# for code completion and checking.
+
+"A numeric scalar backed by a Java Long."
+scalar Long
+"A scalar that accepts dates in the RFC-3339 format (yyyy-MM-ddTHH:mm:ssXXX)"
+scalar DateTime
+"A numeric scalar which is equal to or greater than zero"
+scalar NonNegativeInt
+
+"A Float scalar that MUST be greater than or equal to zero."
+scalar NonNegativeFloat
+
+"An Int scalar that MUST be greater than zero."
+scalar PositiveInt
+
+scalar PositiveFloat
