@@ -23,6 +23,7 @@ type EasMutation {
     releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): SsaEvent
     promoteEventSatellite(eventId: String, satelliteUuid: String): SsaEventSatellite
     addEventProcessingConfiguration(eventId: String): String
+    createEvent(eventData: CreateEvent): SsaEvent
 }
 
 type EventTypeSummaryResults {
@@ -31,10 +32,6 @@ type EventTypeSummaryResults {
     planned: Int
     active: Int
     typename: String
-}
-
-type EventType {
-    eventType: String
 }
 
 type SsaEventDetail {
@@ -118,32 +115,47 @@ input EventTypeSummaryTimePeriod {
     timePeriod: TimePeriod
 }
 
-input CreateSsaEvent {
-    ssaEventUuid: ID!
+input EventData {
+    eventDataUuid: String
+    classificationMarking: String
+    eventUuid: String
+    name: String
+    uri: String
+    type: String
+    supplementalData: String
+    createDate: DateTime
+    createOrgin: String
+    updateDate: DateTime
+    updateOrgin: String
+    version: Long
+}
+
+input CreateEvent {
+    eventUuid: ID!
     classificationMarking: String!
-    ssaPredecessorEventUuid: ID
-    eventType: SsaEventType!
+    predecessorEventUuid: ID
+    eventType: EventType!
     eventName: String!
-    eventStatus: SsaEventStatus!
+    eventStatus: EventStatus!
     startDt: DateTime
     endDt: DateTime
-    eventDesc: String
-    bigBoardFlag: Boolean
+    description: String
     internalNotes: String
     eventPostingId: String
+    eventData: EventData
     createDate: DateTime
-    createOrigin: String
+    createOrgin: String
     updateDate: DateTime
-    updateOrigin: String
+    updateOrgin: String
     version: Long
 }
 
 input SsaEventUpdateInput {
     classificationMarking: String
     ssaPredecessorEventUuid: ID
-    eventType: SsaEventType
+    eventType: EventType
     eventName: String
-    eventStatus: SsaEventStatus
+    eventStatus: EventStatus
     startDt: DateTime
     endDt: DateTime
     eventDesc: String
@@ -155,9 +167,9 @@ input SsaEventUpdateInput {
 input SsaEventCreateInput {
     classificationMarking: String!
     ssaPredecessorEventUuid: ID
-    eventType: SsaEventType!
+    eventType: EventType!
     eventName: String!
-    eventStatus: SsaEventStatus!
+    eventStatus: EventStatus!
     startDt: DateTime!
     endDt: DateTime!
     eventDesc: String
@@ -166,32 +178,34 @@ input SsaEventCreateInput {
     eventPostingId: String
 }
 
-enum SsaEventStatus
+enum EventStatus
 {
-    ACTIVE,
-    ADVISORY,
-    CANCELLED,
-    CLOSED,
-    CONFIRMED,
-    POSSIBLE,
-    PROJECTED,
+    PLANNED
+    PREDICTED
+    POSSIBLE
+    ACTIVE
+    CONFIRMED
+    CANCELLED
+    CLOSED
+    ADVISORY
     VERIFIED
 }
 
-enum SsaEventType
+enum EventType
 {
-    BREAKUP,
-    CONJUNCTION,
-    DEORBIT,
-    DOCK,
-    EMI,
-    LAUNCH,
-    MANEUVER,
-    NUDET,
-    OTHER,
-    PROXIMITY,
-    REENTRY,
-    RENDEZVOUS,
-    SEPARATION,
+    BREAKUP
+    DEORBIT
+    LAUNCH
+    MANEUVER
+    REENTRY
+    CONJUNCTION
+    NUDET
+    PROXIMITY
+    RENDEZVOUS
+    SEPARATION
+    DOCK
     UNDOCK
+    EMI
+    DAASAT
+    OTHER
 }
