@@ -1,0 +1,4 @@
+schema {
+    query: MPEQuery
+    mutation: EventMutation
+}
