@@ -19,7 +19,7 @@ package atlas.event.aggregation.data.model.ssaevent;
 
 import java.time.OffsetDateTime;
 
-public class SsaLaunch
+public class Launch
 {
     private String id;
     private OffsetDateTime launchTimeStamp;

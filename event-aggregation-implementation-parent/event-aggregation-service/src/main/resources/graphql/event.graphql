@@ -4,10 +4,10 @@ schema {
 }
 
 type EventQuery {
-    eventById(id: String!): SsaEvent
-    eventDetail(id: String!): SsaEventDetail
+    eventById(id: String!): Event
+    eventDetail(id: String!): EventDetail
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
-    eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
+    eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
 }
 
 type TypeQuery {
@@ -15,15 +15,15 @@ type TypeQuery {
 }
 
 type EventMutation {
-    updateType(id: String, type: String): SsaEvent
-    closeSdaEvent(id: String, endDate: DateTime): SsaEvent
-    deleteSdaEvent(id: String): SsaEvent
-    updateEventStatus(id: String, eventStatus: EventStatus!): SsaEvent
-    addSatelliteToEvent(eventId: String, satelliteUuid: String): SsaEventSatellite
-    releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): SsaEvent
-    promoteEventSatellite(eventId: String, satelliteUuid: String): SsaEventSatellite
+    updateType(id: String, type: String): Event
+    closeSdaEvent(id: String, endDate: DateTime): Event
+    deleteSdaEvent(id: String): Event
+    updateEventStatus(id: String, eventStatus: EventStatus!): Event
+    addSatelliteToEvent(eventId: String, satelliteUuid: String): EventSatellite
+    releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): Event
+    promoteEventSatellite(eventId: String, satelliteUuid: String): EventSatellite
     addEventProcessingConfiguration(eventId: String): String
-    createEvent(eventData: CreateEvent): SsaEvent
+    createEvent(eventData: CreateEvent): Event
 }
 
 type EventTypeSummaryResults {
@@ -34,7 +34,7 @@ type EventTypeSummaryResults {
     typename: String
 }
 
-type SsaEventDetail {
+type EventDetail {
     id: String
     state: String
     classification: String
@@ -46,12 +46,12 @@ type SsaEventDetail {
     analystObjects: Int
     candidateObjectCount: Int
     promotableObjectCount: Int
-    parentEvent: SsaEvent
-    launch: SsaLaunch
+    parentEvent: Event
+    launch: Launch
     observationSatMedleyArray: [ObservationSatMedley]
 }
 
-type SsaLaunch {
+type Launch {
     id: String
     launchTimestamp: DateTime
     launchSite: String
@@ -84,15 +84,15 @@ type ObservationSatMedley {
     typeName: String
 }
 
-type SsaEventSatellite {
+type EventSatellite {
     eventSatUuid: String
     satelliteUuid: String
-    ssaEvent: SsaEvent
+    ssaEvent: Event
     relationship: Int
     ucn: Int
 }
 
-type SsaEvent {
+type Event {
     ssaEventUuid: ID!
     classificationMarking: String
     ssaPredecessorEventUuid: ID
@@ -150,7 +150,7 @@ input CreateEvent {
     version: Long
 }
 
-input SsaEventUpdateInput {
+input EventUpdateInput {
     classificationMarking: String
     ssaPredecessorEventUuid: ID
     eventType: EventType

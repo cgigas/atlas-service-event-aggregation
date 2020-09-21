@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.model.ssaevent.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.SsaEventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.apache.commons.lang3.StringUtils;
@@ -87,7 +87,7 @@ public class EventSatelliteParser implements IParser
             eventSatellite.setSatelliteUuid(getItemAsString("satelliteUuid", map));
             eventSatellite.setRelationship(getItemAsLong("relationship", map));
             eventSatellite.setUcn(getItemAsLong("ucn", map));
-            eventSatellite.setSsaEvent((SsaEvent) eventParser.fromJson((Map) map.get("event")));
+            eventSatellite.setSsaEvent((Event) eventParser.fromJson((Map) map.get("event")));
         }
 
         return eventSatellite;

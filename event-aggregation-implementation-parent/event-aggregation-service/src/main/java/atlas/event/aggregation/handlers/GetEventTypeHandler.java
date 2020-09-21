@@ -18,7 +18,7 @@
 package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
-import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.model.ssaevent.Event;
 import atlas.event.aggregation.exception.EventAggregateException;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,7 @@ public class GetEventTypeHandler extends MasterHandler
 {
     public Object processRequest(DataFetchingEnvironment environment)
     {
-        List<SsaEvent> datalist = new ArrayList<>();
+        List<Event> datalist = new ArrayList<>();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         url += "/getEventTypes";
 
@@ -53,7 +53,7 @@ public class GetEventTypeHandler extends MasterHandler
                 {
                     for (Object item: items)
                     {
-                        SsaEvent event = new SsaEvent();
+                        Event event = new Event();
                         datalist.add(event);
                     }
                 }

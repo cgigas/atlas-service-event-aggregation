@@ -19,14 +19,14 @@ package atlas.event.aggregation.data.model.ssaeventsat;
 
 import atlas.event.aggregation.data.model.Audited;
 import atlas.event.aggregation.data.model.GqlSchemaCommon;
-import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.model.ssaevent.Event;
 import java.io.Serializable;
 
 public class SsaEventSatellite extends Audited implements Serializable, GqlSchemaCommon
 {
     private String eventSatUuid;
     private String satelliteUuid;
-    private SsaEvent ssaEvent;
+    private Event ssaEvent;
     private Long relationship;
     private Long ucn;
 
@@ -50,12 +50,12 @@ public class SsaEventSatellite extends Audited implements Serializable, GqlSchem
         this.satelliteUuid = satelliteUuid;
     }
 
-    public SsaEvent getSsaEvent()
+    public Event getSsaEvent()
     {
         return ssaEvent;
     }
 
-    public void setSsaEvent(SsaEvent ssaEvent)
+    public void setSsaEvent(Event ssaEvent)
     {
         this.ssaEvent = ssaEvent;
     }

@@ -52,7 +52,7 @@ public class EventDataHandler extends MasterHandler
 
     public Object processEventDetail(DataFetchingEnvironment environment)
     {
-        SsaEventDetail eventDetail = null;
+        EventDetail eventDetail = null;
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         url += "/eventDetail/" + environment.getArgument("id");
 
@@ -65,11 +65,11 @@ public class EventDataHandler extends MasterHandler
                 JSONObject json = (JSONObject) new JSONParser().parse(resultRequestedData);
                 Map<String, Object> map = (Map)json.get("eventDetail");
 
-                eventDetail = (SsaEventDetail) eventDetailParser.fromJson(map);
+                eventDetail = (EventDetail) eventDetailParser.fromJson(map);
                 if (eventDetail != null)
                 {
-                    eventDetail.setParentEvent((SsaEvent) eventParser.fromJson((Map) map.get("parentEvent")));
-                    eventDetail.setLaunch((SsaLaunch) launchParser.fromJson((Map) map.get("launch")));
+                    eventDetail.setParentEvent((Event) eventParser.fromJson((Map) map.get("parentEvent")));
+                    eventDetail.setLaunch((Launch) launchParser.fromJson((Map) map.get("launch")));
 
                     List<ObservationSatMedley> satMedleyList = (List) observationSatMedleyParser.fromJson((JSONArray) map.get("observationSatMedleyArray"));
                     eventDetail.getObservationSatMedleyArray().addAll(satMedleyList);
@@ -84,43 +84,43 @@ public class EventDataHandler extends MasterHandler
         return eventDetail;
     }
 
-    public SsaEvent processUpdateEventStatus(DataFetchingEnvironment environment)
+    public Event processUpdateEventStatus(DataFetchingEnvironment environment)
     {
-        SsaEvent event = new SsaEvent();
+        Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
         String eventStatus = environment.getArgument("eventStatus");
         url += "/updateEventStatus/" + id + "/" + eventStatus;
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+        event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
     }
 
-    public SsaEvent processEventById(DataFetchingEnvironment environment)
+    public Event processEventById(DataFetchingEnvironment environment)
     {
-        SsaEvent event = new SsaEvent();
+        Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
         url += "/eventById/" + id;
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+        event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
 
     }
 
-    public SsaEvent processDeleteSdaEvent(DataFetchingEnvironment environment)
+    public Event processDeleteSdaEvent(DataFetchingEnvironment environment)
     {
-        SsaEvent event = new SsaEvent();
+        Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
         url += "/deleteSdaEvent/" + id;
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+        event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
     }
@@ -143,16 +143,16 @@ public class EventDataHandler extends MasterHandler
 
     }
 
-    public SsaEvent processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    public Event processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
-        SsaEvent event = new SsaEvent();
+        Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String eventId = environment.getArgument("eventId");
         String satelliteUuid = environment.getArgument("satelliteUuid");
         url += "/releaseSatelliteFromEvent/" + eventId + "/" + satelliteUuid;
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
 
-        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+        event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
     }
@@ -174,9 +174,9 @@ public class EventDataHandler extends MasterHandler
         return eventSat;
     }
 
-    public SsaEvent processCloseSdaEvent(DataFetchingEnvironment environment)
+    public Event processCloseSdaEvent(DataFetchingEnvironment environment)
     {
-        SsaEvent event = new SsaEvent();
+        Event event = new Event();
 
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
@@ -184,15 +184,15 @@ public class EventDataHandler extends MasterHandler
         url += "/closeSdaEvent/" + id + "/" + endDate;
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+        event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
     }
 
-    public List<SsaEvent> processEventsByTimePeriodAndType(DataFetchingEnvironment environment)
+    public List<Event> processEventsByTimePeriodAndType(DataFetchingEnvironment environment)
     {
-        List<SsaEvent> datalist = null;
-        SsaEvent eventResult = null;
+        List<Event> datalist = null;
+        Event eventResult = null;
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         url += "/eventsByTimePeriodAndType/abc/123/456";
 
@@ -208,7 +208,7 @@ public class EventDataHandler extends MasterHandler
                 Iterator it = ja.iterator();
                 while (it.hasNext())
                 {
-                    SsaEvent event = new SsaEvent();
+                    Event event = new Event();
                     Map<String, String> map = (Map) it.next();
                     event.setId(map.get("id"));
                     event.setClassificationMarking(map.get("classification"));

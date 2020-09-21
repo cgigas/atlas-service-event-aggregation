@@ -32,7 +32,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SsaEvent extends Audited implements Serializable, GqlSchemaCommon
+public class Event extends Audited implements Serializable, GqlSchemaCommon
 {
     private static final long serialVersionUID = -2933110789647766059L;
 

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.OffsetDateTime;
 
-public class SsaEventDetail
+public class EventDetail
 {
     private String id;
     private String state;
@@ -35,8 +35,8 @@ public class SsaEventDetail
     private Long candidateObjectCount;
     private Long promotableObjectCount;
     private String typeName;
-    private SsaEvent parentEvent;
-    private SsaLaunch launch;
+    private Event parentEvent;
+    private Launch launch;
     private List<ObservationSatMedley> observationSatMedleyArray;
 
     public String getTypeName()
@@ -159,22 +159,22 @@ public class SsaEventDetail
         this.promotableObjectCount = promotableObjectCount;
     }
 
-    public SsaEvent getParentEvent()
+    public Event getParentEvent()
     {
         return parentEvent;
     }
 
-    public void setParentEvent(SsaEvent parentEvent)
+    public void setParentEvent(Event parentEvent)
     {
         this.parentEvent = parentEvent;
     }
 
-    public SsaLaunch getLaunch()
+    public Launch getLaunch()
     {
         return launch;
     }
 
-    public void setLaunch(SsaLaunch launch)
+    public void setLaunch(Launch launch)
     {
         this.launch = launch;
     }

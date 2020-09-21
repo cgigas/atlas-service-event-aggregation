@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
-import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.model.ssaevent.Event;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
@@ -33,7 +33,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventTypeDataFetcher extends AbstractDataFetcher<List<SsaEvent>>
+public class EventTypeDataFetcher extends AbstractDataFetcher<List<Event>>
 {
     @Override
     protected Object performFetch(DataFetchingEnvironment environment)

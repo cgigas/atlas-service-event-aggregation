@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.SsaEventDetail;
+import atlas.event.aggregation.data.model.ssaevent.EventDetail;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -56,17 +56,17 @@ public class EventDetailParser implements IParser
     @Override
     public Object fromJson(Object json)
     {
-        SsaEventDetail eventDetail = new SsaEventDetail();
+        EventDetail eventDetail = new EventDetail();
         JSONObject jsonObject = (JSONObject) json;
         Map<String, Object> map = (Map) jsonObject.get("eventDetail");
-        eventDetail = (SsaEventDetail) fromJson(map);
+        eventDetail = (EventDetail) fromJson(map);
 
         return eventDetail;
     }
 
     public Object fromJson(Map<String, Object> map)
     {
-        SsaEventDetail eventDetail = new SsaEventDetail();
+        EventDetail eventDetail = new EventDetail();
         eventDetail.setId(getItemAsString("id", map));
         eventDetail.setState(getItemAsString("state", map));
         eventDetail.setClassification(getItemAsString("classification", map));

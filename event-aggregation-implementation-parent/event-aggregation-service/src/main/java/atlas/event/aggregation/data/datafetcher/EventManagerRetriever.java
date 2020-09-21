@@ -19,7 +19,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
-import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import atlas.event.aggregation.data.model.ssaevent.Event;
 import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.handlers.EventTypeSummaryHandler;
 import atlas.event.aggregation.handlers.GetEventTypeHandler;
@@ -40,7 +40,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventManagerRetriever extends AbstractDataFetcher<List<SsaEvent>>
+public class EventManagerRetriever extends AbstractDataFetcher<List<Event>>
 {
     private SsaEventRepository repository;
     @Autowired
