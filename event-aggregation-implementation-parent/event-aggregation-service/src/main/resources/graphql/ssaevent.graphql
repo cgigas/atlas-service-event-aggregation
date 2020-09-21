@@ -17,7 +17,13 @@ type TypeQuery {
 type EventMutation {
     updateType(id: String, type: String): SsaEvent
     closeSdaEvent(id: String, endDate: DateTime): SsaEvent
-    updateEventStatus(id: String, eventStatus: SsaEventStatus): SsaEvent
+    deleteSdaEvent(id: String): SsaEvent
+    updateEventStatus(id: String, eventStatus: EventStatus!): SsaEvent
+    addSatelliteToEvent(eventId: String, satelliteUuid: String): SsaEventSatellite
+    releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): SsaEvent
+    promoteEventSatellite(eventId: String, satelliteUuid: String): SsaEventSatellite
+    addEventProcessingConfiguration(eventId: String): String
+    createEvent(eventData: CreateEvent): SsaEvent
 }
 
 type EventTypeSummaryResults {
@@ -78,6 +84,14 @@ type ObservationSatMedley {
     typeName: String
 }
 
+type SsaEventSatellite {
+    eventSatUuid: String
+    satelliteUuid: String
+    ssaEvent: SsaEvent
+    relationship: Int
+    ucn: Int
+}
+
 type SsaEvent {
     ssaEventUuid: ID!
     classificationMarking: String
@@ -101,23 +115,38 @@ input EventTypeSummaryTimePeriod {
     timePeriod: TimePeriod
 }
 
-input CreateSsaEvent {
-    ssaEventUuid: ID!
+input EventData {
+    eventDataUuid: String
+    classificationMarking: String
+    eventUuid: String
+    name: String
+    uri: String
+    type: String
+    supplementalData: String
+    createDate: DateTime
+    createOrgin: String
+    updateDate: DateTime
+    updateOrgin: String
+    version: Long
+}
+
+input CreateEvent {
+    eventUuid: ID!
     classificationMarking: String!
     ssaPredecessorEventUuid: ID
     eventType: EventType!
     eventName: String!
-    eventStatus: SsaEventStatus!
+    eventStatus: EventStatus!
     startDt: DateTime
     endDt: DateTime
-    eventDesc: String
-    bigBoardFlag: Boolean
+    description: String
     internalNotes: String
     eventPostingId: String
+    eventData: EventData
     createDate: DateTime
-    createOrigin: String
+    createOrgin: String
     updateDate: DateTime
-    updateOrigin: String
+    updateOrgin: String
     version: Long
 }
 
@@ -126,7 +155,7 @@ input SsaEventUpdateInput {
     ssaPredecessorEventUuid: ID
     eventType: EventType
     eventName: String
-    eventStatus: SsaEventStatus
+    eventStatus: EventStatus
     startDt: DateTime
     endDt: DateTime
     eventDesc: String
@@ -140,7 +169,7 @@ input SsaEventCreateInput {
     ssaPredecessorEventUuid: ID
     eventType: EventType!
     eventName: String!
-    eventStatus: SsaEventStatus!
+    eventStatus: EventStatus!
     startDt: DateTime!
     endDt: DateTime!
     eventDesc: String
@@ -149,15 +178,16 @@ input SsaEventCreateInput {
     eventPostingId: String
 }
 
-enum SsaEventStatus
+enum EventStatus
 {
-    ACTIVE,
-    ADVISORY,
-    CANCELLED,
-    CLOSED,
-    CONFIRMED,
-    POSSIBLE,
-    PROJECTED,
+    PLANNED
+    PREDICTED
+    POSSIBLE
+    ACTIVE
+    CONFIRMED
+    CANCELLED
+    CLOSED
+    ADVISORY
     VERIFIED
 }
 
@@ -178,4 +208,7 @@ enum EventType
     RENDEZVOUS,
     SEPARATION,
     UNDOCK
+    EMI
+    DAASAT
+    OTHER
 }
