@@ -18,47 +18,27 @@
 package atlas.event.aggregation.data.model.ssaeventsat;
 
 import atlas.event.aggregation.data.model.Audited;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import atlas.event.aggregation.data.model.GqlSchemaCommon;
+import atlas.event.aggregation.data.model.ssaevent.SsaEvent;
+import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-public class SsaEventSat extends Audited
+public class SsaEventSatellite extends Audited implements Serializable, GqlSchemaCommon
 {
-    /**
-     * UUID of the satellite associated with the event.
-     */
-    @Id
+    private String eventSatUuid;
     private String satelliteUuid;
+    private SsaEvent ssaEvent;
+    private Long relationship;
+    private Long ucn;
 
-    /**
-     * UUID of the SSA event.
-     */
-    @NotNull
-    private String ssaEventUuid;
+    public String getEventSatUuid()
+    {
+        return eventSatUuid;
+    }
 
-    /**
-     * Identifies the relationship of the satellite to the event depending on the SSA event
-     * For DOCK/UNDOCK/SEPARATION/BREAKUP use - PARENT, CHILD
-     * For RENDEZVOUS/PROXIMITY use the pairs - ACTOR and TARGET
-     * For NUDET - use TARGET
-     * For LAUNCH - use ACTOR'
-     */
-    @NotNull
-    private Relationship relationship;
-
-    /**
-     * 'UnCataloged Number - a convention for assigning numbers to uncataloged objects for CA purposes.
-     * Specifically, it is a system used for pre-launch orbital screenings
-     */
-    private Integer ucn;
+    public void setEventSatUuid(String eventSatUuid)
+    {
+        this.eventSatUuid = eventSatUuid;
+    }
 
     public String getSatelliteUuid()
     {
@@ -70,33 +50,45 @@ public class SsaEventSat extends Audited
         this.satelliteUuid = satelliteUuid;
     }
 
-    public String getSsaEventUuid()
+    public SsaEvent getSsaEvent()
     {
-        return ssaEventUuid;
+        return ssaEvent;
     }
 
-    public void setSsaEventUuid(String ssaEventUuid)
+    public void setSsaEvent(SsaEvent ssaEvent)
     {
-        this.ssaEventUuid = ssaEventUuid;
+        this.ssaEvent = ssaEvent;
     }
 
-    public Relationship getRelationship()
+    public Long getRelationship()
     {
         return relationship;
     }
 
-    public void setRelationship(Relationship relationship)
+    public void setRelationship(Long relationship)
     {
         this.relationship = relationship;
     }
 
-    public Integer getUcn()
+    public Long getUcn()
     {
         return ucn;
     }
 
-    public void setUcn(Integer ucn)
+    public void setUcn(Long ucn)
     {
         this.ucn = ucn;
+    }
+
+    @Override
+    public Object getId()
+    {
+        return null;
+    }
+
+    @Override
+    public void setId(Object o)
+    {
+
     }
 }

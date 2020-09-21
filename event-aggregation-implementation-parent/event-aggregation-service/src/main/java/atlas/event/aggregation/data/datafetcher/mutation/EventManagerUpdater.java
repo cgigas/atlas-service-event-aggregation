@@ -58,14 +58,24 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
                     result = eventDetailHandler.processCloseSdaEvent(environment);
                     break;
                 case "/updateEventStatus":
+                    result = eventDetailHandler.processUpdateEventStatus(environment);
                     break;
                 case "/deleteSdaEvent":
+                    result = eventDetailHandler.processDeleteSdaEvent(environment);
                     break;
                 case "/addSatelliteToEvent":
+                    result = eventDetailHandler.processAddSatelliteToEvent(environment);
                     break;
                 case "/releaseSatelliteFromEvent":
+                    result = eventDetailHandler.processReleaseSatelliteFromEvent(environment);
                     break;
                 case "/addEditEventprocessingConfiguration":
+                    break;
+                case "/promoteEventSatellite":
+                    result = eventDetailHandler.processPromoteEventSatellite(environment);
+                    break;
+                case "/addEventProcessingConfiguration":
+                    result = eventDetailHandler.processPromoteEventSatellite(environment);
                     break;
             }
         }
@@ -77,12 +87,13 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("EasMutation")
+        builders.add(newTypeWiring("EventMutation")
                 .dataFetcher("closeSdaEvent", this)
                 .dataFetcher("updateEventStatus", this)
                 .dataFetcher("deleteSdaEvent", this)
                 .dataFetcher("addSatelliteToEvent", this)
                 .dataFetcher("releaseSatelliteFromEvent", this)
+                .dataFetcher("promoteEventSatellite", this)
                 .dataFetcher("addEditEventprocessingConfiguration", this)
         .dataFetcher("closeSdaEvent", this));
 

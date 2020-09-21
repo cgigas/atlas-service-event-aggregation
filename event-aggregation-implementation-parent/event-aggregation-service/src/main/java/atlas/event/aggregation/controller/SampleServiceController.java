@@ -129,6 +129,151 @@ public class SampleServiceController
         sendResponse(response, "application/json", buffer.toString().getBytes());
     }
 
+    @RequestMapping({"/promoteEventSatellite/{eventId}/{satelliteUuid}"})
+    public void processPromoteEventSatellite(@PathVariable String eventId, @PathVariable String satelliteUuid, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"SsaEventSatellite\": {\n");
+        buffer.append("\"eventSatUuid\": \"234kljadsfkljaleswrj\",");
+        buffer.append("\"satelliteUuid\": \"2345we5234\",");
+        buffer.append("\"relationship\": 10,");
+        buffer.append("\"ucn\": 12,");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
+
+    @RequestMapping({"/addSatelliteToEvent/{eventId}/{satelliteUuid}"})
+    public void processAddSatelliteToEvent(@PathVariable String eventId, @PathVariable String satelliteUuid, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"SsaEventSatellite\": {\n");
+        buffer.append("\"eventSatUuid\": \"234kljadsfkljaleswrj\",");
+        buffer.append("\"satelliteUuid\": \"2345we5234\",");
+        buffer.append("\"relationship\": 10,");
+        buffer.append("\"ucn\": 12,");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
+    @RequestMapping({"/releaseSatelliteFromEvent/{eventId}/{satelliteUuid}"})
+    public void processReleaseSatelliteFromEvent(@PathVariable String eventId, @PathVariable String satelliteUuid, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
+    @RequestMapping({"/updateEventStatus/{id}/{eventStatus}"})
+    public void processUpdateEventStatus(@PathVariable String id, @PathVariable String eventStatus, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
+    @RequestMapping({"/deleteSdaEvent/{id}"})
+    public void processDeleteSdaEvent(@PathVariable String id, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
+    @RequestMapping({"/eventById/{id}"})
+    public void processEventById(@PathVariable String id, HttpServletRequest request, HttpServletResponse response)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
     @RequestMapping({"/closeSdaEvent/{id}/{endDate}"})
     public void processCloseSdaEvent(@PathVariable String id, @PathVariable String endDate, HttpServletRequest request, HttpServletResponse response, HttpSession session)
     {
