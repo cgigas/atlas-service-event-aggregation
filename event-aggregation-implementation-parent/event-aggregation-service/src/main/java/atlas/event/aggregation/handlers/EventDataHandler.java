@@ -98,6 +98,20 @@ public class EventDataHandler extends MasterHandler
         return event;
     }
 
+    public SsaEvent processEventById(DataFetchingEnvironment environment)
+    {
+        SsaEvent event = new SsaEvent();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String id = environment.getArgument("id");
+        url += "/eventById/" + id;
+
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+
+        return event;
+
+    }
+
     public SsaEvent processDeleteSdaEvent(DataFetchingEnvironment environment)
     {
         SsaEvent event = new SsaEvent();
@@ -113,9 +127,20 @@ public class EventDataHandler extends MasterHandler
 
     public SsaEventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
-        SsaEventSatellite eventSatellite = null;
+        SsaEventSatellite eventSat = new SsaEventSatellite();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String eventId = environment.getArgument("eventId");
+        String satelliteUuid = environment.getArgument("satelliteUuid");
+        url += "/promoteEventSatellite/" + eventId + "/" + satelliteUuid;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
 
-        return eventSatellite;
+        if (StringUtils.isNotBlank(resultRequestedData))
+        {
+            eventSat = (SsaEventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+        }
+
+        return eventSat;
+
     }
 
     public SsaEvent processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)

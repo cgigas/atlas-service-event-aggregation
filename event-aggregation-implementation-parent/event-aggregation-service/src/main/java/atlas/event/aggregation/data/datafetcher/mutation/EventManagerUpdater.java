@@ -71,9 +71,10 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
                     break;
                 case "/addEditEventprocessingConfiguration":
                     break;
-                case "/promoteSatellite":
-                    break;
                 case "/promoteEventSatellite":
+                    result = eventDetailHandler.processPromoteEventSatellite(environment);
+                    break;
+                case "/addEventProcessingConfiguration":
                     result = eventDetailHandler.processPromoteEventSatellite(environment);
                     break;
             }

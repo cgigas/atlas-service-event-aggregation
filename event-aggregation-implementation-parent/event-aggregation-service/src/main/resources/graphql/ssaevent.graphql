@@ -4,9 +4,8 @@ schema {
 }
 
 type EasQuery {
-    ssaEvents: [SsaEvent]
-    getSsaEventById(id: String!): [SsaEvent]
-    eventDetail(id: String!): [SsaEventDetail]
+    eventById(id: String!): SsaEvent
+    eventDetail(id: String!): SsaEventDetail
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: String!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
 }
@@ -23,6 +22,7 @@ type EasMutation {
     addSatelliteToEvent(eventId: String, satelliteUuid: String): SsaEventSatellite
     releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): SsaEvent
     promoteEventSatellite(eventId: String, satelliteUuid: String): SsaEventSatellite
+    addEventProcessingConfiguration(eventId: String): String
 }
 
 type EventTypeSummaryResults {
