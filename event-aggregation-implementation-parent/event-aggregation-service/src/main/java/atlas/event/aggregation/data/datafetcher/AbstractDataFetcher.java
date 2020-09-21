@@ -47,7 +47,7 @@ import java.util.Map;
  * This is the base class for SatelliteQuery Datafetchers. It centralizes the handling of exceptions and adding standard information to the error extensions map.
  */
 @Slf4j
-public abstract class AbstractDataFetcher<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>
+public abstract class AbstractDataFetcher<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>, IDigitalDataFetcher
 {
 
     private static final String QUERY_SOURCE_TYPE = "queryParentType";
