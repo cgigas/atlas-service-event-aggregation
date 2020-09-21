@@ -7,7 +7,7 @@ type EasQuery {
     eventById(id: String!): SsaEvent
     eventDetail(id: String!): SsaEventDetail
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
-    eventsByTimePeriodAndType(type: String!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
+    eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
 }
 
 type TypeQuery {
@@ -193,6 +193,7 @@ enum EventStatus
 
 enum EventType
 {
+    Multipayload
     BREAKUP
     DEORBIT
     LAUNCH
