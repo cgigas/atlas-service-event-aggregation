@@ -50,40 +50,6 @@ public class EventDataHandler extends MasterHandler
     @Autowired
     private EventSatelliteParser eventSatelliteParser;
 
-    public Object processEventDetail(DataFetchingEnvironment environment)
-    {
-        EventDetail eventDetail = null;
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        url += "/eventDetail/" + environment.getArgument("id");
-
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-
-        if (StringUtils.isNotBlank(resultRequestedData))
-        {
-            try
-            {
-                JSONObject json = (JSONObject) new JSONParser().parse(resultRequestedData);
-                Map<String, Object> map = (Map)json.get("eventDetail");
-
-                eventDetail = (EventDetail) eventDetailParser.fromJson(map);
-                if (eventDetail != null)
-                {
-                    eventDetail.setParentEvent((Event) eventParser.fromJson((Map) map.get("parentEvent")));
-                    eventDetail.setLaunch((Launch) launchParser.fromJson((Map) map.get("launch")));
-
-                    List<ObservationSatMedley> satMedleyList = (List) observationSatMedleyParser.fromJson((JSONArray) map.get("observationSatMedleyArray"));
-                    eventDetail.getObservationSatMedleyArray().addAll(satMedleyList);
-                }
-            }
-            catch (ParseException pe)
-            {
-                throw new EventAggregateException(pe);
-            }
-        }
-
-        return eventDetail;
-    }
-
     public Event processUpdateEventStatus(DataFetchingEnvironment environment)
     {
         Event event = new Event();

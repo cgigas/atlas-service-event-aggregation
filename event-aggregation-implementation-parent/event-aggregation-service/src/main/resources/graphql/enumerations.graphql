@@ -9,3 +9,35 @@ enum DurationUnits {
     WEEKS,
     MONTHS
 }
+
+enum EventStatus
+{
+    PLANNED
+    PREDICTED
+    POSSIBLE
+    ACTIVE
+    CONFIRMED
+    CANCELLED
+    CLOSED
+    ADVISORY
+    VERIFIED
+}
+
+enum EventType
+{
+    BREAKUP,
+    Multipayload,
+    CONJUNCTION,
+    DEORBIT,
+    DOCK,
+    EMI,
+    LAUNCH,
+    MANEUVER,
+    NUDET,
+    OTHER,
+    PROXIMITY,
+    REENTRY,
+    RENDEZVOUS,
+    SEPARATION,
+    UNDOCK
+}

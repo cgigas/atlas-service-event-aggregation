@@ -35,12 +35,12 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventManagerUpdater extends AbstractDataFetcher<Event>
+public class EventDataUpdater extends AbstractDataFetcher<Event>
 {
     @Autowired
     private EventDataHandler eventDetailHandler;
 
-    public EventManagerUpdater(RuntimeWiringTypeCollector collector)
+    public EventDataUpdater(RuntimeWiringTypeCollector collector)
     {
         this.collector = collector;
     }

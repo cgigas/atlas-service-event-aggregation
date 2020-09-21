@@ -1,37 +1,13 @@
 schema {
-    query: EventQuery
+    query: MPEQuery
     mutation: EventMutation
 }
 
-type EventQuery {
+type MPEQuery {
     eventById(id: String!): Event
     eventDetail(id: String!): EventDetail
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
-}
-
-type TypeQuery {
-    getEventTypes: [EventType]
-}
-
-type EventMutation {
-    updateType(id: String, type: String): Event
-    closeSdaEvent(id: String, endDate: DateTime): Event
-    deleteSdaEvent(id: String): Event
-    updateEventStatus(id: String, eventStatus: EventStatus!): Event
-    addSatelliteToEvent(eventId: String, satelliteUuid: String): EventSatellite
-    releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): Event
-    promoteEventSatellite(eventId: String, satelliteUuid: String): EventSatellite
-    addEventProcessingConfiguration(eventId: String): String
-    createEvent(eventData: CreateEvent): Event
-}
-
-type EventTypeSummaryResults {
-    id: String
-    type: String
-    planned: Int
-    active: Int
-    typename: String
 }
 
 type EventDetail {
@@ -49,14 +25,6 @@ type EventDetail {
     parentEvent: Event
     launch: Launch
     observationSatMedleyArray: [ObservationSatMedley]
-}
-
-type Launch {
-    id: String
-    launchTimestamp: DateTime
-    launchSite: String
-    launchCountry: String
-    typeName: String
 }
 
 type ObservationSatMedley {
@@ -90,6 +58,39 @@ type EventSatellite {
     ssaEvent: Event
     relationship: Int
     ucn: Int
+}
+
+
+type TypeQuery {
+    getEventTypes: [EventType]
+}
+
+type EventMutation {
+    updateType(id: String, type: String): Event
+    closeSdaEvent(id: String, endDate: DateTime): Event
+    deleteSdaEvent(id: String): Event
+    updateEventStatus(id: String, eventStatus: EventStatus!): Event
+    addSatelliteToEvent(eventId: String, satelliteUuid: String): EventSatellite
+    releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): Event
+    promoteEventSatellite(eventId: String, satelliteUuid: String): EventSatellite
+    addEventProcessingConfiguration(eventId: String): String
+    createEvent(eventData: CreateEvent): Event
+}
+
+type EventTypeSummaryResults {
+    id: String
+    type: String
+    planned: Int
+    active: Int
+    typename: String
+}
+
+type Launch {
+    id: String
+    launchTimestamp: DateTime
+    launchSite: String
+    launchCountry: String
+    typeName: String
 }
 
 type Event {
@@ -176,36 +177,4 @@ input SsaEventCreateInput {
     bigBoardFlag: Boolean
     internalNotes: String
     eventPostingId: String
-}
-
-enum EventStatus
-{
-    PLANNED
-    PREDICTED
-    POSSIBLE
-    ACTIVE
-    CONFIRMED
-    CANCELLED
-    CLOSED
-    ADVISORY
-    VERIFIED
-}
-
-enum EventType
-{
-    BREAKUP,
-    Multipayload,
-    CONJUNCTION,
-    DEORBIT,
-    DOCK,
-    EMI,
-    LAUNCH,
-    MANEUVER,
-    NUDET,
-    OTHER,
-    PROXIMITY,
-    REENTRY,
-    RENDEZVOUS,
-    SEPARATION,
-    UNDOCK
 }

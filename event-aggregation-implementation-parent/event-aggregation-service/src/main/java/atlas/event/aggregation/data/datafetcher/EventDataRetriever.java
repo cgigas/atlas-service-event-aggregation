@@ -40,7 +40,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventManagerRetriever extends AbstractDataFetcher<List<Event>>
+public class EventDataRetriever extends AbstractDataFetcher<List<Event>>
 {
     private SsaEventRepository repository;
     @Autowired
@@ -50,7 +50,7 @@ public class EventManagerRetriever extends AbstractDataFetcher<List<Event>>
     @Autowired
     GetEventTypeHandler getEventTypeHandler;
 
-    public EventManagerRetriever(SsaEventRepository repo, RuntimeWiringTypeCollector collector)
+    public EventDataRetriever(SsaEventRepository repo, RuntimeWiringTypeCollector collector)
     {
         this.repository = repo;
         this.collector = collector;
@@ -71,9 +71,6 @@ public class EventManagerRetriever extends AbstractDataFetcher<List<Event>>
                 case "/eventTypeSummariesByTimePeriod":
                     result = eventTypeSummaryHandler.processRequest(environment);
                     break;
-                case "/eventDetail":
-                    result = eventDataHandler.processEventDetail(environment);
-                    break;
                 case "/getEventTypes":
                     result = getEventTypeHandler.processRequest(environment);
                     break;
@@ -90,9 +87,8 @@ public class EventManagerRetriever extends AbstractDataFetcher<List<Event>>
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("EventQuery")
+        builders.add(newTypeWiring("MPEQuery")
                 .dataFetcher("eventById", this)
-                .dataFetcher("eventDetail", this)
                 .dataFetcher("eventSummaries", this)
                 .dataFetcher("eventTypeSummariesByTimePeriod", this)
                 .dataFetcher("eventsByTimePeriodAndType", this));
