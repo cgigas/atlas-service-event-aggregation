@@ -208,7 +208,4 @@ enum EventType
     RENDEZVOUS,
     SEPARATION,
     UNDOCK
-    EMI
-    DAASAT
-    OTHER
 }
