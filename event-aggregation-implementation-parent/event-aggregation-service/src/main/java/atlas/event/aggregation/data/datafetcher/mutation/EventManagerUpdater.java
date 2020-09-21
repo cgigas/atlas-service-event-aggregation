@@ -87,7 +87,7 @@ public class EventManagerUpdater extends AbstractDataFetcher<SsaEvent>
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("EasMutation")
+        builders.add(newTypeWiring("EventMutation")
                 .dataFetcher("closeSdaEvent", this)
                 .dataFetcher("updateEventStatus", this)
                 .dataFetcher("deleteSdaEvent", this)

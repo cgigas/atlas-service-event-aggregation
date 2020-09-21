@@ -1,9 +1,9 @@
 schema {
-    query: EasQuery
-    mutation: EasMutation
+    query: EventQuery
+    mutation: EventMutation
 }
 
-type EasQuery {
+type EventQuery {
     eventById(id: String!): SsaEvent
     eventDetail(id: String!): SsaEventDetail
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
@@ -14,7 +14,7 @@ type TypeQuery {
     getEventTypes: [EventType]
 }
 
-type EasMutation {
+type EventMutation {
     updateType(id: String, type: String): SsaEvent
     closeSdaEvent(id: String, endDate: DateTime): SsaEvent
     deleteSdaEvent(id: String): SsaEvent

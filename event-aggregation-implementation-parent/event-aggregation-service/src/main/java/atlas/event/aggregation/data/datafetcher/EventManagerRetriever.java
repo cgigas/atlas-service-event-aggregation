@@ -90,7 +90,7 @@ public class EventManagerRetriever extends AbstractDataFetcher<List<SsaEvent>>
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("EasQuery")
+        builders.add(newTypeWiring("EventQuery")
                 .dataFetcher("eventById", this)
                 .dataFetcher("eventDetail", this)
                 .dataFetcher("eventSummaries", this)

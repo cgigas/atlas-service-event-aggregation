@@ -49,13 +49,12 @@ public class ObjectFieldUpdater
                     fieldMap.remove("id"); // We don't want to update any primary id fields, most aren't named 'id' either.
                 }
                 String mapAsJson = objectMapper.writeValueAsString(fieldMap);
-                log.debug("Updating {} object with field values {}.", target.getClass().getSimpleName(), mapAsJson);
+
                 ObjectReader objectReader = objectMapper.readerForUpdating(target);
                 target = objectReader.readValue(mapAsJson);
             }
             catch (IOException e)
             {
-                log.error("Error processing JSON data for updating an Object.", e);
                 throw new IllegalStateException("Error updating an Object with new field values." + e.getMessage(), e);
             }
         }
