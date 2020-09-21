@@ -89,7 +89,7 @@ public class EventDataHandler extends MasterHandler
         SsaEvent event = new SsaEvent();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
-        Integer eventStatus = environment.getArgument("eventStatus");
+        String eventStatus = environment.getArgument("eventStatus");
         url += "/updateEventStatus/" + id + "/" + eventStatus;
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);

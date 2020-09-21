@@ -18,7 +18,7 @@ type EasMutation {
     updateType(id: String, type: String): SsaEvent
     closeSdaEvent(id: String, endDate: DateTime): SsaEvent
     deleteSdaEvent(id: String): SsaEvent
-    updateEventStatus(id: String, eventStatus: Int): SsaEvent
+    updateEventStatus(id: String, eventStatus: EventStatus!): SsaEvent
     addSatelliteToEvent(eventId: String, satelliteUuid: String): SsaEventSatellite
     releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): SsaEvent
     promoteEventSatellite(eventId: String, satelliteUuid: String): SsaEventSatellite

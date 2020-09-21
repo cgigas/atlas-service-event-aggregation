@@ -209,7 +209,7 @@ public class SampleServiceController
     }
 
     @RequestMapping({"/updateEventStatus/{id}/{eventStatus}"})
-    public void processUpdateEventStatus(@PathVariable String id, @PathVariable Integer eventStatus, HttpServletRequest request, HttpServletResponse response, HttpSession session)
+    public void processUpdateEventStatus(@PathVariable String id, @PathVariable String eventStatus, HttpServletRequest request, HttpServletResponse response, HttpSession session)
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append("{\n");
