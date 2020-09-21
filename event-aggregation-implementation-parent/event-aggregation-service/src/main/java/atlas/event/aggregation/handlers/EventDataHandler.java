@@ -84,6 +84,21 @@ public class EventDataHandler extends MasterHandler
         return eventDetail;
     }
 
+    public SsaEvent processEventById(DataFetchingEnvironment environment)
+    {
+        SsaEvent event = new SsaEvent();
+
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String id = environment.getArgument("id");
+        OffsetDateTime endDate = environment.getArgument("endDate");
+        url += "/eventById/" + id + "/" + endDate;
+
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+        event = (SsaEvent) eventParser.fromJsonString(resultRequestedData);
+
+        return event;
+    }
+
     public SsaEvent processCloseSdaEvent(DataFetchingEnvironment environment)
     {
         SsaEvent event = new SsaEvent();

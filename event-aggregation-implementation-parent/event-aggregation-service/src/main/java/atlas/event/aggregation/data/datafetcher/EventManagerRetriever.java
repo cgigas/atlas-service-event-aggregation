@@ -65,6 +65,9 @@ public class EventManagerRetriever extends AbstractDataFetcher<List<SsaEvent>>
         {
             switch (path)
             {
+                case "/eventById":
+                    result = eventDataHandler.processEventById(environment);
+                    break;
                 case "/eventTypeSummariesByTimePeriod":
                     result = eventTypeSummaryHandler.processRequest(environment);
                     break;
@@ -80,18 +83,17 @@ public class EventManagerRetriever extends AbstractDataFetcher<List<SsaEvent>>
             }
         }
 
-        return Lists.newArrayList(result);
+        return result;
     }
 
     @Override
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("EasQuery")
-                .dataFetcher("ssaEvents", this)
+        builders.add(newTypeWiring("EventQuery")
+                .dataFetcher("eventById", this)
                 .dataFetcher("eventDetail", this)
                 .dataFetcher("eventSummaries", this)
-                .dataFetcher("getSsaEventById", this)
                 .dataFetcher("eventTypeSummariesByTimePeriod", this)
                 .dataFetcher("eventsByTimePeriodAndType", this));
         return builders;

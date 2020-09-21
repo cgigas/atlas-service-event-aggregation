@@ -1,21 +1,20 @@
 schema {
-    query: EasQuery
-    mutation: EasMutation
+    query: EventQuery
+    mutation: EventMutation
 }
 
-type EasQuery {
-    ssaEvents: [SsaEvent]
-    getSsaEventById(id: String!): [SsaEvent]
-    eventDetail(id: String!): [SsaEventDetail]
+type EventQuery {
+    eventById(id: String!): SsaEvent
+    eventDetail(id: String!): SsaEventDetail
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
-    eventsByTimePeriodAndType(type: String!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
+    eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[SsaEvent]
 }
 
 type TypeQuery {
     getEventTypes: [EventType]
 }
 
-type EasMutation {
+type EventMutation {
     updateType(id: String, type: String): SsaEvent
     closeSdaEvent(id: String, endDate: DateTime): SsaEvent
     updateEventStatus(id: String, eventStatus: SsaEventStatus): SsaEvent
@@ -27,10 +26,6 @@ type EventTypeSummaryResults {
     planned: Int
     active: Int
     typename: String
-}
-
-type EventType {
-    eventType: String
 }
 
 type SsaEventDetail {
@@ -110,7 +105,7 @@ input CreateSsaEvent {
     ssaEventUuid: ID!
     classificationMarking: String!
     ssaPredecessorEventUuid: ID
-    eventType: SsaEventType!
+    eventType: EventType!
     eventName: String!
     eventStatus: SsaEventStatus!
     startDt: DateTime
@@ -129,7 +124,7 @@ input CreateSsaEvent {
 input SsaEventUpdateInput {
     classificationMarking: String
     ssaPredecessorEventUuid: ID
-    eventType: SsaEventType
+    eventType: EventType
     eventName: String
     eventStatus: SsaEventStatus
     startDt: DateTime
@@ -143,7 +138,7 @@ input SsaEventUpdateInput {
 input SsaEventCreateInput {
     classificationMarking: String!
     ssaPredecessorEventUuid: ID
-    eventType: SsaEventType!
+    eventType: EventType!
     eventName: String!
     eventStatus: SsaEventStatus!
     startDt: DateTime!
@@ -166,9 +161,10 @@ enum SsaEventStatus
     VERIFIED
 }
 
-enum SsaEventType
+enum EventType
 {
     BREAKUP,
+    Multipayload,
     CONJUNCTION,
     DEORBIT,
     DOCK,
