@@ -133,7 +133,7 @@ input EventData {
 input CreateEvent {
     eventUuid: ID!
     classificationMarking: String!
-    predecessorEventUuid: ID
+    ssaPredecessorEventUuid: ID
     eventType: EventType!
     eventName: String!
     eventStatus: EventStatus!
@@ -193,18 +193,20 @@ enum EventStatus
 
 enum EventType
 {
-    Multipayload
-    BREAKUP
-    DEORBIT
-    LAUNCH
-    MANEUVER
-    REENTRY
-    CONJUNCTION
-    NUDET
-    PROXIMITY
-    RENDEZVOUS
-    SEPARATION
-    DOCK
+    BREAKUP,
+    Multipayload,
+    CONJUNCTION,
+    DEORBIT,
+    DOCK,
+    EMI,
+    LAUNCH,
+    MANEUVER,
+    NUDET,
+    OTHER,
+    PROXIMITY,
+    REENTRY,
+    RENDEZVOUS,
+    SEPARATION,
     UNDOCK
     EMI
     DAASAT
