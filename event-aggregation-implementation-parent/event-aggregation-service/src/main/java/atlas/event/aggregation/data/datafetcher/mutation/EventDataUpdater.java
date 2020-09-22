@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.data.datafetcher.mutation;
 
-import atlas.event.aggregation.data.datafetcher.AbstractDataFetcher;
+import atlas.event.aggregation.data.datafetcher.AbstractDataDispatch;
 import atlas.event.aggregation.data.model.ssaevent.Event;
 import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
@@ -35,7 +35,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventDataUpdater extends AbstractDataFetcher<Event>
+public class EventDataUpdater extends AbstractDataDispatch<Event>
 {
     @Autowired
     private EventDataHandler eventDetailHandler;
@@ -88,14 +88,10 @@ public class EventDataUpdater extends AbstractDataFetcher<Event>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("EventMutation")
-                .dataFetcher("closeSdaEvent", this)
-                .dataFetcher("updateEventStatus", this)
-                .dataFetcher("deleteSdaEvent", this)
                 .dataFetcher("addSatelliteToEvent", this)
                 .dataFetcher("releaseSatelliteFromEvent", this)
                 .dataFetcher("promoteEventSatellite", this)
-                .dataFetcher("addEditEventprocessingConfiguration", this)
-        .dataFetcher("closeSdaEvent", this));
+                .dataFetcher("addEditEventprocessingConfiguration", this));
 
         return builders;
     }

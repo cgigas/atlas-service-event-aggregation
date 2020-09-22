@@ -50,7 +50,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventDetailRetriever extends AbstractDataFetcher<List<EventDetail>>
+public class EventDetailDispatch extends AbstractDataDispatch<List<EventDetail>>
 {
     @Autowired
     private EventParser eventParser;
@@ -62,7 +62,7 @@ public class EventDetailRetriever extends AbstractDataFetcher<List<EventDetail>>
     private ObservationSatMedleyParser observationSatMedleyParser;
 
 
-    public EventDetailRetriever(RuntimeWiringTypeCollector collector)
+    public EventDetailDispatch(RuntimeWiringTypeCollector collector)
     {
         this.collector = collector;
     }
@@ -122,7 +122,7 @@ public class EventDetailRetriever extends AbstractDataFetcher<List<EventDetail>>
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("MPEQuery")
+        builders.add(newTypeWiring("MPEServiceQuery")
                 .dataFetcher("eventDetail", this));
         return builders;
     }

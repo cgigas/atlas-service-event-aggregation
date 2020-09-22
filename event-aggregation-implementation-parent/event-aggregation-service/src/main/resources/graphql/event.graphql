@@ -1,32 +1,17 @@
-type MPEQuery {
+type MPEServiceQuery {
     eventById(id: String!): Event
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
 }
 
-
-type EventSatellite {
-    eventSatUuid: String
-    satelliteUuid: String
-    ssaEvent: Event
-    relationship: Int
-    ucn: Int
-}
-
-
 type TypeQuery {
     getEventTypes: [EventType]
 }
 
-type EventMutation {
-    updateType(id: String, type: String): Event
-    closeSdaEvent(id: String, endDate: DateTime): Event
-    deleteSdaEvent(id: String): Event
+type MPEServiceMutation {
+    closeEvent(id: String, endDate: DateTime): Event
+    deleteEvent(id: String): Event
     updateEventStatus(id: String, eventStatus: EventStatus!): Event
-    addSatelliteToEvent(eventId: String, satelliteUuid: String): EventSatellite
-    releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): Event
-    promoteEventSatellite(eventId: String, satelliteUuid: String): EventSatellite
-    addEventProcessingConfiguration(eventId: String): String
     createEvent(eventData: CreateEvent): Event
 }
 

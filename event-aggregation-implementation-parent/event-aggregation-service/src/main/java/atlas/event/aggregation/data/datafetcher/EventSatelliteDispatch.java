@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
@@ -33,21 +34,28 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Slf4j
 @Component
 @Profile("dev")
-public class EventTypeDataFetcher extends AbstractDataDispatch<List<Event>>
+public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
 {
-    @Override
-    protected Object performFetch(DataFetchingEnvironment environment)
+
+    public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
-        System.out.println("SDFSDF");
-        return null;
+        this.collector = collector;
     }
 
     @Override
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        builders.add(newTypeWiring("TypeQuery")
-                .dataFetcher("getEventTypes", this));
+        builders.add(newTypeWiring("MPEServiceMutation")
+                .dataFetcher("addSatelliteToEvent", this)
+                .dataFetcher("releaseSatelliteFromEvent", this)
+                .dataFetcher("promoteEventSatellite", this));
         return builders;
+    }
+
+    @Override
+    protected Object performFetch(DataFetchingEnvironment environment)
+    {
+        return null;
     }
 }

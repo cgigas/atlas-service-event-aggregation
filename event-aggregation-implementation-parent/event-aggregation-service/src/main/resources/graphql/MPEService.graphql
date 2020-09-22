@@ -1,4 +1,4 @@
 schema {
-    query: MPEQuery
-    mutation: EventMutation
+    query: MPEServiceQuery
+    mutation: MPEServiceMutation
 }

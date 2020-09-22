@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public interface IDigitalDataFetcher
+public interface IDigitalDataDispatch
 {
     default String sendHttpGetRestRequestAsString(String url)
     {

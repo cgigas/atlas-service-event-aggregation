@@ -1,4 +1,4 @@
-extend type MPEQuery {
+extend type MPEServiceQuery {
     eventDetail(id: String!): EventDetail
 }
 

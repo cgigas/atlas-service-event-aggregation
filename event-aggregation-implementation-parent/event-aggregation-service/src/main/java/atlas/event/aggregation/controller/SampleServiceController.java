@@ -252,6 +252,28 @@ public class SampleServiceController
         sendResponse(response, "application/json", buffer.toString().getBytes());
     }
 
+    @RequestMapping({"/createEvent/{id}"})
+    public void processCreateEvent(@PathVariable String id, HttpServletRequest request, HttpServletResponse response)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("{\n");
+        buffer.append("\"event\": {\n");
+        buffer.append("\"eventUuid\": \"4665664666a66166464662616\",\n");
+        buffer.append("\"classification\": \"classification\",\n");
+        buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
+        buffer.append("\"type\": 12,\n");
+        buffer.append("\"eventName\": \"eventName\",\n");
+        buffer.append("\"status\": 13,\n");
+        buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
+        buffer.append("\"description\": \"event description\",\n");
+        buffer.append("\"internalNotes\": \"event internal notes\",\n");
+        buffer.append("\"postingId\": \"event Posting Id\"\n");
+        buffer.append("}\n");
+        buffer.append("}\n");
+        sendResponse(response, "application/json", buffer.toString().getBytes());
+    }
+
     @RequestMapping({"/eventById/{id}"})
     public void processEventById(@PathVariable String id, HttpServletRequest request, HttpServletResponse response)
     {
