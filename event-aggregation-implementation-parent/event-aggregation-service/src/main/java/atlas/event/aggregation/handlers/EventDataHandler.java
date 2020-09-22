@@ -19,7 +19,7 @@ package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.*;
-import atlas.event.aggregation.data.model.ssaeventsat.SsaEventSatellite;
+import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.parser.*;
 import graphql.schema.DataFetchingEnvironment;
@@ -91,9 +91,9 @@ public class EventDataHandler extends MasterHandler
         return event;
     }
 
-    public SsaEventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
+    public EventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
-        SsaEventSatellite eventSat = new SsaEventSatellite();
+        EventSatellite eventSat = new EventSatellite();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String eventId = environment.getArgument("eventId");
         String satelliteUuid = environment.getArgument("satelliteUuid");
@@ -102,7 +102,7 @@ public class EventDataHandler extends MasterHandler
 
         if (StringUtils.isNotBlank(resultRequestedData))
         {
-            eventSat = (SsaEventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+            eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
         }
 
         return eventSat;
@@ -123,9 +123,9 @@ public class EventDataHandler extends MasterHandler
         return event;
     }
 
-    public SsaEventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
+    public EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
     {
-        SsaEventSatellite eventSat = new SsaEventSatellite();
+        EventSatellite eventSat = new EventSatellite();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String eventId = environment.getArgument("eventId");
         String satelliteUuid = environment.getArgument("satelliteUuid");
@@ -134,7 +134,7 @@ public class EventDataHandler extends MasterHandler
 
         if (StringUtils.isNotBlank(resultRequestedData))
         {
-            eventSat = (SsaEventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+            eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
         }
 
         return eventSat;

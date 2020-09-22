@@ -17,15 +17,20 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
+import atlas.event.aggregation.parser.EventParser;
+import atlas.event.aggregation.parser.EventSatelliteParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -36,6 +41,10 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Profile("dev")
 public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
 {
+    @Autowired
+    private EventSatelliteParser eventSatelliteParser;
+    @Autowired
+    private EventParser eventParser;
 
     public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -56,6 +65,71 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     @Override
     protected Object performFetch(DataFetchingEnvironment environment)
     {
-        return null;
+        Object result = null;
+        String path = getRequestPath(environment);
+        if (StringUtils.isNotBlank(path))
+        {
+            switch (path)
+            {
+                case "/addSatelliteToEvent":
+                    result = processAddSatelliteToEvent(environment);
+                    break;
+                case "/releaseSatelliteFromEvent":
+                    result = processReleaseSatelliteFromEvent(environment);
+                    break;
+                case "/promoteEventSatellite":
+                    result = processPromoteEventSatellite(environment);
+                    break;
+            }
+        }
+
+        return result;
+    }
+
+    private EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
+    {
+        EventSatellite eventSat = new EventSatellite();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String eventId = environment.getArgument("eventId");
+        String satelliteUuid = environment.getArgument("satelliteUuid");
+        url += "/addSatelliteToEvent/" + eventId + "/" + satelliteUuid;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+
+        if (StringUtils.isNotBlank(resultRequestedData))
+        {
+            eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+        }
+
+        return eventSat;
+    }
+
+    private Event processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    {
+        Event event = new Event();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String eventId = environment.getArgument("eventId");
+        String satelliteUuid = environment.getArgument("satelliteUuid");
+        url += "/releaseSatelliteFromEvent/" + eventId + "/" + satelliteUuid;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+
+        event = (Event) eventParser.fromJsonString(resultRequestedData);
+
+        return event;    }
+
+    private EventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
+    {
+        EventSatellite eventSat = new EventSatellite();
+        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String eventId = environment.getArgument("eventId");
+        String satelliteUuid = environment.getArgument("satelliteUuid");
+        url += "/promoteEventSatellite/" + eventId + "/" + satelliteUuid;
+        String resultRequestedData = sendHttpGetRestRequestAsString(url);
+
+        if (StringUtils.isNotBlank(resultRequestedData))
+        {
+            eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+        }
+
+        return eventSat;
     }
 }

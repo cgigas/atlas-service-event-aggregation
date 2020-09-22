@@ -22,7 +22,7 @@ import atlas.event.aggregation.data.model.GqlSchemaCommon;
 import atlas.event.aggregation.data.model.ssaevent.Event;
 import java.io.Serializable;
 
-public class SsaEventSatellite extends Audited implements Serializable, GqlSchemaCommon
+public class EventSatellite extends Audited implements Serializable, GqlSchemaCommon
 {
     private String eventSatUuid;
     private String satelliteUuid;

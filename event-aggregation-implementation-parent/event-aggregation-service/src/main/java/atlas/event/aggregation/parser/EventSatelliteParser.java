@@ -18,7 +18,7 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.Event;
-import atlas.event.aggregation.data.model.ssaeventsat.SsaEventSatellite;
+import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -44,14 +44,14 @@ public class EventSatelliteParser implements IParser
     @Override
     public Object fromJsonString(String json)
     {
-        SsaEventSatellite eventSatellite = null;
+        EventSatellite eventSatellite = null;
 
         if (StringUtils.isNotBlank(json))
         {
             try
             {
                 JSONObject jsonObject = (JSONObject) new JSONParser().parse(json);
-                eventSatellite = (SsaEventSatellite) fromJson((Map) jsonObject.get("SsaEventSatellite"));
+                eventSatellite = (EventSatellite) fromJson((Map) jsonObject.get("SsaEventSatellite"));
             }
             catch (ParseException pe)
             {
@@ -65,12 +65,12 @@ public class EventSatelliteParser implements IParser
     @Override
     public Object fromJson(Object json)
     {
-        SsaEventSatellite eventSatellite = null;
+        EventSatellite eventSatellite = null;
         if (json != null)
         {
             JSONObject jsonObject = (JSONObject) json;
             Map<String, Object> map = (Map) jsonObject.get("SsaEventSatellite");
-            eventSatellite = (SsaEventSatellite) fromJson(map);
+            eventSatellite = (EventSatellite) fromJson(map);
         }
 
         return eventSatellite;
@@ -79,10 +79,10 @@ public class EventSatelliteParser implements IParser
     @Override
     public Object fromJson(Map<String, Object> map)
     {
-        SsaEventSatellite eventSatellite = null;
+        EventSatellite eventSatellite = null;
         if (map != null)
         {
-            eventSatellite = new SsaEventSatellite();
+            eventSatellite = new EventSatellite();
             eventSatellite.setEventSatUuid(getItemAsString("eventSatUuid", map));
             eventSatellite.setSatelliteUuid(getItemAsString("satelliteUuid", map));
             eventSatellite.setRelationship(getItemAsLong("relationship", map));
