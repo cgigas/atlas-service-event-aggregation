@@ -8,7 +8,7 @@ extend type MPEServiceMutation {
 type EventSatellite {
     eventSatUuid: String
     satelliteUuid: String
-    ssaEvent: Event
+    event: Event
     relationship: Int
     ucn: Int
 }

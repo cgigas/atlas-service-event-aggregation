@@ -17,7 +17,9 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.data.model.ssaevent.EventType;
 import atlas.event.aggregation.data.model.ssaevent.ObservationSatMedley;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -62,7 +64,11 @@ public class ObservationSatMedleyParser implements IParser
             medley.setUcn(getItemAsLong("ucn", map));
             medley.setCommonName(getItemAsString("commonName", map));
             medley.setGroup(getItemAsString("group", map));
-            medley.setType(getItemAsLong("type", map));
+            String eventType = getItemAsString("type", map);
+            if (StringUtils.isNotBlank(eventType))
+            {
+                medley.setType(EventType.valueOf(eventType));
+            }
             medley.setRadarCrossSection(getItemAsDouble("radarCrossSection", map));
             medley.setEpoch(getItemAsOffSetDate("epoch", map));
             medley.setResult(getItemAsString("result", map));
@@ -93,7 +99,12 @@ public class ObservationSatMedleyParser implements IParser
         medley.setUcn(getItemAsLong("ucn", map));
         medley.setCommonName(getItemAsString("commonName", map));
         medley.setGroup(getItemAsString("group", map));
-        medley.setType(getItemAsLong("type", map));
+        String eventType = getItemAsString("type", map);
+        if (StringUtils.isNotBlank(eventType))
+        {
+            medley.setType(EventType.valueOf(eventType));
+        }
+
         medley.setRadarCrossSection(getItemAsDouble("radarCrossSection", map));
         medley.setEpoch(getItemAsOffSetDate("epoch", map));
         medley.setResult(getItemAsString("result", map));

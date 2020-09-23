@@ -37,14 +37,6 @@ import java.util.List;
 @Profile("dev")
 public final class DataLoader extends DigitalBase
 {
-    private final SsaEventRepository ssaEventRepository;
-
-    @Autowired
-    private DataLoader(SsaEventRepository ssaEventRepository)
-    {
-
-        this.ssaEventRepository = ssaEventRepository;
-    }
 
     @PostConstruct
     public void init()

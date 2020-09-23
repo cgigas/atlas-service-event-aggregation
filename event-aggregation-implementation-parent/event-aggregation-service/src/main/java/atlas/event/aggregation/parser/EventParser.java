@@ -18,7 +18,9 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.ssaevent.EventState;
 import atlas.event.aggregation.data.model.ssaevent.EventStatus;
+import atlas.event.aggregation.data.model.ssaevent.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
@@ -72,20 +74,29 @@ public class EventParser implements IParser
     public Object fromJson(Map<String, Object> map)
     {
         Event event = new Event();
+        event.setEventUuid(getItemAsString("eventUuid", map));
         event.setId(getItemAsString("eventUuid", map));
         event.setClassificationMarking(getItemAsString("classification", map));
-        event.setSsaPredecessorEventUuid(getItemAsString("predecessorEventUuid", map));
-        event.setEventType(getItemAsLong("type", map));
+        event.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", map));
+        String eventType = getItemAsString("type", map);
+        if (StringUtils.isNotBlank(eventType))
+        {
+            event.setEventType(EventType.valueOf(eventType));
+        }
         event.setEventName(getItemAsString("eventName", map));
-        event.setEventState(getItemAsString("eventState", map));
+        String eventState = getItemAsString("eventState", map);
+        if (StringUtils.isNotBlank(eventState))
+        {
+            event.setEventState(EventState.valueOf(eventState));
+        }
         String eventStatus = getItemAsString("eventStatus", map);
         if (StringUtils.isNotBlank(eventStatus))
         {
             event.setEventStatus(EventStatus.valueOf(eventStatus));
         }
-        event.setStartDt(getItemAsOffSetDate("startDate", map));
-        event.setEndDt(getItemAsOffSetDate("endDate", map));
-        event.setEventDesc(getItemAsString("description", map));
+        event.setStartDate(getItemAsOffSetDate("startDate", map));
+        event.setEndDate(getItemAsOffSetDate("endDate", map));
+        event.setDescription(getItemAsString("description", map));
         event.setInternalNotes(getItemAsString("internalNotes", map));
         event.setEventPostingId(getItemAsString("postingId", map));
 

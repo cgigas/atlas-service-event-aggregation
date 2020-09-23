@@ -10,6 +10,13 @@ enum DurationUnits {
     MONTHS
 }
 
+enum EventState
+{
+    PLANNED
+    ACTIVE
+    CLOSED
+}
+
 enum EventStatus
 {
     PLANNED

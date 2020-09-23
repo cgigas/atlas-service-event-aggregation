@@ -32,14 +32,15 @@ type Launch {
 }
 
 type Event {
-    ssaEventUuid: ID!
+    eventUuid: String
     classificationMarking: String
-    ssaPredecessorEventUuid: ID
-    eventType: Long
+    predecessorEventUuid: String
+    eventType: EventType
     eventName: String
     eventStatus: EventStatus
-    startDt: DateTime
-    endDt: DateTime
+    eventState: EventState
+    startDate: DateTime
+    endDate: DateTime
     eventDesc: String
     internalNotes: String
     eventPostingId: String
@@ -76,8 +77,8 @@ input CreateEvent {
     eventType: EventType!
     eventName: String!
     eventStatus: EventStatus!
-    startDt: DateTime
-    endDt: DateTime
+    startDate: DateTime
+    endDate: DateTime
     description: String
     internalNotes: String
     eventPostingId: String
@@ -89,30 +90,3 @@ input CreateEvent {
     version: Long
 }
 
-input EventUpdateInput {
-    classificationMarking: String
-    ssaPredecessorEventUuid: ID
-    eventType: EventType
-    eventName: String
-    eventStatus: EventStatus
-    startDt: DateTime
-    endDt: DateTime
-    eventDesc: String
-    bigBoardFlag: Boolean
-    internalNotes: String
-    eventPostingId: String
-}
-
-input SsaEventCreateInput {
-    classificationMarking: String!
-    ssaPredecessorEventUuid: ID
-    eventType: EventType!
-    eventName: String!
-    eventStatus: EventStatus!
-    startDt: DateTime!
-    endDt: DateTime!
-    eventDesc: String
-    bigBoardFlag: Boolean
-    internalNotes: String
-    eventPostingId: String
-}

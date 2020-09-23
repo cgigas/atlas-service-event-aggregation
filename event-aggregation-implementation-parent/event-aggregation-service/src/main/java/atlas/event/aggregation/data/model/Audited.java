@@ -24,9 +24,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Audited extends Versioned
 {
     /**
