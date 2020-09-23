@@ -176,11 +176,14 @@ public class EventDataHandler extends MasterHandler
                 {
                     Event event = new Event();
                     Map<String, String> map = (Map) it.next();
-                    event.setId(map.get("id"));
+                    event.setEventUuid(map.get("id"));
+                    event.setEventStatus(EventStatus.valueOf(map.get("state")));
                     event.setClassificationMarking(map.get("classification"));
-                    event.setEventName(map.get("typename"));
-                    event.setStartDt(OffsetDateTime.now());
-                    event.setEndDt(OffsetDateTime.now());
+                    event.setEventName(map.get("name"));
+                    event.setEventState(EventState.ACTIVE);
+                    event.setEventStatus(EventStatus.valueOf(map.get("eventStatus")));
+                    event.setStartDate(OffsetDateTime.now());
+                    event.setEndDate(OffsetDateTime.now());
                     datalist.add(event);
                 }
 

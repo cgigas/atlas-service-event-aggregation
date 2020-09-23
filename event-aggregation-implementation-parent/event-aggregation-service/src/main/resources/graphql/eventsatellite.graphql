@@ -1,5 +1,5 @@
 extend type MPEServiceMutation {
-    addSatelliteToEvent(eventId: String, satelliteUuid: String): EventSatellite
+    addSatelliteToEvent(eventId: String!, satelliteUuid: String!): EventSatellite
     releaseSatelliteFromEvent(eventId:String, satelliteUuid: String): Event
     promoteEventSatellite(eventId: String, satelliteUuid: String): EventSatellite
     addEventProcessingConfiguration(eventId: String): String
@@ -8,7 +8,7 @@ extend type MPEServiceMutation {
 type EventSatellite {
     eventSatUuid: String
     satelliteUuid: String
-    ssaEvent: Event
+    event: Event
     relationship: Int
     ucn: Int
 }

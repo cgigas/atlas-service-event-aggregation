@@ -33,7 +33,7 @@ public class ObservationSatMedley
     private Long ucn;
     private String commonName;
     private String group;
-    private Long type;
+    private EventType type;
     private Double radarCrossSection;
     private OffsetDateTime epoch;
     private String result;
@@ -164,12 +164,12 @@ public class ObservationSatMedley
         this.group = group;
     }
 
-    public Long getType()
+    public EventType getType()
     {
         return type;
     }
 
-    public void setType(Long type)
+    public void setType(EventType type)
     {
         this.type = type;
     }

@@ -26,7 +26,7 @@ public class EventSatellite extends Audited implements Serializable, GqlSchemaCo
 {
     private String eventSatUuid;
     private String satelliteUuid;
-    private Event ssaEvent;
+    private Event event;
     private Long relationship;
     private Long ucn;
 
@@ -50,14 +50,14 @@ public class EventSatellite extends Audited implements Serializable, GqlSchemaCo
         this.satelliteUuid = satelliteUuid;
     }
 
-    public Event getSsaEvent()
+    public Event getEvent()
     {
-        return ssaEvent;
+        return event;
     }
 
-    public void setSsaEvent(Event ssaEvent)
+    public void setEvent(Event ssaEvent)
     {
-        this.ssaEvent = ssaEvent;
+        this.event = ssaEvent;
     }
 
     public Long getRelationship()

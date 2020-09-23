@@ -8,8 +8,8 @@ type EventDetail {
     classification: String
     type: String
     name: String
-    startDt: DateTime
-    endDt: DateTime
+    startDate: DateTime
+    endDate: DateTime
     catalogObjectCount: Int
     analystObjects: Int
     candidateObjectCount: Int

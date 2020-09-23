@@ -26,7 +26,7 @@ public class EventDetail
     private String id;
     private String state;
     private String classification;
-    private Long type;
+    private EventType type;
     private String name;
     private OffsetDateTime startDate;
     private OffsetDateTime endDate;
@@ -79,12 +79,12 @@ public class EventDetail
         this.classification = classification;
     }
 
-    public Long getType()
+    public EventType getType()
     {
         return type;
     }
 
-    public void setType(Long type)
+    public void setType(EventType type)
     {
         this.type = type;
     }
