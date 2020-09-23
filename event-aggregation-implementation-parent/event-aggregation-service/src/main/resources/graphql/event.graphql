@@ -37,7 +37,7 @@ type Event {
     ssaPredecessorEventUuid: ID
     eventType: Long
     eventName: String
-    eventStatus: Long
+    eventStatus: EventStatus
     startDt: DateTime
     endDt: DateTime
     eventDesc: String

@@ -48,7 +48,7 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     @NotNull
     private String classificationMarking;
 
-    private String state;
+    private String eventState;
     /**
      * Related or preceding SSA event.
      */
@@ -70,7 +70,7 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
      * Event status varies by event type
      */
     @NotNull
-    private Long eventStatus;
+    private EventStatus eventStatus;
 
     /**
      * Date/time when the event began or was detected.
@@ -118,14 +118,14 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
         this.classificationMarking = classificationMarking;
     }
 
-    public String getState()
+    public String getEventState()
     {
-        return state;
+        return eventState;
     }
 
-    public void setState(String state)
+    public void setEventState(String eventState)
     {
-        this.state = state;
+        this.eventState = eventState;
     }
 
     public String getSsaPredecessorEventUuid()
@@ -178,12 +178,12 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
         this.eventName = eventName;
     }
 
-    public Long getEventStatus()
+    public EventStatus getEventStatus()
     {
         return eventStatus;
     }
 
-    public void setEventStatus(Long eventStatus)
+    public void setEventStatus(EventStatus eventStatus)
     {
         this.eventStatus = eventStatus;
     }

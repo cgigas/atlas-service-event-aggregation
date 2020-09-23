@@ -18,7 +18,9 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.ssaevent.EventStatus;
 import atlas.event.aggregation.exception.EventAggregateException;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -75,7 +77,12 @@ public class EventParser implements IParser
         event.setSsaPredecessorEventUuid(getItemAsString("predecessorEventUuid", map));
         event.setEventType(getItemAsLong("type", map));
         event.setEventName(getItemAsString("eventName", map));
-        event.setEventStatus(getItemAsLong("status", map));
+        event.setEventState(getItemAsString("eventState", map));
+        String eventStatus = getItemAsString("eventStatus", map);
+        if (StringUtils.isNotBlank(eventStatus))
+        {
+            event.setEventStatus(EventStatus.valueOf(eventStatus));
+        }
         event.setStartDt(getItemAsOffSetDate("startDate", map));
         event.setEndDt(getItemAsOffSetDate("endDate", map));
         event.setEventDesc(getItemAsString("description", map));

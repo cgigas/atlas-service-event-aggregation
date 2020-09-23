@@ -177,8 +177,10 @@ public class EventDataHandler extends MasterHandler
                     Event event = new Event();
                     Map<String, String> map = (Map) it.next();
                     event.setId(map.get("id"));
+                    event.setEventState(map.get("state"));
                     event.setClassificationMarking(map.get("classification"));
-                    event.setEventName(map.get("typename"));
+                    event.setEventName(map.get("name"));
+                    event.setEventStatus(EventStatus.valueOf(map.get("eventStatus")));
                     event.setStartDt(OffsetDateTime.now());
                     event.setEndDt(OffsetDateTime.now());
                     datalist.add(event);

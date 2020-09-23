@@ -197,7 +197,8 @@ public class SampleServiceController
         buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
         buffer.append("\"type\": 12,\n");
         buffer.append("\"eventName\": \"eventName\",\n");
-        buffer.append("\"status\": 13,\n");
+        buffer.append("\"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("\"eventState\": \"PLANNED\",\n");
         buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"description\": \"event description\",\n");
@@ -219,7 +220,8 @@ public class SampleServiceController
         buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
         buffer.append("\"type\": 12,\n");
         buffer.append("\"eventName\": \"eventName\",\n");
-        buffer.append("\"status\": 13,\n");
+        buffer.append("\"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("\"eventState\": \"PLANNED\",\n");
         buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"description\": \"event description\",\n");
@@ -241,7 +243,8 @@ public class SampleServiceController
         buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
         buffer.append("\"type\": 12,\n");
         buffer.append("\"eventName\": \"eventName\",\n");
-        buffer.append("\"status\": 13,\n");
+        buffer.append("\"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("\"eventState\": \"PLANNED\",\n");
         buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"description\": \"event description\",\n");
@@ -263,7 +266,8 @@ public class SampleServiceController
         buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
         buffer.append("\"type\": 12,\n");
         buffer.append("\"eventName\": \"eventName\",\n");
-        buffer.append("\"status\": 13,\n");
+        buffer.append("\"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("\"eventState\": \"PLANNED\",\n");
         buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"description\": \"event description\",\n");
@@ -285,7 +289,8 @@ public class SampleServiceController
         buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
         buffer.append("\"type\": 12,\n");
         buffer.append("\"eventName\": \"eventName\",\n");
-        buffer.append("\"status\": 13,\n");
+        buffer.append("\"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("\"eventState\": \"PLANNED\",\n");
         buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"description\": \"event description\",\n");
@@ -307,7 +312,8 @@ public class SampleServiceController
         buffer.append("\"predecessorEventUuid\": \"12323523521123415u233412\",\n");
         buffer.append("\"type\": 12,\n");
         buffer.append("\"eventName\": \"eventName\",\n");
-        buffer.append("\"status\": 13,\n");
+        buffer.append("\"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("\"eventState\": \"PLANNED\",\n");
         buffer.append("\"startDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"endDate\": \"2020-09-10T10:16:42.846-06:00\",\n");
         buffer.append("\"description\": \"event description\",\n");
@@ -437,27 +443,63 @@ public class SampleServiceController
         buffer.append("                \"state\": \"Planned\",\n");
         buffer.append("                \"classification\": \"U\",\n");
         buffer.append("                \"type\": 5,\n");
+        buffer.append("                \"eventStatus\": \"ACTIVE\",\n");
         buffer.append("                \"name\": \"an event\",\n");
         buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
         buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
         buffer.append("                \"typename\": \"Event\"\n");
         buffer.append("            },\n");
         buffer.append("            {\n");
-        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789001\",\n");
-        buffer.append("                \"state\": \"Active\",\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
+        buffer.append("                \"state\": \"Planned\",\n");
         buffer.append("                \"classification\": \"U\",\n");
         buffer.append("                \"type\": 5,\n");
-        buffer.append("                \"name\": \"some other event\",\n");
+        buffer.append("                \"eventStatus\": \"CANCELLED\",\n");
+        buffer.append("                \"name\": \"an event\",\n");
         buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
         buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
         buffer.append("                \"typename\": \"Event\"\n");
         buffer.append("            },\n");
         buffer.append("            {\n");
-        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789002\",\n");
-        buffer.append("                \"state\": \"Closed\",\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
+        buffer.append("                \"state\": \"Planned\",\n");
         buffer.append("                \"classification\": \"U\",\n");
         buffer.append("                \"type\": 5,\n");
-        buffer.append("                \"name\": \"yet another event\",\n");
+        buffer.append("                \"eventStatus\": \"CLOSED\",\n");
+        buffer.append("                \"name\": \"an event\",\n");
+        buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
+        buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
+        buffer.append("                \"typename\": \"Event\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
+        buffer.append("                \"state\": \"Planned\",\n");
+        buffer.append("                \"classification\": \"U\",\n");
+        buffer.append("                \"type\": 5,\n");
+        buffer.append("                \"eventStatus\": \"ACTIVE\",\n");
+        buffer.append("                \"name\": \"an event\",\n");
+        buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
+        buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
+        buffer.append("                \"typename\": \"Event\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
+        buffer.append("                \"state\": \"CLOSED\",\n");
+        buffer.append("                \"classification\": \"U\",\n");
+        buffer.append("                \"type\": 5,\n");
+        buffer.append("                \"eventStatus\": \"CANCELLED\",\n");
+        buffer.append("                \"name\": \"an event\",\n");
+        buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
+        buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
+        buffer.append("                \"typename\": \"Event\"\n");
+        buffer.append("            },\n");
+        buffer.append("            {\n");
+        buffer.append("                \"id\": \"293558d4-938a-4c58-8ca1-123456789000\",\n");
+        buffer.append("                \"state\": \"ACTIVE\",\n");
+        buffer.append("                \"classification\": \"U\",\n");
+        buffer.append("                \"type\": 5,\n");
+        buffer.append("                \"eventStatus\": \"CLOSED\",\n");
+        buffer.append("                \"name\": \"an event\",\n");
         buffer.append("                \"startDt\": \"2020 159 23:59:59\"\n");
         buffer.append("                \"endDt\": \"2020 160 01:23:23\"\n");
         buffer.append("                \"typename\": \"Event\"\n");
@@ -466,6 +508,7 @@ public class SampleServiceController
         buffer.append(" }\n");
 
         sendResponse(response, "application/json", buffer.toString().getBytes());
+
     }
 
 

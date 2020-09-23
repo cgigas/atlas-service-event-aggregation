@@ -108,6 +108,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 case "/closeEvent":
                     result = processCloseEvent(environment);
                     break;
+                case "/HelloEVent":
+
             }
         }
 
