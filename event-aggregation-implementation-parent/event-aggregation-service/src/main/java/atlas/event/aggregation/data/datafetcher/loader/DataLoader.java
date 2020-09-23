@@ -42,7 +42,6 @@ public final class DataLoader extends DigitalBase
     @Autowired
     private DataLoader(SsaEventRepository ssaEventRepository)
     {
-
         this.ssaEventRepository = ssaEventRepository;
     }
 
