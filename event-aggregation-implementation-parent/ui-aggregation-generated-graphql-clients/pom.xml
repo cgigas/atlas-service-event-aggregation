@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    ******************************************************************************
+     WARNING: EXPORT CONTROLLED - EAR
+     THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+     GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+     REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+     FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+     VIOLATION OF FEDERAL LAW.
+    ******************************************************************************
+     Unlimited Government Rights
+     WARNING: Do Not Use On A Privately Funded Program Without Permission.
+    ******************************************************************************
+     CLASSIFICATION:   Unclassified
+
+     LIMITATIONS:      None
+    ******************************************************************************
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>atlas.ui-aggregation</groupId>
+        <artifactId>ui-aggregation-implementation-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ui-aggregation-generated-graphql-clients</artifactId>
+    <packaging>pom</packaging>
+
+    <name>ATLAS: ui aggregation parent module for generated graphql code used by the ui aggregation service</name>
+
+    <modules>
+        <module>ui-aggregation-satellite-crud-graphql</module>
+        <module>ui-aggregation-sensor-crud-graphql</module>
+        <module>ui-aggregation-notes-crud-graphql</module>
+    </modules>
+</project>

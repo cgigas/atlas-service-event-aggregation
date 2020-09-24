@@ -1,0 +1,2 @@
+# Ignore graphqls files downloaded to support graphql client generation
+**/*.graphqls

@@ -155,6 +155,72 @@
                 <version>${org.hsqldb.version}</version>
             </dependency>
 
+            <!--Service Specific Dependencies-->
+
+            <dependency>
+                <groupId>atlas.satellite-crud</groupId>
+                <artifactId>satellite-crud-client-library</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.satellite-crud</groupId>
+                <artifactId>satellite-crud-domain-model</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.satellite-crud</groupId>
+                <artifactId>satellite-crud-rest-api</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.orbital-crud</groupId>
+                <artifactId>orbital-crud-client-library</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.orbital-crud</groupId>
+                <artifactId>orbital-crud-domain-model</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.orbital-crud</groupId>
+                <artifactId>orbital-crud-rest-api</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.observation-data-service</groupId>
+                <artifactId>observation-data-service-api</artifactId>
+                <version>${atlas.crud.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.xerial.snappy</groupId>
+                        <artifactId>snappy-java</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.thoughtworks.paranamer</groupId>
+                        <artifactId>paranamer</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.observation-data-service</groupId>
+                <artifactId>observation-data-service-domain-model</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>atlas.observation-data-service</groupId>
+                <artifactId>observation-data-service-client-library</artifactId>
+                <version>${atlas.crud.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.graphql-java-generator</groupId>
                 <artifactId>graphql-java-client-dependencies</artifactId>
