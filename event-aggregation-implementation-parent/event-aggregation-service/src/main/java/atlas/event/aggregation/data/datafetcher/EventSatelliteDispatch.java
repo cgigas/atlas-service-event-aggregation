@@ -31,8 +31,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -103,8 +106,9 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return eventSat;
     }
 
-    private Event processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    private List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
+        List<Event> datalist = new ArrayList<>();
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String eventId = environment.getArgument("eventId");
@@ -113,23 +117,27 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
 
         event = (Event) eventParser.fromJsonString(resultRequestedData);
+        datalist.add(event);
+        return datalist;
+    }
 
-        return event;    }
-
-    private EventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
+    private List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
-        EventSatellite eventSat = new EventSatellite();
+        List<EventSatellite> datalist = new ArrayList<>();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String eventId = environment.getArgument("eventId");
-        String satelliteUuid = environment.getArgument("satelliteUuid");
+        List<Map<String, Object>> parameterList = environment.getArgument("input");
+
+        String eventId = "abc";
+        String satelliteUuid = "xxx";
         url += "/promoteEventSatellite/" + eventId + "/" + satelliteUuid;
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
 
         if (StringUtils.isNotBlank(resultRequestedData))
         {
-            eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+            EventSatellite eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+            datalist.add(eventSat);
         }
 
-        return eventSat;
+        return datalist;
     }
 }
