@@ -1,24 +1,25 @@
 package atlas.event.aggregation.parser;
 
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.json.simple.JSONObject;
-
+import atlas.event.aggregation.data.model.ssaevent.Event;
 import java.util.HashMap;
 import java.util.Map;
 
-class EventParserTest
+import static org.junit.jupiter.api.Assertions.*;
+
+class EventSatelliteParserTest
 {
-    EventParser task = new EventParser();
+    EventSatelliteParser task = new EventSatelliteParser();
     Object fromJson = new JSONObject();
-    String json = "{\"event\":\"satellite\"}";
+    String json = "{\"SsaEventSatellite\":\"map\"}";
     Map<String, Object> map = new HashMap<>();
 
     @Test
     void toJSONString()
     {
-        task.toJSONString(fromJson);
+        assertNull(task.toJSONString(fromJson));
     }
 
     @Test
@@ -30,12 +31,12 @@ class EventParserTest
     @Test
     void fromJson()
     {
-        assertNotNull(task.fromJson(fromJson));
+        task.fromJson(fromJson);
     }
 
     @Test
     void testFromJson()
     {
-        assertNotNull(task.fromJson(map));
+        task.fromJson(map);
     }
 }
