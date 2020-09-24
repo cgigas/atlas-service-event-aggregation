@@ -42,7 +42,7 @@ public class SsaEventData extends Audited
      * Security classification marking of the data in one row of this table in the form of a paragraph marking
      */
     @NotNull
-    private String classficiationMarking;
+    private String classificationMarking;
 
     /**
      * UUID of the associated SSA event.
@@ -76,14 +76,14 @@ public class SsaEventData extends Audited
         this.ssaEventDataUuid = ssaEventDataUuid;
     }
 
-    public String getClassficiationMarking()
+    public String getClassificationMarking()
     {
-        return classficiationMarking;
+        return classificationMarking;
     }
 
-    public void setClassficiationMarking(String classficiationMarking)
+    public void setClassificationMarking(String classificationMarking)
     {
-        this.classficiationMarking = classficiationMarking;
+        this.classificationMarking = classificationMarking;
     }
 
     public String getSsaEventUuid()
