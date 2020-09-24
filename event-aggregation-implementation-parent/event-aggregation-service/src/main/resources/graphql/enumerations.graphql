@@ -48,3 +48,13 @@ enum EventType
     SEPARATION,
     UNDOCK
 }
+
+enum EventSatelliteRelationship
+{
+    PARENT,
+    CHILD,
+    ACTOR,
+    TARGET,
+    PRIMARY,
+    SECONDARY
+}
