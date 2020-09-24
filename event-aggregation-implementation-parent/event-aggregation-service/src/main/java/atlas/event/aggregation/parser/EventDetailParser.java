@@ -50,7 +50,6 @@ public class EventDetailParser implements IParser
         }
 
         return result;
-
     }
 
     @Override

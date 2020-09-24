@@ -17,7 +17,6 @@
  */
 package atlas.event.aggregation.handlers;
 
-import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.model.ssaevent.*;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
@@ -53,7 +52,8 @@ public class EventDataHandler extends MasterHandler
     public Event processUpdateEventStatus(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String id = environment.getArgument("id");
         String eventStatus = environment.getArgument("eventStatus");
         url += "/updateEventStatus/" + id + "/" + eventStatus;
@@ -67,7 +67,8 @@ public class EventDataHandler extends MasterHandler
     public Event processEventById(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String id = environment.getArgument("id");
         url += "/eventById/" + id;
 
@@ -81,7 +82,8 @@ public class EventDataHandler extends MasterHandler
     public Event processDeleteSdaEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String id = environment.getArgument("id");
         url += "/deleteSdaEvent/" + id;
 
@@ -94,7 +96,8 @@ public class EventDataHandler extends MasterHandler
     public EventSatellite processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
         EventSatellite eventSat = new EventSatellite();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String eventId = environment.getArgument("eventId");
         String satelliteUuid = environment.getArgument("satelliteUuid");
         url += "/promoteEventSatellite/" + eventId + "/" + satelliteUuid;
@@ -112,7 +115,8 @@ public class EventDataHandler extends MasterHandler
     public Event processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String eventId = environment.getArgument("eventId");
         String satelliteUuid = environment.getArgument("satelliteUuid");
         url += "/releaseSatelliteFromEvent/" + eventId + "/" + satelliteUuid;
@@ -126,7 +130,8 @@ public class EventDataHandler extends MasterHandler
     public EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
     {
         EventSatellite eventSat = new EventSatellite();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String eventId = environment.getArgument("eventId");
         String satelliteUuid = environment.getArgument("satelliteUuid");
         url += "/addSatelliteToEvent/" + eventId + "/" + satelliteUuid;
@@ -144,7 +149,8 @@ public class EventDataHandler extends MasterHandler
     {
         Event event = new Event();
 
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         String id = environment.getArgument("id");
         OffsetDateTime endDate = environment.getArgument("endDate");
         url += "/closeSdaEvent/" + id + "/" + endDate;
@@ -159,7 +165,8 @@ public class EventDataHandler extends MasterHandler
     {
         List<Event> datalist = null;
         Event eventResult = null;
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        //String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
+        String url = "http://localhost:8080/event-aggregation";
         url += "/eventsByTimePeriodAndType/abc/123/456";
 
         String resultRequestedData = sendHttpGetRestRequestAsString(url);
