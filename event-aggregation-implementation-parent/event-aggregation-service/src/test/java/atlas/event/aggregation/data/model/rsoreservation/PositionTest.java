@@ -15,31 +15,17 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.datafetcher;
+package atlas.event.aggregation.data.model.rsoreservation;
 
-import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
-import graphql.schema.DataFetchingEnvironment;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EventDataDispatchTest
+class PositionTest
 {
-    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
-    EventDataDispatch task = new EventDataDispatch(collector);
-    @Mock
-    DataFetchingEnvironment environment;
-
     @Test
-    void provideRuntimeTypeWiring()
+    void values()
     {
-        assertNotNull(task.provideRuntimeTypeWiring());
-    }
-
-    @Test
-    void performFetch()
-    {
-        assertNull(task.performFetch(environment));
+        assertEquals(4, Position.values().length);
     }
 }

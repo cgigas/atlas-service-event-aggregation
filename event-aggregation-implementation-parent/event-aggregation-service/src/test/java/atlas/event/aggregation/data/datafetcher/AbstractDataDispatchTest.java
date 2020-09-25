@@ -1,34 +1,36 @@
+/*
+ * ******************************************************************************
+ *  WARNING: EXPORT CONTROLLED - EAR
+ *  THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+ *  GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+ *  REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+ *  FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+ *  VIOLATION OF FEDERAL LAW.
+ * ******************************************************************************
+ *  Unlimited Government Rights
+ *  WARNING: Do Not Use On A Privately Funded Program Without Permission.
+ * ******************************************************************************
+ *  CLASSIFICATION:   Unclassified
+ *
+ *  LIMITATIONS:      None
+ * ******************************************************************************
+ */
 package atlas.event.aggregation.data.datafetcher;
 
-import atlas.event.aggregation.server.exception.EventAggregationQueryException;
-import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.idl.TypeRuntimeWiring;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
-import java.util.Collection;
+import static org.mockito.Mockito.mock;
 
 class AbstractDataDispatchTest
 {
-    AbstractDataDispatch task = new AbstractDataDispatch()
-    {
-        @Override
-        protected Object performFetch(DataFetchingEnvironment environment)
-        {
-            return null;
-        }
-
-        @Override
-        protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
-        {
-            return null;
-        }
-    };
-
-    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     @Mock
-    DataFetchingEnvironment environment;
+    AbstractDataDispatch task = mock(AbstractDataDispatch.class, Mockito.CALLS_REAL_METHODS);
+
+    @Mock
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
     void initializeRuntimeTypeInformation()
@@ -45,13 +47,11 @@ class AbstractDataDispatchTest
     @Test
     void buildErrorResult()
     {
-        task.buildErrorResult(environment, new Object(), new RuntimeException());
     }
 
     @Test
     void buildWarningResult()
     {
-
     }
 
     @Test
@@ -75,12 +75,12 @@ class AbstractDataDispatchTest
     @Test
     void addToLocalContext()
     {
-        task.addToLocalContext("user.country","US");
+        task.addToLocalContext("user.country", "US");
     }
 
     @Test
     void getPageRequestArgument()
     {
-        task.getPageRequestArgument(environment,"US");
+        task.getPageRequestArgument(environment, "US");
     }
 }
