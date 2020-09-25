@@ -31,7 +31,7 @@ public class GetEventTypeHandlerTest
     GetEventTypeHandler task = mock(GetEventTypeHandler.class, Mockito.CALLS_REAL_METHODS);
 
     @Mock
-    DataFetchingEnvironment environment=mock(DataFetchingEnvironment.class);
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class);
 
     @Test(expected = EventAggregateException.class)
     public void processRequest()

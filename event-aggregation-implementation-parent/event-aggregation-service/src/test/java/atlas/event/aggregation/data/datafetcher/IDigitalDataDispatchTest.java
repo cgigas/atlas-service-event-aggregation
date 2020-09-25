@@ -17,7 +17,6 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -25,7 +24,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;

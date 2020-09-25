@@ -17,13 +17,11 @@
  */
 package atlas.event.aggregation.controller;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.mock.web.MockHttpSession;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -50,18 +48,18 @@ public class SampleServiceControllerTest
     @Test
     public void test()
     {
-        task.processEventTypeSummaries(startTime,endTime,request,response,session);
-        task.processGetEventTypes(request,response,session);
-        task.processPromoteEventSatellite(eventId,satelliteUuid,request,response,session);
-        task.processAddSatelliteToEvent(eventId,satelliteUuid,request,response,session);
-        task.processReleaseSatelliteFromEvent(eventId,satelliteUuid,request,response,session);
-        task.processUpdateEventStatus(id,eventStatus,request,response,session);
-        task.processDeleteSdaEvent(id,request,response,session);
-        task.processCreateEvent(id,request,response);
-        task.processEventById(id,request,response);
-        task.processCloseSdaEvent(id,endDate,request,response,session);
-        task.processEventDetail(ssaEventId,request,response,session);
-        task.processEventByTimePeriod(eventType, startTime,endTime,request,response);
+        task.processEventTypeSummaries(startTime, endTime, request, response, session);
+        task.processGetEventTypes(request, response, session);
+        task.processPromoteEventSatellite(eventId, satelliteUuid, request, response, session);
+        task.processAddSatelliteToEvent(eventId, satelliteUuid, request, response, session);
+        task.processReleaseSatelliteFromEvent(eventId, satelliteUuid, request, response, session);
+        task.processUpdateEventStatus(id, eventStatus, request, response, session);
+        task.processDeleteSdaEvent(id, request, response, session);
+        task.processCreateEvent(id, request, response);
+        task.processEventById(id, request, response);
+        task.processCloseSdaEvent(id, endDate, request, response, session);
+        task.processEventDetail(ssaEventId, request, response, session);
+        task.processEventByTimePeriod(eventType, startTime, endTime, request, response);
         assertNotNull(task);
     }
 }

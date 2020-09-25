@@ -32,13 +32,13 @@ import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-class GraphQLServiceTest
+public class GraphQLServiceTest
 {
     @Autowired
     GraphQLService graphQLService;
 
     @Test
-    void test()
+    public void test()
     {
         GraphQLService service = ContextConfiguration.graphQLService();
 
@@ -53,7 +53,7 @@ class GraphQLServiceTest
     }
 
     @Configuration
-    static class ContextConfiguration
+    public static class ContextConfiguration
     {
         @Bean
         public static GraphQLService graphQLService()

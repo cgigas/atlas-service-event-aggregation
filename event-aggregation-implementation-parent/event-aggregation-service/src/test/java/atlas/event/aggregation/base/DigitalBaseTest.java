@@ -51,7 +51,7 @@ public class DigitalBaseTest
         SpringContextFactory.setContext(applicationContext);
         when(mockTask.locateService(anyString())).thenReturn(new Object());
         when(mockTask.getDigitalCache()).thenReturn(new DigitalCache());
-        when(mockTask.getRequestPath(environment)).thenReturn(new String());
+        when(mockTask.getRequestPath(environment)).thenReturn("");
     }
 
     @Test(expected = NullPointerException.class)

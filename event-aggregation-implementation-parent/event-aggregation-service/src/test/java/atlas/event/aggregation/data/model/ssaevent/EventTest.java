@@ -19,7 +19,6 @@ package atlas.event.aggregation.data.model.ssaevent;
 
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Id;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -133,6 +132,6 @@ class EventTest
     {
         task.setId(ssaEventUuid);
         assertEquals(ssaEventUuid, task.getId());
-        assertEquals(serialVersionUID, task.getSerialVersionUID());
+        assertEquals(serialVersionUID, Event.getSerialVersionUID());
     }
 }

@@ -53,7 +53,7 @@ class OrderTest
     @Test
     void builder()
     {
-        assertNotNull(task.builder());
+        assertNotNull(Order.builder());
     }
 
     @Test

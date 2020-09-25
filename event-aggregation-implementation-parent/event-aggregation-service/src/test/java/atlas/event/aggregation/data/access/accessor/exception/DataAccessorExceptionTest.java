@@ -33,8 +33,8 @@ public class DataAccessorExceptionTest
         DataAccessorException task = new DataAccessorException();
         DataAccessorException task2 = new DataAccessorException(message);
         DataAccessorException task3 = new DataAccessorException(cause);
-        DataAccessorException task4 = new DataAccessorException(message,cause);
-        DataAccessorException task5 = new DataAccessorException(message,cause,true,true);
+        DataAccessorException task4 = new DataAccessorException(message, cause);
+        DataAccessorException task5 = new DataAccessorException(message, cause, true, true);
 
         assertNotNull(task);
         assertNotNull(task2);

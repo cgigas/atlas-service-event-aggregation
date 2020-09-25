@@ -31,7 +31,7 @@ class EventAggregationGQLServerApplicationTest
         String[] args = new String[1];
         try
         {
-            task.main(args);
+            EventAggregationGQLServerApplication.main(args);
         }
         catch (Exception e)
         {

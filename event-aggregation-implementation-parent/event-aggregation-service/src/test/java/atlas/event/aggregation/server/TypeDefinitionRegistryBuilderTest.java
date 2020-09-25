@@ -18,12 +18,10 @@
 package atlas.event.aggregation.server;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.core.io.ResourceLoader;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TypeDefinitionRegistryBuilderTest
 {
@@ -31,7 +29,7 @@ class TypeDefinitionRegistryBuilderTest
     String rootResourcePath = "event-aggregation-implementation-parent/event-aggregation-service/src/main/resources/graphql/MPEService.graphql";
 
     @Test
-    void buildRegistryFrom()throws IOException
+    void buildRegistryFrom() throws IOException
     {
         try
         {

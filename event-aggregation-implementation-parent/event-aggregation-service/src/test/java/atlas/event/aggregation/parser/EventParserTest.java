@@ -17,28 +17,47 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 
-class EventParserTest
+@RunWith(MockitoJUnitRunner.class)
+public class EventParserTest
 {
     @Mock
     EventParser task = mock(EventParser.class, Mockito.CALLS_REAL_METHODS);
-    Object fromJson = new JSONObject();
-    String json = "{\"event\":\"satellite\"}";
+    Object jsonObj = new JSONObject();
     Map<String, Object> map = new HashMap<>();
-    Object obj = new Object();
 
     @Test
-    void test()
+    public void testFromJsonString()
     {
+        try
+        {
+            task.fromJsonString(anyString());
+        }
+        catch (EventAggregateException e)
+        {
+            assertTrue(e.toString().contains("Unexpected token END OF FILE at position 0"));
+        }
+    }
 
+    @Test
+    public void testFromJson()
+    {
+        assertNull(task.fromJson(jsonObj));
+        assertNull(task.fromJson(map));
     }
 }

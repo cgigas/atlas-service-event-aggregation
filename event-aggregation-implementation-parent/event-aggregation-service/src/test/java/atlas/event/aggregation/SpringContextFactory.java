@@ -59,15 +59,6 @@ public class SpringContextFactory implements ApplicationContextAware
         context = newContext;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext newContext) throws BeansException
-    {
-        if (context == null)
-        {
-            context = newContext;
-        }
-    }
-
     /**
      * Build Spring Context given valid annotatedClasses. Caller is responsible for providing valid and discoverable
      * classes.
@@ -88,6 +79,15 @@ public class SpringContextFactory implements ApplicationContextAware
         else
         {
             LOGGER.debug("context already exists. reusing existing context object");
+        }
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext newContext) throws BeansException
+    {
+        if (context == null)
+        {
+            context = newContext;
         }
     }
 }

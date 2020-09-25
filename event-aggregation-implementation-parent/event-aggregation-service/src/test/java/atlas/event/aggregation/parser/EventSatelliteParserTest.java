@@ -17,34 +17,68 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.data.model.ssaevent.EventType;
+import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-class EventSatelliteParserTest
+@RunWith(MockitoJUnitRunner.class)
+public class EventSatelliteParserTest
 {
     EventSatelliteParser task = new EventSatelliteParser();
     Object fromJson = new JSONObject();
-    String json = "{\"SsaEventSatellite\":\"map\"}";
-    Map<String, Object> map = new HashMap<>();
+    Object badObj = null;
 
     @Test
-    void toJSONString()
+    public void testToJSONString()
     {
         assertNull(task.toJSONString(fromJson));
     }
 
     @Test
-    void testFromJson()
+    public void testFromJsonString()
     {
-        map.put("\"SsaEventSatellite\"",null);
-        task.fromJson(map);
-        task.fromJson(fromJson);
-        task.fromJsonString(json);
+        assertNull(task.fromJsonString(""));
+
+        try
+        {
+            task.fromJsonString("SsaEventSatellite");
+        }
+        catch (EventAggregateException e)
+        {
+            assertTrue(e.toString().contains("Unexpected character"));
+        }
     }
+
+    @Test
+    public void testFromJson()
+    {
+        assertNull(task.fromJson(badObj));
+    }
+
+    @Test
+    public void testFromJsonMap()
+    {
+        Map<String, Object> map = null;
+        assertNull(task.fromJson(map));
+
+        try
+        {
+            map = new HashMap<>();
+            map.put("event", EventType.MANEUVER);
+            task.fromJson(map);
+        }
+        catch (ClassCastException e)
+        {
+        }
+    }
+
 }

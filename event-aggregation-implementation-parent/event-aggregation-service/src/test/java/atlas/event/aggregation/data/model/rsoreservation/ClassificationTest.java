@@ -19,13 +19,13 @@ package atlas.event.aggregation.data.model.rsoreservation;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ClassificationTest
 {
     @Test
     void values()
     {
-        assertEquals(4,Classification.values().length);
+        assertEquals(4, Classification.values().length);
     }
 }

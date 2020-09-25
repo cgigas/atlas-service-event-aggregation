@@ -51,7 +51,8 @@ public class DataLoaderTest
     }
 
     @Configuration
-    public static class ContextConfiguration {
+    public static class ContextConfiguration
+    {
         @Bean
         public static DataLoader dataLoader()
         {

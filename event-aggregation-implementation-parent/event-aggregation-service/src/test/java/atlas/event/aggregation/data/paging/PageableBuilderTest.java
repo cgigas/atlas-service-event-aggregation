@@ -43,19 +43,19 @@ public class PageableBuilderTest
         pageInfo.setPage(1);
         pageInfo.setSize(2);
         org.springframework.data.domain.Sort defaultSort = Sort.by("properties");
-        assertNotNull(task.from(pageInfo, defaultSort));
+        assertNotNull(PageableBuilder.from(pageInfo, defaultSort));
     }
 
     @Test
     public void testFrom()
     {
         Map<String, Object> inputMap = new HashMap<>();
-        assertNull(task.from(inputMap));
+        assertNull(PageableBuilder.from(inputMap));
 
         inputMap.put("a", "b");
         try
         {
-            task.from(inputMap);
+            PageableBuilder.from(inputMap);
         }
         catch (IllegalStateException e)
         {
@@ -64,18 +64,18 @@ public class PageableBuilderTest
 
         inputMap.put("page", 1);
         inputMap.put("size", 1);
-        assertNotNull(task.from(inputMap));
+        assertNotNull(PageableBuilder.from(inputMap));
     }
 
     @Test
     public void sortFrom()
     {
         Map<String, Object> sortMap = new HashMap<>();
-        task.sortFrom(sortMap);
+        PageableBuilder.sortFrom(sortMap);
 
         List<Sort.Order> orders = Lists.newArrayList();
         sortMap.put("orders", orders);
-        task.sortFrom(sortMap);
+        PageableBuilder.sortFrom(sortMap);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class PageableBuilderTest
         Map<String, Object> orderMap = new HashMap<>();
         orderMap.put("direction", "ASC");
         orderMap.put("property", "prop");
-        task.getOrder(orderMap);
+        PageableBuilder.getOrder(orderMap);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class PageableBuilderTest
         Map<String, Object> orderMap = new HashMap<>();
         orderMap.put("direction", "DESC");
         orderMap.put("property", "prop");
-        task.getOrder(orderMap);
+        PageableBuilder.getOrder(orderMap);
     }
 
     @Test
@@ -102,6 +102,6 @@ public class PageableBuilderTest
         Map<String, Object> orderMap = new HashMap<>();
         orderMap.put("direction", "other");
         orderMap.put("property", "prop");
-        task.getOrder(orderMap);
+        PageableBuilder.getOrder(orderMap);
     }
 }
