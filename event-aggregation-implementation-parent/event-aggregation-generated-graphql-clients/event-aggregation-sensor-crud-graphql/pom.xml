@@ -22,16 +22,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>atlas.ui-aggregation</groupId>
-        <artifactId>ui-aggregation-generated-graphql-clients</artifactId>
+        <groupId>atlas.event-aggregation</groupId>
+        <artifactId>event-aggregation-generated-graphql-clients</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>ui-aggregation-satellite-crud-graphql</artifactId>
+    <artifactId>event-aggregation-sensor-crud-graphql</artifactId>
 
     <packaging>jar</packaging>
 
-    <name>ATLAS: ui-aggregation-satellite-crud GraphQL Implementation</name>
+    <name>ATLAS: event-aggregation-sensor-crud GraphQL Implementation</name>
     <description>Uses graphql-generator. Need to make those immune to coverage scanning</description>
 
     <properties>
@@ -79,8 +79,8 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>atlas.satellite-crud</groupId>
-                                    <artifactId>satellite-crud-graphql</artifactId>
+                                    <groupId>atlas.sensor-crud-service</groupId>
+                                    <artifactId>sensor-crud-graphql</artifactId>
                                     <version>${atlas.crud.version}</version>
                                     <classifier>schema</classifier>
                                     <type>zip</type>
@@ -107,15 +107,10 @@
                 <configuration>
                     <mode>client</mode>
                     <schemaFilePattern>/graphql/*.graphqls</schemaFilePattern>
-                    <packageName>atlas.satellite.crud.graphql</packageName>
+                    <packageName>atlas.sensor.crud.graphql</packageName>
                     <customScalars>
                         <customScalar>
                             <graphQLTypeName>NonNegativeFloat</graphQLTypeName>
-                            <javaType>java.lang.Double</javaType>
-                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.NonNegativeFloat</graphQLScalarTypeStaticField>
-                        </customScalar>
-                        <customScalar>
-                            <graphQLTypeName>PositiveFloat</graphQLTypeName>
                             <javaType>java.lang.Double</javaType>
                             <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.NonNegativeFloat</graphQLScalarTypeStaticField>
                         </customScalar>
@@ -171,4 +166,5 @@
            </plugin>
         </plugins>
     </build>
+
 </project>
