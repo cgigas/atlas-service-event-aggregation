@@ -19,13 +19,14 @@ package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.exception.EventAggregateException;
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-public class EventDataHandlerTest
+class EventDataHandlerTest
 {
     @Mock
     EventDataHandler task = mock(EventDataHandler.class, Mockito.CALLS_REAL_METHODS);
@@ -33,51 +34,75 @@ public class EventDataHandlerTest
     @Mock
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class);
 
-    @Test(expected = EventAggregateException.class)
-    public void processUpdateEventStatus()
+    @Test
+    void processUpdateEventStatus()
     {
-        task.processUpdateEventStatus(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processUpdateEventStatus(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processEventById()
+    @Test
+    void processEventById()
     {
-        task.processEventById(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processEventById(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processDeleteSdaEvent()
+    @Test
+    void processDeleteSdaEvent()
     {
-        task.processDeleteSdaEvent(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processDeleteSdaEvent(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processPromoteEventSatellite()
+    @Test
+    void processPromoteEventSatellite()
     {
-        task.processPromoteEventSatellite(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processPromoteEventSatellite(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processReleaseSatelliteFromEvent()
+    @Test
+    void processReleaseSatelliteFromEvent()
     {
-        task.processReleaseSatelliteFromEvent(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processReleaseSatelliteFromEvent(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processAddSatelliteToEvent()
+    @Test
+    void processAddSatelliteToEvent()
     {
-        task.processAddSatelliteToEvent(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processAddSatelliteToEvent(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processCloseSdaEvent()
+    @Test
+    void processCloseSdaEvent()
     {
-        task.processCloseSdaEvent(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processCloseSdaEvent(environment);
+        });
     }
 
-    @Test(expected = EventAggregateException.class)
-    public void processEventsByTimePeriodAndType()
+    @Test
+    void processEventsByTimePeriodAndType()
     {
-        task.processEventsByTimePeriodAndType(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processEventsByTimePeriodAndType(environment);
+        });
     }
 }

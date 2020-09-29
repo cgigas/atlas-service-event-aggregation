@@ -17,18 +17,18 @@
  */
 package atlas.event.aggregation.data.paging.elements;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class SortTest
+class SortTest
 {
     List<Order> orders;
 
     @Test
-    public void test()
+    void test()
     {
         Sort task = new Sort();
         assertNotNull(task);

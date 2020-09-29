@@ -17,18 +17,17 @@
  */
 package atlas.event.aggregation.data.access.accessor.exception;
 
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import static org.junit.Assert.assertNotNull;
-
-public class DataAccessorExceptionTest
+class DataAccessorExceptionTest
 {
     String message = "message";
     Throwable cause = new Throwable();
 
     @Test
-    public void test()
+    void test()
     {
         DataAccessorException task = new DataAccessorException();
         DataAccessorException task2 = new DataAccessorException(message);

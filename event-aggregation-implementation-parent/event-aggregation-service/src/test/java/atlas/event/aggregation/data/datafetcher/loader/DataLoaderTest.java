@@ -19,7 +19,7 @@ package atlas.event.aggregation.data.datafetcher.loader;
 
 import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
 import atlas.event.aggregation.data.model.ssaevent.Event;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,17 +33,17 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class DataLoaderTest
+class DataLoaderTest
 {
     @Autowired
     DataLoader task;
 
     @Test
-    public void test()
+    void test()
     {
         DataLoader dataLoader = ContextConfiguration.dataLoader();
         assertNotNull(dataLoader);
@@ -51,10 +51,10 @@ public class DataLoaderTest
     }
 
     @Configuration
-    public static class ContextConfiguration
+    static class ContextConfiguration
     {
         @Bean
-        public static DataLoader dataLoader()
+        static DataLoader dataLoader()
         {
             SsaEventRepository ssaEventRepository = new SsaEventRepository()
             {

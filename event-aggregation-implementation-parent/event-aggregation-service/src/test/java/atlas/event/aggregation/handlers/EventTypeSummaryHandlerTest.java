@@ -18,22 +18,24 @@
 package atlas.event.aggregation.handlers;
 
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-public class EventTypeSummaryHandlerTest
+class EventTypeSummaryHandlerTest
 {
     EventTypeSummaryHandler task = new EventTypeSummaryHandler();
     @Mock
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class);
 
-    @Test(expected = NullPointerException.class)
-    public void processRequest()
+    @Test
+    void processRequest()
     {
-        task.processRequest(environment);
-        assertNotNull(task);
+        assertThrows(NullPointerException.class, () ->
+        {
+            task.processRequest(environment);
+        });
     }
 }

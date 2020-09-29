@@ -19,13 +19,14 @@ package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.exception.EventAggregateException;
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-public class GetEventTypeHandlerTest
+class GetEventTypeHandlerTest
 {
     @Mock
     GetEventTypeHandler task = mock(GetEventTypeHandler.class, Mockito.CALLS_REAL_METHODS);
@@ -33,9 +34,12 @@ public class GetEventTypeHandlerTest
     @Mock
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class);
 
-    @Test(expected = EventAggregateException.class)
-    public void processRequest()
+    @Test
+    void processRequest()
     {
-        task.processRequest(environment);
+        assertThrows(EventAggregateException.class, () ->
+        {
+            task.processRequest(environment);
+        });
     }
 }

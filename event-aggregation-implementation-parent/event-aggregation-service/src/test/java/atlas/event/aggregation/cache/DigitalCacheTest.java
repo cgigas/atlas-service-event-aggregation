@@ -17,17 +17,17 @@
  */
 package atlas.event.aggregation.cache;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DigitalCacheTest
+class DigitalCacheTest
 {
     DigitalCache task = new DigitalCache();
     String key = "user.country";
@@ -36,28 +36,28 @@ public class DigitalCacheTest
     Map<String, String> externalServiceUrlMap = new HashMap<>();
 
     @Test
-    public void addBusinessHandler()
+    void addBusinessHandler()
     {
         task.addBusinessHandler(key, value);
         assertEquals(value, task.getBusinessHandler(key));
     }
 
     @Test
-    public void addExternalServiceUrl()
+    void addExternalServiceUrl()
     {
         task.addExternalServiceUrl(key, value);
         assertEquals(value, task.getExternalServiceUrl(key));
     }
 
     @Test
-    public void setBusinessHandlerMap()
+    void setBusinessHandlerMap()
     {
         task.setBusinessHandlerMap(businessHandlerMap);
         assertEquals(businessHandlerMap, task.getBusinessHandlerMap());
     }
 
     @Test
-    public void setExternalServiceUrlMap()
+    void setExternalServiceUrlMap()
     {
         task.setExternalServiceUrlMap(externalServiceUrlMap);
         assertEquals(externalServiceUrlMap, task.getExternalServiceUrlMap());
