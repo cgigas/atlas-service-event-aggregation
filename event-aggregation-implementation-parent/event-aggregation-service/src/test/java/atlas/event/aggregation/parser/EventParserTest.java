@@ -17,47 +17,57 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.exception.EventAggregateException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
-public class EventParserTest
+class EventParserTest
 {
     @Mock
     EventParser task = mock(EventParser.class, Mockito.CALLS_REAL_METHODS);
-    Object jsonObj = new JSONObject();
+    JSONObject jsonObj = new JSONObject();
     Map<String, Object> map = new HashMap<>();
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    public void testFromJsonString()
+    void testFromJsonString()
     {
+        map.put("event", "sat");
+
+        try
+        {
+            String jstring = objectMapper.writeValueAsString(map);
+            task.fromJsonString(jstring);
+        }
+        catch (Exception e)
+        {
+            assertTrue(e.toString().contains("java.lang.String cannot be cast to java.util.Map"));
+        }
+
         try
         {
             task.fromJsonString(anyString());
         }
-        catch (EventAggregateException e)
+        catch (Exception e)
         {
             assertTrue(e.toString().contains("Unexpected token END OF FILE at position 0"));
         }
     }
 
     @Test
-    public void testFromJson()
+    void testFromJson()
     {
-        assertNull(task.fromJson(jsonObj));
-        assertNull(task.fromJson(map));
+        assertNotNull(task.fromJson(jsonObj));
+        assertNotNull(task.fromJson(map));
     }
 }
