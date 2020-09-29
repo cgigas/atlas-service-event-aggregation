@@ -1,0 +1,63 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] ATLAS: ui aggregation parent module for generated graphql code used by the ui aggregation service [pom]
+[INFO] ATLAS: event-aggregation-ssaevent-crud GraphQL Implementation      [jar]
+[INFO] ATLAS: event-aggregation-satellite-crud GraphQL Implementation     [jar]
+[INFO] ATLAS: event-aggregation-sensor-crud GraphQL Implementation        [jar]
+[INFO] ATLAS: event-aggregation-notes-crud GraphQL Implementation         [jar]
+[INFO] 
+[INFO] --< atlas.event-aggregation:event-aggregation-generated-graphql-clients >--
+[INFO] Building ATLAS: ui aggregation parent module for generated graphql code used by the ui aggregation service 1.0.0-SNAPSHOT [1/5]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:3.1.0:check (default) @ event-aggregation-generated-graphql-clients ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M2:enforce (default) @ event-aggregation-generated-graphql-clients ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.4:prepare-agent (prepare-agent) @ event-aggregation-generated-graphql-clients ---
+[INFO] argLine set to -javaagent:C:\\Users\\U158659\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.4\\org.jacoco.agent-0.8.4-runtime.jar=destfile=C:\\work\\atlas-service-event-aggregation\\event-aggregation-implementation-parent\\event-aggregation-generated-graphql-clients\\target\\jacoco.exec,append=true
+[INFO] 
+[INFO] --< atlas.event-aggregation:event-aggregation-ssaevent-crud-graphql >---
+[INFO] Building ATLAS: event-aggregation-ssaevent-crud GraphQL Implementation 1.0.0-SNAPSHOT [2/5]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:3.1.0:check (default) @ event-aggregation-ssaevent-crud-graphql ---
+[INFO] Starting audit...
+Audit done.
+[INFO] 
+[INFO] --- maven-enforcer-plugin:3.0.0-M2:enforce (default) @ event-aggregation-ssaevent-crud-graphql ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.4:prepare-agent (prepare-agent) @ event-aggregation-ssaevent-crud-graphql ---
+[INFO] argLine set to -javaagent:C:\\Users\\U158659\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.4\\org.jacoco.agent-0.8.4-runtime.jar=destfile=C:\\work\\atlas-service-event-aggregation\\event-aggregation-implementation-parent\\event-aggregation-generated-graphql-clients\\event-aggregation-ssaevent-crud-graphql\\target\\jacoco.exec,append=true
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.1.1:unpack (unpack) @ event-aggregation-ssaevent-crud-graphql ---
+[INFO] Configured Artifact: atlas.ssaevent-crud:ssaevent-crud-graphql:schema:1.0.0-SNAPSHOT:zip
+[WARNING] The POM for atlas.ssaevent-crud:ssaevent-crud-graphql:zip:schema:1.0.0-SNAPSHOT is missing, no dependency information available
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for ATLAS: ui aggregation parent module for generated graphql code used by the ui aggregation service 1.0.0-SNAPSHOT:
+[INFO] 
+[INFO] ATLAS: ui aggregation parent module for generated graphql code used by the ui aggregation service SUCCESS [  2.911 s]
+[INFO] ATLAS: event-aggregation-ssaevent-crud GraphQL Implementation FAILURE [  1.601 s]
+[INFO] ATLAS: event-aggregation-satellite-crud GraphQL Implementation SKIPPED
+[INFO] ATLAS: event-aggregation-sensor-crud GraphQL Implementation SKIPPED
+[INFO] ATLAS: event-aggregation-notes-crud GraphQL Implementation SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.826 s
+[INFO] Finished at: 2020-09-24T17:27:42-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-dependency-plugin:3.1.1:unpack (unpack) on project event-aggregation-ssaevent-crud-graphql: Unable to find/resolve artifact.: Failure to find atlas.ssaevent-crud:ssaevent-crud-graphql:zip:schema:1.0.0-SNAPSHOT in https://nexus.di2e.net/nexus/content/repositories/central was cached in the local repository, resolution will not be reattempted until the update interval of di2e-central has elapsed or updates are forced -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :event-aggregation-ssaevent-crud-graphql

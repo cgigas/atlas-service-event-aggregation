@@ -1,0 +1,1 @@
+A placeholder directory into which to copy graphqls files for the generator

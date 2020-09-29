@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    ******************************************************************************
+     WARNING: EXPORT CONTROLLED - EAR
+     THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+     GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+     REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+     FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+     VIOLATION OF FEDERAL LAW.
+    ******************************************************************************
+     Unlimited Government Rights
+     WARNING: Do Not Use On A Privately Funded Program Without Permission.
+    ******************************************************************************
+     CLASSIFICATION:   Unclassified
+
+     LIMITATIONS:      None
+    ******************************************************************************
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>atlas.event-aggregation</groupId>
+        <artifactId>event-aggregation-generated-graphql-clients</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>event-aggregation-sensor-crud-graphql</artifactId>
+
+    <packaging>jar</packaging>
+
+    <name>ATLAS: event-aggregation-sensor-crud GraphQL Implementation</name>
+    <description>Uses graphql-generator. Need to make those immune to coverage scanning</description>
+
+    <properties>
+        <code-coverage.skip>true</code-coverage.skip>
+        <integration.tests.skip>true</integration.tests.skip>
+    </properties>
+
+    <dependencies>
+         <dependency>
+            <groupId>com.graphql-java-generator</groupId>
+            <artifactId>graphql-java-client-dependencies</artifactId>
+             <version>${graphql.generator.version}</version>
+             <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+            <version>${com.graphql-java-extended-scalars.version}</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>graphql/</exclude>
+                </excludes>
+            </resource>
+        </resources>
+       <plugins>
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>atlas.sensor-crud-service</groupId>
+                                    <artifactId>sensor-crud-graphql</artifactId>
+                                    <version>${atlas.crud.version}</version>
+                                    <classifier>schema</classifier>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+                </executions>
+           </plugin>
+
+           <plugin>
+                <groupId>com.graphql-java-generator</groupId>
+                <artifactId>graphql-maven-plugin</artifactId>
+               <version>${graphql.generator.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>graphql</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mode>client</mode>
+                    <schemaFilePattern>/graphql/*.graphqls</schemaFilePattern>
+                    <packageName>atlas.sensor.crud.graphql</packageName>
+                    <customScalars>
+                        <customScalar>
+                            <graphQLTypeName>NonNegativeFloat</graphQLTypeName>
+                            <javaType>java.lang.Double</javaType>
+                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.NonNegativeFloat</graphQLScalarTypeStaticField>
+                        </customScalar>
+                        <customScalar>
+                            <graphQLTypeName>NonNegativeInt</graphQLTypeName>
+                            <javaType>java.lang.Integer</javaType>
+                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.NonNegativeInt</graphQLScalarTypeStaticField>
+                        </customScalar>
+                        <customScalar>
+                            <graphQLTypeName>PositiveInt</graphQLTypeName>
+                            <javaType>java.lang.Integer</javaType>
+                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.PositiveInt</graphQLScalarTypeStaticField>
+                        </customScalar>
+                        <customScalar>
+                            <graphQLTypeName>DateTime</graphQLTypeName>
+                            <javaType>java.time.OffsetDateTime</javaType>
+                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.DateTime</graphQLScalarTypeStaticField>
+                        </customScalar>
+                        <customScalar>
+                            <graphQLTypeName>DateTime</graphQLTypeName>
+                            <javaType>java.time.OffsetDateTime</javaType>
+                            <graphQLScalarTypeStaticField>graphql.scalars.ExtendedScalars.DateTime</graphQLScalarTypeStaticField>
+                        </customScalar>
+                        <customScalar>
+                            <graphQLTypeName>Long</graphQLTypeName>
+                            <javaType>java.lang.Long</javaType>
+                            <graphQLScalarTypeStaticField>graphql.Scalars.GraphQLLong</graphQLScalarTypeStaticField>
+                        </customScalar>
+                    </customScalars>
+                </configuration>
+           </plugin>
+
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-clean-plugin</artifactId>
+               <version>${maven-clean-plugin.version}</version>
+               <executions>
+                   <execution>
+                       <id>cleanup-schema</id>
+                       <phase>clean</phase>
+                       <goals>
+                           <goal>clean</goal>
+                       </goals>
+                       <configuration>
+                           <filesets>
+                               <fileset>
+                                   <directory>${project.basedir}/src/main/resources/graphql</directory>
+                               </fileset>
+                           </filesets>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+        </plugins>
+    </build>
+
+</project>
