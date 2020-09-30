@@ -87,7 +87,7 @@ public class EventSatelliteParser implements IParser
             eventSatellite.setSatelliteUuid(getItemAsString("satelliteUuid", map));
             eventSatellite.setRelationship(getItemAsLong("relationship", map));
             eventSatellite.setUcn(getItemAsLong("ucn", map));
-            eventSatellite.setSsaEvent((Event) eventParser.fromJson((Map) map.get("event")));
+            eventSatellite.setEvent((Event) eventParser.fromJson((Map) map.get("event")));
         }
 
         return eventSatellite;

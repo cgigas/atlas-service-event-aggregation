@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.net.URL;
@@ -64,7 +65,7 @@ public final class DataLoader extends DigitalBase
             }
             if (externalUrlCacheList != null)
             {
-                for (String item: externalUrlCacheList)
+                for (String item : externalUrlCacheList)
                 {
                     String[] items = item.split(",");
                     String key = items[0];

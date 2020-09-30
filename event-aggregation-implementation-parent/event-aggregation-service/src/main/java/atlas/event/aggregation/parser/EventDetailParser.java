@@ -18,6 +18,7 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.ssaevent.EventDetail;
+import atlas.event.aggregation.data.model.ssaevent.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -69,10 +70,10 @@ public class EventDetailParser implements IParser
         eventDetail.setId(getItemAsString("id", map));
         eventDetail.setState(getItemAsString("state", map));
         eventDetail.setClassification(getItemAsString("classification", map));
-        eventDetail.setType(getItemAsLong("type", map));
+        eventDetail.setType(EventType.valueOf(getItemAsString("type", map)));
         eventDetail.setName(getItemAsString("name", map));
-        eventDetail.setStartDate(getItemAsOffSetDate("startDt", map));
-        eventDetail.setEndDate(getItemAsOffSetDate("endDt", map));
+        eventDetail.setStartDate(getItemAsOffSetDate("startDate", map));
+        eventDetail.setEndDate(getItemAsOffSetDate("endDate", map));
         eventDetail.setCatalogObjectCount(getItemAsLong("catalogObjectCount", map));
         eventDetail.setAnalystObjects(getItemAsLong("analystObjects", map));
         eventDetail.setCandidateObjectCount(getItemAsLong("candidateObjectCount", map));

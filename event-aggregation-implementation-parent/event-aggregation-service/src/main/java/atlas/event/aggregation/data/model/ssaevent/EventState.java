@@ -17,15 +17,9 @@
  */
 package atlas.event.aggregation.data.model.ssaevent;
 
-public enum EventStatus
+public enum EventState
 {
     PLANNED,
-    PREDICTED,
-    POSSIBLE,
     ACTIVE,
-    CONFIRMED,
-    CANCELLED,
-    CLOSED,
-    ADVISORY,
-    VERIFIED
+    CLOSED
 }

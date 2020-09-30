@@ -40,7 +40,7 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
      * Unique identifier
      */
     @Id
-    private String ssaEventUuid;
+    private String eventUuid;
 
     /**
      * Security classification marking of the data in the form of a paragraph marking.
@@ -48,17 +48,17 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     @NotNull
     private String classificationMarking;
 
-    private String state;
+    private EventState eventState;
     /**
      * Related or preceding SSA event.
      */
-    private String ssaPredecessorEventUuid;
+    private String predecessorEventUuid;
 
     /**
      * Identifies the type of Space Situational Awareness event
      */
     @NotNull
-    private Long eventType;
+    private EventType eventType;
 
     /**
      * Name, title or designator assigned to the event.
@@ -70,23 +70,23 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
      * Event status varies by event type
      */
     @NotNull
-    private Long eventStatus;
+    private EventStatus eventStatus;
 
     /**
      * Date/time when the event began or was detected.
      */
     @NotNull
-    private OffsetDateTime startDt;
+    private OffsetDateTime startDate;
 
     /**
      * Date/time when the event ended.
      */
-    private OffsetDateTime endDt;
+    private OffsetDateTime endDate;
 
     /**
      * Expanded description of the event.
      */
-    private String eventDesc;
+    private String description;
 
     /**
      * Indicates whether or not this entry is of high interest and should be displayed on the data wall (Big Board).
@@ -118,52 +118,53 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
         this.classificationMarking = classificationMarking;
     }
 
-    public String getState()
+    public EventState getEventState()
     {
-        return state;
+        return eventState;
     }
 
-    public void setState(String state)
+    public void setEventState(EventState eventState)
     {
-        this.state = state;
+        this.eventState = eventState;
     }
 
-    public String getSsaPredecessorEventUuid()
+    public String getPredecessorEventUuid()
     {
-        return ssaPredecessorEventUuid;
+        return predecessorEventUuid;
     }
 
-    public void setSsaPredecessorEventUuid(String ssaPredecessorEventUuid)
+    public void setPredecessorEventUuid(String predecessorEventUuid)
     {
-        this.ssaPredecessorEventUuid = ssaPredecessorEventUuid;
+        this.predecessorEventUuid = predecessorEventUuid;
     }
 
-    public Long getEventType()
+    public EventType getEventType()
     {
         return eventType;
     }
 
-    public OffsetDateTime getStartDt()
+
+    public OffsetDateTime getStartDate()
     {
-        return startDt;
+        return startDate;
     }
 
-    public void setStartDt(OffsetDateTime startDt)
+    public void setStartDate(OffsetDateTime startDate)
     {
-        this.startDt = startDt;
+        this.startDate = startDate;
     }
 
-    public OffsetDateTime getEndDt()
+    public OffsetDateTime getEndDate()
     {
-        return endDt;
+        return endDate;
     }
 
-    public void setEndDt(OffsetDateTime endDt)
+    public void setEndDate(OffsetDateTime endDate)
     {
-        this.endDt = endDt;
+        this.endDate = endDate;
     }
 
-    public void setEventType(Long eventType)
+    public void setEventType(EventType eventType)
     {
         this.eventType = eventType;
     }
@@ -178,24 +179,24 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
         this.eventName = eventName;
     }
 
-    public Long getEventStatus()
+    public EventStatus getEventStatus()
     {
         return eventStatus;
     }
 
-    public void setEventStatus(Long eventStatus)
+    public void setEventStatus(EventStatus eventStatus)
     {
         this.eventStatus = eventStatus;
     }
 
-    public String getEventDesc()
+    public String getDescription()
     {
-        return eventDesc;
+        return description;
     }
 
-    public void setEventDesc(String eventDesc)
+    public void setDescription(String description)
     {
-        this.eventDesc = eventDesc;
+        this.description = description;
     }
 
     public Boolean getBigBoardFlag()
@@ -206,6 +207,16 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     public void setBigBoardFlag(Boolean bigBoardFlag)
     {
         this.bigBoardFlag = bigBoardFlag;
+    }
+
+    public String getEventUuid()
+    {
+        return eventUuid;
+    }
+
+    public void setEventUuid(String eventUuid)
+    {
+        this.eventUuid = eventUuid;
     }
 
     public String getInternalNotes()
@@ -231,12 +242,12 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     @Override
     public String getId()
     {
-        return ssaEventUuid;
+        return eventUuid;
     }
 
     @Override
     public void setId(Object o)
     {
-        ssaEventUuid = (String) o;
+        eventUuid = (String) o;
     }
 }
