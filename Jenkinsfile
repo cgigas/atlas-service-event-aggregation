@@ -5,9 +5,9 @@ templateParams["TEAM"] = "atlas"
 templateParams["APP"] = "event-aggregation/event-aggregation-service"
 
 templateParams["ENABLE_SCA"] = true
-templateParams["ENABLE_FORTIFY"] = false
+templateParams["ENABLE_FORTIFY"] = true
 templateParams["ENABLE_DEP_CHECK"] = true
-templateParams["ENABLE_SONARQUBE"] = false
+templateParams["ENABLE_SONARQUBE"] = true
 templateParams["ENABLE_IMAGE_VERSIONING"] = true
 templateParams["ENABLE_PUBLISH_ARTIFACTS"] = true
 templateParams["ENABLE_TAF_TEST"] = false
