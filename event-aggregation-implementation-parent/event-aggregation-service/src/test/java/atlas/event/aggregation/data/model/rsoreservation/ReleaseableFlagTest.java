@@ -17,16 +17,16 @@
  */
 package atlas.event.aggregation.data.model.rsoreservation;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
-class ReleaseableFlagTest
+public class ReleaseableFlagTest
 {
     ReleaseableFlag task = new ReleaseableFlag();
 
     @Test
-    void test()
+    public void test()
     {
         assertNotNull(task);
     }

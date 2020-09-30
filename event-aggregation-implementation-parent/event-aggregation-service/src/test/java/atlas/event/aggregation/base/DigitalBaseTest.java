@@ -18,68 +18,49 @@
 package atlas.event.aggregation.base;
 
 import atlas.event.aggregation.SpringContextFactory;
-import atlas.event.aggregation.cache.DigitalCache;
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
-class DigitalBaseTest
+public class DigitalBaseTest
 {
     @Mock
     DataFetchingEnvironment environment;
-    @Mock
-    DigitalBase mockTask = mock(DigitalBase.class);
     @Autowired
     ApplicationContext applicationContext;
     DigitalBase task = new DigitalBase();
 
-    @BeforeEach
-    void setUp()
+    @Before
+    public void setUp()
     {
         SpringContextFactory.setContext(applicationContext);
-        when(mockTask.locateService(anyString())).thenReturn(new Object());
-        when(mockTask.getDigitalCache()).thenReturn(new DigitalCache());
-        when(mockTask.getRequestPath(environment)).thenReturn("");
     }
 
-    @Test
-    void testLocateService()
+    @Test(expected = NullPointerException.class)
+    public void testLocateService()
     {
         assertNull(task.locateService(""));
-        assertThrows(NullPointerException.class, () ->
-        {
-            task.locateService("anchor");
-        });
-
+        task.locateService("anchor");
     }
 
-    @Test
-    void testGetDigitalCache()
+    @Test(expected = NullPointerException.class)
+    public void testGetDigitalCache()
     {
-        assertThrows(NullPointerException.class, () ->
-        {
-            task.getDigitalCache();
-        });
+        task.getDigitalCache();
     }
 
-    @Test
-    void testGetRequestPath()
+    @Test(expected = NullPointerException.class)
+    public void testGetRequestPath()
     {
         assertNull(task.getRequestPath(null));
-
         task.getRequestPath(environment);
-
     }
 }

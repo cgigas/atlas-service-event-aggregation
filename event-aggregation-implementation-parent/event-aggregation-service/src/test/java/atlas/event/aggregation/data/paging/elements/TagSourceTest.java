@@ -17,14 +17,14 @@
  */
 package atlas.event.aggregation.data.paging.elements;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class TagSourceTest
+public class TagSourceTest
 {
     @Test
-    void values()
+    public void values()
     {
         assertEquals(2, TagSource.values().length);
     }

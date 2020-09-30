@@ -17,15 +17,15 @@
  */
 package atlas.event.aggregation.data.model.ssaevent;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-class EventTest
+public class EventTest
 {
     Event task = new Event();
     long serialVersionUID = -2933110789647766059L;
@@ -44,91 +44,91 @@ class EventTest
     String eventPostingId = "eventPostingId";
 
     @Test
-    void setClassificationMarking()
+    public void setClassificationMarking()
     {
         task.setClassificationMarking(classificationMarking);
         assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
-    void setState()
+    public void setState()
     {
         task.setState(state);
         assertEquals(state, task.getState());
     }
 
     @Test
-    void setSsaPredecessorEventUuid()
+    public void setSsaPredecessorEventUuid()
     {
         task.setSsaPredecessorEventUuid(ssaPredecessorEventUuid);
         assertEquals(ssaPredecessorEventUuid, task.getSsaPredecessorEventUuid());
     }
 
     @Test
-    void setStartDt()
+    public void setStartDt()
     {
         task.setStartDt(startDt);
         assertEquals(startDt, task.getStartDt());
     }
 
     @Test
-    void setEndDt()
+    public void setEndDt()
     {
         task.setEndDt(endDt);
         assertEquals(endDt, task.getEndDt());
     }
 
     @Test
-    void setEventType()
+    public void setEventType()
     {
         task.setEventType(eventType);
         assertEquals(eventType, task.getEventType());
     }
 
     @Test
-    void setEventName()
+    public void setEventName()
     {
         task.setEventName(eventName);
         assertEquals(eventName, task.getEventName());
     }
 
     @Test
-    void setEventStatus()
+    public void setEventStatus()
     {
         task.setEventStatus(eventStatus);
         assertEquals(eventStatus, task.getEventStatus());
     }
 
     @Test
-    void setEventDesc()
+    public void setEventDesc()
     {
         task.setEventDesc(eventDesc);
         assertEquals(eventDesc, task.getEventDesc());
     }
 
     @Test
-    void setBigBoardFlag()
+    public void setBigBoardFlag()
     {
         task.setBigBoardFlag(bigBoardFlag);
         assertTrue(task.getBigBoardFlag());
     }
 
     @Test
-    void setInternalNotes()
+    public void setInternalNotes()
     {
         task.setInternalNotes(internalNotes);
         assertEquals(internalNotes, task.getInternalNotes());
     }
 
     @Test
-    void setEventPostingId()
+    public void setEventPostingId()
     {
         task.setEventPostingId(eventPostingId);
         assertEquals(eventPostingId, task.getEventPostingId());
     }
 
     @Test
-    void setId()
+    public void setId()
     {
         task.setId(ssaEventUuid);
         assertEquals(ssaEventUuid, task.getId());

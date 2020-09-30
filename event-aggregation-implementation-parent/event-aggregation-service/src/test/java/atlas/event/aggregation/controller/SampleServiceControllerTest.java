@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.controller;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.mock.web.MockHttpSession;
 

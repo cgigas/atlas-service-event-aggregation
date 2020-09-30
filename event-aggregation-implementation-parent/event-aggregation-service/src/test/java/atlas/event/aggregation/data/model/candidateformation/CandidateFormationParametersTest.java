@@ -17,11 +17,11 @@
  */
 package atlas.event.aggregation.data.model.candidateformation;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class CandidateFormationParametersTest
+public class CandidateFormationParametersTest
 {
     CandidateFormationParameters task = new CandidateFormationParameters();
     String candidateFormationParametersUuid = "canFormParaUuid";
@@ -32,42 +32,42 @@ class CandidateFormationParametersTest
     Integer minimumTrackersPerCluster = 6;
 
     @Test
-    void setCandidateFormationParametersUuid()
+    public void setCandidateFormationParametersUuid()
     {
         task.setCandidateFormationParametersUuid(candidateFormationParametersUuid);
         assertEquals(candidateFormationParametersUuid, task.getCandidateFormationParametersUuid());
     }
 
     @Test
-    void setClassificationMarking()
+    public void setClassificationMarking()
     {
         task.setClassificationMarking(classificationMarking);
         assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
-    void setPdotCoeficients()
+    public void setPdotCoeficients()
     {
         task.setPdotCoeficients(pdotCoeficients);
         assertEquals(pdotCoeficients, task.getPdotCoeficients());
     }
 
     @Test
-    void setMinimumTrackersPerCluster()
+    public void setMinimumTrackersPerCluster()
     {
         task.setMinimumTrackersPerCluster(minimumTrackersPerCluster);
         assertEquals(minimumTrackersPerCluster, task.getMinimumTrackersPerCluster());
     }
 
     @Test
-    void setCoplanarCheckThreshold()
+    public void setCoplanarCheckThreshold()
     {
         task.setCoplanarCheckThreshold(coplanarCheckThreshold);
         assertEquals(coplanarCheckThreshold, task.getCoplanarCheckThreshold());
     }
 
     @Test
-    void setPeriodThreshold()
+    public void setPeriodThreshold()
     {
         task.setPeriodThreshold(periodThreshold);
         assertEquals(periodThreshold, task.getPeriodThreshold());

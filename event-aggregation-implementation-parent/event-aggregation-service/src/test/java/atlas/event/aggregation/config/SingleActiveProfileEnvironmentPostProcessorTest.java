@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.config;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.StandardEnvironment;

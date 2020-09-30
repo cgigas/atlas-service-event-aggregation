@@ -17,11 +17,11 @@
  */
 package atlas.event.aggregation.data.model.validity;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class ValidityCriteriaTest
+public class ValidityCriteriaTest
 {
     ValidityCriteria task = new ValidityCriteria();
     String validityCriteriaUuid = "validityCriteriaUuid";
@@ -44,126 +44,126 @@ class ValidityCriteriaTest
     Integer catalogMinReportingSensors = 16;
 
     @Test
-    void setValidityCriteriaUuid()
+    public void setValidityCriteriaUuid()
     {
         task.setValidityCriteriaUuid(validityCriteriaUuid);
         assertEquals(validityCriteriaUuid, task.getValidityCriteriaUuid());
     }
 
     @Test
-    void setClassificationMarking()
+    public void setClassificationMarking()
     {
         task.setClassificationMarking(classificationMarking);
         assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
-    void setAnalystMinTrackersPerDay()
+    public void setAnalystMinTrackersPerDay()
     {
         task.setAnalystMinTrackersPerDay(analystMinTrackersPerDay);
         assertEquals(analystMinTrackersPerDay, task.getAnalystMinTrackersPerDay());
     }
 
     @Test
-    void setCatalogMinTrackersPerDay()
+    public void setCatalogMinTrackersPerDay()
     {
         task.setCatalogMinTrackersPerDay(catalogMinTrackersPerDay);
         assertEquals(catalogMinTrackersPerDay, task.getCatalogMinTrackersPerDay());
     }
 
     @Test
-    void setAnalystMinTracksReceived()
+    public void setAnalystMinTracksReceived()
     {
         task.setAnalystMinTracksReceived(analystMinTracksReceived);
         assertEquals(analystMinTracksReceived, task.getAnalystMinTracksReceived());
     }
 
     @Test
-    void setCatalogMinTracksReceived()
+    public void setCatalogMinTracksReceived()
     {
         task.setCatalogMinTracksReceived(catalogMinTracksReceived);
         assertEquals(catalogMinTracksReceived, task.getCatalogMinTracksReceived());
     }
 
     @Test
-    void setAnalystMinODSolutions()
+    public void setAnalystMinODSolutions()
     {
         task.setAnalystMinODSolutions(analystMinODSolutions);
         assertEquals(analystMinODSolutions, task.getAnalystMinODSolutions());
     }
 
     @Test
-    void setCatalogMinODSolutions()
+    public void setCatalogMinODSolutions()
     {
         task.setCatalogMinODSolutions(catalogMinODSolutions);
         assertEquals(catalogMinODSolutions, task.getCatalogMinODSolutions());
     }
 
     @Test
-    void setAnalystRmsTrendMean()
+    public void setAnalystRmsTrendMean()
     {
         task.setAnalystRmsTrendMean(analystRmsTrendMean);
         assertEquals(analystRmsTrendMean, task.getAnalystRmsTrendMean());
     }
 
     @Test
-    void setCatalogRmsTrendMean()
+    public void setCatalogRmsTrendMean()
     {
         task.setCatalogRmsTrendMean(catalogRmsTrendMean);
         assertEquals(catalogRmsTrendMean, task.getCatalogRmsTrendMean());
     }
 
     @Test
-    void setAnalystRmsTrendSd()
+    public void setAnalystRmsTrendSd()
     {
         task.setAnalystRmsTrendSd(analystRmsTrendSd);
         assertEquals(analystRmsTrendSd, task.getAnalystRmsTrendSd());
     }
 
     @Test
-    void setCatalogStandardDeviation()
+    public void setCatalogStandardDeviation()
     {
         task.setCatalogStandardDeviation(catalogStandardDeviation);
         assertEquals(catalogStandardDeviation, task.getCatalogStandardDeviation());
     }
 
     @Test
-    void setAnalystMinResidualAcceptance()
+    public void setAnalystMinResidualAcceptance()
     {
         task.setAnalystMinResidualAcceptance(analystMinResidualAcceptance);
         assertEquals(analystMinResidualAcceptance, task.getAnalystMinResidualAcceptance());
     }
 
     @Test
-    void setCatalogMinResidualAcceptance()
+    public void setCatalogMinResidualAcceptance()
     {
         task.setCatalogMinResidualAcceptance(catalogMinResidualAcceptance);
         assertEquals(catalogMinResidualAcceptance, task.getCatalogMinResidualAcceptance());
     }
 
     @Test
-    void setAnalystMinArgumentLatitude()
+    public void setAnalystMinArgumentLatitude()
     {
         task.setAnalystMinArgumentLatitude(analystMinArgumentLatitude);
         assertEquals(analystMinArgumentLatitude, task.getAnalystMinArgumentLatitude());
     }
 
     @Test
-    void setCatalogMinArgumentLatitude()
+    public void setCatalogMinArgumentLatitude()
     {
         task.setCatalogMinArgumentLatitude(catalogMinArgumentLatitude);
         assertEquals(catalogMinArgumentLatitude, task.getCatalogMinArgumentLatitude());
     }
 
     @Test
-    void setAnalystMinReportingSensors()
+    public void setAnalystMinReportingSensors()
     {
         task.setAnalystMinReportingSensors(analystMinReportingSensors);
         assertEquals(analystMinReportingSensors, task.getAnalystMinReportingSensors());
     }
 
     @Test
-    void setCatalogMinReportingSensors()
+    public void setCatalogMinReportingSensors()
     {
         task.setCatalogMinReportingSensors(catalogMinReportingSensors);
         assertEquals(catalogMinReportingSensors, task.getCatalogMinReportingSensors());

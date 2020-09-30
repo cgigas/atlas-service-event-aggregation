@@ -18,26 +18,26 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-class EventTypeDataFetcherTest
+public class EventTypeDataFetcherTest
 {
     EventTypeDataFetcher task = new EventTypeDataFetcher();
     @Mock
     DataFetchingEnvironment environment;
 
     @Test
-    void provideRuntimeTypeWiring()
+    public void provideRuntimeTypeWiring()
     {
         assertNotNull(task.provideRuntimeTypeWiring());
     }
 
     @Test
-    void performFetch()
+    public void performFetch()
     {
         assertNull(task.performFetch(environment));
     }

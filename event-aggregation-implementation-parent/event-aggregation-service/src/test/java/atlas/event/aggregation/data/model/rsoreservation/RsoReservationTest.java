@@ -17,11 +17,11 @@
  */
 package atlas.event.aggregation.data.model.rsoreservation;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-class RsoReservationTest
+public class RsoReservationTest
 {
     RsoReservation task = new RsoReservation();
     String rsoReservationUuid = "rsoReservationUuid";
@@ -43,119 +43,119 @@ class RsoReservationTest
     Integer maxClassification = 8;
 
     @Test
-    void setRsoReservationUuid()
+    public void setRsoReservationUuid()
     {
         task.setRsoReservationUuid(rsoReservationUuid);
         assertEquals(rsoReservationUuid, task.getRsoReservationUuid());
     }
 
     @Test
-    void setClassificationMarking()
+    public void setClassificationMarking()
     {
         task.setClassificationMarking(classificationMarking);
         assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
-    void setParentRsoReservationUuid()
+    public void setParentRsoReservationUuid()
     {
         task.setParentRsoReservationUuid(parentRsoReservationUuid);
         assertEquals(parentRsoReservationUuid, task.getParentRsoReservationUuid());
     }
 
     @Test
-    void setCategory()
+    public void setCategory()
     {
         task.setCategory(category);
         assertEquals(category, task.getCategory());
     }
 
     @Test
-    void setLegacyCompatibleFlag()
+    public void setLegacyCompatibleFlag()
     {
         task.setLegacyCompatibleFlag(legacyCompatibleFlag);
         assertEquals(legacyCompatibleFlag, task.getLegacyCompatibleFlag());
     }
 
     @Test
-    void setTitle()
+    public void setTitle()
     {
         task.setTitle(title);
         assertEquals(title, task.getTitle());
     }
 
     @Test
-    void setPosition()
+    public void setPosition()
     {
         task.setPosition(position);
         assertEquals(position, task.getPosition());
     }
 
     @Test
-    void setSdaEventType()
+    public void setSdaEventType()
     {
         task.setSdaEventType(sdaEventType);
         assertEquals(sdaEventType, task.getSdaEventType());
     }
 
     @Test
-    void setMinSatNo()
+    public void setMinSatNo()
     {
         task.setMinSatNo(minSatNo);
         assertEquals(minSatNo, task.getMinSatNo());
     }
 
     @Test
-    void setMaxSatNo()
+    public void setMaxSatNo()
     {
         task.setMaxSatNo(maxSatNo);
         assertEquals(maxSatNo, task.getMaxSatNo());
     }
 
     @Test
-    void setMinUcn()
+    public void setMinUcn()
     {
         task.setMinUcn(minUcn);
         assertEquals(minUcn, task.getMinUcn());
     }
 
     @Test
-    void setMaxUcn()
+    public void setMaxUcn()
     {
         task.setMaxUcn(maxUcn);
         assertEquals(maxUcn, task.getMaxUcn());
     }
 
     @Test
-    void setDescription()
+    public void setDescription()
     {
         task.setDescription(description);
         assertEquals(description, task.getDescription());
     }
 
     @Test
-    void setReleaseableFlag()
+    public void setReleaseableFlag()
     {
         task.setReleaseableFlag(releaseableFlag);
         assertEquals(releaseableFlag, task.getReleaseableFlag());
     }
 
     @Test
-    void setDeletableFlag()
+    public void setDeletableFlag()
     {
         task.setDeletableFlag(deletableFlag);
         assertEquals(deletableFlag, task.getDeletableFlag());
     }
 
     @Test
-    void setMinClassification()
+    public void setMinClassification()
     {
         task.setMinClassification(minClassification);
         assertEquals(minClassification, task.getMinClassification());
     }
 
     @Test
-    void setMaxClassification()
+    public void setMaxClassification()
     {
         task.setMaxClassification(maxClassification);
         assertEquals(maxClassification, task.getMaxClassification());

@@ -17,19 +17,19 @@
  */
 package atlas.event.aggregation.config;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-class GraphQLWebAutoConfigurationTest
+public class GraphQLWebAutoConfigurationTest
 {
     GraphQLWebAutoConfiguration task = new GraphQLWebAutoConfiguration();
 
     String mapping = "map/*";
 
     @Test
-    void test()
+    public void test()
     {
         task.setMapping(mapping);
         assertEquals(mapping, task.getMapping());

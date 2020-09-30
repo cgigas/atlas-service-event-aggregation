@@ -17,14 +17,14 @@
  */
 package atlas.event.aggregation.data.model.rsoreservation;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class CategoryTest
+public class CategoryTest
 {
     @Test
-    void values()
+    public void values()
     {
         assertEquals(10, Category.values().length);
     }

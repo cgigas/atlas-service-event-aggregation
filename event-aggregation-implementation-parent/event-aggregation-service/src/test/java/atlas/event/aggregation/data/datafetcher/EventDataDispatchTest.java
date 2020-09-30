@@ -19,13 +19,13 @@ package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-class EventDataDispatchTest
+public class EventDataDispatchTest
 {
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     EventDataDispatch task = new EventDataDispatch(collector);
@@ -33,13 +33,13 @@ class EventDataDispatchTest
     DataFetchingEnvironment environment;
 
     @Test
-    void provideRuntimeTypeWiring()
+    public void provideRuntimeTypeWiring()
     {
         assertNotNull(task.provideRuntimeTypeWiring());
     }
 
     @Test
-    void performFetch()
+    public void performFetch()
     {
         assertNull(task.performFetch(environment));
     }

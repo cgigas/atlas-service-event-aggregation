@@ -19,16 +19,16 @@ package atlas.event.aggregation.data.paging;
 
 import atlas.event.aggregation.data.paging.elements.PageInfo;
 import com.google.common.collect.Lists;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.data.domain.Sort;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class PageableBuilderTest
 {

@@ -17,13 +17,13 @@
  */
 package atlas.event.aggregation.data.model;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class AuditedTest
+public class AuditedTest
 {
     Audited task = new Audited();
     Date createDate = new Date();
@@ -32,28 +32,28 @@ class AuditedTest
     String updateOrigin = "update";
 
     @Test
-    void setCreateDate()
+    public void setCreateDate()
     {
         task.setCreateDate(createDate);
         assertEquals(createDate, task.getCreateDate());
     }
 
     @Test
-    void setCreateOrigin()
+    public void setCreateOrigin()
     {
         task.setCreateOrigin(createOrigin);
         assertEquals(createOrigin, task.getCreateOrigin());
     }
 
     @Test
-    void setUpdateDate()
+    public void setUpdateDate()
     {
         task.setUpdateDate(updateDate);
         assertEquals(updateDate, task.getUpdateDate());
     }
 
     @Test
-    void setUpdateOrigin()
+    public void setUpdateOrigin()
     {
         task.setUpdateOrigin(updateOrigin);
         assertEquals(updateOrigin, task.getUpdateOrigin());

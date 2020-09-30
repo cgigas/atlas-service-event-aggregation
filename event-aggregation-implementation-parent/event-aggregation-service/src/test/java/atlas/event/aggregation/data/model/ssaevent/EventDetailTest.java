@@ -17,16 +17,16 @@
  */
 package atlas.event.aggregation.data.model.ssaevent;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class EventDetailTest
+public class EventDetailTest
 {
     EventDetail task = new EventDetail();
     String id = "id";
@@ -46,105 +46,105 @@ class EventDetailTest
     List<ObservationSatMedley> observationSatMedleyArray = new ArrayList<>();
 
     @Test
-    void setTypeName()
+    public void setTypeName()
     {
         task.setTypeName(typeName);
         assertEquals(typeName, task.getTypeName());
     }
 
     @Test
-    void setId()
+    public void setId()
     {
         task.setId(id);
         assertEquals(id, task.getId());
     }
 
     @Test
-    void setState()
+    public void setState()
     {
         task.setState(state);
         assertEquals(state, task.getState());
     }
 
     @Test
-    void setClassification()
+    public void setClassification()
     {
         task.setClassification(classification);
         assertEquals(classification, task.getClassification());
     }
 
     @Test
-    void setType()
+    public void setType()
     {
         task.setType(type);
         assertEquals(type, task.getType());
     }
 
     @Test
-    void setName()
+    public void setName()
     {
         task.setName(name);
         assertEquals(name, task.getName());
     }
 
     @Test
-    void setStartDate()
+    public void setStartDate()
     {
         task.setStartDate(startDate);
         assertEquals(startDate, task.getStartDate());
     }
 
     @Test
-    void setEndDate()
+    public void setEndDate()
     {
         task.setEndDate(endDate);
         assertEquals(endDate, task.getEndDate());
     }
 
     @Test
-    void setCatalogObjectCount()
+    public void setCatalogObjectCount()
     {
         task.setCatalogObjectCount(catalogObjectCount);
         assertEquals(catalogObjectCount, task.getCatalogObjectCount());
     }
 
     @Test
-    void setAnalystObjects()
+    public void setAnalystObjects()
     {
         task.setAnalystObjects(analystObjects);
         assertEquals(analystObjects, task.getAnalystObjects());
     }
 
     @Test
-    void setCandidateObjectCount()
+    public void setCandidateObjectCount()
     {
         task.setCandidateObjectCount(candidateObjectCount);
         assertEquals(candidateObjectCount, task.getCandidateObjectCount());
     }
 
     @Test
-    void setPromotableObjectCount()
+    public void setPromotableObjectCount()
     {
         task.setPromotableObjectCount(promotableObjectCount);
         assertEquals(promotableObjectCount, task.getPromotableObjectCount());
     }
 
     @Test
-    void setParentEvent()
+    public void setParentEvent()
     {
         task.setParentEvent(parentEvent);
         assertEquals(parentEvent, task.getParentEvent());
     }
 
     @Test
-    void setLaunch()
+    public void setLaunch()
     {
         task.setLaunch(launch);
         assertEquals(launch, task.getLaunch());
     }
 
     @Test
-    void setObservationSatMedleyArray()
+    public void setObservationSatMedleyArray()
     {
         task.setObservationSatMedleyArray(null);
         assertEquals(observationSatMedleyArray, task.getObservationSatMedleyArray());

@@ -17,19 +17,19 @@
  */
 package atlas.event.aggregation.server;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
-class TypeDefinitionRegistryBuilderTest
+public class TypeDefinitionRegistryBuilderTest
 {
     TypeDefinitionRegistryBuilder task = new TypeDefinitionRegistryBuilder();
     String rootResourcePath = "event-aggregation-implementation-parent/event-aggregation-service/src/main/resources/graphql/MPEService.graphql";
 
     @Test
-    void buildRegistryFrom() throws IOException
+    public void buildRegistryFrom() throws IOException
     {
         try
         {

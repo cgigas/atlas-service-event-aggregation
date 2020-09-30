@@ -21,7 +21,7 @@ import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.Collection;
@@ -37,14 +37,14 @@ public class EventDataUpdaterTest
     DataFetchingEnvironment environment;
 
     @Test
-    void performFetch()
+    public void performFetch()
     {
         //when(environment.getExecutionStepInfo().getPath().toString()).thenReturn("/closeSdaEvent");
         assertNull(task.performFetch(environment));
     }
 
     @Test
-    void provideRuntimeTypeWiring()
+    public void provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         task.provideRuntimeTypeWiring();

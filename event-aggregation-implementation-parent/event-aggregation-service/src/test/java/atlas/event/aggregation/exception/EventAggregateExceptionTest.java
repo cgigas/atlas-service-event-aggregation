@@ -17,11 +17,11 @@
  */
 package atlas.event.aggregation.exception;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
-class EventAggregateExceptionTest
+public class EventAggregateExceptionTest
 {
     String message = "message";
     Exception e = new IllegalArgumentException();

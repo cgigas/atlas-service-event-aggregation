@@ -17,11 +17,11 @@
  */
 package atlas.event.aggregation.config;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class DataServiceConfigurationTest
+public class DataServiceConfigurationTest
 {
     DataServiceConfiguration task = new DataServiceConfiguration();
     String satelliteServiceUrl = "https://www.satelliteService.com";
@@ -33,55 +33,55 @@ class DataServiceConfigurationTest
     String eventServiceUrl = "https://www.eventService.com";
 
     @Test
-    void init()
+    public void init()
     {
         task.init();
     }
 
     @Test
-    void setOrbitalServiceUrl()
+    public void setOrbitalServiceUrl()
     {
         task.setOrbitalServiceUrl(orbitalServiceUrl);
         assertEquals(orbitalServiceUrl, task.getOrbitalServiceUrl());
     }
 
     @Test
-    void setObservationServiceUrl()
+    public void setObservationServiceUrl()
     {
         task.setObservationServiceUrl(observationServiceUrl);
         assertEquals(observationServiceUrl, task.getObservationServiceUrl());
     }
 
     @Test
-    void setSensorServiceUrl()
+    public void setSensorServiceUrl()
     {
         task.setSensorServiceUrl(sensorServiceUrl);
         assertEquals(sensorServiceUrl, task.getSensorServiceUrl());
     }
 
     @Test
-    void setGraphQlExtension()
+    public void setGraphQlExtension()
     {
         task.setGraphQlExtension(graphQlExtension);
         assertEquals(graphQlExtension, task.getGraphQlExtension());
     }
 
     @Test
-    void setEventServiceUrl()
+    public void setEventServiceUrl()
     {
         task.setEventServiceUrl(eventServiceUrl);
         assertEquals(eventServiceUrl, task.getEventServiceUrl());
     }
 
     @Test
-    void setNotesServiceUrl()
+    public void setNotesServiceUrl()
     {
         task.setNotesServiceUrl(notesServiceUrl);
         assertEquals(notesServiceUrl, task.getNotesServiceUrl());
     }
 
     @Test
-    void setSatelliteServiceUrl()
+    public void setSatelliteServiceUrl()
     {
         task.setSatelliteServiceUrl(satelliteServiceUrl);
         assertEquals(satelliteServiceUrl, task.getSatelliteServiceUrl());

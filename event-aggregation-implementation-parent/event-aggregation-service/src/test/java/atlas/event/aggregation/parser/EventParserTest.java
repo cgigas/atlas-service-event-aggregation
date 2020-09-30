@@ -19,19 +19,19 @@ package atlas.event.aggregation.parser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 
-class EventParserTest
+public class EventParserTest
 {
     @Mock
     EventParser task = mock(EventParser.class, Mockito.CALLS_REAL_METHODS);
@@ -40,7 +40,7 @@ class EventParserTest
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void testFromJsonString()
+    public void testFromJsonString()
     {
         map.put("event", "sat");
 
@@ -65,7 +65,7 @@ class EventParserTest
     }
 
     @Test
-    void testFromJson()
+    public void testFromJson()
     {
         assertNotNull(task.fromJson(jsonObj));
         assertNotNull(task.fromJson(map));

@@ -17,16 +17,16 @@
  */
 package atlas.event.aggregation;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
-class EventAggregationGQLServerApplicationTest
+public class EventAggregationGQLServerApplicationTest
 {
     EventAggregationGQLServerApplication task = new EventAggregationGQLServerApplication();
 
     @Test
-    void main()
+    public void main()
     {
         String[] args = new String[1];
         try

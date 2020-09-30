@@ -17,14 +17,14 @@
  */
 package atlas.event.aggregation.data.model.rsoreservation;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
-class SdaEventTypeTest
+public class SdaEventTypeTest
 {
     @Test
-    void test()
+    public void test()
     {
         SdaEventType task = new SdaEventType();
         assertNotNull(task);

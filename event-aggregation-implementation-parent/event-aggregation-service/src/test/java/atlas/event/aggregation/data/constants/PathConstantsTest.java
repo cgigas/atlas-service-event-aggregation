@@ -17,14 +17,14 @@
  */
 package atlas.event.aggregation.data.constants;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
-class PathConstantsTest
+public class PathConstantsTest
 {
     @Test
-    void test()
+    public void test()
     {
         PathConstants task = new PathConstants();
         assertNotNull(task);

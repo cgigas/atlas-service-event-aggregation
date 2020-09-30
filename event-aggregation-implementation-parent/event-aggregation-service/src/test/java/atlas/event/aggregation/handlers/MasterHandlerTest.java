@@ -18,20 +18,20 @@
 package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.exception.EventAggregateException;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class MasterHandlerTest
+public class MasterHandlerTest
 {
     MasterHandler task = new MasterHandler();
     String url = "https://www.google.com";
     Properties properties = new Properties();
 
     @Test
-    void sendHttpGetRestRequestAsString()
+    public void sendHttpGetRestRequestAsString()
     {
         try
         {
@@ -44,7 +44,7 @@ class MasterHandlerTest
     }
 
     @Test
-    void sendHttpGetRestRequestAsStream()
+    public void sendHttpGetRestRequestAsStream()
     {
         try
         {
@@ -57,7 +57,7 @@ class MasterHandlerTest
     }
 
     @Test
-    void testSendHttpGetRestRequestAsString()
+    public void testSendHttpGetRestRequestAsString()
     {
         try
         {
@@ -70,7 +70,7 @@ class MasterHandlerTest
     }
 
     @Test
-    void testSendHttpGetRestRequestAsStream()
+    public void testSendHttpGetRestRequestAsStream()
     {
         try
         {

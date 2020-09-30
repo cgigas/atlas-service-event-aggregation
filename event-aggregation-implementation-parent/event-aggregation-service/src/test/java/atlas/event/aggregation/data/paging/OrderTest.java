@@ -18,12 +18,12 @@
 package atlas.event.aggregation.data.paging;
 
 import atlas.event.aggregation.data.paging.elements.Direction;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-class OrderTest
+public class OrderTest
 {
     Order task = new Order();
     String property = "property";
@@ -31,33 +31,33 @@ class OrderTest
 
 
     @Test
-    void setProperty()
+    public void setProperty()
     {
         task.setProperty(property);
         assertEquals(property, task.getProperty());
     }
 
     @Test
-    void setDirection()
+    public void setDirection()
     {
         task.setDirection(direction);
         assertEquals(direction, task.getDirection());
     }
 
     @Test
-    void testToString()
+    public void testToString()
     {
         assertNotNull(task.toString());
     }
 
     @Test
-    void builder()
+    public void builder()
     {
         assertNotNull(Order.builder());
     }
 
     @Test
-    void field()
+    public void field()
     {
         Order.Field propName = Order.Field.Property;
         assertEquals(Order.Field.Property, propName);

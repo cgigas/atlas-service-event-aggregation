@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.data.paging.elements;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -25,12 +25,12 @@ import java.time.Period;
 import java.time.ZoneOffset;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
-class TimePeriodTest
+public class TimePeriodTest
 {
     @Test
-    void ofStartAndEnd()
+    public void ofStartAndEnd()
     {
         OffsetDateTime start = OffsetDateTime.now();
         OffsetDateTime end = OffsetDateTime.of(2020, 11, 1, 1, 1, 1, 1, ZoneOffset.UTC);
@@ -57,7 +57,7 @@ class TimePeriodTest
     }
 
     @Test
-    void withDurationOffset()
+    public void withDurationOffset()
     {
         OffsetDateTime refTime = OffsetDateTime.now();
         assertNotNull(TimePeriod.withDurationOffset(refTime, Duration.ofHours(3L)));
@@ -74,7 +74,7 @@ class TimePeriodTest
     }
 
     @Test
-    void withPeriodOffset()
+    public void withPeriodOffset()
     {
         OffsetDateTime refTime = OffsetDateTime.now();
         assertNotNull(TimePeriod.withPeriodOffset(refTime, Period.ofMonths(2)));

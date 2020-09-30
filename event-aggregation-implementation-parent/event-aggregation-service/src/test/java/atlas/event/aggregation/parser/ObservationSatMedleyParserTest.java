@@ -18,15 +18,15 @@
 package atlas.event.aggregation.parser;
 
 import org.json.simple.JSONArray;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-class ObservationSatMedleyParserTest
+public class ObservationSatMedleyParserTest
 {
     ObservationSatMedleyParser task = new ObservationSatMedleyParser();
     JSONArray fromJson = new JSONArray();
@@ -35,26 +35,26 @@ class ObservationSatMedleyParserTest
     Object Map;
 
     @Test
-    void toJSONString()
+    public void toJSONString()
     {
         assertNull(task.toJSONString(fromJson));
     }
 
     @Test
-    void fromJsonString()
+    public void fromJsonString()
     {
         assertNull(task.fromJsonString(json));
     }
 
     @Test
-    void fromJson()
+    public void fromJson()
     {
         fromJson.add(0, Map);
         assertNotNull(task.fromJson(fromJson));
     }
 
     @Test
-    void testFromJson()
+    public void testFromJson()
     {
         assertNotNull(task.fromJson(map));
     }

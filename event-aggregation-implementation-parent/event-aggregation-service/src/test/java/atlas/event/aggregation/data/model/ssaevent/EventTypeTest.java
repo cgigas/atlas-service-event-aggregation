@@ -17,14 +17,14 @@
  */
 package atlas.event.aggregation.data.model.ssaevent;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class EventTypeTest
+public class EventTypeTest
 {
     @Test
-    void values()
+    public void values()
     {
         assertEquals(14, EventType.values().length);
     }

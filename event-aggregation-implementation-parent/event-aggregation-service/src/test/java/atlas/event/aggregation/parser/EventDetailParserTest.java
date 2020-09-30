@@ -18,15 +18,15 @@
 package atlas.event.aggregation.parser;
 
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNull;
 
-class EventDetailParserTest
+public class EventDetailParserTest
 {
     EventDetailParser task = new EventDetailParser();
     Object fromJson = new JSONObject();
@@ -34,25 +34,25 @@ class EventDetailParserTest
     Map<String, Object> map = new HashMap<>();
 
     @Test
-    void toJSONString()
+    public void toJSONString()
     {
         assertNull(task.toJSONString(fromJson));
     }
 
     @Test
-    void fromJsonString()
+    public void fromJsonString()
     {
         assertNotNull(task.fromJsonString(json));
     }
 
     @Test
-    void fromJson()
+    public void fromJson()
     {
         assertNotNull(task.fromJson(fromJson));
     }
 
     @Test
-    void testFromJson()
+    public void testFromJson()
     {
         assertNotNull(task.fromJson(map));
     }

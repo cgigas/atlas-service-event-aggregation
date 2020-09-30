@@ -19,14 +19,14 @@ package atlas.event.aggregation.server.exception;
 
 import com.google.common.collect.Maps;
 import graphql.ErrorType;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-class EventAggregationQueryExceptionTest
+public class EventAggregationQueryExceptionTest
 {
     String EXCEPTION_TYPE = "exceptionType";
     Map<String, Object> extensions = null;
@@ -39,20 +39,20 @@ class EventAggregationQueryExceptionTest
     EventAggregationQueryException task5 = new EventAggregationQueryException(EXCEPTION_TYPE, cause, extensions);
 
     @Test
-    void getLocations()
+    public void getLocations()
     {
         assertTrue(task4.getLocations().isEmpty());
         assertTrue(task5.getLocations().isEmpty());
     }
 
     @Test
-    void getErrorType()
+    public void getErrorType()
     {
         assertEquals(ErrorType.DataFetchingException, task.getErrorType());
     }
 
     @Test
-    void setExtensions()
+    public void setExtensions()
     {
         Map<String, Object> extension = Maps.newHashMap();
         extension.put("exceptionType=WARNING", null);
@@ -61,7 +61,7 @@ class EventAggregationQueryExceptionTest
     }
 
     @Test
-    void getCode()
+    public void getCode()
     {
         assertEquals(EventAggregationExceptionCodes.WARNING, task2.getCode());
     }

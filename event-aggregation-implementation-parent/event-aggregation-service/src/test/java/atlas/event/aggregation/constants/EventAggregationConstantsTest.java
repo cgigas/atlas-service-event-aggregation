@@ -17,14 +17,14 @@
  */
 package atlas.event.aggregation.constants;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
-class EventAggregationConstantsTest
+public class EventAggregationConstantsTest
 {
     @Test
-    void test()
+    public void test()
     {
         EventAggregationConstants task = new EventAggregationConstants();
         assertNotNull(task);

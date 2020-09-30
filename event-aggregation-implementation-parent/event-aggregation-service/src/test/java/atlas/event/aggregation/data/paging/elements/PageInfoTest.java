@@ -17,11 +17,11 @@
  */
 package atlas.event.aggregation.data.paging.elements;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class PageInfoTest
+public class PageInfoTest
 {
     PageInfo task = new PageInfo();
     Integer page = 1;
@@ -29,21 +29,21 @@ class PageInfoTest
     Sort sort = new Sort();
 
     @Test
-    void setPage()
+    public void setPage()
     {
         task.setPage(page);
         assertEquals(page, task.getPage());
     }
 
     @Test
-    void setSize()
+    public void setSize()
     {
         task.setSize(size);
         assertEquals(size, task.getSize());
     }
 
     @Test
-    void setSort()
+    public void setSort()
     {
         task.setSort(sort);
         assertEquals(sort, task.getSort());

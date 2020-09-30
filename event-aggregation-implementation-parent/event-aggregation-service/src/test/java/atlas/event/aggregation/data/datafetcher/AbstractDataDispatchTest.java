@@ -18,13 +18,13 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import graphql.schema.DataFetchingEnvironment;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.mock;
 
-class AbstractDataDispatchTest
+public class AbstractDataDispatchTest
 {
     @Mock
     AbstractDataDispatch task = mock(AbstractDataDispatch.class, Mockito.CALLS_REAL_METHODS);
@@ -33,53 +33,43 @@ class AbstractDataDispatchTest
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
-    void initializeRuntimeTypeInformation()
+    public void initializeRuntimeTypeInformation()
     {
         task.initializeRuntimeTypeInformation();
     }
 
     @Test
-    void get() throws Exception
+    public void get() throws Exception
     {
         task.get(environment);
     }
 
     @Test
-    void buildErrorResult()
-    {
-    }
-
-    @Test
-    void buildWarningResult()
-    {
-    }
-
-    @Test
-    void getExtensions()
+    public void getExtensions()
     {
         task.getExtensions(environment);
     }
 
     @Test
-    void performFetch()
+    public void performFetch()
     {
         task.performFetch(environment);
     }
 
     @Test
-    void provideRuntimeTypeWiring()
+    public void provideRuntimeTypeWiring()
     {
         task.provideRuntimeTypeWiring();
     }
 
     @Test
-    void addToLocalContext()
+    public void addToLocalContext()
     {
         task.addToLocalContext("user.country", "US");
     }
 
     @Test
-    void getPageRequestArgument()
+    public void getPageRequestArgument()
     {
         task.getPageRequestArgument(environment, "US");
     }

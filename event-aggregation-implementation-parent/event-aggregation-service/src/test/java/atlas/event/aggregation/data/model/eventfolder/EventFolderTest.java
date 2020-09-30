@@ -17,13 +17,13 @@
  */
 package atlas.event.aggregation.data.model.eventfolder;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class EventFolderTest
+public class EventFolderTest
 {
     EventFolder task = new EventFolder();
     String eventFolderUuid = "folderUuid";
@@ -36,56 +36,56 @@ class EventFolderTest
     String remarks = "remark";
 
     @Test
-    void setEventFolderUuid()
+    public void setEventFolderUuid()
     {
         task.setEventFolderUuid(eventFolderUuid);
         assertEquals(eventFolderUuid, task.getEventFolderUuid());
     }
 
     @Test
-    void setClassificationMarking()
+    public void setClassificationMarking()
     {
         task.setClassificationMarking(classificationMarking);
         assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
-    void setEventProcessingConfigUuid()
+    public void setEventProcessingConfigUuid()
     {
         task.setEventProcessingConfigUuid(eventProcessingConfigUuid);
         assertEquals(eventProcessingConfigUuid, task.getEventProcessingConfigUuid());
     }
 
     @Test
-    void setId()
+    public void setId()
     {
         task.setId(id);
         assertEquals(id, task.getId());
     }
 
     @Test
-    void setYear()
+    public void setYear()
     {
         task.setYear(year);
         assertEquals(year, task.getYear());
     }
 
     @Test
-    void setShortName()
+    public void setShortName()
     {
         task.setShortName(shortName);
         assertEquals(shortName, task.getShortName());
     }
 
     @Test
-    void setDescription()
+    public void setDescription()
     {
         task.setDescription(description);
         assertEquals(description, task.getDescription());
     }
 
     @Test
-    void setRemarks()
+    public void setRemarks()
     {
         task.setRemarks(remarks);
         assertEquals(remarks, task.getRemarks());

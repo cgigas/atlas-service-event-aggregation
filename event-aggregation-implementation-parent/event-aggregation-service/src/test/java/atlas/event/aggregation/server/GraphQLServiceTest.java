@@ -19,14 +19,14 @@ package atlas.event.aggregation.server;
 
 import atlas.event.aggregation.server.wiring.GraphQlRuntimeWiringBuilder;
 import graphql.schema.idl.RuntimeWiring;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNull;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -36,7 +36,7 @@ public class GraphQLServiceTest
     GraphQLService graphQLService;
 
     @Test
-    void test()
+    public void test()
     {
         GraphQLService service = ContextConfiguration.graphQLService();
 
@@ -51,10 +51,10 @@ public class GraphQLServiceTest
     }
 
     @Configuration
-    static class ContextConfiguration
+    public static class ContextConfiguration
     {
         @Bean
-        static GraphQLService graphQLService()
+        public static GraphQLService graphQLService()
         {
             TypeDefinitionRegistryBuilder registryBuilder = new TypeDefinitionRegistryBuilder();
             GraphQlRuntimeWiringBuilder runtimeWiringBuilder = new GraphQlRuntimeWiringBuilder()

@@ -17,21 +17,21 @@
  */
 package atlas.event.aggregation.data.mapper;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
-class ObjectFieldUpdaterTest
+public class ObjectFieldUpdaterTest
 {
     ObjectFieldUpdater task = new ObjectFieldUpdater();
     Object target = new Object();
     Map<String, Object> fieldMap = new HashMap<>();
 
     @Test
-    void updateFields()
+    public void updateFields()
     {
         fieldMap.put("id", "id");
         task.updateFields(target, fieldMap);

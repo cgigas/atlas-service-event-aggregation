@@ -20,48 +20,43 @@ package atlas.event.aggregation.parser;
 import atlas.event.aggregation.data.model.ssaevent.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
-class EventSatelliteParserTest
+public class EventSatelliteParserTest
 {
     EventSatelliteParser task = new EventSatelliteParser();
     Object fromJson = new JSONObject();
     Object badObj = null;
 
     @Test
-    void testToJSONString()
+    public void testToJSONString()
     {
         assertNull(task.toJSONString(fromJson));
     }
 
-    @Test
-    void testFromJsonString()
+    @Test(expected = EventAggregateException.class)
+    public void testFromJsonString()
     {
         assertNull(task.fromJsonString(""));
-
-        assertThrows(EventAggregateException.class, () ->
-        {
-            task.fromJsonString("SsaEventSatellite");
-        });
+        task.fromJsonString("SsaEventSatellite");
     }
 
     @Test
-    void testFromJson()
+    public void testFromJson()
     {
         assertNull(task.fromJson(badObj));
     }
 
-    @Test
-    void testFromJsonMap()
+    @Test(expected = ClassCastException.class)
+    public void testFromJsonMap()
     {
         Map<String, Object> MAP = null;
         assertNull(task.fromJson(MAP));
@@ -70,9 +65,6 @@ class EventSatelliteParserTest
         MAP.put("event", EventType.MANEUVER);
 
         Map<String, Object> finalMAP = MAP;
-        assertThrows(ClassCastException.class, () ->
-        {
-            task.fromJson(finalMAP);
-        });
+        task.fromJson(finalMAP);
     }
 }

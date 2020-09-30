@@ -17,27 +17,27 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-class IDigitalDataDispatchTest
+public class IDigitalDataDispatchTest
 {
     @Mock
     IDigitalDataDispatch task = mock(IDigitalDataDispatch.class);
     String url = "http://localhost:8080";
 
     @Test
-    void testSendHttpGetRestRequestAsString()
+    public void testSendHttpGetRestRequestAsString()
     {
         String responseString = null;
         when(task.sendHttpGetRestRequestAsString(anyString())).thenReturn(responseString);
@@ -46,7 +46,7 @@ class IDigitalDataDispatchTest
     }
 
     @Test
-    void testSendHttpGetRestRequestAsStream()
+    public void testSendHttpGetRestRequestAsStream()
     {
         InputStream responseStream = null;
         when(task.sendHttpGetRestRequestAsStream(anyString())).thenReturn(responseStream);
