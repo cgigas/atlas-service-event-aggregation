@@ -26,6 +26,6 @@ public class EventStatusTest
     @Test
     public void values()
     {
-        assertEquals(8, EventStatus.values().length);
+        assertEquals(9, EventStatus.values().length);
     }
 }

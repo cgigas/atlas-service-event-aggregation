@@ -19,13 +19,14 @@ package atlas.event.aggregation.data.paging.elements;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
 public class SortTest
 {
-    List<Order> orders;
+    List<Order> orders = new ArrayList<>();
 
     @Test
     public void test()

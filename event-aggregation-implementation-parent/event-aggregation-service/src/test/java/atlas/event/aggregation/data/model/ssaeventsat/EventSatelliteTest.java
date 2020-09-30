@@ -50,8 +50,8 @@ public class EventSatelliteTest
     @Test
     public void setSsaEvent()
     {
-        task.setSsaEvent(ssaEvent);
-        assertEquals(ssaEvent, task.getSsaEvent());
+        task.setEvent(ssaEvent);
+        assertEquals(ssaEvent, task.getEvent());
     }
 
     @Test

@@ -32,6 +32,7 @@ public class EventAggregationGQLServerApplicationTest
         try
         {
             EventAggregationGQLServerApplication.main(args);
+            task.main(args);
         }
         catch (Exception e)
         {

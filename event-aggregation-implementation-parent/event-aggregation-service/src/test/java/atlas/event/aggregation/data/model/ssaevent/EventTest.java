@@ -29,13 +29,13 @@ public class EventTest
 {
     Event task = new Event();
     long serialVersionUID = -2933110789647766059L;
-    String ssaEventUuid = "ssaEventUuid";
+    String eventUuid = "ssaEventUuid";
     String classificationMarking = "classificationMarking";
-    String state = "state";
-    String ssaPredecessorEventUuid = "ssaPredecessorEventUuid";
-    Long eventType = 2L;
+    EventState eventState = EventState.ACTIVE;
+    String predecessorEventUuid = "ssaPredecessorEventUuid";
+    EventType eventType = EventType.MANEUVER;
     String eventName = "eventName";
-    Long eventStatus = 3L;
+    EventStatus eventStatus = EventStatus.ACTIVE;
     OffsetDateTime startDt = OffsetDateTime.now();
     OffsetDateTime endDt = OffsetDateTime.of(2020, 10, 1, 1, 1, 1, 1, ZoneOffset.UTC);
     String eventDesc = "eventDesc";
@@ -53,29 +53,29 @@ public class EventTest
     @Test
     public void setState()
     {
-        task.setState(state);
-        assertEquals(state, task.getState());
+        task.setEventState(eventState);
+        assertEquals(eventState, task.getEventState());
     }
 
     @Test
     public void setSsaPredecessorEventUuid()
     {
-        task.setSsaPredecessorEventUuid(ssaPredecessorEventUuid);
-        assertEquals(ssaPredecessorEventUuid, task.getSsaPredecessorEventUuid());
+        task.setPredecessorEventUuid(predecessorEventUuid);
+        assertEquals(predecessorEventUuid, task.getPredecessorEventUuid());
     }
 
     @Test
     public void setStartDt()
     {
-        task.setStartDt(startDt);
-        assertEquals(startDt, task.getStartDt());
+        task.setStartDate(startDt);
+        assertEquals(startDt, task.getStartDate());
     }
 
     @Test
-    public void setEndDt()
+    public void setEndDate()
     {
-        task.setEndDt(endDt);
-        assertEquals(endDt, task.getEndDt());
+        task.setEndDate(endDt);
+        assertEquals(endDt, task.getEndDate());
     }
 
     @Test
@@ -102,8 +102,8 @@ public class EventTest
     @Test
     public void setEventDesc()
     {
-        task.setEventDesc(eventDesc);
-        assertEquals(eventDesc, task.getEventDesc());
+        task.setDescription(eventDesc);
+        assertEquals(eventDesc, task.getDescription());
     }
 
     @Test
@@ -130,8 +130,8 @@ public class EventTest
     @Test
     public void setId()
     {
-        task.setId(ssaEventUuid);
-        assertEquals(ssaEventUuid, task.getId());
+        task.setId(eventUuid);
+        assertEquals(eventUuid, task.getId());
         assertEquals(serialVersionUID, Event.getSerialVersionUID());
     }
 }

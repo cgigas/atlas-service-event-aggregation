@@ -29,7 +29,6 @@ public class OrderTest
     String property = "property";
     Direction direction = Direction.ASC;
 
-
     @Test
     public void setProperty()
     {
@@ -54,6 +53,10 @@ public class OrderTest
     public void builder()
     {
         assertNotNull(Order.builder());
+        Order.Builder builder = new Order.Builder();
+        assertNotNull(builder.withProperty(property));
+        assertNotNull(builder.withDirection(direction));
+        assertNotNull(builder.build());
     }
 
     @Test

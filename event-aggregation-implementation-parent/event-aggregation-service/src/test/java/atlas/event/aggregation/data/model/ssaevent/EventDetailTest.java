@@ -32,7 +32,7 @@ public class EventDetailTest
     String id = "id";
     String state = "state";
     String classification = "classification";
-    Long type = 1L;
+    EventType type = EventType.LAUNCH;
     String name = "name";
     OffsetDateTime startDate = OffsetDateTime.now();
     OffsetDateTime endDate = OffsetDateTime.of(2020, 10, 1, 1, 1, 1, 1, ZoneOffset.UTC);

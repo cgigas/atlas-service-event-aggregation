@@ -40,7 +40,7 @@ public class ObservationSatMedleyTest
     Long isCandidate = 4L;
     Long satNo = 5L;
     Long ucn = 6L;
-    Long type = 7L;
+    EventType type = EventType.LAUNCH;
     Long apogee = 8L;
     Long perigee = 9L;
     Double radarCrossSection = 1.1;

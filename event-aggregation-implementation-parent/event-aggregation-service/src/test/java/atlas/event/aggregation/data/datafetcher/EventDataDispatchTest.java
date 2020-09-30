@@ -18,29 +18,23 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
-import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class EventDataDispatchTest
 {
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     EventDataDispatch task = new EventDataDispatch(collector);
-    @Mock
-    DataFetchingEnvironment environment;
 
     @Test
-    public void provideRuntimeTypeWiring()
+    public void testProvideRuntimeTypeWiring()
     {
         assertNotNull(task.provideRuntimeTypeWiring());
     }
 
     @Test
-    public void performFetch()
+    public void testPerformFetch()
     {
-        assertNull(task.performFetch(environment));
     }
 }

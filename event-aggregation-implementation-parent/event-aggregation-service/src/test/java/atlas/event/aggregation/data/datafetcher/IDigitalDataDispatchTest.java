@@ -18,39 +18,53 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.InputStream;
+import java.util.Properties;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.spy;
 
-@RunWith(MockitoJUnitRunner.class)
-public class IDigitalDataDispatchTest
+interface IDigitalDataDispatch
 {
-    @Mock
-    IDigitalDataDispatch task = mock(IDigitalDataDispatch.class);
-    String url = "http://localhost:8080";
-
-    @Test
-    public void testSendHttpGetRestRequestAsString()
+    default String sendHttpGetRestRequestAsString(String url)
     {
-        String responseString = null;
-        when(task.sendHttpGetRestRequestAsString(anyString())).thenReturn(responseString);
-        task.sendHttpGetRestRequestAsString(url);
-        assertNull(responseString);
+        String responseString = "response";
+        return responseString;
     }
 
-    @Test
-    public void testSendHttpGetRestRequestAsStream()
+    default InputStream sendHttpGetRestRequestAsStream(String url)
     {
         InputStream responseStream = null;
-        when(task.sendHttpGetRestRequestAsStream(anyString())).thenReturn(responseStream);
-        task.sendHttpGetRestRequestAsStream(url);
-        assertNull(responseStream);
+        return responseStream;
+    }
+
+    default String sendHttpGetRestRequestAsString(String url, Properties properties)
+    {
+        String responseString = "response";
+        return responseString;
+    }
+
+    default InputStream sendHttpGetRestRequestAsStream(String url, Properties properties)
+    {
+        InputStream responseStream = null;
+
+        return responseStream;
+    }
+}
+
+public class IDigitalDataDispatchTest
+{
+    IDigitalDataDispatch dispatch = spy(IDigitalDataDispatch.class);
+    Properties properties = new Properties();
+
+    @Test
+    public void test()
+    {
+        assertNotNull(dispatch.sendHttpGetRestRequestAsString("url"));
+        assertNull(dispatch.sendHttpGetRestRequestAsStream("url"));
+        assertNotNull(dispatch.sendHttpGetRestRequestAsString("url", properties));
+        assertNull(dispatch.sendHttpGetRestRequestAsStream("url", properties));
     }
 }

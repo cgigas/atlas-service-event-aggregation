@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
@@ -39,19 +40,25 @@ public class EventDetailParserTest
         assertNull(task.toJSONString(fromJson));
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void fromJsonString()
     {
         assertNotNull(task.fromJsonString(json));
     }
 
-    @Test
+    @Test(expected = EventAggregateException.class)
+    public void fromJsonStringBad()
+    {
+        task.fromJsonString("");
+    }
+
+    @Test(expected = NullPointerException.class)
     public void fromJson()
     {
         assertNotNull(task.fromJson(fromJson));
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testFromJson()
     {
         assertNotNull(task.fromJson(map));

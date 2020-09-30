@@ -23,7 +23,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GetEventTypeHandlerTest
 {
@@ -33,9 +35,13 @@ public class GetEventTypeHandlerTest
     @Mock
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class);
 
+    @Mock
+    MasterHandler handler = mock(MasterHandler.class, Mockito.CALLS_REAL_METHODS);
+
     @Test(expected = EventAggregateException.class)
     public void processRequest()
     {
+        when(handler.sendHttpGetRestRequestAsString(anyString())).thenReturn("event");
         task.processRequest(environment);
     }
 }

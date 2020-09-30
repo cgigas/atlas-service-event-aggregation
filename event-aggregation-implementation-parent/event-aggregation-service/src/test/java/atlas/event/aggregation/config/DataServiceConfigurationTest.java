@@ -24,13 +24,13 @@ import static org.junit.Assert.assertEquals;
 public class DataServiceConfigurationTest
 {
     DataServiceConfiguration task = new DataServiceConfiguration();
-    String satelliteServiceUrl = "https://www.satelliteService.com";
-    String orbitalServiceUrl = "https://www.orbitalService.com";
-    String observationServiceUrl = "https://www.observationService.com";
-    String sensorServiceUrl = "https://www.sensorService.com";
-    String notesServiceUrl = "https://www.notesService.com";
+    String satelliteServiceUrl = "http://172.30.211.106:9205/satellite-crud";
+    String orbitalServiceUrl = "http://172.30.211.106:9204/orbital-crud";
+    String observationServiceUrl = "http://172.30.211.103:9001/observation-crud";
+    String sensorServiceUrl = "http://172.30.211.106:9206/sensor-crud";
+    String notesServiceUrl = "http://172.30.211.106:9203/notes-crud";
     String graphQlExtension = "https://www.graphQlExtension.com";
-    String eventServiceUrl = "https://www.eventService.com";
+    String eventServiceUrl = "http://172.30.211.106:9210/ssaevent-crud";
 
     @Test
     public void init()
