@@ -1,19 +1,19 @@
 /*
- *  * ******************************************************************************
- *   WARNING: EXPORT CONTROLLED - EAR
- *   THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
- *   GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
- *   REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
- *   FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
- *   VIOLATION OF FEDERAL LAW.
- *  ******************************************************************************
- *   Unlimited Government Rights
- *   WARNING: Do Not Use On A Privately Funded Program Without Permission.
- *  ******************************************************************************
- *   CLASSIFICATION:   Unclassified
+ * ******************************************************************************
+ *  WARNING: EXPORT CONTROLLED - EAR
+ *  THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+ *  GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+ *  REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+ *  FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+ *  VIOLATION OF FEDERAL LAW.
+ * ******************************************************************************
+ *  Unlimited Government Rights
+ *  WARNING: Do Not Use On A Privately Funded Program Without Permission.
+ * ******************************************************************************
+ *  CLASSIFICATION:   Unclassified
  *
- *   LIMITATIONS:      None
- *  ******************************************************************************
+ *  LIMITATIONS:      None
+ * ******************************************************************************
  */
 package atlas.event.aggregation.data.model.ssaeventdata;
 
@@ -42,7 +42,7 @@ public class SsaEventData extends Audited
      * Security classification marking of the data in one row of this table in the form of a paragraph marking
      */
     @NotNull
-    private String classficiationMarking;
+    private String classificationMarking;
 
     /**
      * UUID of the associated SSA event.
@@ -76,14 +76,14 @@ public class SsaEventData extends Audited
         this.ssaEventDataUuid = ssaEventDataUuid;
     }
 
-    public String getClassficiationMarking()
+    public String getClassificationMarking()
     {
-        return classficiationMarking;
+        return classificationMarking;
     }
 
-    public void setClassficiationMarking(String classficiationMarking)
+    public void setClassificationMarking(String classificationMarking)
     {
-        this.classficiationMarking = classficiationMarking;
+        this.classificationMarking = classificationMarking;
     }
 
     public String getSsaEventUuid()
