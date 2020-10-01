@@ -19,11 +19,10 @@ package atlas.event.aggregation.data.model;
 
 import atlas.event.aggregation.data.model.ssaevent.Versioned;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+@Data
 public class Audited extends Versioned
 {
     /**
@@ -45,44 +44,4 @@ public class Audited extends Versioned
      * Origin or source of the last update..
      */
     private String updateOrigin;
-
-    public Date getCreateDate()
-    {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate)
-    {
-        this.createDate = createDate;
-    }
-
-    public String getCreateOrigin()
-    {
-        return createOrigin;
-    }
-
-    public void setCreateOrigin(String createOrigin)
-    {
-        this.createOrigin = createOrigin;
-    }
-
-    public Date getUpdateDate()
-    {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate)
-    {
-        this.updateDate = updateDate;
-    }
-
-    public String getUpdateOrigin()
-    {
-        return updateOrigin;
-    }
-
-    public void setUpdateOrigin(String updateOrigin)
-    {
-        this.updateOrigin = updateOrigin;
-    }
 }
