@@ -28,7 +28,7 @@ public class VersionedTest
 {
     @Mock
     Versioned task = mock(Versioned.class, Mockito.CALLS_REAL_METHODS);
-    Long version = 3L;
+    int version = 3;
 
     @Test
     public void setVersion()

@@ -24,14 +24,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class Versioned
 {
-    private Long version;
+    private int version;
 
-    public Long getVersion()
+    public int getVersion()
     {
         return version;
     }
 
-    public void setVersion(Long version)
+    public void setVersion(int version)
     {
         this.version = version;
     }

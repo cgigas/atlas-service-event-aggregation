@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -37,30 +38,23 @@ public class CandidateFormationParameters extends Audited
     @Id
     private String candidateFormationParametersUuid;
 
-    /**
-     *
-     */
-    private String classificationMarking;
-
-    /**
-     *
-     */
     private Float pdotCoeficients;
 
-    /**
-     *
-     */
     private Float coplanarCheckThreshold;
 
-    /**
-     *
-     */
-    private Float periodThreshold;
+    private Float periodAssociationThreshold;
 
-    /**
-     *
-     */
     private Integer minimumTrackersPerCluster;
+
+    private Date updateDate;
+
+    private Date createDate;
+
+    private String updateOrigin;
+
+    private String createOrigin;
+
+    private int version;
 
     public String getCandidateFormationParametersUuid()
     {
@@ -70,16 +64,6 @@ public class CandidateFormationParameters extends Audited
     public void setCandidateFormationParametersUuid(String candidateFormationParametersUuid)
     {
         this.candidateFormationParametersUuid = candidateFormationParametersUuid;
-    }
-
-    public String getClassificationMarking()
-    {
-        return classificationMarking;
-    }
-
-    public void setClassificationMarking(String classificationMarking)
-    {
-        this.classificationMarking = classificationMarking;
     }
 
     public Float getPdotCoeficients()
@@ -102,14 +86,14 @@ public class CandidateFormationParameters extends Audited
         this.coplanarCheckThreshold = coplanarCheckThreshold;
     }
 
-    public Float getPeriodThreshold()
+    public Float getPeriodAssociationThreshold()
     {
-        return periodThreshold;
+        return periodAssociationThreshold;
     }
 
-    public void setPeriodThreshold(Float periodThreshold)
+    public void setPeriodAssociationThreshold(Float periodAssociationThreshold)
     {
-        this.periodThreshold = periodThreshold;
+        this.periodAssociationThreshold = periodAssociationThreshold;
     }
 
     public Integer getMinimumTrackersPerCluster()
@@ -120,5 +104,64 @@ public class CandidateFormationParameters extends Audited
     public void setMinimumTrackersPerCluster(Integer minimumTrackersPerCluster)
     {
         this.minimumTrackersPerCluster = minimumTrackersPerCluster;
+    }
+
+
+    public Date getUpdateDate()
+    {
+        return updateDate;
+    }
+
+
+    public void setUpdateDate(Date updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
+
+    public Date getCreateDate()
+    {
+        return createDate;
+    }
+
+
+    public void setCreateDate(Date createDate)
+    {
+        this.createDate = createDate;
+    }
+
+
+    public String getUpdateOrigin()
+    {
+        return updateOrigin;
+    }
+
+
+    public void setUpdateOrigin(String updateOrigin)
+    {
+        this.updateOrigin = updateOrigin;
+    }
+
+
+    public String getCreateOrigin()
+    {
+        return createOrigin;
+    }
+
+
+    public void setCreateOrigin(String createOrigin)
+    {
+        this.createOrigin = createOrigin;
+    }
+
+
+    public int getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(int version)
+    {
+        this.version = version;
     }
 }
