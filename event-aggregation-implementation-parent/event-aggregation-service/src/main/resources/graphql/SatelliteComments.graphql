@@ -22,7 +22,6 @@ type CommentCodeInput {
     version: Long
 }
 
-
 input CreateUpdateInfo {
     createDate: DateTime
     createOrgin: String

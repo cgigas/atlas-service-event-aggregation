@@ -19,8 +19,6 @@ package atlas.event.aggregation.data.model.candidateformation;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import static org.junit.Assert.assertEquals;
 
 public class CandidateFormationParametersTest
@@ -31,11 +29,6 @@ public class CandidateFormationParametersTest
     Float coplanarCheckThreshold = Float.valueOf(4);
     Float periodThreshold = Float.valueOf(5);
     Integer minimumTrackersPerCluster = 6;
-    Date updateDate = new Date();
-    Date createDate = new Date();
-    String updateOrigin = "update";
-    String createOrigin = "create";
-    int version = 7;
 
     @Test
     public void setCandidateFormationParametersUuid()
@@ -70,32 +63,5 @@ public class CandidateFormationParametersTest
     {
         task.setPeriodAssociationThreshold(periodThreshold);
         assertEquals(periodThreshold, task.getPeriodAssociationThreshold());
-    }
-
-    @Test
-    public void testDate()
-    {
-        task.setCreateDate(createDate);
-        assertEquals(createDate, task.getCreateDate());
-
-        task.setUpdateDate(updateDate);
-        assertEquals(updateDate, task.getUpdateDate());
-    }
-
-    @Test
-    public void testOrigin()
-    {
-        task.setCreateOrigin(createOrigin);
-        assertEquals(createOrigin, task.getCreateOrigin());
-
-        task.setUpdateOrigin(updateOrigin);
-        assertEquals(updateOrigin, task.getUpdateOrigin());
-    }
-
-    @Test
-    public void testVersion()
-    {
-        task.setVersion(version);
-        assertEquals(version, task.getVersion());
     }
 }

@@ -15,18 +15,32 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.constants;
+package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import static org.junit.Assert.assertNotNull;
 
-public class EventAggregationConstantsTest
+public class CandidateFormationDispatchTest
 {
+    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
+    CandidateFormationDispatch task = new CandidateFormationDispatch(collector);
+    @Mock
+    DataFetchingEnvironment environment;
+
     @Test
-    public void test()
+    public void testProvideRuntimeTypeWiring()
     {
-        EventAggregationConstants task = new EventAggregationConstants();
         assertNotNull(task);
+        task.provideRuntimeTypeWiring();
+    }
+
+    @Test
+    public void testPerformFetch()
+    {
+        task.performFetch(environment);
     }
 }

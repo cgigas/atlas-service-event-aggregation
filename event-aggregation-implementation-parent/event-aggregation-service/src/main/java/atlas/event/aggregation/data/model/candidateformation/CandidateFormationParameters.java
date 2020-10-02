@@ -24,13 +24,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CandidateFormationParameters extends Audited
+public class CandidateFormationParameters extends Audited implements Serializable
 {
     /**
      * Unique identifier
@@ -45,16 +45,6 @@ public class CandidateFormationParameters extends Audited
     private Float periodAssociationThreshold;
 
     private Integer minimumTrackersPerCluster;
-
-    private Date updateDate;
-
-    private Date createDate;
-
-    private String updateOrigin;
-
-    private String createOrigin;
-
-    private int version;
 
     public String getCandidateFormationParametersUuid()
     {
@@ -104,64 +94,5 @@ public class CandidateFormationParameters extends Audited
     public void setMinimumTrackersPerCluster(Integer minimumTrackersPerCluster)
     {
         this.minimumTrackersPerCluster = minimumTrackersPerCluster;
-    }
-
-
-    public Date getUpdateDate()
-    {
-        return updateDate;
-    }
-
-
-    public void setUpdateDate(Date updateDate)
-    {
-        this.updateDate = updateDate;
-    }
-
-
-    public Date getCreateDate()
-    {
-        return createDate;
-    }
-
-
-    public void setCreateDate(Date createDate)
-    {
-        this.createDate = createDate;
-    }
-
-
-    public String getUpdateOrigin()
-    {
-        return updateOrigin;
-    }
-
-
-    public void setUpdateOrigin(String updateOrigin)
-    {
-        this.updateOrigin = updateOrigin;
-    }
-
-
-    public String getCreateOrigin()
-    {
-        return createOrigin;
-    }
-
-
-    public void setCreateOrigin(String createOrigin)
-    {
-        this.createOrigin = createOrigin;
-    }
-
-
-    public int getVersion()
-    {
-        return version;
-    }
-
-    public void setVersion(int version)
-    {
-        this.version = version;
     }
 }
