@@ -2,7 +2,6 @@ type MpeProcessingConfig {
     template: MPEProcessingConfigTemplate
     eventUUID: String
     catalogRsoReservationUUID: String
-
 }
 
 extend type MPEServiceMutation {

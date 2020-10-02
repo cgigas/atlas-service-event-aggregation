@@ -72,6 +72,9 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
                 case "/createMpeConfig":
                     result = processCreateConfig(environment);
                     break;
+                case "/deleteMpeConfig":
+                    result = processDeleteConfig(environment);
+                    break;
                 case "/updateMpeConfig":
                     result = processUpdateConfig(environment);
                     break;
@@ -80,13 +83,21 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
         return result;
     }
 
+    private MPEProcessingConfiguration processDeleteConfig(DataFetchingEnvironment environment)
+    {
+        MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
+        return configuration;
+    }
+
     private MPEProcessingConfiguration processUpdateConfig(DataFetchingEnvironment environment)
     {
-        return null;
+        MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
+        return configuration;
     }
 
     private MPEProcessingConfiguration processCreateConfig(DataFetchingEnvironment environment)
     {
-        return null;
+        MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
+        return configuration;
     }
 }
