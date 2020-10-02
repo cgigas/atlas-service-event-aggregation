@@ -238,14 +238,13 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         return ext;
     }
 
+    protected abstract Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring();
     // Derived classes must implement this to accomplish the main work of the class.
     // performFetch should populate returnValue field if successful.
     // The localContext map is also available for derived classes to use to pass prefetched objects to subsequent data fetchers
     // performFetch will be retried if an exception is thrown by REST clients
     //    @Retryable(value = {RestClientException.class, ResourceAccessException.class}, maxAttempts = 3, backoff = @Backoff(delay = 1000, maxDelay = 5000))
     protected abstract Object performFetch(DataFetchingEnvironment environment);
-
-    protected abstract Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring();
 
     protected void addToLocalContext(String key, java.io.Serializable value)
     {

@@ -1,0 +1,32 @@
+extend type MPEServiceMutation {
+    createCommentCode(input: CreateCommentCode): Comment
+}
+
+type Comment {
+    commentCodeId: NonNegativeInt
+}
+
+input CreateCommentCode {
+    commentCodeId: NonNegativeInt
+    commentCode: CommentCode
+}
+
+input CommentCode {
+    commentCode: NonNegativeInt!
+    description: String!
+    createUpdateInfo: CreateUpdateInfo
+}
+
+type CommentCodeInput {
+    description: String!
+    version: Long
+}
+
+
+input CreateUpdateInfo {
+    createDate: DateTime
+    createOrgin: String
+    updateDate: DateTime
+    updateOrgin: String
+    version: Long
+}

@@ -4,10 +4,6 @@ type MPEServiceQuery {
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
 }
 
-type TypeQuery {
-    getEventTypes: [EventType]
-}
-
 type MPEServiceMutation {
     closeEvent(id: String, endDate: DateTime): Event
     deleteEvent(id: String): Event
