@@ -19,30 +19,29 @@ package atlas.event.aggregation.data.model.candidateformation;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 public class CandidateFormationParametersTest
 {
     CandidateFormationParameters task = new CandidateFormationParameters();
     String candidateFormationParametersUuid = "canFormParaUuid";
-    String classificationMarking = "classMark";
     Float pdotCoeficients = Float.valueOf(3);
     Float coplanarCheckThreshold = Float.valueOf(4);
     Float periodThreshold = Float.valueOf(5);
     Integer minimumTrackersPerCluster = 6;
+    Date updateDate = new Date();
+    Date createDate = new Date();
+    String updateOrigin = "update";
+    String createOrigin = "create";
+    int version = 7;
 
     @Test
     public void setCandidateFormationParametersUuid()
     {
         task.setCandidateFormationParametersUuid(candidateFormationParametersUuid);
         assertEquals(candidateFormationParametersUuid, task.getCandidateFormationParametersUuid());
-    }
-
-    @Test
-    public void setClassificationMarking()
-    {
-        task.setClassificationMarking(classificationMarking);
-        assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
@@ -69,7 +68,34 @@ public class CandidateFormationParametersTest
     @Test
     public void setPeriodThreshold()
     {
-        task.setPeriodThreshold(periodThreshold);
-        assertEquals(periodThreshold, task.getPeriodThreshold());
+        task.setPeriodAssociationThreshold(periodThreshold);
+        assertEquals(periodThreshold, task.getPeriodAssociationThreshold());
+    }
+
+    @Test
+    public void testDate()
+    {
+        task.setCreateDate(createDate);
+        assertEquals(createDate, task.getCreateDate());
+
+        task.setUpdateDate(updateDate);
+        assertEquals(updateDate, task.getUpdateDate());
+    }
+
+    @Test
+    public void testOrigin()
+    {
+        task.setCreateOrigin(createOrigin);
+        assertEquals(createOrigin, task.getCreateOrigin());
+
+        task.setUpdateOrigin(updateOrigin);
+        assertEquals(updateOrigin, task.getUpdateOrigin());
+    }
+
+    @Test
+    public void testVersion()
+    {
+        task.setVersion(version);
+        assertEquals(version, task.getVersion());
     }
 }
