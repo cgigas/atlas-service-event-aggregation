@@ -4,6 +4,60 @@ extend type MPEServiceMutation {
     updateCandidateFormationParameters(candidateFormationParametersUuid: String!): CandidateFormationParameters
 }
 
+extend type MPEServiceQuery {
+    candidateFormationParameters(candidateFormationParametersUuid: String!): CandidateFormationParameters
+    candidateFormationParametersPage(pageInfo: PageInfo!): CandidateFormationParametersPage!
+    candidateFormationParametersPageById(
+        candidateFormationParametersUuids: [String!]!
+        pageInfo: PageInfo!
+    ): CandidateFormationParametersPage!
+    candidateFormationParametersPageByExample(
+        example: CandidateFormationParametersQueryExampleInput!
+        pageInfo: PageInfo!
+    ): CandidateFormationParametersPage!
+    candidateFormationParametersPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): CandidateFormationParametersPage!
+}
+
+input CriteriaQuery {
+    propertyPredicate: PropertyPredicate
+    andPredicate: AndPredicate
+    orPredicate: OrPredicate
+}
+
+input OrPredicate {
+    propertyPredicates: [PropertyPredicate!]
+    andPredicates: [AndPredicate!]
+}
+
+input AndPredicate {
+    propertyPredicates: [PropertyPredicate!]
+    orPredicates: [OrPredicate!]
+}
+
+input PropertyPredicate {
+    property: String!
+    operator: PredicateOperator!
+    value: String!
+}
+
+input CandidateFormationParametersQueryExampleInput {
+    classificationMarking: String
+    pdotCoefficients: Float
+    coplanarCheckThreshold: NonNegativeFloat
+    periodAssociationThreshold: NonNegativeFloat
+    minimumTracksPerCluster: NonNegativeInt
+}
+
+type CandidateFormationParametersPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [CandidateFormationParameters]
+}
+
 type CandidateFormationParameters{
     candidateFormationParametersUuid: String!
     classificationMarking: String!
