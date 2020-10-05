@@ -59,7 +59,6 @@
             <version>${com.graphql-java-extended-scalars.version}</version>
         </dependency>
 
-        <!-- Test dependencies -->
     </dependencies>
 
     <build>
