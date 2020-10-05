@@ -33,7 +33,6 @@
     <name>ATLAS: ui aggregation parent module for generated graphql code used by the ui aggregation service</name>
 
     <modules>
-        <module>event-aggregation-event-crud-graphql</module>
         <module>event-aggregation-satellite-crud-graphql</module>
         <module>event-aggregation-sensor-crud-graphql</module>
         <module>event-aggregation-notes-crud-graphql</module>
