@@ -1,0 +1,13 @@
+extend type MPEServiceMutation {
+    createSatDecay(
+        satelliteUuid: String!
+        satDecay: SatDecayInput!
+    ): SatDecay!
+    updateSatDecay(
+        satelliteUuid: String!
+        satDecay: SatDecayInput!
+    ): SatDecay
+    deleteSatDecay(
+        satelliteUuid: String!
+    ): SatDecay
+}

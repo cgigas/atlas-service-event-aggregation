@@ -1,0 +1,29 @@
+extend type MPEServiceMutation {
+    createIntegratorControls(
+        integratorControls: IntegratorControlsInput!
+    ): IntegratorControls!
+    updateIntegratorControls(
+        integratorControlsUuid: String!
+        integratorControls: IntegratorControlsInput!
+    ): IntegratorControls
+    deleteIntegratorControls(
+        integratorControlsUuid: NonNegativeInt!
+    ): IntegratorControls
+}
+
+input IntegratorControlsInput {
+    classificationMarking: String!
+    satelliteUuid: String!
+    application: Application!
+    coordinateSystem: CoordinateSystem!
+    errorControl: Float!
+    inputStepSize: Float!
+    partialDerivatives: PartialDerivatives!
+    printStepChangeFlag: Boolean!
+    propagator: Propagator!
+    spadocEmulationFlag: Boolean!
+    stepMode: StepMode!
+    stepSizeMethod: StepSizeMethod!
+    stepSizeSource: StepSizeSource!
+    version: Long
+}

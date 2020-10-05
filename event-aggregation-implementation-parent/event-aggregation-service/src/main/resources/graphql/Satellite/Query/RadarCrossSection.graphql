@@ -1,0 +1,45 @@
+extend type MPEServiceQuery {
+    radarCrossSection(rcsUuid: String!): RadarCrossSection
+    radarCrossSectionPage(pageInfo: PageInfo!): RadarCrossSectionPage!
+    radarCrossSectionPageById(
+        rcsUuids: [String!]!
+        pageInfo: PageInfo!
+    ): RadarCrossSectionPage!
+    radarCrossSectionPageByExample(
+        example: RadarCrossSectionQueryExampleInput!
+        pageInfo: PageInfo!
+    ): RadarCrossSectionPage!
+    radarCrossSectionPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): RadarCrossSectionPage!
+}
+
+type RadarCrossSection {
+    rcsUuid: String!
+    classificationMarking: String!
+    satelliteUuid: String!
+    lastRcs: Float
+    lastSensorNumber: PositiveInt
+    rcsDate: DateTime
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type RadarCrossSectionPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [RadarCrossSection]
+}
+
+input RadarCrossSectionQueryExampleInput {
+    classificationMarking: String
+    satelliteUuid: String
+    lastRcs: Float
+    lastSensorNumber: PositiveInt
+    rcsDate: DateTime
+}

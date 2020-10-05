@@ -58,3 +58,15 @@ enum EventSatelliteRelationship
     PRIMARY,
     SECONDARY
 }
+
+enum PredicateOperator {
+    EQ
+    NOT_EQ
+    LIKE
+    NOT_LIKE
+    GE
+    GT
+    LE
+    LT
+    IN
+}

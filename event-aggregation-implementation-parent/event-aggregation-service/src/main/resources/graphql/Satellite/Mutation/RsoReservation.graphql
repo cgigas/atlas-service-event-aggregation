@@ -1,0 +1,32 @@
+extend type MPEServiceMutation {
+    createRsoReservation(
+        rsoReservation: RsoReservationInput!
+    ): RsoReservation!
+    updateRsoReservation(
+        rsoReservationUuid: String!
+        rsoReservation: RsoReservationInput!
+    ): RsoReservation
+    deleteRsoReservation(
+        rsoReservationUuid: String!
+    ): RsoReservation
+}
+
+input RsoReservationInput {
+    classificationMarking: String!
+    parentRsoReservationUuid: String
+    category: RsoCategory!
+    legacyCompatibleFlag: Boolean!
+    title: String!
+    position: String
+    eventType: SsaEventType
+    minSatNo: NonNegativeInt!
+    maxSatNo: NonNegativeInt!
+    minUCN: NonNegativeInt
+    maxUCN: NonNegativeInt
+    description: String
+    releasableFlag: Boolean!
+    deletableFlag: Boolean!
+    minClassification: String
+    maxClassification: String
+    version: Long
+}

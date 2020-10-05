@@ -1,0 +1,60 @@
+extend type MPEServiceQuery {
+    satelliteList(satelliteListUuid: String!): SatelliteList
+    satelliteListPage(pageInfo: PageInfo!): SatelliteListPage!
+    satelliteListPageById(
+        satelliteListUuids: [String!]!
+        pageInfo: PageInfo!
+    ): SatelliteListPage!
+    satelliteListPageByExample(
+        example: SatelliteListQueryExampleInput
+        pageInfo: PageInfo!
+    ): SatelliteListPage!
+    satelliteListPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): SatelliteListPage!
+}
+
+type SatelliteList {
+    satelliteListUuid: String!
+    classificationMarking: String!
+    satelliteListName: String!
+    satelliteListType: String
+    odPriorityFlag: Boolean!
+    deletableFlag: Boolean!
+    list: [SatelliteListSatellite]
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type SatelliteListSatellite {
+    satelliteListSatelliteUuid: String!
+    classificationMarking: String!
+    satelliteListUuid: String!
+    satelliteUuid: String!
+    satellite: Satellite!
+    listOrder: NonNegativeInt
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type SatelliteListPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [SatelliteList]
+}
+
+input SatelliteListQueryExampleInput {
+    classificationMarking: String
+    satelliteListName: String
+    satelliteListType: String
+    odPriorityFlag: Boolean
+    deletableFlag: Boolean
+}

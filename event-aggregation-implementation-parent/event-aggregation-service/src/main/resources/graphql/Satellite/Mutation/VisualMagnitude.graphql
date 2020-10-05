@@ -1,0 +1,27 @@
+extend type MPEServiceMutation {
+    createVisualMagnitude(
+        visualMagnitude: VisualMagnitudeInput!
+    ): VisualMagnitude!
+    createVisualMagnitudes(
+        visualMagnitudes: [VisualMagnitudeInput!]!
+    ): [VisualMagnitude!]!
+    updateVisualMagnitude(
+        visualMagnitudeUuid: String!
+        visualMagnitude: VisualMagnitudeInput!
+    ): VisualMagnitude
+    deleteVisualMagnitude(
+        visualMagnitudeUuid: String!
+    ): VisualMagnitude
+}
+
+input VisualMagnitudeInput {
+    classificationMarking: String!
+    satelliteUuid: String!
+    sensorNumber: PositiveInt
+    reportDt: DateTime
+    observedMv: Float
+    normKm36000: Float
+    solarPhaseAngle: Float
+    solarDeclinationAngle: Float
+    version: Long
+}

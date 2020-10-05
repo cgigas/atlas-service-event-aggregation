@@ -1,0 +1,49 @@
+extend type MPEServiceQuery {
+    currentRcs(satelliteUuid: String!): CurrentRcs
+    currentRcsPage(pageInfo: PageInfo!): CurrentRcsPage!
+    currentRcsPageById(
+        satelliteUuids: [String!]!
+        pageInfo: PageInfo!
+    ): CurrentRcsPage!
+    currentRcsPageByExample(
+        example: CurrentRcsQueryExampleInput!
+        pageInfo: PageInfo!
+    ): CurrentRcsPage!
+    currentRcsPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): CurrentRcsPage!
+}
+
+type CurrentRcs {
+    satelliteUuid: String!
+    rcsUuid: String!
+    radarCrossSection: RadarCrossSection!
+    version: Long
+}
+
+type RadarCrossSection {
+    rcsUuid: String!
+    classificationMarking: String!
+    satelliteUuid: String!
+    lastRcs: Float
+    lastSensorNumber: PositiveInt
+    rcsDate: DateTime
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type CurrentRcsPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [CurrentRcs]
+}
+
+input CurrentRcsQueryExampleInput {
+    satelliteUuid: String
+    rcsUuid: String
+}
