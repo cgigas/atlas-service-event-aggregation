@@ -58,7 +58,11 @@
             <artifactId>graphql-java-extended-scalars</artifactId>
             <version>${com.graphql-java-extended-scalars.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>atlas.event-aggregation</groupId>
+            <artifactId>graphql-support</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
