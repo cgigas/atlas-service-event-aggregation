@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.data.model.candidateformation.CandidateFormationParameters;
+import atlas.event.aggregation.data.model.candidateformation.CandidateFormationParametersPage;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
@@ -46,8 +47,16 @@ public class CandidateFormationDispatch extends AbstractDataDispatch<CandidateFo
     protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
+        builders.add(newTypeWiring("MPEServiceQuery")
+            .dataFetcher("candidateFormationParameters", this)
+            .dataFetcher("candidateFormationParametersPage", this)
+            .dataFetcher("candidateFormationParametersPageById", this)
+            .dataFetcher("candidateFormationParametersPageByExample", this)
+            .dataFetcher("candidateFormationParametersPageByCriteria", this));
         builders.add(newTypeWiring("MPEServiceMutation")
-            .dataFetcher("createCandidateFormationParameters", this));
+            .dataFetcher("createCandidateFormationParameters", this)
+            .dataFetcher("deleteCandidateFormationParameters", this)
+            .dataFetcher("updateCandidateFormationParameters", this));
         return builders;
     }
 
@@ -69,10 +78,125 @@ public class CandidateFormationDispatch extends AbstractDataDispatch<CandidateFo
                 case "/updateCandidateFormationParameters":
                     result = updateCandidateFormationParameters(environment);
                     break;
+                case "/candidateFormationParameters":
+                    result = candidateFormationParameters(environment);
+                    break;
+                case "/candidateFormationParametersPage":
+                    result = candidateFormationParametersPage(environment);
+                    break;
+                case "/candidateFormationParametersPageById":
+                    result = candidateFormationParametersPageById(environment);
+                    break;
+                case "/candidateFormationParametersPageByExample":
+                    result = candidateFormationParametersPageByExample(environment);
+                    break;
+                case "/candidateFormationParametersPageByCriteria":
+                    result = candidateFormationParametersPageByCriteria(environment);
+                    break;
             }
         }
 
         return result;
+    }
+
+    private CandidateFormationParametersPage candidateFormationParametersPageByCriteria(DataFetchingEnvironment environment)
+    {
+        CandidateFormationParametersPage page = new CandidateFormationParametersPage();
+        CandidateFormationParameters content = new CandidateFormationParameters();
+        content.setCandidateFormationParametersUuid("candidateFormationParametersUuid");
+        content.setCoplanarCheckThreshold(new Float("2"));
+        content.setPdotCoeficients(new Float("3"));
+        content.setPeriodAssociationThreshold(new Float("4"));
+        content.setMinimumTrackersPerCluster(5);
+        content.setUpdateOrigin("updated origin");
+        content.setUpdateDate(new Date());
+        content.setCreateOrigin("created origin");
+        content.setCreateDate(new Date());
+        content.setVersion(6);
+        page.setNumber(1);
+        page.setTotalElements(2L);
+        page.setTotalPages(3);
+        page.setContent(content);
+        return page;
+    }
+
+    private CandidateFormationParametersPage candidateFormationParametersPageByExample(DataFetchingEnvironment environment)
+    {
+        CandidateFormationParametersPage page = new CandidateFormationParametersPage();
+        CandidateFormationParameters content = new CandidateFormationParameters();
+        content.setCandidateFormationParametersUuid("candidateFormationParametersUuid");
+        content.setCoplanarCheckThreshold(new Float("2"));
+        content.setPdotCoeficients(new Float("3"));
+        content.setPeriodAssociationThreshold(new Float("4"));
+        content.setMinimumTrackersPerCluster(5);
+        content.setUpdateOrigin("updated origin");
+        content.setUpdateDate(new Date());
+        content.setCreateOrigin("created origin");
+        content.setCreateDate(new Date());
+        content.setVersion(6);
+        page.setNumber(1);
+        page.setTotalElements(2L);
+        page.setTotalPages(3);
+        page.setContent(content);
+        return page;
+    }
+
+    private CandidateFormationParametersPage candidateFormationParametersPageById(DataFetchingEnvironment environment)
+    {
+        CandidateFormationParametersPage page = new CandidateFormationParametersPage();
+        CandidateFormationParameters content = new CandidateFormationParameters();
+        content.setCandidateFormationParametersUuid("candidateFormationParametersUuid");
+        content.setCoplanarCheckThreshold(new Float("2"));
+        content.setPdotCoeficients(new Float("3"));
+        content.setPeriodAssociationThreshold(new Float("4"));
+        content.setMinimumTrackersPerCluster(5);
+        content.setUpdateOrigin("updated origin");
+        content.setUpdateDate(new Date());
+        content.setCreateOrigin("created origin");
+        content.setCreateDate(new Date());
+        content.setVersion(6);
+        page.setNumber(1);
+        page.setTotalElements(2L);
+        page.setTotalPages(3);
+        page.setContent(content);
+        return page;
+    }
+
+    private CandidateFormationParametersPage candidateFormationParametersPage(DataFetchingEnvironment environment)
+    {
+        CandidateFormationParametersPage page = new CandidateFormationParametersPage();
+        CandidateFormationParameters content = new CandidateFormationParameters();
+        content.setCandidateFormationParametersUuid("candidateFormationParametersUuid");
+        content.setCoplanarCheckThreshold(new Float("2"));
+        content.setPdotCoeficients(new Float("3"));
+        content.setPeriodAssociationThreshold(new Float("4"));
+        content.setMinimumTrackersPerCluster(5);
+        content.setUpdateOrigin("updated origin");
+        content.setUpdateDate(new Date());
+        content.setCreateOrigin("created origin");
+        content.setCreateDate(new Date());
+        content.setVersion(6);
+        page.setNumber(1);
+        page.setTotalElements(2L);
+        page.setTotalPages(3);
+        page.setContent(content);
+        return page;
+    }
+
+    private CandidateFormationParameters candidateFormationParameters(DataFetchingEnvironment environment)
+    {
+        CandidateFormationParameters parameters = new CandidateFormationParameters();
+        parameters.setCandidateFormationParametersUuid("candidateFormationParametersUuid");
+        parameters.setCoplanarCheckThreshold(new Float("2"));
+        parameters.setPdotCoeficients(new Float("3"));
+        parameters.setPeriodAssociationThreshold(new Float("4"));
+        parameters.setMinimumTrackersPerCluster(5);
+        parameters.setUpdateOrigin("updated origin");
+        parameters.setUpdateDate(new Date());
+        parameters.setCreateOrigin("created origin");
+        parameters.setCreateDate(new Date());
+        parameters.setVersion(6);
+        return parameters;
     }
 
     private CandidateFormationParameters updateCandidateFormationParameters(DataFetchingEnvironment environment)
@@ -93,8 +217,7 @@ public class CandidateFormationDispatch extends AbstractDataDispatch<CandidateFo
 
     private CandidateFormationParameters deleteCandidateFormationParameters(DataFetchingEnvironment environment)
     {
-        CandidateFormationParameters parameters = new CandidateFormationParameters();
-        return parameters;
+        return null;
     }
 
     private CandidateFormationParameters createCandidateFormationParameters(DataFetchingEnvironment environment)
