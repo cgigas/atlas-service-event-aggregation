@@ -17,6 +17,11 @@
  */
 package atlas.event.aggregation.config;
 
+import atlas.notes.crud.graphql.NotesCrudQueryExecutor;
+import atlas.satellite.crud.graphql.SatelliteCrudMutationExecutor;
+import atlas.satellite.crud.graphql.SatelliteCrudQueryExecutor;
+import atlas.sensor.crud.graphql.SensorCrudQueryExecutor;
+import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -35,7 +40,12 @@ public class DataServiceConfiguration
     private String notesServiceUrl;
     private String graphQlExtension;
     private String eventServiceUrl;
-
+    private EventCrudQueryExecutor eventCrudQueryExecutor;
+    private NotesCrudQueryExecutor notesCrudQueryExecutor;
+    private SensorCrudQueryExecutor sensorCrudQueryExecutor;
+    private SatelliteCrudMutationExecutor satelliteCrudMutationExecutor;
+    private SatelliteCrudQueryExecutor satelliteCrudQueryExecutor;
+    
     @PostConstruct
     public void init()
     {

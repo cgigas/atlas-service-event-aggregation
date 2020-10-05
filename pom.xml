@@ -232,9 +232,9 @@
     </dependencyManagement>
 
     <modules>
+        <module>graphql-support</module>
         <module>event-aggregation-implementation-parent</module>
         <module>event-aggregation-deployment-parent</module>
-        <module>graphql-support</module>
     </modules>
 
 </project>
