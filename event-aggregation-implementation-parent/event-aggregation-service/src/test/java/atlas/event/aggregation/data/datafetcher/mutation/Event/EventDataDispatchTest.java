@@ -15,31 +15,27 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.datafetcher;
+package atlas.event.aggregation.data.datafetcher.mutation.Event;
 
-import atlas.event.aggregation.data.datafetcher.mutation.Event.EventTypeDataFetcher;
-import graphql.schema.DataFetchingEnvironment;
+import atlas.event.aggregation.data.datafetcher.mutation.Event.EventDataDispatch;
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
-public class EventTypeDataFetcherTest
+public class EventDataDispatchTest
 {
-    EventTypeDataFetcher task = new EventTypeDataFetcher();
-    @Mock
-    DataFetchingEnvironment environment;
+    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
+    EventDataDispatch task = new EventDataDispatch(collector);
 
     @Test
-    public void provideRuntimeTypeWiring()
+    public void testProvideRuntimeTypeWiring()
     {
         assertNotNull(task.provideRuntimeTypeWiring());
     }
 
     @Test
-    public void performFetch()
+    public void testPerformFetch()
     {
-        assertNull(task.performFetch(environment));
     }
 }

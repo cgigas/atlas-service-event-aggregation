@@ -19,8 +19,48 @@ package atlas.event.aggregation.data.model.Satellite;
 
 public class CurrentRcs
 {
-    String satelliteUuid;
-    String rcsUuid;
-    RadarCrossSection radarCrossSection;
-    Long version;
+    private String satelliteUuid;
+    private String rcsUuid;
+    private RadarCrossSection radarCrossSection;
+    private Long version;
+
+    public String getSatelliteUuid()
+    {
+        return satelliteUuid;
+    }
+
+    public void setSatelliteUuid(String satelliteUuid)
+    {
+        this.satelliteUuid = satelliteUuid;
+    }
+
+    public String getRcsUuid()
+    {
+        return rcsUuid;
+    }
+
+    public void setRcsUuid(String rcsUuid)
+    {
+        this.rcsUuid = rcsUuid;
+    }
+
+    public RadarCrossSection getRadarCrossSection()
+    {
+        return radarCrossSection;
+    }
+
+    public void setRadarCrossSection(RadarCrossSection radarCrossSection)
+    {
+        this.radarCrossSection = radarCrossSection;
+    }
+
+    public Long getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(Long version)
+    {
+        this.version = version;
+    }
 }

@@ -15,33 +15,52 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.datafetcher;
+package atlas.event.aggregation.data.model.Satellite;
 
-import atlas.event.aggregation.data.datafetcher.mutation.Event.EventSatelliteDispatch;
-import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
-import graphql.schema.DataFetchingEnvironment;
-import org.junit.Test;
-import org.mockito.Mock;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-public class EventSatelliteDispatchTest
+public class CurrentRcsPage
 {
-    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
-    EventSatelliteDispatch task = new EventSatelliteDispatch(collector);
-    @Mock
-    DataFetchingEnvironment environment;
+    private int number;
+    private long totalElements;
+    private int totalPages;
+    private CurrentRcs content;
 
-    @Test
-    public void provideRuntimeTypeWiring()
+    public int getNumber()
     {
-        assertNotNull(task.provideRuntimeTypeWiring());
+        return number;
     }
 
-    @Test
-    public void performFetch()
+    public void setNumber(int number)
     {
-        assertNull(task.performFetch(environment));
+        this.number = number;
+    }
+
+    public long getTotalElements()
+    {
+        return totalElements;
+    }
+
+    public void setTotalElements(long totalElements)
+    {
+        this.totalElements = totalElements;
+    }
+
+    public int getTotalPages()
+    {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages)
+    {
+        this.totalPages = totalPages;
+    }
+
+    public CurrentRcs getContent()
+    {
+        return content;
+    }
+
+    public void setContent(CurrentRcs content)
+    {
+        this.content = content;
     }
 }

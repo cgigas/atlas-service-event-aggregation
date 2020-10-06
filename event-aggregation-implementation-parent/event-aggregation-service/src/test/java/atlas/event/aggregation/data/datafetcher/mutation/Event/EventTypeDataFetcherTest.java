@@ -15,40 +15,31 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.datafetcher.mutation;
+package atlas.event.aggregation.data.datafetcher.mutation.Event;
 
-import atlas.event.aggregation.data.datafetcher.mutation.Event.EventDataUpdater;
-import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
-import com.google.common.collect.Lists;
+import atlas.event.aggregation.data.datafetcher.mutation.Event.EventTypeDataFetcher;
 import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.idl.TypeRuntimeWiring;
 import org.junit.Test;
 import org.mockito.Mock;
-
-import java.util.Collection;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class EventDataUpdaterTest
+public class EventTypeDataFetcherTest
 {
-    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
-    EventDataUpdater task = new EventDataUpdater(collector);
+    EventTypeDataFetcher task = new EventTypeDataFetcher();
     @Mock
     DataFetchingEnvironment environment;
 
     @Test
-    public void performFetch()
+    public void provideRuntimeTypeWiring()
     {
-        //when(environment.getExecutionStepInfo().getPath().toString()).thenReturn("/closeSdaEvent");
-        assertNull(task.performFetch(environment));
+        assertNotNull(task.provideRuntimeTypeWiring());
     }
 
     @Test
-    public void provideRuntimeTypeWiring()
+    public void performFetch()
     {
-        Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
-        task.provideRuntimeTypeWiring();
-        assertNotNull(builders);
+        assertNull(task.performFetch(environment));
     }
 }

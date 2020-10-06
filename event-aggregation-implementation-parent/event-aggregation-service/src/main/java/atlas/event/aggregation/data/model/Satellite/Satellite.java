@@ -44,11 +44,6 @@ public class Satellite extends Audited implements Serializable
     private DateTime catalogDate;
     private boolean renumberFlag;
     private String templateSatelliteUuid;
-    private DateTime createDate;
-    private String createOrigin;
-    private DateTime updateDate;
-    private String updateOrigin;
-    private Long version;
     private SatelliteData satelliteData;
     private SatLaunch satLaunch;
     private SatDecay satDecay;
@@ -180,30 +175,6 @@ public class Satellite extends Audited implements Serializable
     public void setTemplateSatelliteUuid(String templateSatelliteUuid)
     {
         this.templateSatelliteUuid = templateSatelliteUuid;
-    }
-
-
-    public void setCreateDate(DateTime createDate)
-    {
-        this.createDate = createDate;
-    }
-
-
-    public void setUpdateDate(DateTime updateDate)
-    {
-        this.updateDate = updateDate;
-    }
-
-    @Override
-    public String getUpdateOrigin()
-    {
-        return updateOrigin;
-    }
-
-    @Override
-    public void setUpdateOrigin(String updateOrigin)
-    {
-        this.updateOrigin = updateOrigin;
     }
 
     public SatelliteData getSatelliteData()

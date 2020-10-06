@@ -21,13 +21,22 @@ import com.google.common.io.Resources;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Collection;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -35,7 +44,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Component
 public class TypeDefinitionRegistryBuilder
 {
-
     @Autowired
     ResourceLoader resourceLoader;
 
@@ -52,7 +60,9 @@ public class TypeDefinitionRegistryBuilder
     {
         try
         {
-            Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
+            Collection files = FileUtils.listFiles(new File(rootResourcePath), new RegexFileFilter(".graphql"), DirectoryFileFilter.DIRECTORY);
+
+            Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(String.valueOf(files));
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
