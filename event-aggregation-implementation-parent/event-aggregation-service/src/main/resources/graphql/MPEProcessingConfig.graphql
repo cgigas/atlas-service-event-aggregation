@@ -5,7 +5,8 @@ type MpeProcessingConfig {
 }
 
 extend type MPEServiceMutation {
-    createMpeConfig(configData: CreateMpeConfig): MpeProcessingConfig
+    createMpeProcessingConfiguration(configData: CreateMpeConfig): MpeProcessingConfig
+    deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfig
     updateMpeConfig(configData: CreateMpeConfig): MpeProcessingConfig
     createMpeConfigFromTemplate(template: ConfigTemplate): MpeProcessingConfig
 }
@@ -15,7 +16,7 @@ extend type MPEServiceQuery {
 }
 
 input CreateMpeConfig {
-    mpeProcessingConfigUUID: String!
+    mpeProcessingConfigUuid: String!
     classificationMarking: String
     eventUUID: String!
     candidateRsoReservationUUID: String!
@@ -50,12 +51,12 @@ input CreateMpeConfig {
 }
 
 type MPEProcessingConfigTemplate {
-    mpeProcessingConfigUUID: String
+    mpeProcessingConfigUuid: String
     classificationMarking: String
-    candidateRsoReservationUUID: String
-    analystRsoReservationUUID: String
-    ucnReservationUUID: String
-    candidateFormationParametersUUID: String
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
     name: String
     description: String
     analystMinTracksPerDay: Int
@@ -84,10 +85,10 @@ type MPEProcessingConfigTemplate {
 input ConfigTemplate {
     mpeProcessingConfigUUID: String
     classificationMarking: String
-    candidateRsoReservationUUID: String
-    analystRsoReservationUUID: String
-    ucnReservationUUID: String
-    candidateFormationParametersUUID: String
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
     name: String
     description: String
     analystMinTracksPerDay: Int
