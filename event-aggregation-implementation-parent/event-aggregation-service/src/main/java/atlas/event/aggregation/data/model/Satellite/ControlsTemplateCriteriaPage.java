@@ -17,9 +17,51 @@
  */
 package atlas.event.aggregation.data.model.Satellite;
 
-public enum ObsSourceType
+public class ControlsTemplateCriteriaPage
 {
-    UseSSNObservations,
-    UseSLRObservations,
-    UseEphemerisAsObservations
+    private int number;
+    private long totalElements;
+    private int totalPages;
+    private ControlsTemplateCriteria content;
+
+
+    public int getNumber()
+    {
+        return number;
+    }
+
+    public void setNumber(int number)
+    {
+        this.number = number;
+    }
+
+    public long getTotalElements()
+    {
+        return totalElements;
+    }
+
+    public void setTotalElements(long totalElements)
+    {
+        this.totalElements = totalElements;
+    }
+
+    public int getTotalPages()
+    {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages)
+    {
+        this.totalPages = totalPages;
+    }
+
+    public ControlsTemplateCriteria getContent()
+    {
+        return content;
+    }
+
+    public void setContent(ControlsTemplateCriteria content)
+    {
+        this.content = content;
+    }
 }
