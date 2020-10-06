@@ -24,6 +24,8 @@ import atlas.event.aggregation.handlers.EventTypeSummaryHandler;
 import atlas.event.aggregation.handlers.GetEventTypeHandler;
 import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
+import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
@@ -50,6 +52,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     EventDataHandler eventDataHandler;
     @Autowired
     GetEventTypeHandler getEventTypeHandler;
+    private EventCrudMutationExecutor eventCrudMutationExecutor;
+    private EventCrudQueryExecutor eventCrudQueryExecutor;
 
     public EventDataDispatch(RuntimeWiringTypeCollector collector)
     {

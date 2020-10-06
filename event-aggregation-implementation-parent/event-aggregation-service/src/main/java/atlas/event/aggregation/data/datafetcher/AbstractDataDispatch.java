@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.config.DataServiceConfiguration;
 import atlas.event.aggregation.data.paging.PageableBuilder;
 import atlas.event.aggregation.data.paging.elements.Order;
 import atlas.event.aggregation.data.paging.elements.PageInfo;
@@ -63,39 +64,6 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
 
     protected RuntimeWiringTypeCollector collector;
 
-/*    protected IDigitalHandler getBusinessHandlerByPath(String path)
-    {
-        IDigitalHandler handler = null;
-
-        if (StringUtils.isNotBlank(path))
-        {
-            String anchorName = getDigitalCache().getBusinessHandler(path);
-            if (StringUtils.isNotBlank(anchorName))
-            {
-                handler = getBusinessHandler(anchorName);
-            }
-        }
-
-        return handler;
-    }
-
-    protected IDigitalHandler getBusinessHandler(String anchorId)
-    {
-        IDigitalHandler handler = null;
-
-        if (StringUtils.isNotBlank(anchorId))
-        {
-            Object o = locateService(anchorId);
-            if (o instanceof IDigitalHandler)
-            {
-                handler = (IDigitalHandler) o;
-            }
-        }
-
-        return handler;
-    }
-
-*/
 
     @PostConstruct
     public void initializeRuntimeTypeInformation()
@@ -105,38 +73,6 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             this.collector.addTypeWiring(this.provideRuntimeTypeWiring());
         }
     }
-    /*
-        public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
-        {
-            return processRequest(getRequestPath(environment), environment);
-        }
-
-        public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
-        {
-            Object result = null;
-            IDigitalHandler handler = null;
-            if (StringUtils.isNotBlank(path))
-            {
-                handler = getBusinessHandlerByPath(path);
-            }
-            else
-            {
-                throw new EventAggregateException("Path is required");
-            }
-
-            if (handler != null)
-            {
-                result = handler.processRequest(environment);
-            }
-            else
-            {
-                throw new EventAggregateException("No registered handler for path: " + path);
-            }
-            SsaEvent event = (SsaEvent) result;
-            result = Lists.newArrayList(event);
-            return result;
-        }
-    */
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
@@ -292,5 +228,17 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         return pageInfo;
     }
 
-
+    protected DataServiceConfiguration getClientServiceLookup()
+    {
+        DataServiceConfiguration dataServiceConfiguration = null;
+        Object o = locateService("clientServiceLookup");
+        if (o != null)
+        {
+            if (o instanceof  DataServiceConfiguration)
+            {
+                dataServiceConfiguration = (DataServiceConfiguration) o;
+            }
+        }
+        return dataServiceConfiguration;
+    }
 }
