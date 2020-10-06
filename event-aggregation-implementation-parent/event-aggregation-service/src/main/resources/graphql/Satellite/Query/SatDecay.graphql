@@ -1,0 +1,34 @@
+extend type MPEServiceQuery {
+    satDecay(satelliteUuid: String!): SatDecay
+    satDecayPage(pageInfo: PageInfo!): SatDecayPage!
+    satDecayPageById(
+        satelliteUuids: [String!]!
+        pageInfo: PageInfo!
+    ): SatDecayPage!
+    satDecayPageByExample(
+        example: SatDecayQueryExampleInput!
+        pageInfo: PageInfo!
+    ): SatDecayPage!
+    satDecayPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): SatDecayPage!
+}
+
+type SatDecayPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [SatDecay]
+}
+
+input SatDecayQueryExampleInput {
+    classificationMarking: String
+    decayDt: DateTime
+    decayType: DecayType
+    lat: Float
+    lon: Float
+    alt: Float
+    revNo: Long
+    comments: String
+}

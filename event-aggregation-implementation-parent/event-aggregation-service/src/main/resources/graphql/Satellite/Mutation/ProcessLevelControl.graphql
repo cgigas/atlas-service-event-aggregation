@@ -1,0 +1,37 @@
+extend type MPEServiceMutation {
+    createProcessLevelControl(
+        processLevelControl: ProcessLevelControlInput!
+    ): ProcessLevelControl!
+    updateProcessLevelControl(
+        processLevelControlUuid: String!
+        processLevelControl: ProcessLevelControlInput!
+    ): ProcessLevelControl
+    deleteProcessLevelControl(
+        processLevelControlUuid: String!
+    ): ProcessLevelControl
+}
+
+input ProcessLevelControlInput {
+    classificationMarking: String!
+    retagPriorityUuid: String!
+    verifyGeometricFilterFlag: Boolean!
+    verifyGpFilterAssocFlag: Boolean!
+    verifyGpAstatThreshold: AssociationStatus!
+    verifySpAstatThreshold: AssociationStatus!
+    uoGeometricFilterFlag: Boolean!
+    uoGpFilterAssocFlag: Boolean!
+    uoGpAstatThreshold: AssociationStatus!
+    uoSpAstatThreshold: AssociationStatus!
+    b3ObsWriteFrequency: NonNegativeFloat!
+    deltaInclinationThreshold: Float!
+    deltaEccentricityThreshold: Float!
+    deltaPeriodThreshold: Float!
+    deltaNodeThreshold: Float!
+    deltaArgPerigeeThreshold: Float!
+    deltaMeanLongThreshold: Float!
+    sensorCalibrationTrendSpan: NonNegativeFloat!
+    considerCandidateSatFlag: Boolean!
+    overrideSystemTime: NonNegativeFloat
+    applyChiDiscriminator: Boolean!
+    version: Long
+}

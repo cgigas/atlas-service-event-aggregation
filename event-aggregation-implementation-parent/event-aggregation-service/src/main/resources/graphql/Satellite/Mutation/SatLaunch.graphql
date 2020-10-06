@@ -1,0 +1,13 @@
+extend type MPEServiceMutation {
+    createSatLaunch(
+        satelliteUuid: String!
+        satLaunch: SatLaunchInput!
+    ): SatLaunch!
+    updateSatLaunch(
+        satelliteUuid: String!
+        satLaunch: SatLaunchInput!
+    ): SatLaunch
+    deleteSatLaunch(
+        satelliteUuid: String!
+    ): SatLaunch
+}

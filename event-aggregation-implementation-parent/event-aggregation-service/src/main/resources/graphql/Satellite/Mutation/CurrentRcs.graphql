@@ -1,0 +1,15 @@
+extend type MPEServiceMutation {
+    createCurrentRcs(
+        satelliteUuid: String!
+        currentRcs: CurrentRcsInput!
+    ): CurrentRcs
+    updateCurrentRcs(
+        satelliteUuid: String!
+        currentRcs: CurrentRcsInput!
+    ): CurrentRcs
+}
+
+input CurrentRcsInput {
+    rcsUuid: String!
+    version: Long
+}

@@ -1,0 +1,13 @@
+extend type MPEServiceMutation {
+    createCommentCode(
+        commentCodeId: NonNegativeInt!
+        commentCode: CommentCodeInput!
+    ):CommentCode!
+    updateCommentCode(
+        commentCodeId: NonNegativeInt!
+        commentCode: CommentCodeInput!
+    ): CommentCode
+    deleteCommentCode(
+        commentCodeId: NonNegativeInt!
+    ): CommentCode
+}

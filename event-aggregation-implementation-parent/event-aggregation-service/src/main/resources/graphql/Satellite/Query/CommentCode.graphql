@@ -1,0 +1,42 @@
+extend type MPEServiceQuery {
+    commentCode(commentCodeId: NonNegativeInt!): CommentCode
+    commentCodePage(pageInfo: PageInfo!): CommentCodePage!
+    commentCodePageById(
+        commentCodeIds: [NonNegativeInt!]!
+        pageInfo: PageInfo!
+    ): CommentCodePage!
+    commentCodePageByExample(
+        example: CommentCodeQueryExampleInput!
+        pageInfo: PageInfo!
+    ): CommentCodePage!
+    commentCodePageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): CommentCodePage!
+}
+
+type CommentCode {
+    commentCode: NonNegativeInt!
+    description: String!
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+input CommentCodeInput {
+    description: String!
+    version: Long
+}
+
+type CommentCodePage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [CommentCode]
+}
+
+input CommentCodeQueryExampleInput {
+    description: String
+}
