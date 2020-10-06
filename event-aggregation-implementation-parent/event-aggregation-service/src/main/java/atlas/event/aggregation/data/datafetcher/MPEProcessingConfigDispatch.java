@@ -24,13 +24,19 @@ import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
+@Slf4j
+@Component
+@Profile("dev")
 public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcessingConfiguration>
 {
     @Autowired
