@@ -15,9 +15,10 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.datafetcher;
+package atlas.event.aggregation.data.datafetcher.mutation.Event;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
+import atlas.event.aggregation.data.datafetcher.AbstractDataDispatch;
 import atlas.event.aggregation.data.model.ssaevent.Event;
 import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.handlers.EventTypeSummaryHandler;

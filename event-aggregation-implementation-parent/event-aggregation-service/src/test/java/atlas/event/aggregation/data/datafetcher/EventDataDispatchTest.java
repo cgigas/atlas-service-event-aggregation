@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.data.datafetcher.mutation.Event.EventDataDispatch;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import org.junit.Test;
 

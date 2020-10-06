@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.data.datafetcher.mutation.Event.EventTypeDataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
 import org.mockito.Mock;

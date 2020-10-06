@@ -15,7 +15,7 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.datafetcher.mutation;
+package atlas.event.aggregation.data.datafetcher.mutation.Event;
 
 import atlas.event.aggregation.data.datafetcher.AbstractDataDispatch;
 import atlas.event.aggregation.data.model.ssaevent.Event;
