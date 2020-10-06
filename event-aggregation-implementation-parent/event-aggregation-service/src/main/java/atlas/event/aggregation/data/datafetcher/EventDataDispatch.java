@@ -25,6 +25,7 @@ import atlas.event.aggregation.handlers.GetEventTypeHandler;
 import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
+import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import com.google.common.collect.Lists;
@@ -124,6 +125,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         NotesCrudMutationExecutor notes = getClientServiceLookup().getNotesCrudMutationExecutor();
         EventCrudQueryExecutor eventClientQuery = getClientServiceLookup().getEventCrudQueryExecutor();
         EventCrudMutationExecutor eventClientMutation = getClientServiceLookup().getEventCrudMutationExecutor();
+        SensorCrudMutationExecutor sensorClientMutation = getClientServiceLookup().getSensorCrudMutationExecutor();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
         OffsetDateTime endDate = environment.getArgument("endDate");
