@@ -87,10 +87,10 @@ public class CommentCodeDispatch extends AbstractDataDispatch<List<Satellite>>
         return page;
     }
 
-    private CommentCode commentCode(DataFetchingEnvironment environment)
+    private CommentCodePage commentCode(DataFetchingEnvironment environment)
     {
-        CommentCode commentCode = new CommentCode();
-        return commentCode;
+        CommentCodePage page = new CommentCodePage();
+        return page;
     }
 
     private CommentCode deleteCommentCode(DataFetchingEnvironment environment)

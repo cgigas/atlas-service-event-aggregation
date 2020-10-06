@@ -43,55 +43,269 @@ public class Satellite extends Audited implements Serializable
     private ElementConversionControls elementConversionControls;
     private SatObsAssociationControl satObsAssociationControl;
     private CurrentRcs currentRcs;
-    private CurrentVismag currentVismag;
-}
-class ControlsTemplateCriteria
-{
-    ctrlsTemplateCriteriaUuid: String!
-    classificationMarking: String!
-    satelliteUuid: String!
-    name: String!
-    perigeeLowerBound: NonNegativeFloat!
-    perigeeUpperBound: NonNegativeFloat!
-    eccentricityLowerBound: NonNegativeFloat!
-    eccentricityUpperBound: NonNegativeFloat!
-    objectType: ObjectType!
-    category: Category!
-    ssaEventType: SsaEventType
-    createDate: DateTime
-    createOrigin: String
-    updateDate: DateTime
-    updateOrigin: String
-    version: Long
-}
-class DcTolerances
-{
-    satelliteUuid: String!
-    classificationMarking: String!
-    suspendMaintFlag: Boolean!
-    minTimeBetweenDcs: NonNegativeFloat!
-    minObservations: NonNegativeInt!
-    minTracks: NonNegativeInt!
-    minResidualAcceptance: NonNegativeFloat!
-    maxFitRms: NonNegativeFloat!
-    minObsForModelParamSol: NonNegativeInt!
-    minTracksForModelParamSol: NonNegativeInt!
-    baseMaintenanceParameter: BaseMaintenanceParameter!
-    maxWeightedRms: Float!
-    eventRecoveryWindow: NonNegativeFloat!
-    eventExitThreshold: NonNegativeFloat!
-    satTemplateType: SatTemplateType!
-    sendEpgFlag: Boolean!
-    highInterestFlag: Boolean!
-    allowableTimeForUpdate: NonNegativeFloat!
-    latencyTimeForPasses: NonNegativeFloat!
-    maximumTimeBeforeUpdate: NonNegativeFloat!
-    minimumTimeBeforeUpdate: NonNegativeFloat!
-    numPassesReqBeforeUpdate: NonNegativeInt!
-    updWithAfsssFencePassFlag: Boolean!
-    createDate: DateTime
-    createOrigin: String
-    updateDate: DateTime
-    updateOrigin: String
-    version: Long
+    private CurrentVisMag currentVismag;
+
+    public String getSatelliteUuid()
+    {
+        return satelliteUuid;
+    }
+
+    public void setSatelliteUuid(String satelliteUuid)
+    {
+        this.satelliteUuid = satelliteUuid;
+    }
+
+    public String getOwnerCode()
+    {
+        return ownerCode;
+    }
+
+    public void setOwnerCode(String ownerCode)
+    {
+        this.ownerCode = ownerCode;
+    }
+
+    public String getClassificationMarking()
+    {
+        return classificationMarking;
+    }
+
+    public void setClassificationMarking(String classificationMarking)
+    {
+        this.classificationMarking = classificationMarking;
+    }
+
+    public int getSatNo()
+    {
+        return satNo;
+    }
+
+    public void setSatNo(int satNo)
+    {
+        this.satNo = satNo;
+    }
+
+    public String getSatNoVersion()
+    {
+        return satNoVersion;
+    }
+
+    public void setSatNoVersion(String satNoVersion)
+    {
+        this.satNoVersion = satNoVersion;
+    }
+
+    public String getCommonName()
+    {
+        return commonName;
+    }
+
+    public void setCommonName(String commonName)
+    {
+        this.commonName = commonName;
+    }
+
+    public String getIntlDesignator()
+    {
+        return intlDesignator;
+    }
+
+    public void setIntlDesignator(String intlDesignator)
+    {
+        this.intlDesignator = intlDesignator;
+    }
+
+    public Category getCategory()
+    {
+        return category;
+    }
+
+    public void setCategory(Category category)
+    {
+        this.category = category;
+    }
+
+    public String getNote()
+    {
+        return note;
+    }
+
+    public void setNote(String note)
+    {
+        this.note = note;
+    }
+
+    public DateTime getCatalogDate()
+    {
+        return catalogDate;
+    }
+
+    public void setCatalogDate(DateTime catalogDate)
+    {
+        this.catalogDate = catalogDate;
+    }
+
+    public boolean isRenumberFlag()
+    {
+        return renumberFlag;
+    }
+
+    public void setRenumberFlag(boolean renumberFlag)
+    {
+        this.renumberFlag = renumberFlag;
+    }
+
+    public String getTemplateSatelliteUuid()
+    {
+        return templateSatelliteUuid;
+    }
+
+    public void setTemplateSatelliteUuid(String templateSatelliteUuid)
+    {
+        this.templateSatelliteUuid = templateSatelliteUuid;
+    }
+
+
+    public void setCreateDate(DateTime createDate)
+    {
+        this.createDate = createDate;
+    }
+
+
+    public void setUpdateDate(DateTime updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
+    @Override
+    public String getUpdateOrigin()
+    {
+        return updateOrigin;
+    }
+
+    @Override
+    public void setUpdateOrigin(String updateOrigin)
+    {
+        this.updateOrigin = updateOrigin;
+    }
+
+    public SatelliteData getSatelliteData()
+    {
+        return satelliteData;
+    }
+
+    public void setSatelliteData(SatelliteData satelliteData)
+    {
+        this.satelliteData = satelliteData;
+    }
+
+    public SatLaunch getSatLaunch()
+    {
+        return satLaunch;
+    }
+
+    public void setSatLaunch(SatLaunch satLaunch)
+    {
+        this.satLaunch = satLaunch;
+    }
+
+    public SatDecay getSatDecay()
+    {
+        return satDecay;
+    }
+
+    public void setSatDecay(SatDecay satDecay)
+    {
+        this.satDecay = satDecay;
+    }
+
+    public IntegratorControls getIntegratorControls()
+    {
+        return integratorControls;
+    }
+
+    public void setIntegratorControls(IntegratorControls integratorControls)
+    {
+        this.integratorControls = integratorControls;
+    }
+
+    public PerturbationControls getPerturbationControls()
+    {
+        return perturbationControls;
+    }
+
+    public void setPerturbationControls(PerturbationControls perturbationControls)
+    {
+        this.perturbationControls = perturbationControls;
+    }
+
+    public DcControls getDcControls()
+    {
+        return dcControls;
+    }
+
+    public void setDcControls(DcControls dcControls)
+    {
+        this.dcControls = dcControls;
+    }
+
+    public DcTolerances getDcTolerances()
+    {
+        return dcTolerances;
+    }
+
+    public void setDcTolerances(DcTolerances dcTolerances)
+    {
+        this.dcTolerances = dcTolerances;
+    }
+
+    public ControlsTemplateCriteria getControlsTemplateCriteria()
+    {
+        return controlsTemplateCriteria;
+    }
+
+    public void setControlsTemplateCriteria(ControlsTemplateCriteria controlsTemplateCriteria)
+    {
+        this.controlsTemplateCriteria = controlsTemplateCriteria;
+    }
+
+    public ElementConversionControls getElementConversionControls()
+    {
+        return elementConversionControls;
+    }
+
+    public void setElementConversionControls(ElementConversionControls elementConversionControls)
+    {
+        this.elementConversionControls = elementConversionControls;
+    }
+
+    public SatObsAssociationControl getSatObsAssociationControl()
+    {
+        return satObsAssociationControl;
+    }
+
+    public void setSatObsAssociationControl(SatObsAssociationControl satObsAssociationControl)
+    {
+        this.satObsAssociationControl = satObsAssociationControl;
+    }
+
+    public CurrentRcs getCurrentRcs()
+    {
+        return currentRcs;
+    }
+
+    public void setCurrentRcs(CurrentRcs currentRcs)
+    {
+        this.currentRcs = currentRcs;
+    }
+
+    public CurrentVisMag getCurrentVismag()
+    {
+        return currentVismag;
+    }
+
+    public void setCurrentVismag(CurrentVisMag currentVismag)
+    {
+        this.currentVismag = currentVismag;
+    }
 }
