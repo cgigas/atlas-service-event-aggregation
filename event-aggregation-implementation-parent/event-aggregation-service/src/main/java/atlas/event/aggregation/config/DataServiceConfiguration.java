@@ -63,7 +63,7 @@ public class DataServiceConfiguration
     {
         if (eventCrudQueryExecutor == null)
         {
-            if (eventCrudQueryExecutor != null)
+            if (eventServiceUrl != null)
             {
                 String svcUrl = eventServiceUrl + graphQlExtension;
                 eventCrudQueryExecutor = new EventCrudQueryExecutor(svcUrl);
@@ -81,7 +81,7 @@ public class DataServiceConfiguration
     {
         if (eventCrudMutationExecutor == null)
         {
-            if (eventCrudMutationExecutor != null)
+            if (eventServiceUrl != null)
             {
                 String svcUrl = eventServiceUrl + graphQlExtension;
                 eventCrudMutationExecutor = new EventCrudMutationExecutor(svcUrl);
@@ -272,5 +272,20 @@ public class DataServiceConfiguration
     public void setEventServiceUrl(String eventServiceUrl)
     {
         this.eventServiceUrl = eventServiceUrl;
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        String url = "http://172.30.211.106:9203/notes-crud/graphql";
+        try
+        {
+            NotesCrudQueryExecutor executor = new NotesCrudQueryExecutor(url);
+            System.out.println("SDFSDF");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }
