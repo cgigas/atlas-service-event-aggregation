@@ -26,8 +26,8 @@ import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
 import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
-import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
-import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
+import atlas.event.crud.graphql.EventCrudMutationExecutor;
+import atlas.event.crud.graphql.EventCrudQueryExecutor;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
@@ -39,8 +39,6 @@ import org.springframework.stereotype.Component;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
