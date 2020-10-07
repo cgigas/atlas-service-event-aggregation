@@ -18,10 +18,10 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
-import atlas.event.aggregation.data.model.ssaevent.Event;
-import atlas.event.aggregation.data.model.ssaevent.EventDetail;
-import atlas.event.aggregation.data.model.ssaevent.Launch;
-import atlas.event.aggregation.data.model.ssaevent.ObservationSatMedley;
+import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.event.EventDetail;
+import atlas.event.aggregation.data.model.event.Launch;
+import atlas.event.aggregation.data.model.event.ObservationSatMedley;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.parser.EventDetailParser;
 import atlas.event.aggregation.parser.EventParser;

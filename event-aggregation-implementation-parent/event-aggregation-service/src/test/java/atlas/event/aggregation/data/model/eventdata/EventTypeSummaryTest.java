@@ -15,22 +15,20 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaevent;
+package atlas.event.aggregation.data.model.eventdata;
 
 import org.junit.Test;
 
-import java.time.OffsetDateTime;
-
 import static org.junit.Assert.assertEquals;
 
-public class LaunchTest
+public class EventTypeSummaryTest
 {
-    Launch task = new Launch();
+    EventTypeSummary task = new EventTypeSummary();
     String id = "id";
-    OffsetDateTime launchTimeStamp = OffsetDateTime.now();
-    String launchSite = "Cape Canaveral";
-    String launchCountry = "USA";
-    String typeName = "typeName";
+    String type = "sat";
+    Integer planned = 1;
+    Integer active = 2;
+    String typeName = "type";
 
     @Test
     public void setId()
@@ -40,24 +38,24 @@ public class LaunchTest
     }
 
     @Test
-    public void setLaunchTimeStamp()
+    public void setType()
     {
-        task.setLaunchTimeStamp(launchTimeStamp);
-        assertEquals(launchTimeStamp, task.getLaunchTimeStamp());
+        task.setType(type);
+        assertEquals(type, task.getType());
     }
 
     @Test
-    public void setLaunchSite()
+    public void setPlanned()
     {
-        task.setLaunchSite(launchSite);
-        assertEquals(launchSite, task.getLaunchSite());
+        task.setPlanned(planned);
+        assertEquals(planned, task.getPlanned());
     }
 
     @Test
-    public void setLaunchCountry()
+    public void setActive()
     {
-        task.setLaunchCountry(launchCountry);
-        assertEquals(launchCountry, task.getLaunchCountry());
+        task.setActive(active);
+        assertEquals(active, task.getActive());
     }
 
     @Test

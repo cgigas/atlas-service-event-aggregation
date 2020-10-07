@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.Launch;
+import atlas.event.aggregation.data.model.event.Launch;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

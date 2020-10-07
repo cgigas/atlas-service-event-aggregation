@@ -15,7 +15,7 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaeventdata;
+package atlas.event.aggregation.data.model.eventdata;
 
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 public class SsaEventDataTest
 {
-    SsaEventData task = new SsaEventData();
+    EventData task = new EventData();
     String ssaEventDataUuid = "ssaEventDataUuid";
     String classificationMarking = "classificationMarking";
     String ssaEventUuid = "ssaEventUuid";

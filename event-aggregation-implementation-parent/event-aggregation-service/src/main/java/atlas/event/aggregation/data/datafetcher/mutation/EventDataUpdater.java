@@ -18,7 +18,7 @@
 package atlas.event.aggregation.data.datafetcher.mutation;
 
 import atlas.event.aggregation.data.datafetcher.AbstractDataDispatch;
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;

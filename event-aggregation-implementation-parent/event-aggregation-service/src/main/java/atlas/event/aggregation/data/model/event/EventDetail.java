@@ -15,7 +15,7 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaevent;
+package atlas.event.aggregation.data.model.event;
 
 import java.util.ArrayList;
 import java.util.List;

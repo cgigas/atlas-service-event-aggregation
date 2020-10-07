@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.data.model.repository.ssaevent;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface SsaEventRepository extends PagingAndSortingRepository<Event, String>

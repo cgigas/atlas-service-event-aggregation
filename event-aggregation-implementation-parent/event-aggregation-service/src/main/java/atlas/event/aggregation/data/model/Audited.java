@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.data.model;
 
-import atlas.event.aggregation.data.model.ssaevent.Versioned;
+import atlas.event.aggregation.data.model.event.Versioned;
 import java.util.Date;
 
 public class Audited extends Versioned

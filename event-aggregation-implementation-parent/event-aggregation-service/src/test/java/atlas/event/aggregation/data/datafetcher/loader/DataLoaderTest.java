@@ -18,7 +18,7 @@
 package atlas.event.aggregation.data.datafetcher.loader;
 
 import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

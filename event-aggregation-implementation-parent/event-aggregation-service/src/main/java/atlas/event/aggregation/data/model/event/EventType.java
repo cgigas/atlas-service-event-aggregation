@@ -15,25 +15,22 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaevent;
+package atlas.event.aggregation.data.model.event;
 
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-
-public class VersionedTest
+public enum EventType
 {
-    @Mock
-    Versioned task = mock(Versioned.class, Mockito.CALLS_REAL_METHODS);
-    Long version = 3L;
-
-    @Test
-    public void setVersion()
-    {
-        task.setVersion(version);
-        assertEquals(version, task.getVersion());
-    }
+    BREAKUP,
+    CONJUNCTION,
+    DEORBIT,
+    DOCK,
+    EMI,
+    LAUNCH,
+    MANEUVER,
+    NUDET,
+    OTHER,
+    PROXIMITY,
+    REENTRY,
+    RENDEZVOUS,
+    SEPARATION,
+    UNDOCK
 }

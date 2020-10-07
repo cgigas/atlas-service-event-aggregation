@@ -15,16 +15,14 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaevent;
+package atlas.event.aggregation.data.model.eventdata;
 
-import java.time.OffsetDateTime;
-
-public class Launch
+public class EventTypeSummary
 {
     private String id;
-    private OffsetDateTime launchTimeStamp;
-    private String launchSite;
-    private String launchCountry;
+    private String type;
+    private Integer planned;
+    private Integer active;
     private String typeName;
 
     public String getId()
@@ -37,34 +35,34 @@ public class Launch
         this.id = id;
     }
 
-    public OffsetDateTime getLaunchTimeStamp()
+    public String getType()
     {
-        return launchTimeStamp;
+        return type;
     }
 
-    public void setLaunchTimeStamp(OffsetDateTime launchTimeStamp)
+    public void setType(String type)
     {
-        this.launchTimeStamp = launchTimeStamp;
+        this.type = type;
     }
 
-    public String getLaunchSite()
+    public Integer getPlanned()
     {
-        return launchSite;
+        return planned;
     }
 
-    public void setLaunchSite(String launchSite)
+    public void setPlanned(Integer planned)
     {
-        this.launchSite = launchSite;
+        this.planned = planned;
     }
 
-    public String getLaunchCountry()
+    public Integer getActive()
     {
-        return launchCountry;
+        return active;
     }
 
-    public void setLaunchCountry(String launchCountry)
+    public void setActive(Integer active)
     {
-        this.launchCountry = launchCountry;
+        this.active = active;
     }
 
     public String getTypeName()

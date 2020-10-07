@@ -18,7 +18,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.handlers.EventTypeSummaryHandler;
 import atlas.event.aggregation.handlers.GetEventTypeHandler;
@@ -39,6 +39,8 @@ import org.springframework.stereotype.Component;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
@@ -166,6 +168,28 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 
     private Event processCreateEvent(DataFetchingEnvironment environment)
     {
+        Map<String, Object> eventData = environment.getArgument("eventData");
+        if (eventData != null)
+        {
+            Map<String, Object> eventDataMap = (Map)eventData.get("eventData");
+            String eventUuid = getItemAsString("eventUuid", eventDataMap);
+            String classMarking = getItemAsString("classificationMarking", eventDataMap);
+            String preEventUuid = getItemAsString("predecessorEventUuid", eventDataMap);
+            String eventType = getItemAsString("eventType", eventDataMap);
+            String eventName = getItemAsString("eventName", eventDataMap);
+            String eventStatus = getItemAsString("eventStatus", eventDataMap);
+            String eventState = getItemAsString("eventState", eventDataMap);
+            OffsetDateTime startDate = getItemAsOffSetDate("startDate", eventDataMap);
+            OffsetDateTime endDate = getItemAsOffSetDate("endDate", eventDataMap);
+            String description = getItemAsString("eventDesc", eventDataMap);
+            String internalNotes = getItemAsString("internalNotes", eventDataMap);
+            String eventPostingId = getItemAsString("eventPostingId", eventDataMap);
+            OffsetDateTime createDate = getItemAsOffSetDate("createDate", eventDataMap);
+            String createOrgin = getItemAsString("createOrgin", eventDataMap);
+            OffsetDateTime updateDate = getItemAsOffSetDate("updateDate", eventDataMap);
+            String updateOrgin = getItemAsString("updateOrgin", eventDataMap);
+            Long version = getItemAsLong("version", eventDataMap);
+        }
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");

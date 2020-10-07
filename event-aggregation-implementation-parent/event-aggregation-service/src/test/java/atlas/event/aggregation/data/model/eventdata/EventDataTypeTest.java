@@ -15,17 +15,17 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaevent;
+package atlas.event.aggregation.data.model.eventdata;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class EventTypeTest
+public class EventDataTypeTest
 {
     @Test
     public void values()
     {
-        assertEquals(14, EventType.values().length);
+        assertEquals(4, EventDataType.values().length);
     }
 }

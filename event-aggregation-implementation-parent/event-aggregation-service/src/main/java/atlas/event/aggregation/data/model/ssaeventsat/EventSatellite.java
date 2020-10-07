@@ -19,7 +19,7 @@ package atlas.event.aggregation.data.model.ssaeventsat;
 
 import atlas.event.aggregation.data.model.Audited;
 import atlas.event.aggregation.data.model.GqlSchemaCommon;
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import java.io.Serializable;
 
 public class EventSatellite extends Audited implements Serializable, GqlSchemaCommon

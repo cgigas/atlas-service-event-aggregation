@@ -15,7 +15,7 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaeventdata;
+package atlas.event.aggregation.data.model.eventdata;
 
 public enum EventDataType
 {

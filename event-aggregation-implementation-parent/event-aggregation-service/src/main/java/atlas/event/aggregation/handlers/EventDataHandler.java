@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.handlers;
 
-import atlas.event.aggregation.data.model.ssaevent.*;
+import atlas.event.aggregation.data.model.event.*;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.parser.*;

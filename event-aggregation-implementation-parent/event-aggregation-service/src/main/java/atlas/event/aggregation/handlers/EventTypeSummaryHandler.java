@@ -18,7 +18,7 @@
 package atlas.event.aggregation.handlers;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
-import atlas.event.aggregation.data.model.ssaeventdata.EventTypeSummary;
+import atlas.event.aggregation.data.model.eventdata.EventTypeSummary;
 import atlas.event.aggregation.exception.EventAggregateException;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;

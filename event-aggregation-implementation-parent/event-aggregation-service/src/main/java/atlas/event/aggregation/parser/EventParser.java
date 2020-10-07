@@ -17,10 +17,10 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
-import atlas.event.aggregation.data.model.ssaevent.EventState;
-import atlas.event.aggregation.data.model.ssaevent.EventStatus;
-import atlas.event.aggregation.data.model.ssaevent.EventType;
+import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.event.EventState;
+import atlas.event.aggregation.data.model.event.EventStatus;
+import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;

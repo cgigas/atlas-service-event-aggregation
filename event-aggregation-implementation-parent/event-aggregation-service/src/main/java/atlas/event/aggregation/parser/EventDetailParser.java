@@ -17,8 +17,8 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.EventDetail;
-import atlas.event.aggregation.data.model.ssaevent.EventType;
+import atlas.event.aggregation.data.model.event.EventDetail;
+import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

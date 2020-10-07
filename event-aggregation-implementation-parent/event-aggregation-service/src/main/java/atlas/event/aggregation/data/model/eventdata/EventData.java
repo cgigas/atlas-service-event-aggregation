@@ -15,7 +15,7 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.ssaeventdata;
+package atlas.event.aggregation.data.model.eventdata;
 
 import atlas.event.aggregation.data.model.Audited;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ import java.sql.Blob;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SsaEventData extends Audited
+public class EventData extends Audited
 {
     /**
      * UUID of the associated SSA event.
