@@ -17,28 +17,18 @@
  */
 package atlas.event.aggregation.server;
 
-import com.google.common.io.Resources;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.List;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
+import java.net.URI;
+import java.net.URL;
 
 @Slf4j
 @Component
@@ -52,23 +42,34 @@ public class TypeDefinitionRegistryBuilder
      * The path is assumed to be on the classpath for the current class loader.
      * The path will be recursively traversed.
      * The files in the named folder are assumed to be graphql schema definition files.
+     *
      * @param rootResourcePath the path to get files from
      * @return a merged schema object.
      * @throws IOException if files can't be read.
      */
     public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
     {
+        File dir = new File(rootResourcePath);
+        File[] files = dir.listFiles(new FilenameFilter()
+        {
+            @Override
+            public boolean accept(File dir, String name)
+            {
+                return name.endsWith(".graphql");
+            }
+        });
+
         try
         {
-            Collection files = FileUtils.listFiles(new File(rootResourcePath), new RegexFileFilter(".graphql"), DirectoryFileFilter.DIRECTORY);
-
-            Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(String.valueOf(files));
+            // Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            for (Resource resource: graphqlResources)
+            for (File graphqlFile : files)
             {
-                String schemaString = Resources.toString(resource.getURL(), UTF_8);
+                URL graphqlURL = graphqlFile.toURL();
+                //String schemaString = Resources.toString(resource.getURL(), UTF_8);
+                String schemaString = graphqlURL.toString();
                 typeRegistry.merge(parser.parse(schemaString));
             }
             return typeRegistry;
