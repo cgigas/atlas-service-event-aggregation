@@ -22,3 +22,27 @@ input OrPredicate {
 }
 # --- # --- # --- # --- # --- #
 
+enum PredicateOperator {
+    EQ
+    NOT_EQ
+    LIKE
+    NOT_LIKE
+    GE
+    GT
+    LE
+    LT
+    IN
+}
+
+enum TimePeriodType {
+    RANGE, DURATION
+}
+
+enum DurationUnits {
+    SECONDS,
+    MINUTES,
+    HOURS,
+    DAYS,
+    WEEKS,
+    MONTHS
+}

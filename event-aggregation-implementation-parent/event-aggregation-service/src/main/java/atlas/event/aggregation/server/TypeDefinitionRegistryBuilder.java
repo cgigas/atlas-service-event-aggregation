@@ -17,18 +17,19 @@
  */
 package atlas.event.aggregation.server;
 
+import com.google.common.io.Resources;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Slf4j
 @Component
@@ -49,33 +50,28 @@ public class TypeDefinitionRegistryBuilder
      */
     public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
     {
-        File dir = new File(rootResourcePath);
-        File[] files = dir.listFiles(new FilenameFilter()
-        {
-            @Override
-            public boolean accept(File dir, String name)
-            {
-                return name.endsWith(".graphql");
-            }
-        });
-
+        //String[] ext = {"graphql"};
+        //Collection files = FileUtils.listFiles(new File(rootResourcePath), ext,true);
+        //List<File> fileList = (List<File>) FileUtils.listFiles(new File(rootResourcePath), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         try
         {
-            // Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
+            Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            for (File graphqlFile : files)
+            //for (File graphqlFile : fileList)
+            for (Resource resource : graphqlResources)
             {
-                URL graphqlURL = graphqlFile.toURL();
-                //String schemaString = Resources.toString(resource.getURL(), UTF_8);
-                String schemaString = graphqlURL.toString();
+                String schemaString = Resources.toString(resource.getURL(), UTF_8);
+                //URL url = graphqlFile.toURL();
+                //String schemaString = Resources.toString(url, UTF_8);
                 typeRegistry.merge(parser.parse(schemaString));
             }
             return typeRegistry;
         }
-        catch (Throwable e)
+        catch (Exception e)
         {
+            e.printStackTrace();
             throw new IllegalStateException(e);
         }
     }
