@@ -1,4 +1,4 @@
-type MPEServiceQuery {
+extend type MPEServiceQuery {
     eventById(id: String!): Event
     eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]

@@ -50,21 +50,15 @@ public class TypeDefinitionRegistryBuilder
      */
     public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
     {
-        //String[] ext = {"graphql"};
-        //Collection files = FileUtils.listFiles(new File(rootResourcePath), ext,true);
-        //List<File> fileList = (List<File>) FileUtils.listFiles(new File(rootResourcePath), TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
         try
         {
             Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            //for (File graphqlFile : fileList)
             for (Resource resource : graphqlResources)
             {
                 String schemaString = Resources.toString(resource.getURL(), UTF_8);
-                //URL url = graphqlFile.toURL();
-                //String schemaString = Resources.toString(url, UTF_8);
                 typeRegistry.merge(parser.parse(schemaString));
             }
             return typeRegistry;

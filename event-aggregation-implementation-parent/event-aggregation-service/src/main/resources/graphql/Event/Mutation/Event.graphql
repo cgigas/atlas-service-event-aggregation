@@ -1,4 +1,4 @@
-type MPEServiceMutation {
+extend type MPEServiceMutation {
     closeEvent(id: String, endDate: DateTime): Event
     deleteEvent(id: String): Event
     updateEventStatus(id: String, eventStatus: EventStatus!): Event
