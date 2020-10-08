@@ -41,4 +41,204 @@ public class ElementConversionControls
     DateTime updateDate;
     String updateOrigin;
     Long version;
+
+    public String getElementConvControlsUuid()
+    {
+        return elementConvControlsUuid;
+    }
+
+    public void setElementConvControlsUuid(String elementConvControlsUuid)
+    {
+        this.elementConvControlsUuid = elementConvControlsUuid;
+    }
+
+    public String getClassificationMarking()
+    {
+        return classificationMarking;
+    }
+
+    public void setClassificationMarking(String classificationMarking)
+    {
+        this.classificationMarking = classificationMarking;
+    }
+
+    public String getSatelliteUuid()
+    {
+        return satelliteUuid;
+    }
+
+    public void setSatelliteUuid(String satelliteUuid)
+    {
+        this.satelliteUuid = satelliteUuid;
+    }
+
+    public Application getApplication()
+    {
+        return application;
+    }
+
+    public void setApplication(Application application)
+    {
+        this.application = application;
+    }
+
+    public EpochPlacement getEpochPlacement()
+    {
+        return epochPlacement;
+    }
+
+    public void setEpochPlacement(EpochPlacement epochPlacement)
+    {
+        this.epochPlacement = epochPlacement;
+    }
+
+    public Float getExtrapolationDcDeltaSpan()
+    {
+        return extrapolationDcDeltaSpan;
+    }
+
+    public void setExtrapolationDcDeltaSpan(Float extrapolationDcDeltaSpan)
+    {
+        this.extrapolationDcDeltaSpan = extrapolationDcDeltaSpan;
+    }
+
+    public Float getExtrapolationDcDragErRms()
+    {
+        return extrapolationDcDragErRms;
+    }
+
+    public void setExtrapolationDcDragErRms(Float extrapolationDcDragErRms)
+    {
+        this.extrapolationDcDragErRms = extrapolationDcDragErRms;
+    }
+
+    public Boolean getExtrapolationDc()
+    {
+        return extrapolationDc;
+    }
+
+    public void setExtrapolationDc(Boolean extrapolationDc)
+    {
+        this.extrapolationDc = extrapolationDc;
+    }
+
+    public Float getExtrapolationDcEpochErRms()
+    {
+        return extrapolationDcEpochErRms;
+    }
+
+    public void setExtrapolationDcEpochErRms(Float extrapolationDcEpochErRms)
+    {
+        this.extrapolationDcEpochErRms = extrapolationDcEpochErRms;
+    }
+
+    public Float getExtrapolationDcEpochMargin()
+    {
+        return extrapolationDcEpochMargin;
+    }
+
+    public void setExtrapolationDcEpochMargin(Float extrapolationDcEpochMargin)
+    {
+        this.extrapolationDcEpochMargin = extrapolationDcEpochMargin;
+    }
+
+    public int getExtrapolationDcKeepNthPnt()
+    {
+        return extrapolationDcKeepNthPnt;
+    }
+
+    public void setExtrapolationDcKeepNthPnt(int extrapolationDcKeepNthPnt)
+    {
+        this.extrapolationDcKeepNthPnt = extrapolationDcKeepNthPnt;
+    }
+
+    public Float getExtrapolationDcMaxPosRms()
+    {
+        return extrapolationDcMaxPosRms;
+    }
+
+    public void setExtrapolationDcMaxPosRms(Float extrapolationDcMaxPosRms)
+    {
+        this.extrapolationDcMaxPosRms = extrapolationDcMaxPosRms;
+    }
+
+    public Float getExtrapolationDcMinSpan()
+    {
+        return extrapolationDcMinSpan;
+    }
+
+    public void setExtrapolationDcMinSpan(Float extrapolationDcMinSpan)
+    {
+        this.extrapolationDcMinSpan = extrapolationDcMinSpan;
+    }
+
+    public Float getExtrapolationDcSpan()
+    {
+        return extrapolationDcSpan;
+    }
+
+    public void setExtrapolationDcSpan(Float extrapolationDcSpan)
+    {
+        this.extrapolationDcSpan = extrapolationDcSpan;
+    }
+
+    public ExtrapolationSpanUnits getExtrapolationSpanUnits()
+    {
+        return extrapolationSpanUnits;
+    }
+
+    public void setExtrapolationSpanUnits(ExtrapolationSpanUnits extrapolationSpanUnits)
+    {
+        this.extrapolationSpanUnits = extrapolationSpanUnits;
+    }
+
+    public DateTime getCreateDate()
+    {
+        return createDate;
+    }
+
+    public void setCreateDate(DateTime createDate)
+    {
+        this.createDate = createDate;
+    }
+
+    public String getCreateOrigin()
+    {
+        return createOrigin;
+    }
+
+    public void setCreateOrigin(String createOrigin)
+    {
+        this.createOrigin = createOrigin;
+    }
+
+    public DateTime getUpdateDate()
+    {
+        return updateDate;
+    }
+
+    public void setUpdateDate(DateTime updateDate)
+    {
+        this.updateDate = updateDate;
+    }
+
+    public String getUpdateOrigin()
+    {
+        return updateOrigin;
+    }
+
+    public void setUpdateOrigin(String updateOrigin)
+    {
+        this.updateOrigin = updateOrigin;
+    }
+
+    public Long getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(Long version)
+    {
+        this.version = version;
+    }
 }

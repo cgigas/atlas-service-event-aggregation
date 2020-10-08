@@ -3,7 +3,7 @@ package atlas.event.aggregation.data.model.Satellite;
 import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
 
-public class DcControlsTest
+public class IntegratorControlsTest
 {
     @Test
     public void test() throws Exception
@@ -13,7 +13,7 @@ public class DcControlsTest
             @Override
             protected Object getInstance()
             {
-                return new DcControls();
+                return new IntegratorControls();
             }
         };
         tester.testGettersAndSetters();

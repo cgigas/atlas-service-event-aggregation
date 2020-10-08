@@ -1,7 +1,8 @@
 package atlas.event.aggregation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -19,10 +20,8 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
-import org.junit.Test;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * A utility class which allows for testing entity and transfer object classes. This is mainly for code coverage since
@@ -31,12 +30,15 @@ import com.google.common.collect.ImmutableMap.Builder;
  *
  * @param <T> The object type to test.
  */
-public abstract class GetterSetterTester<T> {
-
-    /** A map of default mappers for common objects. */
+public abstract class GetterSetterTester<T>
+{
+    /**
+     * A map of default mappers for common objects.
+     */
     private static final ImmutableMap<Class<?>, Supplier<?>> DEFAULT_MAPPERS;
 
-    static {
+    static
+    {
         final Builder<Class<?>, Supplier<?>> mapperBuilder = ImmutableMap.builder();
 
         /* Primitives */
@@ -71,7 +73,9 @@ public abstract class GetterSetterTester<T> {
         DEFAULT_MAPPERS = mapperBuilder.build();
     }
 
-    /** The get fields to ignore and not try to test. */
+    /**
+     * The get fields to ignore and not try to test.
+     */
     private final Set<String> ignoredGetFields;
 
     /**
@@ -82,7 +86,8 @@ public abstract class GetterSetterTester<T> {
     /**
      * Creates an instance of {@link GetterSetterTester} with the default ignore fields.
      */
-    protected GetterSetterTester() {
+    protected GetterSetterTester()
+    {
         this(null, null);
     }
 
@@ -90,18 +95,23 @@ public abstract class GetterSetterTester<T> {
      * Creates an instance of {@link GetterSetterTester} with ignore fields and additional custom mappers.
      *
      * @param customMappers Any custom mappers for a given class type.
-     * @param ignoreFields The getters which should be ignored (e.g., "getId" or "isActive").
+     * @param ignoreFields  The getters which should be ignored (e.g., "getId" or "isActive").
      */
-    protected GetterSetterTester(Map<Class<?>, Supplier<?>> customMappers, Set<String> ignoreFields) {
+    protected GetterSetterTester(Map<Class<?>, Supplier<?>> customMappers, Set<String> ignoreFields)
+    {
         this.ignoredGetFields = new HashSet<>();
-        if (ignoreFields != null) {
+        if (ignoreFields != null)
+        {
             this.ignoredGetFields.addAll(ignoreFields);
         }
         this.ignoredGetFields.add("getClass");
 
-        if (customMappers == null) {
+        if (customMappers == null)
+        {
             this.mappers = DEFAULT_MAPPERS;
-        } else {
+        }
+        else
+        {
             final Builder<Class<?>, Supplier<?>> builder = ImmutableMap.builder();
             builder.putAll(customMappers);
             builder.putAll(DEFAULT_MAPPERS);
@@ -113,28 +123,31 @@ public abstract class GetterSetterTester<T> {
      * Calls a getter and verifies the result is what is expected.
      *
      * @param fieldName The field name (used for error messages).
-     * @param getter The get {@link Method}.
-     * @param instance The test instance.
-     * @param expected The expected result.
-     *
-     * @throws IllegalAccessException if this Method object is enforcing Java language access control and the underlying
-     *             method is inaccessible.
-     * @throws IllegalArgumentException if the method is an instance method and the specified object argument is not an
-     *             instance of the class or interface declaring the underlying method (or of a subclass or implementor
-     *             thereof); if the number of actual and formal parameters differ; if an unwrapping conversion for
-     *             primitive arguments fails; or if, after possible unwrapping, a parameter value cannot be converted to
-     *             the corresponding formal parameter type by a method invocation conversion.
+     * @param getter    The get {@link Method}.
+     * @param instance  The test instance.
+     * @param expected  The expected result.
+     * @throws IllegalAccessException    if this Method object is enforcing Java language access control and the underlying
+     *                                   method is inaccessible.
+     * @throws IllegalArgumentException  if the method is an instance method and the specified object argument is not an
+     *                                   instance of the class or interface declaring the underlying method (or of a subclass or implementor
+     *                                   thereof); if the number of actual and formal parameters differ; if an unwrapping conversion for
+     *                                   primitive arguments fails; or if, after possible unwrapping, a parameter value cannot be converted to
+     *                                   the corresponding formal parameter type by a method invocation conversion.
      * @throws InvocationTargetException if the underlying method throws an exception.
      */
     private void callGetter(String fieldName, Method getter, T instance, Object expected)
-        throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+    {
 
         final Object getResult = getter.invoke(instance);
 
-        if (getter.getReturnType().isPrimitive()) {
+        if (getter.getReturnType().isPrimitive())
+        {
             /* Calling assetEquals() here due to autoboxing of primitive to object type. */
             assertEquals(fieldName + " is different", expected, getResult);
-        } else {
+        }
+        else
+        {
             /* This is a normal object. The object passed in should be the exactly same object we get back. */
             assertSame(fieldName + " is different", expected, getResult);
         }
@@ -144,31 +157,32 @@ public abstract class GetterSetterTester<T> {
      * Creates an object for the given {@link Class}.
      *
      * @param fieldName The name of the field.
-     * @param clazz The {@link Class} type to create.
-     *
+     * @param clazz     The {@link Class} type to create.
      * @return A new instance for the given {@link Class}.
-     *
      * @throws InstantiationException If this Class represents an abstract class, an interface, an array class, a
-     *             primitive type, or void; or if the class has no nullary constructor; or if the instantiation fails
-     *             for some other reason.
+     *                                primitive type, or void; or if the class has no nullary constructor; or if the instantiation fails
+     *                                for some other reason.
      * @throws IllegalAccessException If the class or its nullary constructor is not accessible.
-     *
      */
-    private Object createObject(String fieldName, Class<?> clazz)
-        throws InstantiationException, IllegalAccessException {
-
-        try {
+    private Object createObject(String fieldName, Class<?> clazz) throws InstantiationException, IllegalAccessException
+    {
+        try
+        {
             final Supplier<?> supplier = this.mappers.get(clazz);
-            if (supplier != null) {
+            if (supplier != null)
+            {
                 return supplier.get();
             }
 
-            if (clazz.isEnum()) {
+            if (clazz.isEnum())
+            {
                 return clazz.getEnumConstants()[0];
             }
 
             return clazz.newInstance();
-        } catch (IllegalAccessException | InstantiationException e) {
+        }
+        catch (IllegalAccessException | InstantiationException e)
+        {
             throw new RuntimeException("Unable to create objects for field '" + fieldName + "'.", e);
         }
     }
@@ -188,46 +202,57 @@ public abstract class GetterSetterTester<T> {
      * @throws Exception If an expected error occurs.
      */
     @Test
-    public void testGettersAndSetters() throws Exception {
+    public void testGettersAndSetters() throws Exception
+    {
         /* Sort items for consistent test runs. */
         final SortedMap<String, GetterSetterPair> getterSetterMapping = new TreeMap<>();
 
         final T instance = getInstance();
 
-        for (final Method method : instance.getClass().getMethods()) {
+        for (final Method method : instance.getClass().getMethods())
+        {
             final String methodName = method.getName();
 
-            if (this.ignoredGetFields.contains(methodName)) {
+            if (this.ignoredGetFields.contains(methodName))
+            {
                 continue;
             }
 
             String objectName;
-            if (methodName.startsWith("get") && method.getParameters().length == 0) {
+            if (methodName.startsWith("get") && method.getParameters().length == 0)
+            {
                 /* Found the get method. */
                 objectName = methodName.substring("get".length());
 
                 GetterSetterPair getterSettingPair = getterSetterMapping.get(objectName);
-                if (getterSettingPair == null) {
+                if (getterSettingPair == null)
+                {
                     getterSettingPair = new GetterSetterPair();
                     getterSetterMapping.put(objectName, getterSettingPair);
                 }
                 getterSettingPair.setGetter(method);
-            } else if (methodName.startsWith("set") && method.getParameters().length == 1) {
+            }
+            else if (methodName.startsWith("set") && method.getParameters().length == 1)
+            {
                 /* Found the set method. */
                 objectName = methodName.substring("set".length());
 
                 GetterSetterPair getterSettingPair = getterSetterMapping.get(objectName);
-                if (getterSettingPair == null) {
+                if (getterSettingPair == null)
+                {
                     getterSettingPair = new GetterSetterPair();
                     getterSetterMapping.put(objectName, getterSettingPair);
                 }
                 getterSettingPair.setSetter(method);
-            } else if (methodName.startsWith("is") && method.getParameters().length == 0) {
+            }
+            else if (methodName.startsWith("is") && method.getParameters().length == 0)
+            {
                 /* Found the is method, which really is a get method. */
                 objectName = methodName.substring("is".length());
 
                 GetterSetterPair getterSettingPair = getterSetterMapping.get(objectName);
-                if (getterSettingPair == null) {
+                if (getterSettingPair == null)
+                {
                     getterSettingPair = new GetterSetterPair();
                     getterSetterMapping.put(objectName, getterSettingPair);
                 }
@@ -239,13 +264,15 @@ public abstract class GetterSetterTester<T> {
          * Found all our mappings. Now call the getter and setter or set the field via reflection and call the getting
          * it doesn't have a setter.
          */
-        for (final Entry<String, GetterSetterPair> entry : getterSetterMapping.entrySet()) {
+        for (final Entry<String, GetterSetterPair> entry : getterSetterMapping.entrySet())
+        {
             final GetterSetterPair pair = entry.getValue();
 
             final String objectName = entry.getKey();
             final String fieldName = objectName.substring(0, 1).toLowerCase() + objectName.substring(1);
 
-            if (pair.hasGetterAndSetter()) {
+            if (pair.hasGetterAndSetter())
+            {
                 /* Create an object. */
                 final Class<?> parameterType = pair.getSetter().getParameterTypes()[0];
                 final Object newObject = createObject(fieldName, parameterType);
@@ -253,7 +280,9 @@ public abstract class GetterSetterTester<T> {
                 pair.getSetter().invoke(instance, newObject);
 
                 callGetter(fieldName, pair.getGetter(), instance, newObject);
-            } else if (pair.getGetter() != null) {
+            }
+            else if (pair.getGetter() != null)
+            {
                 /*
                  * Object is immutable (no setter but Hibernate or something else sets it via reflection). Use
                  * reflection to set object and verify that same object is returned when calling the getter.
@@ -266,5 +295,37 @@ public abstract class GetterSetterTester<T> {
                 callGetter(fieldName, pair.getGetter(), instance, newObject);
             }
         }
+    }
+}
+
+class GetterSetterPair
+{
+
+    private Method getter;
+    private Method setter;
+
+    public Method getGetter()
+    {
+        return getter;
+    }
+
+    public void setGetter(Method getter)
+    {
+        this.getter = getter;
+    }
+
+    public Method getSetter()
+    {
+        return setter;
+    }
+
+    public void setSetter(Method setter)
+    {
+        this.setter = setter;
+    }
+
+    public boolean hasGetterAndSetter()
+    {
+        return this.getter != null && this.setter != null;
     }
 }
