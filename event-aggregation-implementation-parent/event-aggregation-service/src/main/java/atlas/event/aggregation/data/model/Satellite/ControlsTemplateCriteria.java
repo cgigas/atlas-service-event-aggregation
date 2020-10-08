@@ -198,4 +198,3 @@ public class ControlsTemplateCriteria
         this.version = version;
     }
 }
-

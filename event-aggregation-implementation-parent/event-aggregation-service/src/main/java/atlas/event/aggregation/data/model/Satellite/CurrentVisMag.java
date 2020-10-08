@@ -23,4 +23,44 @@ public class CurrentVisMag
     String visualMagnitudeUuid;
     VisualMagnitude visualMagnitude;
     Long version;
+
+    public String getSatelliteUuid()
+    {
+        return satelliteUuid;
+    }
+
+    public void setSatelliteUuid(String satelliteUuid)
+    {
+        this.satelliteUuid = satelliteUuid;
+    }
+
+    public String getVisualMagnitudeUuid()
+    {
+        return visualMagnitudeUuid;
+    }
+
+    public void setVisualMagnitudeUuid(String visualMagnitudeUuid)
+    {
+        this.visualMagnitudeUuid = visualMagnitudeUuid;
+    }
+
+    public VisualMagnitude getVisualMagnitude()
+    {
+        return visualMagnitude;
+    }
+
+    public void setVisualMagnitude(VisualMagnitude visualMagnitude)
+    {
+        this.visualMagnitude = visualMagnitude;
+    }
+
+    public Long getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(Long version)
+    {
+        this.version = version;
+    }
 }
