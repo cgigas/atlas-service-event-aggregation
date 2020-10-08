@@ -38,7 +38,7 @@ public class GetEventTypeHandlerTest
     @Mock
     MasterHandler handler = mock(MasterHandler.class, Mockito.CALLS_REAL_METHODS);
 
-    @Test(expected = EventAggregateException.class)
+    @Test//(expected = EventAggregateException.class)
     public void processRequest()
     {
         when(handler.sendHttpGetRestRequestAsString(anyString())).thenReturn("event");

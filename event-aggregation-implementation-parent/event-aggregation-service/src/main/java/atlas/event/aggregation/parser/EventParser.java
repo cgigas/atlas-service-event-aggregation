@@ -55,8 +55,6 @@ public class EventParser implements IParser
         return result;
     }
 
-
-
     @Override
     public Object fromJson(Object json)
     {

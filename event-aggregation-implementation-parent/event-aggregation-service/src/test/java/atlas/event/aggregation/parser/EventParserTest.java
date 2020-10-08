@@ -35,7 +35,7 @@ public class EventParserTest
 {
     @Mock
     EventParser task = mock(EventParser.class, Mockito.CALLS_REAL_METHODS);
-    JSONObject jsonObj = new JSONObject();
+    Object jsonObj = new JSONObject();
     Map<String, Object> map = new HashMap<>();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -69,5 +69,11 @@ public class EventParserTest
     {
         assertNotNull(task.fromJson(jsonObj));
         assertNotNull(task.fromJson(map));
+    }
+
+    @Test(expected = StackOverflowError.class)
+    public void testToJSONString()
+    {
+        assertNotNull(task.toJSONString(jsonObj));
     }
 }

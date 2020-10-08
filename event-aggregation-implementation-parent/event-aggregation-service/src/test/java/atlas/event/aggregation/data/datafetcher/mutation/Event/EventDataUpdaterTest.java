@@ -17,7 +17,6 @@
  */
 package atlas.event.aggregation.data.datafetcher.mutation.Event;
 
-import atlas.event.aggregation.data.datafetcher.mutation.Event.EventDataUpdater;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
