@@ -18,11 +18,9 @@
 package atlas.event.aggregation.data.datafetcher.loader;
 
 import atlas.event.aggregation.base.DigitalBase;
-import atlas.event.aggregation.data.model.repository.ssaevent.SsaEventRepository;
 import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 

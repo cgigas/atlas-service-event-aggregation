@@ -1,0 +1,15 @@
+type EventFolder{
+    eventFolderUUID: String
+    classificationMarking: String
+    mpeProcessingConfigTemplateUUID: String
+    eventType: Int
+    id: Int
+    year: DateTime
+    shortName: String
+    description: String
+    remarks: String
+    updateDate: DateTime
+    createDate: DateTime
+    createOrigin: String
+    version: Long
+}

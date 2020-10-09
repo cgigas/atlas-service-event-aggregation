@@ -1,0 +1,115 @@
+type MpeProcessingConfig {
+    template: MPEProcessingConfigTemplate
+    eventUUID: String
+    catalogRsoReservationUUID: String
+}
+
+extend type MPEServiceMutation {
+    createMpeProcessingConfiguration(configData: CreateMpeConfig): MpeProcessingConfig
+    deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfig
+    updateMpeConfig(configData: CreateMpeConfig): MpeProcessingConfig
+    createMpeConfigFromTemplate(template: ConfigTemplate): MpeProcessingConfig
+}
+
+extend type MPEServiceQuery {
+    mpeConfigTemplateByName(name: String): MPEProcessingConfigTemplate
+}
+
+input CreateMpeConfig {
+    mpeProcessingConfigUuid: String!
+    classificationMarking: String
+    eventUUID: String!
+    candidateRsoReservationUUID: String!
+    analystRsoReservationUUID: String!
+    catalogRsoReservationUUID: String!
+    ucnReservationUUID: String!
+    candidateFormationParametersUUID: String!
+    currentFlag: Long!
+    name: String
+    description: String
+    analystMinTracksPerDay: Int
+    catalogMinTracksPerDay: Int
+    analystMinTracksReceived: Int
+    catalogMinTracksReceived: Int
+    analystMinOdSolutions: Int
+    catalogMinOdSolutions: Int
+    analystRmsTrendMean: Long
+    catalogRmsTrendMean: Long
+    analystRmsTrendSd: Long
+    catalogRmsTrendSd: Long
+    analystMinResidualAcceptance: Long
+    catalogMinResidualAcceptance: Long
+    analystMinArgumentLatitude: Long
+    catalogMinArgumentLatitude: Long
+    analystMinReportingSensors: Int
+    catalogMinReportingSensors: Int
+    updateDate: DateTime
+    updateOrigin: String
+    createDate: DateTime!
+    createOrigin: String!
+    version: Long
+}
+
+type MPEProcessingConfigTemplate {
+    mpeProcessingConfigUuid: String
+    classificationMarking: String
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    name: String
+    description: String
+    analystMinTracksPerDay: Int
+    catalogMinTracksPerDay: Int
+    analystMinTracksReceived: Int
+    catalogMinTracksReceived: Int
+    analystMinOdSolutions: Int
+    catalogMinOdSolutions: Int
+    analystRmsTrendMean: Long
+    catalogRmsTrendMean: Long
+    analystRmsTrendSd: Long
+    catalogRmsTrendSd: Long
+    analystMinResidualAcceptance: Long
+    catalogMinResidualAcceptance: Long
+    analystMinArgumentLatitude: Long
+    catalogMinArgumentLatitude: Long
+    analystMinReportingSensors: Int
+    catalogMinReportingSensors: Int
+    updateDate: DateTime
+    updateOrigin: String
+    createDate: DateTime
+    createOrigin: String
+    version: Long
+}
+
+input ConfigTemplate {
+    mpeProcessingConfigUUID: String
+    classificationMarking: String
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    name: String
+    description: String
+    analystMinTracksPerDay: Int
+    catalogMinTracksPerDay: Int
+    analystMinTracksReceived: Int
+    catalogMinTracksReceived: Int
+    analystMinOdSolutions: Int
+    catalogMinOdSolutions: Int
+    analystRmsTrendMean: Long
+    catalogRmsTrendMean: Long
+    analystRmsTrendSd: Long
+    catalogRmsTrendSd: Long
+    analystMinResidualAcceptance: Long
+    catalogMinResidualAcceptance: Long
+    analystMinArgumentLatitude: Long
+    catalogMinArgumentLatitude: Long
+    analystMinReportingSensors: Int
+    catalogMinReportingSensors: Int
+    updateDate: DateTime
+    updateOrigin: String
+    createDate: DateTime
+    createOrigin: String
+    version: Long
+}
