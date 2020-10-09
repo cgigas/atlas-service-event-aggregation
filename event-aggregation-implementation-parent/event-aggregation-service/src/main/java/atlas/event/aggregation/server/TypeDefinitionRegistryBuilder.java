@@ -17,31 +17,19 @@
  */
 package atlas.event.aggregation.server;
 
-import com.google.common.io.Resources;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.AbstractFileResolvingResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Slf4j
 @Component
@@ -104,7 +92,8 @@ public class TypeDefinitionRegistryBuilder
      */
     public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList) throws IOException
     {
-        try {
+        try
+        {
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
@@ -113,7 +102,8 @@ public class TypeDefinitionRegistryBuilder
                 typeRegistry.merge(parser.parse(fileItem));
             }
             return typeRegistry;
-        } catch (Throwable e)
+        }
+        catch (Throwable e)
         {
             throw new IllegalStateException(e);
         }
@@ -132,7 +122,8 @@ public class TypeDefinitionRegistryBuilder
                     if (dir.isDirectory())
                     {
                         return true;
-                    } else
+                    }
+                    else
                     {
                         return name.toLowerCase().endsWith(fileExtension);
                     }
