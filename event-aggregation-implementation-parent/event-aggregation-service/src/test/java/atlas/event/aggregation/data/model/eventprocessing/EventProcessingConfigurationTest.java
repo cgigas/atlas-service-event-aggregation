@@ -17,13 +17,10 @@
  */
 package atlas.event.aggregation.data.model.eventprocessing;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class EventProcessingConfigurationTest
 {
-    EventProcessingConfiguration task = new EventProcessingConfiguration();
+/*    EventProcessingConfiguration task = new EventProcessingConfiguration();
     String eventProcessingConfigUuid = "eventProcessingConfigUuid";
     String classificationMarking = "classificationMarking";
     String ssaEventUuid = "ssaEventUuid";
@@ -128,4 +125,6 @@ public class EventProcessingConfigurationTest
         task.setDescription(description);
         assertEquals(description, task.getDescription());
     }
+
+ */
 }

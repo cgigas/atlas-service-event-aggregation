@@ -73,7 +73,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
             switch (path)
             {
                 case "/mpeConfigTemplateByName":
-                    result = mpeProcessingConfigHandler.processMpeConfigTemplateByName(environment);
+                    result = null;
                     break;
                 case "/createMpeConfig":
                     result = processCreateConfig(environment);

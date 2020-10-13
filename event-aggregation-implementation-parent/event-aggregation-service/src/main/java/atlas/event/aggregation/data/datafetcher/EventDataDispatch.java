@@ -18,6 +18,8 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
+import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
+import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.handlers.EventDataHandler;
 import atlas.event.aggregation.handlers.EventTypeSummaryHandler;
@@ -29,6 +31,10 @@ import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import com.google.common.collect.Lists;
+import com.graphql_java_generator.client.request.ObjectResponse;
+import com.graphql_java_generator.client.request.QueryField;
+import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
+import com.graphql_java_generator.exception.GraphQLRequestPreparationException;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +45,7 @@ import org.springframework.stereotype.Component;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
@@ -46,6 +53,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 @Profile("dev")
 public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 {
+    private final GraphqlUtility graphqlUtility;
     @Autowired
     private EventParser eventParser;
     @Autowired
@@ -57,8 +65,9 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     private EventCrudMutationExecutor eventCrudMutationExecutor;
     private EventCrudQueryExecutor eventCrudQueryExecutor;
 
-    public EventDataDispatch(RuntimeWiringTypeCollector collector)
+    public EventDataDispatch(RuntimeWiringTypeCollector collector, GraphqlUtility graphqlUtility)
     {
+        this.graphqlUtility = graphqlUtility;
         this.collector = collector;
     }
 
@@ -83,6 +92,9 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     @Override
     protected Object performFetch(DataFetchingEnvironment environment)
     {
+        // extract query
+        //String partialQueryString = graphqlUtility.graphqlPartialQueryStringFromField(environment.getMergedField().getSingleField());
+
         String path = getRequestPath(environment);
         Object result = null;
         if (StringUtils.isNotBlank(path))
@@ -90,16 +102,16 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
             switch (path)
             {
                 case "/eventById":
-                    result = eventDataHandler.processEventById(environment);
+                    result = processEventByID(environment);
                     break;
                 case "/eventTypeSummariesByTimePeriod":
-                    result = eventTypeSummaryHandler.processRequest(environment);
+                    result = null;
                     break;
                 case "/getEventTypes":
-                    result = getEventTypeHandler.processRequest(environment);
+                    result = null;
                     break;
                 case "/eventsByTimePeriodAndType":
-                    result = eventDataHandler.processEventsByTimePeriodAndType(environment);
+                    result = null;
                     break;
                 case "/createEvent":
                     result = processCreateEvent(environment);
@@ -117,6 +129,42 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         }
 
         return result;
+    }
+
+    private Event processEventByID(DataFetchingEnvironment environment)
+    {
+        EventCrudQueryExecutor eventCrudQueryExecutor = null;
+        Event event = new Event();
+        if (environment != null)
+        {
+            eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
+            if (eventCrudQueryExecutor != null)
+            {
+                String id = environment.getArgument("id");
+                try
+                {
+                    StringBuffer queryString = new StringBuffer();
+                    queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type supplementalData createDate createOrigin\n");
+                    queryString.append(" updateDate\n");
+                    queryString.append(" updateOrigin\n");
+                    queryString.append(" version\n");
+                    queryString.append("}\n");
+                    queryString.append(" createDate\n");
+                    queryString.append(" createOrigin\n");
+                    queryString.append(" updateDate\n");
+                    queryString.append(" updateOrigin\n");
+                    queryString.append(" version\n");
+                    queryString.append("}\n");
+                    atlas.ssaevent.crud.graphql.Event crudEvent = eventCrudQueryExecutor.event(queryString.toString(), id);
+                }
+                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                {
+                    throw new DataAccessorException(e);
+                }
+            }
+        }
+
+        return event;
     }
 
     private Event processCloseEvent(DataFetchingEnvironment environment)
@@ -166,6 +214,37 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 
     private Event processCreateEvent(DataFetchingEnvironment environment)
     {
+        EventCrudMutationExecutor eventCrudMutationExecutor = null;
+
+        if (environment != null)
+        {
+            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+        }
+        Map<String, Object> eventData = environment.getArgument("eventData");
+        if (eventData != null)
+        {
+/*            Map<String, Object> eventDataMap = (Map)eventData.get("eventData");
+            String eventUuid = getItemAsString("eventUuid", eventDataMap);
+            String classMarking = getItemAsString("classificationMarking", eventDataMap);
+            String preEventUuid = getItemAsString("predecessorEventUuid", eventDataMap);
+            String eventType = getItemAsString("eventType", eventDataMap);
+            String eventName = getItemAsString("eventName", eventDataMap);
+            String eventStatus = getItemAsString("eventStatus", eventDataMap);
+            String eventState = getItemAsString("eventState", eventDataMap);
+            OffsetDateTime startDate = getItemAsOffSetDate("startDate", eventDataMap);
+            OffsetDateTime endDate = getItemAsOffSetDate("endDate", eventDataMap);
+            String description = getItemAsString("eventDesc", eventDataMap);
+            String internalNotes = getItemAsString("internalNotes", eventDataMap);
+            String eventPostingId = getItemAsString("eventPostingId", eventDataMap);
+            OffsetDateTime createDate = getItemAsOffSetDate("createDate", eventDataMap);
+            String createOrgin = getItemAsString("createOrgin", eventDataMap);
+            OffsetDateTime updateDate = getItemAsOffSetDate("updateDate", eventDataMap);
+            String updateOrgin = getItemAsString("updateOrgin", eventDataMap);
+            Long version = getItemAsLong("version", eventDataMap);
+
+ */
+        }
+
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
         String id = environment.getArgument("id");
@@ -176,5 +255,13 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
+    }
+
+    public static void main(String args[])
+    {
+        EventCrudQueryExecutor eventCrudQueryExecutor = null;
+        eventCrudQueryExecutor = new EventCrudQueryExecutor("http://172.30.211.106:9210/ssaevent-crud/graphql");
+
+        System.out.println("Done");
     }
 }

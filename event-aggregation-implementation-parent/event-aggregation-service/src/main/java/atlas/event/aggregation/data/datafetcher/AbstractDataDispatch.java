@@ -110,6 +110,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         }
         catch (RuntimeException e)
         {
+            e.printStackTrace();
             return buildErrorResult(environment, returnValue, e);
         }
     }
