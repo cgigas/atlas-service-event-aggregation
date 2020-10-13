@@ -18,9 +18,17 @@
 package atlas.event.aggregation.data.model;
 
 import atlas.event.aggregation.data.model.event.Versioned;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 
+@ToString(callSuper = true)
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Audited extends Versioned
 {
     /**
