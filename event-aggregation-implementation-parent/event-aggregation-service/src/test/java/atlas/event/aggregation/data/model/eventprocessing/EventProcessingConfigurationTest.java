@@ -17,7 +17,6 @@
  */
 package atlas.event.aggregation.data.model.eventprocessing;
 
-
 public class EventProcessingConfigurationTest
 {
 /*    EventProcessingConfiguration task = new EventProcessingConfiguration();
@@ -38,92 +37,92 @@ public class EventProcessingConfigurationTest
     @Test
     public void setEventProcessingConfigUuid()
     {
-        task.setEventProcessingConfigUuid(eventProcessingConfigUuid);
-        assertEquals(eventProcessingConfigUuid, task.getEventProcessingConfigUuid());
+//        task.setEventProcessingConfigUuid(eventProcessingConfigUuid);
+//        assertEquals(eventProcessingConfigUuid, task.getEventProcessingConfigUuid());
     }
 
     @Test
     public void setClassificationMarking()
     {
-        task.setClassificationMarking(classificationMarking);
-        assertEquals(classificationMarking, task.getClassificationMarking());
+//        task.setClassificationMarking(classificationMarking);
+//        assertEquals(classificationMarking, task.getClassificationMarking());
     }
 
     @Test
     public void setSsaEventUuid()
     {
-        task.setSsaEventUuid(ssaEventUuid);
-        assertEquals(ssaEventUuid, task.getSsaEventUuid());
+//        task.setSsaEventUuid(ssaEventUuid);
+//        assertEquals(ssaEventUuid, task.getSsaEventUuid());
     }
 
     @Test
     public void setCandidateRsoReservationUuid()
     {
-        task.setCandidateRsoReservationUuid(candidateRsoReservationUuid);
-        assertEquals(candidateRsoReservationUuid, task.getCandidateRsoReservationUuid());
+//        task.setCandidateRsoReservationUuid(candidateRsoReservationUuid);
+//        assertEquals(candidateRsoReservationUuid, task.getCandidateRsoReservationUuid());
     }
 
     @Test
     public void setAnalystRsoReservationUuid()
     {
-        task.setAnalystRsoReservationUuid(analystRsoReservationUuid);
-        assertEquals(analystRsoReservationUuid, task.getAnalystRsoReservationUuid());
+//        task.setAnalystRsoReservationUuid(analystRsoReservationUuid);
+//        assertEquals(analystRsoReservationUuid, task.getAnalystRsoReservationUuid());
     }
 
     @Test
     public void setCatalogRsoReservationUuid()
     {
-        task.setCatalogRsoReservationUuid(catalogRsoReservationUuid);
-        assertEquals(catalogRsoReservationUuid, task.getCatalogRsoReservationUuid());
+//        task.setCatalogRsoReservationUuid(catalogRsoReservationUuid);
+//        assertEquals(catalogRsoReservationUuid, task.getCatalogRsoReservationUuid());
     }
 
     @Test
     public void setUcnReservationUuid()
     {
-        task.setUcnReservationUuid(ucnReservationUuid);
-        assertEquals(ucnReservationUuid, task.getUcnReservationUuid());
+//        task.setUcnReservationUuid(ucnReservationUuid);
+//        assertEquals(ucnReservationUuid, task.getUcnReservationUuid());
     }
 
     @Test
     public void setCandidateFormationParametersUuid()
     {
-        task.setCandidateFormationParametersUuid(candidateFormationParametersUuid);
-        assertEquals(candidateFormationParametersUuid, task.getCandidateFormationParametersUuid());
+//        task.setCandidateFormationParametersUuid(candidateFormationParametersUuid);
+//        assertEquals(candidateFormationParametersUuid, task.getCandidateFormationParametersUuid());
     }
 
     @Test
     public void setValidityCriteriaUuid()
     {
-        task.setValidityCriteriaUuid(eventProcessingConfigUuid);
-        assertEquals(eventProcessingConfigUuid, task.getValidityCriteriaUuid());
+//        task.setValidityCrPriteriaUuid(eventProcessingConfigUuid);
+//        assertEquals(eventocessingConfigUuid, task.getValidityCriteriaUuid());
     }
 
     @Test
     public void setCurrentFlag()
     {
-        task.setCurrentFlag(currentFlag);
-        assertEquals(currentFlag, task.getCurrentFlag());
+//        task.setCurrentFlag(currentFlag);
+//        assertEquals(currentFlag, task.getCurrentFlag());
     }
 
     @Test
     public void setSaveAsFolderFlag()
     {
-        task.setSaveAsFolderFlag(saveAsFolderFlag);
-        assertEquals(saveAsFolderFlag, task.getSaveAsFolderFlag());
+//        task.setSaveAsFolderFlag(saveAsFolderFlag);
+//        assertEquals(saveAsFolderFlag, task.getSaveAsFolderFlag());
     }
 
     @Test
     public void setName()
     {
-        task.setName(name);
-        assertEquals(name, task.getName());
+//        task.setName(name);
+//        assertEquals(name, task.getName());
     }
 
     @Test
     public void setDescription()
     {
-        task.setDescription(description);
-        assertEquals(description, task.getDescription());
+//        task.setDescription(description);
+//        assertEquals(description, task.getDescription());
     }
 
  */
