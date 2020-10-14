@@ -8,6 +8,13 @@ type TypeQuery {
     getEventTypes: [EventType]
 }
 
+type MPEServiceMutation {
+    closeEvent(id: String, endDate: DateTime): Event
+    deleteEvent(id: String): Event
+    updateEventStatus(id: String, eventStatus: EventStatus!): Event
+    createEvent(eventData: CreateEvent): Event
+}
+
 type EventTypeSummaryResults {
     id: String
     type: String
@@ -78,7 +85,6 @@ input EventDataInput {
     updateDate: DateTime
     updateOrgin: String
     version: Long
-<<<<<<< HEAD:event-aggregation-implementation-parent/event-aggregation-service/src/main/resources/graphql/Event/event.graphql
 }
 
 input CreateEvent {
@@ -101,6 +107,3 @@ input CreateEvent {
     version: Long
 }
 
-=======
-}
->>>>>>> origin/master:event-aggregation-implementation-parent/event-aggregation-service/src/main/resources/graphql/Event/Query/Event.graphql
