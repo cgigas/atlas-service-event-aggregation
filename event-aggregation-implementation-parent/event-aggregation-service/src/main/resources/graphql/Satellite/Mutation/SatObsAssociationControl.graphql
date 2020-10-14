@@ -1,0 +1,38 @@
+extend type MPEServiceMutation {
+    createSatObsAssociationControl(
+        satObsAssociationControl: SatObsAssociationControlInput!
+    ): SatObsAssociationControl!
+    updateSatObsAssociationControl(
+        satObsAssocControlUuid: String!
+        satObsAssociationControl: SatObsAssociationControlInput!
+    ): SatObsAssociationControl
+    deleteSatObsAssociationControl(
+        satObsAssocControlUuid: String!
+    ): SatObsAssociationControl
+}
+
+input SatObsAssociationControlInput {
+    classificationMarking: String!
+    satelliteUuid: String!
+    retagPriorityUuid: String!
+    gpDeltaTimeThreshold: NonNegativeFloat!
+    gpDeltaBetaThreshold: NonNegativeFloat!
+    gpDeltaHeightThreshold: NonNegativeFloat!
+    gpDeltaTimeMultiplier: NonNegativeFloat!
+    gpDeltaBetaMultiplier: NonNegativeFloat!
+    gpDeltaHeightMultiplier: NonNegativeFloat!
+    spDeltaTimeThreshold: NonNegativeFloat!
+    spDeltaBetaThreshold: NonNegativeFloat!
+    spDeltaHeightThreshold: NonNegativeFloat!
+    spDeltaTimeMultiplier: NonNegativeFloat!
+    spDeltaBetaMultiplier: NonNegativeFloat!
+    spDeltaHeightMultiplier: NonNegativeFloat!
+    chiMultiplier: NonNegativeFloat!
+    covarianceValidityLimit: NonNegativeFloat!
+    grossBetaLimit: NonNegativeFloat!
+    forceTagIndicator: Boolean!
+    considerProphylacticCrosstag: Boolean!
+    autoNotifyFlag: Boolean!
+    usePredictionErrorModel: Boolean!
+    version: Long
+}

@@ -1,0 +1,24 @@
+extend type MPEServiceMutation {
+    createRadarCrossSection(
+        radarCrossSection: RadarCrossSectionInput!
+    ): RadarCrossSection!
+    createRadarCrossSections(
+        radarCrossSections: [RadarCrossSectionInput!]!
+    ): [RadarCrossSection]!
+    updateRadarCrossSection(
+        rcsUuid: String!
+        radarCrossSection: RadarCrossSectionInput!
+    ): RadarCrossSection
+    deleteRadarCrossSection(
+        rcsUuid: String!
+    ): RadarCrossSection
+}
+
+input RadarCrossSectionInput {
+    classificationMarking: String!
+    satelliteUuid: String!
+    lastRcs: Float
+    lastSensorNumber: PositiveInt
+    rcsDate: DateTime
+    version: Long
+}

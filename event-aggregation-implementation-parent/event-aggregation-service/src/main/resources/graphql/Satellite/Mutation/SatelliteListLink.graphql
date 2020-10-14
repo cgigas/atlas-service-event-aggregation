@@ -1,0 +1,13 @@
+extend type MPEServiceMutation {
+    addSatelliteListLink(
+        satelliteListUuid: String!
+        satelliteListLink: SatelliteListSatelliteInput
+    ): SatelliteListSatellite
+    updateSatelliteListLink(
+        satelliteListSatelliteUuid: String!
+        listOrder: NonNegativeInt
+    ): SatelliteListSatellite
+    deleteSatelliteListLink(
+        satelliteListSatelliteUuid: String!
+    ): SatelliteListSatellite
+}

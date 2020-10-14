@@ -1,0 +1,53 @@
+extend type MPEServiceMutation {
+    createPerturbationControls(
+        perturbationControls: PerturbationControlsInput!
+    ): PerturbationControls!
+    updatePerturbationControls(
+        perturbationControlsUuid: String!
+        perturbationControls: PerturbationControlsInput!
+    ): PerturbationControls
+    deletePerturbationControls(
+        perturbationControlsUuid: NonNegativeInt!
+    ): PerturbationControls
+}
+
+input PerturbationControlsInput {
+    classificationMarking: String!
+    satelliteUuid: String!
+    application: Application!
+    aprioriRadiationPressCoeff: Float!
+    aprioriSigmaBallCoeffPerct: Float!
+    aprioriSigmaAgomCoeffPerct: NonNegativeFloat!
+    atmosphericModel: AtmosphericModel
+    constantAp: Float!
+    constantF10: Float!
+    constantF10Bar: Float!
+    dragFlag: Boolean!
+    dragModulation: Float!
+    dcaDataFlag: Boolean!
+    dmspFlag: Boolean!
+    kappaFlag: Boolean!
+    fluxId: String
+    fluxSource: FluxSource!
+    frontalAreaModulation: Float!
+    geopotentialFlag: Boolean!
+    geopotentialModel: String!
+    geopotentialOriginalDegree: Int!
+    geopotentialPrintFlag: Boolean!
+    geopotentialTesseralDegree: Int!
+    geopotentialTruncationFlag: Boolean!
+    geopotentialZonalDegree: Int!
+    inTrackDurationThrustFlag: Boolean!
+    j70DcaFlag: Boolean!
+    j70DcaId: String
+    mpeFlag: Boolean!
+    mpeId: String
+    nutationModel: NutationModel!
+    solidEarthTidesFlag: Boolean!
+    radiationPressureShadowModelOption: RadiationPressureShadowModelOption!
+    lunarSolarGravityRepresentationOption: LunarSolarGravityRepresentationOption!
+    aprioriSigmaBalcoeUseInputValueFlag: Boolean!
+    aprioriSigmaBalcoeTimeVaryFlag: Boolean!
+    geopotentialApplyHybridModelFlag: Boolean!
+    version: Long
+}

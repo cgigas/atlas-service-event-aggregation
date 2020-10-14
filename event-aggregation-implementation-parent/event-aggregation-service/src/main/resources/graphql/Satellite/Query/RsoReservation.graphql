@@ -1,0 +1,68 @@
+extend type MPEServiceQuery {
+    rsoReservation(rsoReservationUuid: String!): RsoReservation
+    rsoReservationPage(pageInfo: PageInfo!): RsoReservationPage!
+    rsoReservationPageById(
+        rsoReservationUuids: [String!]!
+        pageInfo: PageInfo!
+    ): RsoReservationPage!
+    rsoReservationPageByExample(
+        example: RsoReservationQueryExampleInput!
+        pageInfo: PageInfo!
+    ): RsoReservationPage!
+    rsoReservationPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): RsoReservationPage!
+}
+
+type RsoReservation {
+    rsoReservationUuid: String!
+    classificationMarking: String!
+    parentRsoReservationUuid: String
+    category: RsoCategory
+    legacyCompatibleFlag: Boolean!
+    title: String!
+    position: String
+    eventType: SsaEventType
+    minSatNo: NonNegativeInt!
+    maxSatNo: NonNegativeInt!
+    minUCN: NonNegativeInt
+    maxUCN: NonNegativeInt
+    description: String
+    releasableFlag: Boolean!
+    deletableFlag: Boolean!
+    minClassification: String
+    maxClassification: String
+    children: [RsoReservation]
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type RsoReservationPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [RsoReservation]
+}
+
+input RsoReservationQueryExampleInput {
+    classificationMarking: String
+    parentRsoReservationUuid: String
+    category: RsoCategory
+    legacyCompatibleFlag: Boolean
+    title: String
+    position: String
+    eventType: SsaEventType
+    minSatNo: NonNegativeInt
+    maxSatNo: NonNegativeInt
+    minUCN: NonNegativeInt
+    maxUCN: NonNegativeInt
+    description: String
+    releasableFlag: Boolean
+    deletableFlag: Boolean
+    minClassification: String
+    maxClassification: String
+}

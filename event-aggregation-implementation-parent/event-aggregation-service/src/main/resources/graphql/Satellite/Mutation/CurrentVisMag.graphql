@@ -1,0 +1,15 @@
+extend type MPEServiceMutation {
+    createCurrentVismag(
+        satelliteUuid: String!
+        currentVismag: CurrentVismagInput!
+    ): CurrentVismag
+    updateCurrentVismag(
+        satelliteUuid: String!
+        currentVismag: CurrentVismagInput!
+    ): CurrentVismag
+}
+
+input CurrentVismagInput {
+    visualMagnitudeUuid: String!
+    version: Long
+}

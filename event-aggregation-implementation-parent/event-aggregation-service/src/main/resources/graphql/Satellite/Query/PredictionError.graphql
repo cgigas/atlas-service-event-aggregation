@@ -1,0 +1,47 @@
+extend type MPEServiceQuery {
+    predictionErrorModel(predictionErrorUuid: String!): PredictionErrorModel
+    predictionErrorModelPage(pageInfo: PageInfo!): PredictionErrorModelPage!
+    predictionErrorModelPageById(
+        predictionErrorModelUuids: [String!]!
+        pageInfo: PageInfo!
+    ): PredictionErrorModelPage!
+    predictionErrorModelPageByExample(
+        example: PredictionErrorModelQueryExampleInput!
+        pageInfo: PageInfo!
+    ): PredictionErrorModelPage!
+    predictionErrorModelPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): PredictionErrorModelPage!
+}
+
+type PredictionErrorModel {
+    predictionErrorUuid: String!
+    classificationMarking: String!
+    componentType: ComponentType!
+    edrBin: NonNegativeInt!
+    constantOffset: NonNegativeFloat!
+    errorCoefficient: NonNegativeFloat!
+    errorCoefficientSquared: NonNegativeFloat!
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type PredictionErrorModelPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [PredictionErrorModel]
+}
+
+input PredictionErrorModelQueryExampleInput {
+    classificationMarking: String
+    componentType: ComponentType
+    edrBin: NonNegativeInt
+    constantOffset: NonNegativeFloat
+    errorCoefficient: NonNegativeFloat
+    errorCoefficientSquared: NonNegativeFloat
+}

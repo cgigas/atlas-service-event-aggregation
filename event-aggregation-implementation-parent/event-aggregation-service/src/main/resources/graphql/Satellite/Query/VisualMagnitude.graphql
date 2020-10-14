@@ -1,0 +1,34 @@
+extend type MPEServiceQuery {
+    visualMagnitude(visualMagnitudeUuid: String!): VisualMagnitude
+    visualMagnitudePage(pageInfo: PageInfo!): VisualMagnitudePage!
+    visualMagnitudePageById(
+        visualMagnitudeUuids: [String!]!
+        pageInfo: PageInfo!
+    ): VisualMagnitudePage!
+    visualMagnitudePageByExample(
+        example: VisualMagnitudeQueryExampleInput
+        pageInfo: PageInfo!
+    ): VisualMagnitudePage!
+    visualMagnitudePageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): VisualMagnitudePage!
+}
+
+type VisualMagnitudePage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [VisualMagnitude]
+}
+
+input VisualMagnitudeQueryExampleInput {
+    classificationMarking: String
+    satelliteUuid: String
+    sensorNumber: PositiveInt
+    reportDt: DateTime
+    observedMv: Float
+    normKm36000: Float
+    solarPhaseAngle: Float
+    solarDeclinationAngle: Float
+}

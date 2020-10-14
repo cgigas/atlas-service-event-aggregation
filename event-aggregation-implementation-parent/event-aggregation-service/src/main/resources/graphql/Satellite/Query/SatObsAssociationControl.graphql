@@ -1,0 +1,80 @@
+extend type MPEServiceQuery {
+    satObsAssociationControl(satObsAssocControlUuid: String!): SatObsAssociationControl
+    satObsAssociationControlPage(pageInfo: PageInfo!): SatObsAssociationControlPage!
+    satObsAssociationControlPageById(
+        satObsAssocControlUuids: [String!]!
+        pageInfo: PageInfo!
+    ): SatObsAssociationControlPage!
+    satObsAssociationControlPageByExample(
+        example: SatObsAssociationControlQueryExampleInput!
+        pageInfo: PageInfo!
+    ): SatObsAssociationControlPage!
+    satObsAssociationControlPageByCriteria(
+        criteriaQuery: CriteriaQuery!
+        pageInfo: PageInfo!
+    ): SatObsAssociationControlPage!
+}
+
+type SatObsAssociationControl {
+    satObsAssocControlUuid: String!
+    classificationMarking: String!
+    satelliteUuid: String!
+    retagPriorityUuid: String!
+    retagPriority: RetagPriority!
+    gpDeltaTimeThreshold: NonNegativeFloat!
+    gpDeltaBetaThreshold: NonNegativeFloat!
+    gpDeltaHeightThreshold: NonNegativeFloat!
+    gpDeltaTimeMultiplier: NonNegativeFloat!
+    gpDeltaBetaMultiplier: NonNegativeFloat!
+    gpDeltaHeightMultiplier: NonNegativeFloat!
+    spDeltaTimeThreshold: NonNegativeFloat!
+    spDeltaBetaThreshold: NonNegativeFloat!
+    spDeltaHeightThreshold: NonNegativeFloat!
+    spDeltaTimeMultiplier: NonNegativeFloat!
+    spDeltaBetaMultiplier: NonNegativeFloat!
+    spDeltaHeightMultiplier: NonNegativeFloat!
+    chiMultiplier: NonNegativeFloat!
+    covarianceValidityLimit: NonNegativeFloat!
+    grossBetaLimit: NonNegativeFloat!
+    forceTagIndicator: Boolean!
+    considerProphylacticCrosstag: Boolean!
+    autoNotifyFlag: Boolean!
+    usePredictionErrorModel: Boolean!
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+type SatObsAssociationControlPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [SatObsAssociationControl]
+}
+
+input SatObsAssociationControlQueryExampleInput {
+    classificationMarking: String
+    satelliteUuid: String
+    retagPriorityUuid: String
+    gpDeltaTimeThreshold: NonNegativeFloat
+    gpDeltaBetaThreshold: NonNegativeFloat
+    gpDeltaHeightThreshold: NonNegativeFloat
+    gpDeltaTimeMultiplier: NonNegativeFloat
+    gpDeltaBetaMultiplier: NonNegativeFloat
+    gpDeltaHeightMultiplier: NonNegativeFloat
+    spDeltaTimeThreshold: NonNegativeFloat
+    spDeltaBetaThreshold: NonNegativeFloat
+    spDeltaHeightThreshold: NonNegativeFloat
+    spDeltaTimeMultiplier: NonNegativeFloat
+    spDeltaBetaMultiplier: NonNegativeFloat
+    spDeltaHeightMultiplier: NonNegativeFloat
+    chiMultiplier: NonNegativeFloat
+    covarianceValidityLimit: NonNegativeFloat
+    grossBetaLimit: NonNegativeFloat
+    forceTagIndicator: Boolean
+    considerProphylacticCrosstag: Boolean
+    autoNotifyFlag: Boolean
+    usePredictionErrorModel: Boolean
+}
