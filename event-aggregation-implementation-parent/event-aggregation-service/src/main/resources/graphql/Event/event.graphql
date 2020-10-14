@@ -44,7 +44,7 @@ type Event {
     eventDesc: String
     internalNotes: String
     eventPostingId: String
-    eventData: [EventDataResult!]
+    eventData: [EventData!]
     createDate: DateTime
     createOrigin: String
     updateDate: DateTime
@@ -56,7 +56,7 @@ input EventTypeSummaryTimePeriod {
     timePeriod: TimePeriod
 }
 
-type EventDataResult {
+type EventData {
     eventDataUuid: String
     classificationMarking: String
     eventUuid: String
@@ -72,7 +72,7 @@ type EventDataResult {
 }
 
 
-input EventData {
+input EventDataInput {
     eventDataUuid: String
     classificationMarking: String
     eventUuid: String
@@ -99,7 +99,7 @@ input CreateEvent {
     description: String
     internalNotes: String
     eventPostingId: String
-    eventData: EventData
+    eventData: [EventDataInput!]
     createDate: DateTime
     createOrgin: String
     updateDate: DateTime

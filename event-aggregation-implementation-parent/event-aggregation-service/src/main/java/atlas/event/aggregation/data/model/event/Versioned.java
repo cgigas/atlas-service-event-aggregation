@@ -17,11 +17,6 @@
  */
 package atlas.event.aggregation.data.model.event;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public abstract class Versioned
 {
     private Long version;

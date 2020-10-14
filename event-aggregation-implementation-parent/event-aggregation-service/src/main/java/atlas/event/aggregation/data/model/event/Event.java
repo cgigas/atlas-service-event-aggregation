@@ -19,6 +19,7 @@ package atlas.event.aggregation.data.model.event;
 
 import atlas.event.aggregation.data.model.Audited;
 import atlas.event.aggregation.data.model.GqlSchemaCommon;
+import atlas.event.aggregation.data.model.eventdata.EventData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -102,6 +105,23 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
      * Contains an identifier associated with the posting of this event to an external system, such as SKIWeb.
      */
     private String eventPostingId;
+
+    private List<EventData> eventData;
+
+    public List<EventData> getEventData()
+    {
+        if (eventData == null)
+        {
+            eventData = new ArrayList<>();
+        }
+
+        return eventData;
+    }
+
+    public void setEventData(List<EventData> eventData)
+    {
+        this.eventData = eventData;
+    }
 
     public static long getSerialVersionUID()
     {

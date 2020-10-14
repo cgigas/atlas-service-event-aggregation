@@ -20,10 +20,12 @@ package atlas.event.aggregation.parser;
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.event.EventStatus;
 import atlas.event.aggregation.data.model.event.EventType;
+import atlas.event.aggregation.data.model.eventdata.EventData;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -31,6 +33,9 @@ import java.util.Map;
 @Component("eventParser")
 public class EventParser implements IParser
 {
+
+    @Autowired
+    private EventDataParser eventDataParser;
 
     @Override
     public String toJSONString(Object fromJson)
@@ -97,7 +102,7 @@ public class EventParser implements IParser
             {
                 for (atlas.ssaevent.crud.graphql.EventData clientEventData: clientEvent.getEventData())
                 {
-//                    event.getEventDataList().add((EventData) eventDataParser.fromGraphqlClient(clientEventData));
+                    event.getEventData().add((EventData) eventDataParser.fromGraphqlClient(clientEventData));
                 }
             }
             event.setCreateDate(clientEvent.getCreateDate());
