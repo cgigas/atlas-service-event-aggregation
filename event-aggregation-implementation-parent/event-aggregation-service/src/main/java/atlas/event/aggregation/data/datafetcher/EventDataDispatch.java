@@ -21,9 +21,6 @@ import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
-import atlas.event.aggregation.handlers.EventDataHandler;
-import atlas.event.aggregation.handlers.EventTypeSummaryHandler;
-import atlas.event.aggregation.handlers.GetEventTypeHandler;
 import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
@@ -31,8 +28,6 @@ import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import com.google.common.collect.Lists;
-import com.graphql_java_generator.client.request.ObjectResponse;
-import com.graphql_java_generator.client.request.QueryField;
 import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
 import com.graphql_java_generator.exception.GraphQLRequestPreparationException;
 import graphql.schema.DataFetchingEnvironment;
@@ -56,12 +51,6 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     private final GraphqlUtility graphqlUtility;
     @Autowired
     private EventParser eventParser;
-    @Autowired
-    EventTypeSummaryHandler eventTypeSummaryHandler;
-    @Autowired
-    EventDataHandler eventDataHandler;
-    @Autowired
-    GetEventTypeHandler getEventTypeHandler;
     private EventCrudMutationExecutor eventCrudMutationExecutor;
     private EventCrudQueryExecutor eventCrudQueryExecutor;
 
@@ -156,6 +145,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                     queryString.append(" version\n");
                     queryString.append("}\n");
                     atlas.ssaevent.crud.graphql.Event crudEvent = eventCrudQueryExecutor.event(queryString.toString(), id);
+                    
                 }
                 catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                 {
@@ -255,13 +245,5 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
-    }
-
-    public static void main(String args[])
-    {
-        EventCrudQueryExecutor eventCrudQueryExecutor = null;
-        eventCrudQueryExecutor = new EventCrudQueryExecutor("http://172.30.211.106:9210/ssaevent-crud/graphql");
-
-        System.out.println("Done");
     }
 }

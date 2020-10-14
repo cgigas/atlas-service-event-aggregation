@@ -18,7 +18,6 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.data.model.mpeprocessing.MPEProcessingConfiguration;
-import atlas.event.aggregation.handlers.MPEProcessingConfigHandler;
 import atlas.event.aggregation.parser.ConfigParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import com.google.common.collect.Lists;
@@ -41,9 +40,6 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
 {
     @Autowired
     private ConfigParser configParser;
-
-    @Autowired
-    private MPEProcessingConfigHandler mpeProcessingConfigHandler;
 
     public MPEProcessingConfigDispatch(RuntimeWiringTypeCollector collector)
     {
