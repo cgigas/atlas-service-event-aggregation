@@ -19,6 +19,7 @@ package atlas.event.aggregation.parser;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
+
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -32,6 +33,10 @@ public interface IParser
     public Object fromJson(Object json);
 
     public Object fromJson(Map<String, Object> map);
+
+    public Object fromGraphqlClient(Object graphql);
+
+    public Object toGraphqlClient(Object model);
 
     default OffsetDateTime getItemAsOffSetDate(String elementName, Map<String, Object> map)
     {

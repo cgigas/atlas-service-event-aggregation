@@ -18,16 +18,15 @@
 package atlas.event.aggregation.data.model;
 
 import org.junit.Test;
-
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 import static org.junit.Assert.assertEquals;
 
 public class AuditedTest
 {
     Audited task = new Audited();
-    Date createDate = new Date();
-    Date updateDate = new Date();
+    OffsetDateTime createDate = OffsetDateTime.now();
+    OffsetDateTime updateDate = OffsetDateTime.now();
     String createOrigin = "create";
     String updateOrigin = "update";
 

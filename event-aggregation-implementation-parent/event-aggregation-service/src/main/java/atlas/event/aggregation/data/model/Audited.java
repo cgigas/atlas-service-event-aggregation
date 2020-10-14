@@ -17,15 +17,15 @@
  */
 package atlas.event.aggregation.data.model;
 
-import atlas.event.aggregation.data.model.ssaevent.Versioned;
-import java.util.Date;
+import atlas.event.aggregation.data.model.event.Versioned;
+import java.time.OffsetDateTime;
 
 public class Audited extends Versioned
 {
     /**
      * Entry creation date..
      */
-    private Date createDate;
+    private OffsetDateTime createDate;
 
     /**
      * Origin or source of the entry..
@@ -35,19 +35,19 @@ public class Audited extends Versioned
     /**
      * Date of last update..
      */
-    private Date updateDate;
+    private OffsetDateTime updateDate;
 
     /**
      * Origin or source of the last update..
      */
     private String updateOrigin;
 
-    public Date getCreateDate()
+    public OffsetDateTime getCreateDate()
     {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate)
+    public void setCreateDate(OffsetDateTime createDate)
     {
         this.createDate = createDate;
     }
@@ -62,12 +62,12 @@ public class Audited extends Versioned
         this.createOrigin = createOrigin;
     }
 
-    public Date getUpdateDate()
+    public OffsetDateTime getUpdateDate()
     {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate)
+    public void setUpdateDate(OffsetDateTime updateDate)
     {
         this.updateDate = updateDate;
     }

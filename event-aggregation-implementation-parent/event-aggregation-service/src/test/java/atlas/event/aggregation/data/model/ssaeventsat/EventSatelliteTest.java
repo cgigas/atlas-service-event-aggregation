@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.data.model.ssaeventsat;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;

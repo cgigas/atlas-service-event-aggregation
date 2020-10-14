@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import org.junit.Test;
 
@@ -25,7 +26,8 @@ import static org.junit.Assert.assertNotNull;
 public class EventDataDispatchTest
 {
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
-    EventDataDispatch task = new EventDataDispatch(collector);
+    GraphqlUtility utility = new GraphqlUtility();
+    EventDataDispatch task = new EventDataDispatch(collector, utility);
 
     @Test
     public void testProvideRuntimeTypeWiring()

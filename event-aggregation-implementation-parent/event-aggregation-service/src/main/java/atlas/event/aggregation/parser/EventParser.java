@@ -17,21 +17,26 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
-import atlas.event.aggregation.data.model.ssaevent.EventState;
-import atlas.event.aggregation.data.model.ssaevent.EventStatus;
-import atlas.event.aggregation.data.model.ssaevent.EventType;
+import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.event.EventStatus;
+import atlas.event.aggregation.data.model.event.EventType;
+import atlas.event.aggregation.data.model.eventdata.EventData;
 import atlas.event.aggregation.exception.EventAggregateException;
-import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 @Component("eventParser")
 public class EventParser implements IParser
 {
+
+    @Autowired
+    private EventDataParser eventDataParser;
+
     @Override
     public String toJSONString(Object fromJson)
     {
@@ -73,33 +78,46 @@ public class EventParser implements IParser
     @Override
     public Object fromJson(Map<String, Object> map)
     {
+        return null;
+    }
+
+    public Object fromGraphqlClient(Object graphql)
+    {
         Event event = new Event();
-        event.setEventUuid(getItemAsString("eventUuid", map));
-        event.setId(getItemAsString("eventUuid", map));
-        event.setClassificationMarking(getItemAsString("classification", map));
-        event.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", map));
-        String eventType = getItemAsString("type", map);
-        if (StringUtils.isNotBlank(eventType))
+        if (graphql instanceof atlas.ssaevent.crud.graphql.Event)
         {
-            event.setEventType(EventType.valueOf(eventType));
+            atlas.ssaevent.crud.graphql.Event clientEvent = (atlas.ssaevent.crud.graphql.Event) graphql;
+            event.setEventUuid(clientEvent.getEventUuid());
+            event.setClassificationMarking(clientEvent.getClassificationMarking());
+            event.setPredecessorEventUuid(clientEvent.getPredecessorEventUuid());
+            event.setEventType(EventType.valueOf(clientEvent.getType().name()));
+            event.setEventName(clientEvent.getName());
+            event.setEventStatus(EventStatus.valueOf(clientEvent.getStatus().name()));
+            event.setStartDate(clientEvent.getStartDt());
+            event.setEndDate(clientEvent.getEndDt());
+            event.setDescription(clientEvent.getDescription());
+            event.setInternalNotes(clientEvent.getInternalNotes());
+            event.setEventPostingId(clientEvent.getEventPostingId());
+            if (clientEvent.getEventData() != null)
+            {
+                for (atlas.ssaevent.crud.graphql.EventData clientEventData: clientEvent.getEventData())
+                {
+                    event.getEventData().add((EventData) eventDataParser.fromGraphqlClient(clientEventData));
+                }
+            }
+            event.setCreateDate(clientEvent.getCreateDate());
+            event.setCreateOrigin(clientEvent.getCreateOrigin());
+            event.setUpdateDate(clientEvent.getUpdateDate());
+            event.setUpdateOrigin(clientEvent.getUpdateOrigin());
+
+
         }
-        event.setEventName(getItemAsString("eventName", map));
-        String eventState = getItemAsString("eventState", map);
-        if (StringUtils.isNotBlank(eventState))
-        {
-            event.setEventState(EventState.valueOf(eventState));
-        }
-        String eventStatus = getItemAsString("eventStatus", map);
-        if (StringUtils.isNotBlank(eventStatus))
-        {
-            event.setEventStatus(EventStatus.valueOf(eventStatus));
-        }
-        event.setStartDate(getItemAsOffSetDate("startDate", map));
-        event.setEndDate(getItemAsOffSetDate("endDate", map));
-        event.setDescription(getItemAsString("description", map));
-        event.setInternalNotes(getItemAsString("internalNotes", map));
-        event.setEventPostingId(getItemAsString("postingId", map));
 
         return event;
+    }
+
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
     }
 }

@@ -17,8 +17,8 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.EventType;
-import atlas.event.aggregation.data.model.ssaevent.ObservationSatMedley;
+import atlas.event.aggregation.data.model.event.EventType;
+import atlas.event.aggregation.data.model.event.ObservationSatMedley;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Component;
@@ -116,5 +116,17 @@ public class ObservationSatMedleyParser implements IParser
         medley.setTypeName(getItemAsString("typeName", map));
 
         return medley;
+    }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
     }
 }
