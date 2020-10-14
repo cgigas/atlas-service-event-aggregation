@@ -55,4 +55,16 @@ public class LaunchParser implements IParser
 
         return launch;
     }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
+    }
 }

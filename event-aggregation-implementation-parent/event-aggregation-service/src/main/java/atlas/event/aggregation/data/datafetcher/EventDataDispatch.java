@@ -133,7 +133,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 try
                 {
                     StringBuffer queryString = new StringBuffer();
-                    queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type supplementalData createDate createOrigin\n");
+                    queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type createDate createOrigin\n");
                     queryString.append(" updateDate\n");
                     queryString.append(" updateOrigin\n");
                     queryString.append(" version\n");
@@ -145,7 +145,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                     queryString.append(" version\n");
                     queryString.append("}\n");
                     atlas.ssaevent.crud.graphql.Event crudEvent = eventCrudQueryExecutor.event(queryString.toString(), id);
-                    
+
+                    event = (Event) eventParser.fromGraphqlClient(crudEvent);
                 }
                 catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                 {

@@ -117,4 +117,16 @@ public class ObservationSatMedleyParser implements IParser
 
         return medley;
     }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
+    }
 }

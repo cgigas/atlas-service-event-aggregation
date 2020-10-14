@@ -92,4 +92,16 @@ public class EventSatelliteParser implements IParser
 
         return eventSatellite;
     }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
+    }
 }

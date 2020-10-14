@@ -82,4 +82,16 @@ public class EventDetailParser implements IParser
 
         return eventDetail;
     }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
+    }
 }

@@ -68,7 +68,7 @@ public class ConfigParser implements IParser
     public Object fromJson(Map<String, Object> map)
     {
         MPEProcessingConfiguration mpeConfig = new MPEProcessingConfiguration();
-        mpeConfig.setMpeProcessingConfigUuid(getItemAsString("mpeProcessingConfigUuid", map));
+/*        mpeConfig.setMpeProcessingConfigUuid(getItemAsString("mpeProcessingConfigUuid", map));
         mpeConfig.setClassificationMarking(getItemAsString("classificationMarking", map));
         mpeConfig.setEventUuid(getItemAsString("eventUuid", map));
         mpeConfig.setCandidateRsoReservationUuid(getItemAsString("candidateRsoReservationUuid", map));
@@ -95,7 +95,19 @@ public class ConfigParser implements IParser
         mpeConfig.setCatalogMinArgumentLatitude(getItemAsDouble("catalogMinArgumentLatitude", map));
         mpeConfig.setAnalystMinReportingSensors(getItemAsInteger("analystMinReportingSensors", (JSONObject) map));
         mpeConfig.setCatalogMinReportingSensors(getItemAsInteger("catalogMinReportingSensors", (JSONObject) map));
-
+*/
         return mpeConfig;
+    }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model)
+    {
+        return null;
     }
 }

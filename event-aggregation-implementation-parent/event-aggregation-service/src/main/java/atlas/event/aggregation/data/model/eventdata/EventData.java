@@ -18,62 +18,25 @@
 package atlas.event.aggregation.data.model.eventdata;
 
 import atlas.event.aggregation.data.model.Audited;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import java.sql.Blob;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
 public class EventData extends Audited
 {
-    /**
-     * UUID of the associated SSA event.
-     */
-    @Id
-    private String ssaEventDataUuid;
-
-    /**
-     * Security classification marking of the data in one row of this table in the form of a paragraph marking
-     */
-    @NotNull
+    private String eventDataUuid;
     private String classificationMarking;
+    private String eventUuid;
+    private String name;
+    private String uri;
+    private String type;
+    private Byte[] supplementalData;
 
-    /**
-     * UUID of the associated SSA event.
-     */
-    @NotNull
-    private String ssaEventUuid;
-
-    /**
-     * Name or title of the supplementary data.
-     */
-    @NotNull
-    private String eventDataName;
-
-    /**
-     * Used to identify the type or file extension for the event data, e.g., .pdf, .docx, .txt.
-     */
-    private String eventDataType;
-
-    /**
-     * Raw binary or character supplementary data (optional).
-     */
-    private Blob eventData;
-
-    public String getSsaEventDataUuid()
+    public String getEventDataUuid()
     {
-        return ssaEventDataUuid;
+        return eventDataUuid;
     }
 
-    public void setSsaEventDataUuid(String ssaEventDataUuid)
+    public void setEventDataUuid(String eventDataUuid)
     {
-        this.ssaEventDataUuid = ssaEventDataUuid;
+        this.eventDataUuid = eventDataUuid;
     }
 
     public String getClassificationMarking()
@@ -86,43 +49,53 @@ public class EventData extends Audited
         this.classificationMarking = classificationMarking;
     }
 
-    public String getSsaEventUuid()
+    public String getEventUuid()
     {
-        return ssaEventUuid;
+        return eventUuid;
     }
 
-    public void setSsaEventUuid(String ssaEventUuid)
+    public void setEventUuid(String eventUuid)
     {
-        this.ssaEventUuid = ssaEventUuid;
+        this.eventUuid = eventUuid;
     }
 
-    public String getEventDataName()
+    public String getName()
     {
-        return eventDataName;
+        return name;
     }
 
-    public void setEventDataName(String eventDataName)
+    public void setName(String name)
     {
-        this.eventDataName = eventDataName;
+        this.name = name;
     }
 
-    public String getEventDataType()
+    public String getUri()
     {
-        return eventDataType;
+        return uri;
     }
 
-    public void setEventDataType(String eventDataType)
+    public void setUri(String uri)
     {
-        this.eventDataType = eventDataType;
+        this.uri = uri;
     }
 
-    public Blob getEventData()
+    public String getType()
     {
-        return eventData;
+        return type;
     }
 
-    public void setEventData(Blob eventData)
+    public void setType(String type)
     {
-        this.eventData = eventData;
+        this.type = type;
+    }
+
+    public Byte[] getSupplementalData()
+    {
+        return supplementalData;
+    }
+
+    public void setSupplementalData(Byte[] supplementalData)
+    {
+        this.supplementalData = supplementalData;
     }
 }
