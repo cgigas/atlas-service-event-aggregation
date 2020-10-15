@@ -19,7 +19,6 @@ package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.eventdata.EventData;
 import org.springframework.stereotype.Component;
-
 import java.util.Map;
 
 @Component("eventDataParser")
@@ -74,8 +73,41 @@ public class EventDataParser implements IParser
     }
 
     @Override
-    public Object toGraphqlClient(Object model)
+    public Object toGraphqlClient(Object model, Boolean inputMode)
     {
-        return null;
+        Object resultItem = null;
+        if (model != null)
+        {
+            Map<String, Object> map = (Map) model;
+            if (inputMode)
+            {
+                atlas.ssaevent.crud.graphql.EventDataInput clientEventDataInput = new atlas.ssaevent.crud.graphql.EventDataInput();
+                clientEventDataInput.setClassificationMarking(getItemAsString("classificationMarking", map));
+                clientEventDataInput.setEventUuid(getItemAsString("eventUuid", map));
+                clientEventDataInput.setName(getItemAsString("name", map));
+                clientEventDataInput.setUri(getItemAsString("uri", map));
+                clientEventDataInput.setType(getItemAsString("type", map));
+
+                resultItem = clientEventDataInput;
+            }
+            else
+            {
+                atlas.ssaevent.crud.graphql.EventData clientEventData = new atlas.ssaevent.crud.graphql.EventData();
+                clientEventData.setEventDataUuid(getItemAsString("eventDataUuid", map));
+                clientEventData.setClassificationMarking(getItemAsString("classificationMarking", map));
+                clientEventData.setEventUuid(getItemAsString("eventUuid", map));
+                clientEventData.setName(getItemAsString("name", map));
+                clientEventData.setUri(getItemAsString("uri", map));
+                clientEventData.setType(getItemAsString("type", map));
+                clientEventData.setCreateDate(getItemAsOffSetDate("createDate", map));
+                clientEventData.setCreateOrigin(getItemAsString("createOrgin", map));
+                clientEventData.setUpdateDate(getItemAsOffSetDate("updateDate", map));
+                clientEventData.setUpdateOrigin(getItemAsString("updateOrgin", map));
+
+                resultItem = clientEventData;
+            }
+        }
+
+        return resultItem;
     }
 }

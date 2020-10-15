@@ -125,7 +125,7 @@ public class ObservationSatMedleyParser implements IParser
     }
 
     @Override
-    public Object toGraphqlClient(Object model)
+    public Object toGraphqlClient(Object model, Boolean inputMode)
     {
         return null;
     }
