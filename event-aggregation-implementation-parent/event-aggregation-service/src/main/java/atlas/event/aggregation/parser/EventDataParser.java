@@ -82,7 +82,7 @@ public class EventDataParser implements IParser
             if (inputMode)
             {
                 atlas.ssaevent.crud.graphql.EventDataInput clientEventDataInput = new atlas.ssaevent.crud.graphql.EventDataInput();
-                clientEventDataInput.setClassificationMarking(getItemAsString("classficiationMarking", map));
+                clientEventDataInput.setClassificationMarking(getItemAsString("classificationMarking", map));
                 clientEventDataInput.setEventUuid(getItemAsString("eventUuid", map));
                 clientEventDataInput.setName(getItemAsString("name", map));
                 clientEventDataInput.setUri(getItemAsString("uri", map));
@@ -94,7 +94,7 @@ public class EventDataParser implements IParser
             {
                 atlas.ssaevent.crud.graphql.EventData clientEventData = new atlas.ssaevent.crud.graphql.EventData();
                 clientEventData.setEventDataUuid(getItemAsString("eventDataUuid", map));
-                clientEventData.setClassificationMarking(getItemAsString("classficiationMarking", map));
+                clientEventData.setClassificationMarking(getItemAsString("classificationMarking", map));
                 clientEventData.setEventUuid(getItemAsString("eventUuid", map));
                 clientEventData.setName(getItemAsString("name", map));
                 clientEventData.setUri(getItemAsString("uri", map));

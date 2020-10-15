@@ -236,10 +236,12 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                         queryString.append(" updateOrigin\n");
                         queryString.append(" version\n");
                         queryString.append("}\n");
-                        eventCrudMutationExecutor.createEvent(queryString.toString(), clientEvent, clientEventData);
+                        atlas.ssaevent.crud.graphql.Event clientEventCreateResult = eventCrudMutationExecutor.createEvent(queryString.toString(), clientEvent, clientEventData);
+                        event = (Event) eventParser.fromGraphqlClient(clientEventCreateResult);
                     }
                     catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                     {
+                        e.printStackTrace();
                         throw new DataAccessorException(e);
                     }
                 }
