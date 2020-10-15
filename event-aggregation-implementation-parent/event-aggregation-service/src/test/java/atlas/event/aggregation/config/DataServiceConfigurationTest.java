@@ -17,9 +17,8 @@
  */
 package atlas.event.aggregation.config;
 
+import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class DataServiceConfigurationTest
 {
@@ -39,51 +38,16 @@ public class DataServiceConfigurationTest
     }
 
     @Test
-    public void setOrbitalServiceUrl()
+    public void test() throws Exception
     {
-        task.setOrbitalServiceUrl(orbitalServiceUrl);
-        assertEquals(orbitalServiceUrl, task.getOrbitalServiceUrl());
-    }
-
-    @Test
-    public void setObservationServiceUrl()
-    {
-        task.setObservationServiceUrl(observationServiceUrl);
-        assertEquals(observationServiceUrl, task.getObservationServiceUrl());
-    }
-
-    @Test
-    public void setSensorServiceUrl()
-    {
-        task.setSensorServiceUrl(sensorServiceUrl);
-        assertEquals(sensorServiceUrl, task.getSensorServiceUrl());
-    }
-
-    @Test
-    public void setGraphQlExtension()
-    {
-        task.setGraphQlExtension(graphQlExtension);
-        assertEquals(graphQlExtension, task.getGraphQlExtension());
-    }
-
-    @Test
-    public void setEventServiceUrl()
-    {
-        task.setEventServiceUrl(eventServiceUrl);
-        assertEquals(eventServiceUrl, task.getEventServiceUrl());
-    }
-
-    @Test
-    public void setNotesServiceUrl()
-    {
-        task.setNotesServiceUrl(notesServiceUrl);
-        assertEquals(notesServiceUrl, task.getNotesServiceUrl());
-    }
-
-    @Test
-    public void setSatelliteServiceUrl()
-    {
-        task.setSatelliteServiceUrl(satelliteServiceUrl);
-        assertEquals(satelliteServiceUrl, task.getSatelliteServiceUrl());
+        GetterSetterTester tester = new GetterSetterTester()
+        {
+            @Override
+            protected Object getInstance()
+            {
+                return new DataServiceConfiguration();
+            }
+        };
+        tester.testGettersAndSetters();
     }
 }
