@@ -36,7 +36,7 @@ public interface IParser
 
     public Object fromGraphqlClient(Object graphql);
 
-    public Object toGraphqlClient(Object model);
+    public Object toGraphqlClient(Object model, Boolean inputMode);
 
     default OffsetDateTime getItemAsOffSetDate(String elementName, Map<String, Object> map)
     {
@@ -46,12 +46,20 @@ public interface IParser
             Object o = map.get(elementName);
             if (o != null)
             {
-                item = OffsetDateTime.parse((String) o, DateTimeFormatter.ISO_DATE_TIME);
+                if (o instanceof OffsetDateTime)
+                {
+                    item = (OffsetDateTime) o;
+                }
+                else
+                {
+                    item = OffsetDateTime.parse((String) o, DateTimeFormatter.ISO_DATE_TIME);
+                }
             }
         }
 
         return item;
     }
+
 
     default Double getItemAsDouble(String elementName, Map<String, Object> map)
     {

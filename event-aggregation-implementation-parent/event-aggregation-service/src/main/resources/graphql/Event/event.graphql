@@ -99,7 +99,7 @@ input CreateEvent {
     description: String
     internalNotes: String
     eventPostingId: String
-    eventData: [EventDataInput!]
+    eventData: EventDataInput
     createDate: DateTime
     createOrgin: String
     updateDate: DateTime

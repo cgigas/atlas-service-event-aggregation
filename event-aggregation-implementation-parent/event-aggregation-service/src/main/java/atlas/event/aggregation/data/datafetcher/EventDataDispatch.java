@@ -21,6 +21,7 @@ import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.parser.EventDataParser;
 import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
@@ -51,8 +52,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     private final GraphqlUtility graphqlUtility;
     @Autowired
     private EventParser eventParser;
-    private EventCrudMutationExecutor eventCrudMutationExecutor;
-    private EventCrudQueryExecutor eventCrudQueryExecutor;
+    @Autowired
+    private EventDataParser eventDataParser;
 
     public EventDataDispatch(RuntimeWiringTypeCollector collector, GraphqlUtility graphqlUtility)
     {
@@ -205,45 +206,45 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 
     private Event processCreateEvent(DataFetchingEnvironment environment)
     {
+        Event event = new Event();
         EventCrudMutationExecutor eventCrudMutationExecutor = null;
 
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            Map<String, Object> eventData = environment.getArgument("eventData");
+            if (eventData != null)
+            {
+                atlas.ssaevent.crud.graphql.EventInput clientEvent = (atlas.ssaevent.crud.graphql.EventInput) eventParser.toGraphqlClient(eventData, Boolean.TRUE);
+                atlas.ssaevent.crud.graphql.EventDataInput clientEventData = null;
+
+                // check for Client Data
+                if (eventData.containsKey("eventData"))
+                {
+                    clientEventData = (atlas.ssaevent.crud.graphql.EventDataInput) eventDataParser.toGraphqlClient(eventData.get("eventData"), Boolean.TRUE);
+                    try
+                    {
+                        StringBuffer queryString = new StringBuffer();
+                        queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type createDate createOrigin\n");
+                        queryString.append(" updateDate\n");
+                        queryString.append(" updateOrigin\n");
+                        queryString.append(" version\n");
+                        queryString.append("}\n");
+                        queryString.append(" createDate\n");
+                        queryString.append(" createOrigin\n");
+                        queryString.append(" updateDate\n");
+                        queryString.append(" updateOrigin\n");
+                        queryString.append(" version\n");
+                        queryString.append("}\n");
+                        eventCrudMutationExecutor.createEvent(queryString.toString(), clientEvent, clientEventData);
+                    }
+                    catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                    {
+                        throw new DataAccessorException(e);
+                    }
+                }
+            }
         }
-        Map<String, Object> eventData = environment.getArgument("eventData");
-        if (eventData != null)
-        {
-/*            Map<String, Object> eventDataMap = (Map)eventData.get("eventData");
-            String eventUuid = getItemAsString("eventUuid", eventDataMap);
-            String classMarking = getItemAsString("classificationMarking", eventDataMap);
-            String preEventUuid = getItemAsString("predecessorEventUuid", eventDataMap);
-            String eventType = getItemAsString("eventType", eventDataMap);
-            String eventName = getItemAsString("eventName", eventDataMap);
-            String eventStatus = getItemAsString("eventStatus", eventDataMap);
-            String eventState = getItemAsString("eventState", eventDataMap);
-            OffsetDateTime startDate = getItemAsOffSetDate("startDate", eventDataMap);
-            OffsetDateTime endDate = getItemAsOffSetDate("endDate", eventDataMap);
-            String description = getItemAsString("eventDesc", eventDataMap);
-            String internalNotes = getItemAsString("internalNotes", eventDataMap);
-            String eventPostingId = getItemAsString("eventPostingId", eventDataMap);
-            OffsetDateTime createDate = getItemAsOffSetDate("createDate", eventDataMap);
-            String createOrgin = getItemAsString("createOrgin", eventDataMap);
-            OffsetDateTime updateDate = getItemAsOffSetDate("updateDate", eventDataMap);
-            String updateOrgin = getItemAsString("updateOrgin", eventDataMap);
-            Long version = getItemAsLong("version", eventDataMap);
-
- */
-        }
-
-        Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String id = environment.getArgument("id");
-        String eventStatus = environment.getArgument("eventStatus");
-        url += "/createEvent/" + id + "/" + eventStatus;
-
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (Event) eventParser.fromJsonString(resultRequestedData);
 
         return event;
     }

@@ -28,6 +28,8 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component("eventParser")
@@ -116,8 +118,64 @@ public class EventParser implements IParser
         return event;
     }
 
-    public Object toGraphqlClient(Object model)
+    public Object toGraphqlClient(Object model, Boolean inputMode)
     {
-        return null;
+        Object resultItem = null;
+        if (model instanceof Map)
+        {
+            if (inputMode)
+            {
+                atlas.ssaevent.crud.graphql.EventInput clientEvent = new atlas.ssaevent.crud.graphql.EventInput();
+                Map<String, Object> eventMap = (Map) model;
+                clientEvent.setClassificationMarking(getItemAsString("classificationMarking", eventMap));
+                clientEvent.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", eventMap));
+                clientEvent.setType(atlas.ssaevent.crud.graphql.EventType.valueOf(getItemAsString("eventType", eventMap)));
+                clientEvent.setName(getItemAsString("eventName", eventMap));
+                clientEvent.setStatus(atlas.ssaevent.crud.graphql.EventStatus.valueOf(getItemAsString("eventStatus", eventMap)));
+                clientEvent.setStartDt(getItemAsOffSetDate("startDate", eventMap));
+                clientEvent.setEndDt(getItemAsOffSetDate("endDate", eventMap));
+                clientEvent.setDescription(getItemAsString("eventDesc", eventMap));
+                clientEvent.setInternalNotes(getItemAsString("internalNotes", eventMap));
+                clientEvent.setEventPostingId(getItemAsString("eventPostingId", eventMap));
+                clientEvent.setVersion(getItemAsLong("version", eventMap));
+
+                resultItem = clientEvent;
+            }
+            else
+            {
+                atlas.ssaevent.crud.graphql.Event clientEvent = new atlas.ssaevent.crud.graphql.Event();
+                Map<String, Object> eventMap = (Map) model;
+                clientEvent.setEventUuid(getItemAsString("eventUuid", eventMap));
+                clientEvent.setClassificationMarking(getItemAsString("classificationMarking", eventMap));
+                clientEvent.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", eventMap));
+                clientEvent.setType(atlas.ssaevent.crud.graphql.EventType.valueOf(getItemAsString("eventType", eventMap)));
+                clientEvent.setName(getItemAsString("eventName", eventMap));
+                clientEvent.setStatus(atlas.ssaevent.crud.graphql.EventStatus.valueOf(getItemAsString("eventStatus", eventMap)));
+                clientEvent.setStartDt(getItemAsOffSetDate("startDate", eventMap));
+                clientEvent.setEndDt(getItemAsOffSetDate("endDate", eventMap));
+                clientEvent.setDescription(getItemAsString("eventDesc", eventMap));
+                clientEvent.setInternalNotes(getItemAsString("internalNotes", eventMap));
+                clientEvent.setEventPostingId(getItemAsString("eventPostingId", eventMap));
+                clientEvent.setCreateDate(getItemAsOffSetDate("createDate", eventMap));
+                clientEvent.setCreateOrigin(getItemAsString("createOrgin", eventMap));
+                clientEvent.setUpdateDate(getItemAsOffSetDate("updateDate", eventMap));
+                clientEvent.setUpdateOrigin(getItemAsString("updateOrgin", eventMap));
+                clientEvent.setVersion(getItemAsLong("version", eventMap));
+
+                Map<String, Object> eventDataMap = (Map) eventMap.get("eventData");
+
+                if (eventDataMap != null)
+                {
+                    atlas.ssaevent.crud.graphql.EventData clientEventDataSubItem = (atlas.ssaevent.crud.graphql.EventData)eventDataParser.toGraphqlClient(eventDataMap, inputMode);
+                    List<atlas.ssaevent.crud.graphql.EventData> clientEventDataList = new ArrayList<>();
+                    clientEventDataList.add(clientEventDataSubItem);
+                    clientEvent.setEventData(clientEventDataList);
+                }
+
+                resultItem = clientEvent;
+            }
+        }
+
+        return resultItem;
     }
 }
