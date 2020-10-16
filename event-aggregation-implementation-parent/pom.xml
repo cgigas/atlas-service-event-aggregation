@@ -34,7 +34,7 @@
     <description>Implementation parent module for the event-aggregation service</description>
 
     <modules>
+        <module>event-aggregation-generated-graphql-clients</module>
         <module>event-aggregation-service</module>
     </modules>
-
 </project>

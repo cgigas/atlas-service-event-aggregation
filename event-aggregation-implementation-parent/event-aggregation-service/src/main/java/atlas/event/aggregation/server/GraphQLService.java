@@ -56,7 +56,8 @@ public class GraphQLService
         {
 
             RuntimeWiring runtimeWiring = runtimeWiringBuilder.buildRuntimeWiring();
-            TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql/*.graphql");
+            //TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql/*.graphql");
+            TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql");
             SchemaGenerator schemaGenerator = new SchemaGenerator();
 
             //log.info("Initializing graphql query and mutation processing engine.");

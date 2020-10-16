@@ -17,8 +17,8 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.EventDetail;
-import atlas.event.aggregation.data.model.ssaevent.EventType;
+import atlas.event.aggregation.data.model.event.EventDetail;
+import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -81,5 +81,17 @@ public class EventDetailParser implements IParser
         eventDetail.setTypeName(getItemAsString("typeName", map));
 
         return eventDetail;
+    }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        return null;
     }
 }

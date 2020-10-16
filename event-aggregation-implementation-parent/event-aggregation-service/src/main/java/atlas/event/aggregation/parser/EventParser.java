@@ -17,21 +17,28 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
-import atlas.event.aggregation.data.model.ssaevent.EventState;
-import atlas.event.aggregation.data.model.ssaevent.EventStatus;
-import atlas.event.aggregation.data.model.ssaevent.EventType;
+import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.event.EventStatus;
+import atlas.event.aggregation.data.model.event.EventType;
+import atlas.event.aggregation.data.model.eventdata.EventData;
 import atlas.event.aggregation.exception.EventAggregateException;
-import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component("eventParser")
 public class EventParser implements IParser
 {
+
+    @Autowired
+    private EventDataParser eventDataParser;
+
     @Override
     public String toJSONString(Object fromJson)
     {
@@ -73,33 +80,102 @@ public class EventParser implements IParser
     @Override
     public Object fromJson(Map<String, Object> map)
     {
+        return null;
+    }
+
+    public Object fromGraphqlClient(Object graphql)
+    {
         Event event = new Event();
-        event.setEventUuid(getItemAsString("eventUuid", map));
-        event.setId(getItemAsString("eventUuid", map));
-        event.setClassificationMarking(getItemAsString("classification", map));
-        event.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", map));
-        String eventType = getItemAsString("type", map);
-        if (StringUtils.isNotBlank(eventType))
+        if (graphql instanceof atlas.ssaevent.crud.graphql.Event)
         {
-            event.setEventType(EventType.valueOf(eventType));
+            atlas.ssaevent.crud.graphql.Event clientEvent = (atlas.ssaevent.crud.graphql.Event) graphql;
+            event.setEventUuid(clientEvent.getEventUuid());
+            event.setClassificationMarking(clientEvent.getClassificationMarking());
+            event.setPredecessorEventUuid(clientEvent.getPredecessorEventUuid());
+            event.setEventType(EventType.valueOf(clientEvent.getType().name()));
+            event.setEventName(clientEvent.getName());
+            event.setEventStatus(EventStatus.valueOf(clientEvent.getStatus().name()));
+            event.setStartDate(clientEvent.getStartDt());
+            event.setEndDate(clientEvent.getEndDt());
+            event.setDescription(clientEvent.getDescription());
+            event.setInternalNotes(clientEvent.getInternalNotes());
+            event.setEventPostingId(clientEvent.getEventPostingId());
+            if (clientEvent.getEventData() != null)
+            {
+                for (atlas.ssaevent.crud.graphql.EventData clientEventData: clientEvent.getEventData())
+                {
+                    event.getEventData().add((EventData) eventDataParser.fromGraphqlClient(clientEventData));
+                }
+            }
+            event.setCreateDate(clientEvent.getCreateDate());
+            event.setCreateOrigin(clientEvent.getCreateOrigin());
+            event.setUpdateDate(clientEvent.getUpdateDate());
+            event.setUpdateOrigin(clientEvent.getUpdateOrigin());
+
+
         }
-        event.setEventName(getItemAsString("eventName", map));
-        String eventState = getItemAsString("eventState", map);
-        if (StringUtils.isNotBlank(eventState))
-        {
-            event.setEventState(EventState.valueOf(eventState));
-        }
-        String eventStatus = getItemAsString("eventStatus", map);
-        if (StringUtils.isNotBlank(eventStatus))
-        {
-            event.setEventStatus(EventStatus.valueOf(eventStatus));
-        }
-        event.setStartDate(getItemAsOffSetDate("startDate", map));
-        event.setEndDate(getItemAsOffSetDate("endDate", map));
-        event.setDescription(getItemAsString("description", map));
-        event.setInternalNotes(getItemAsString("internalNotes", map));
-        event.setEventPostingId(getItemAsString("postingId", map));
 
         return event;
+    }
+
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        Object resultItem = null;
+        if (model instanceof Map)
+        {
+            if (inputMode)
+            {
+                atlas.ssaevent.crud.graphql.EventInput clientEvent = new atlas.ssaevent.crud.graphql.EventInput();
+                Map<String, Object> eventMap = (Map) model;
+                clientEvent.setClassificationMarking(getItemAsString("classificationMarking", eventMap));
+                clientEvent.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", eventMap));
+                clientEvent.setType(atlas.ssaevent.crud.graphql.EventType.valueOf(getItemAsString("eventType", eventMap)));
+                clientEvent.setName(getItemAsString("eventName", eventMap));
+                clientEvent.setStatus(atlas.ssaevent.crud.graphql.EventStatus.valueOf(getItemAsString("eventStatus", eventMap)));
+                clientEvent.setStartDt(getItemAsOffSetDate("startDate", eventMap));
+                clientEvent.setEndDt(getItemAsOffSetDate("endDate", eventMap));
+                clientEvent.setDescription(getItemAsString("eventDesc", eventMap));
+                clientEvent.setInternalNotes(getItemAsString("internalNotes", eventMap));
+                clientEvent.setEventPostingId(getItemAsString("eventPostingId", eventMap));
+                clientEvent.setVersion(getItemAsLong("version", eventMap));
+
+                resultItem = clientEvent;
+            }
+            else
+            {
+                atlas.ssaevent.crud.graphql.Event clientEvent = new atlas.ssaevent.crud.graphql.Event();
+                Map<String, Object> eventMap = (Map) model;
+                clientEvent.setEventUuid(getItemAsString("eventUuid", eventMap));
+                clientEvent.setClassificationMarking(getItemAsString("classificationMarking", eventMap));
+                clientEvent.setPredecessorEventUuid(getItemAsString("predecessorEventUuid", eventMap));
+                clientEvent.setType(atlas.ssaevent.crud.graphql.EventType.valueOf(getItemAsString("eventType", eventMap)));
+                clientEvent.setName(getItemAsString("eventName", eventMap));
+                clientEvent.setStatus(atlas.ssaevent.crud.graphql.EventStatus.valueOf(getItemAsString("eventStatus", eventMap)));
+                clientEvent.setStartDt(getItemAsOffSetDate("startDate", eventMap));
+                clientEvent.setEndDt(getItemAsOffSetDate("endDate", eventMap));
+                clientEvent.setDescription(getItemAsString("eventDesc", eventMap));
+                clientEvent.setInternalNotes(getItemAsString("internalNotes", eventMap));
+                clientEvent.setEventPostingId(getItemAsString("eventPostingId", eventMap));
+                clientEvent.setCreateDate(getItemAsOffSetDate("createDate", eventMap));
+                clientEvent.setCreateOrigin(getItemAsString("createOrgin", eventMap));
+                clientEvent.setUpdateDate(getItemAsOffSetDate("updateDate", eventMap));
+                clientEvent.setUpdateOrigin(getItemAsString("updateOrgin", eventMap));
+                clientEvent.setVersion(getItemAsLong("version", eventMap));
+
+                Map<String, Object> eventDataMap = (Map) eventMap.get("eventData");
+
+                if (eventDataMap != null)
+                {
+                    atlas.ssaevent.crud.graphql.EventData clientEventDataSubItem = (atlas.ssaevent.crud.graphql.EventData)eventDataParser.toGraphqlClient(eventDataMap, inputMode);
+                    List<atlas.ssaevent.crud.graphql.EventData> clientEventDataList = new ArrayList<>();
+                    clientEventDataList.add(clientEventDataSubItem);
+                    clientEvent.setEventData(clientEventDataList);
+                }
+
+                resultItem = clientEvent;
+            }
+        }
+
+        return resultItem;
     }
 }

@@ -18,7 +18,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.parser.EventSatelliteParser;

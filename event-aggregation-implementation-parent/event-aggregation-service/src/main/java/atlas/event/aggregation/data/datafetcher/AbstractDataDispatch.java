@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.config.DataServiceConfiguration;
 import atlas.event.aggregation.data.paging.PageableBuilder;
 import atlas.event.aggregation.data.paging.elements.Order;
 import atlas.event.aggregation.data.paging.elements.PageInfo;
@@ -46,7 +47,7 @@ import java.util.Map;
  * This is the base class for SatelliteQuery Datafetchers. It centralizes the handling of exceptions and adding standard information to the error extensions map.
  */
 @Slf4j
-public abstract class AbstractDataDispatch<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>, IDigitalDataDispatch
+public abstract class AbstractDataDispatch<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>, IDigitalDataDispatch, IDataFetcher
 {
 
     private static final String QUERY_SOURCE_TYPE = "queryParentType";
@@ -64,39 +65,6 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
 
     protected RuntimeWiringTypeCollector collector;
 
-/*    protected IDigitalHandler getBusinessHandlerByPath(String path)
-    {
-        IDigitalHandler handler = null;
-
-        if (StringUtils.isNotBlank(path))
-        {
-            String anchorName = getDigitalCache().getBusinessHandler(path);
-            if (StringUtils.isNotBlank(anchorName))
-            {
-                handler = getBusinessHandler(anchorName);
-            }
-        }
-
-        return handler;
-    }
-
-    protected IDigitalHandler getBusinessHandler(String anchorId)
-    {
-        IDigitalHandler handler = null;
-
-        if (StringUtils.isNotBlank(anchorId))
-        {
-            Object o = locateService(anchorId);
-            if (o instanceof IDigitalHandler)
-            {
-                handler = (IDigitalHandler) o;
-            }
-        }
-
-        return handler;
-    }
-
-*/
 
     @PostConstruct
     public void initializeRuntimeTypeInformation()
@@ -106,6 +74,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             this.collector.addTypeWiring(this.provideRuntimeTypeWiring());
         }
     }
+
 
     /*
         public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
@@ -139,6 +108,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             return result;
         }
     */
+
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
@@ -176,6 +146,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         }
         catch (RuntimeException e)
         {
+            e.printStackTrace();
             return buildErrorResult(environment, returnValue, e);
         }
     }
@@ -294,4 +265,17 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         return pageInfo;
     }
 
+    protected DataServiceConfiguration getClientServiceLookup()
+    {
+        DataServiceConfiguration dataServiceConfiguration = null;
+        Object o = locateService("clientServiceLookup");
+        if (o != null)
+        {
+            if (o instanceof  DataServiceConfiguration)
+            {
+                dataServiceConfiguration = (DataServiceConfiguration) o;
+            }
+        }
+        return dataServiceConfiguration;
+    }
 }

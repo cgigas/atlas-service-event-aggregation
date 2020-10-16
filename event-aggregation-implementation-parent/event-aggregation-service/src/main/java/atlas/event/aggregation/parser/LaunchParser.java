@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.Launch;
+import atlas.event.aggregation.data.model.event.Launch;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -54,5 +54,17 @@ public class LaunchParser implements IParser
         launch.setTypeName(getItemAsString("typeName", map));
 
         return launch;
+    }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        return null;
     }
 }

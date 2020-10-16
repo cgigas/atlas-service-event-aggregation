@@ -17,7 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.ssaevent.Event;
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.exception.EventAggregateException;
 import org.apache.commons.lang3.StringUtils;
@@ -91,5 +91,17 @@ public class EventSatelliteParser implements IParser
         }
 
         return eventSatellite;
+    }
+
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        return null;
     }
 }
