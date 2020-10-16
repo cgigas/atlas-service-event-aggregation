@@ -35,7 +35,6 @@ import java.util.Map;
 @Component("eventParser")
 public class EventParser implements IParser
 {
-
     @Autowired
     private EventDataParser eventDataParser;
 
@@ -61,8 +60,6 @@ public class EventParser implements IParser
 
         return result;
     }
-
-
 
     @Override
     public Object fromJson(Object json)
@@ -111,8 +108,6 @@ public class EventParser implements IParser
             event.setCreateOrigin(clientEvent.getCreateOrigin());
             event.setUpdateDate(clientEvent.getUpdateDate());
             event.setUpdateOrigin(clientEvent.getUpdateOrigin());
-
-
         }
 
         return event;

@@ -29,6 +29,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -41,10 +42,6 @@ public class DigitalBaseTest
     DataFetchingEnvironment environment;
     @Autowired
     ApplicationContext applicationContext;
-    @Mock
-    DigitalBase task = mock(DigitalBase.class, Mockito.CALLS_REAL_METHODS);
-    @Mock
-    ApplicationContext appCon = mock(ApplicationContext.class, Mockito.CALLS_REAL_METHODS);
 
     @Before
     public void setUp()
@@ -52,15 +49,12 @@ public class DigitalBaseTest
         SpringContextFactory.setContext(applicationContext);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void test()
     {
-        DigitalCache o = new DigitalCache();
-        when(appCon.getBean(anyString())).thenReturn(o);
-        appCon.getBean("digitalCache");
-        when(task.locateService("digitalCache")).thenReturn(o);
-        task.locateService("digitalCache");
+        DigitalBase task = new DigitalBase();
+        assertNotNull(task);
         task.getDigitalCache();
-        assertNull(task.getRequestPath(environment));
+        task.getRequestPath(environment);
     }
 }

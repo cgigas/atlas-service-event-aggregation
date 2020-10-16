@@ -19,12 +19,14 @@ package atlas.event.aggregation;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -79,6 +81,9 @@ public abstract class GetterSetterTester<T>
 
         mapperBuilder.put(BigDecimal.class, () -> BigDecimal.ONE);
         mapperBuilder.put(Date.class, () -> new Date());
+        mapperBuilder.put(DateTime.class, () -> new DateTime());
+        mapperBuilder.put(OffsetDateTime.class, () -> OffsetDateTime.now());
+
 
         /* Collection Types. */
         mapperBuilder.put(Set.class, () -> Collections.emptySet());

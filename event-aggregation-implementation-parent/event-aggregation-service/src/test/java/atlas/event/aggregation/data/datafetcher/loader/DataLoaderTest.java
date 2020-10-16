@@ -15,29 +15,20 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.server;
+package atlas.event.aggregation.data.datafetcher.loader;
 
 import org.junit.Test;
 
-import java.io.IOException;
+import static org.junit.Assert.assertNotNull;
 
-import static org.junit.Assert.assertEquals;
-
-public class TypeDefinitionRegistryBuilderTest
+public class DataLoaderTest
 {
-    TypeDefinitionRegistryBuilder task = new TypeDefinitionRegistryBuilder();
-    String rootResourcePath = "event-aggregation-implementation-parent/event-aggregation-service/src/main/resources/graphql/MPEService.graphql";
+    DataLoader task = new DataLoader();
 
     @Test
-    public void buildRegistryFrom() throws IOException
+    public void init()
     {
-        try
-        {
-            task.buildRegistryFrom(rootResourcePath);
-        }
-        catch (Exception e)
-        {
-            assertEquals("java.lang.NullPointerException", e.toString());
-        }
+        assertNotNull(task);
+        task.init();
     }
 }

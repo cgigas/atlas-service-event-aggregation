@@ -18,27 +18,23 @@
 package atlas.event.aggregation.config;
 
 import atlas.event.aggregation.GetterSetterTester;
+import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
 
 public class DataServiceConfigurationTest
 {
-    DataServiceConfiguration task = new DataServiceConfiguration();
-    String satelliteServiceUrl = "http://172.30.211.106:9205/satellite-crud";
-    String orbitalServiceUrl = "http://172.30.211.106:9204/orbital-crud";
-    String observationServiceUrl = "http://172.30.211.103:9001/observation-crud";
-    String sensorServiceUrl = "http://172.30.211.106:9206/sensor-crud";
-    String notesServiceUrl = "http://172.30.211.106:9203/notes-crud";
-    String graphQlExtension = "https://www.graphQlExtension.com";
-    String eventServiceUrl = "http://172.30.211.106:9210/ssaevent-crud";
-
-    @Test
+    @Before
     public void init()
     {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        assertNotNull(task);
         task.init();
     }
 
     @Test
-    public void test() throws Exception
+    public void testGettersSetters() throws Exception
     {
         GetterSetterTester tester = new GetterSetterTester()
         {
@@ -48,6 +44,57 @@ public class DataServiceConfigurationTest
                 return new DataServiceConfiguration();
             }
         };
+        assertNotNull(tester);
         tester.testGettersAndSetters();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testEventQueryExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getEventCrudQueryExecutor();
+    }
+    @Test(expected = IllegalStateException.class)
+    public void testSatQueryExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getSatelliteCrudQueryExecutor();
+    }
+    @Test(expected = IllegalStateException.class)
+    public void testSensorQueryExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getSensorCrudQueryExecutor();
+    }
+    @Test(expected = IllegalStateException.class)
+    public void testNotesQueryExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getNotesCrudQueryExecutor();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testEventMutationExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getEventCrudMutationExecutor();
+    }
+    @Test(expected = IllegalStateException.class)
+    public void testSatMutationExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getSatelliteCrudMutationExecutor();
+    }
+    @Test(expected = IllegalStateException.class)
+    public void testSensorMutationExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getSensorCrudMutationExecutor();;
+    }
+    @Test(expected = IllegalStateException.class)
+    public void testNotesMutationExecutors()
+    {
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        task.getNotesCrudMutationExecutor();
     }
 }

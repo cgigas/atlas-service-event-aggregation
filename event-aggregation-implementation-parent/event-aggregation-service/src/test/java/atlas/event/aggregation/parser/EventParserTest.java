@@ -17,60 +17,93 @@
  */
 package atlas.event.aggregation.parser;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONObject;
-import org.junit.Ignore;
+import atlas.ssaevent.crud.graphql.EventStatus;
+import atlas.ssaevent.crud.graphql.EventType;
+import org.json.JSONObject;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertNull;
 
 public class EventParserTest
 {
-    @Mock
-    EventParser task = mock(EventParser.class, Mockito.CALLS_REAL_METHODS);
-    JSONObject jsonObj = new JSONObject();
-    Map<String, Object> map = new HashMap<>();
-    ObjectMapper objectMapper = new ObjectMapper();
+    EventParser task = new EventParser();
+    Object fromJson = new JSONObject();
+    String json = "{\"event\":\"launch\"}";
 
-    @Ignore
-    @Test
-    public void testFromJsonString()
+    @Test(expected = StackOverflowError.class)
+    public void testToJSONString()
     {
-        map.put("event", "sat");
+        assertNotNull(task);
+        task.toJSONString(fromJson);
+    }
 
-        try
-        {
-            String jstring = objectMapper.writeValueAsString(map);
-            task.fromJsonString(jstring);
-        }
-        catch (Exception e)
-        {
-            //System.out.println(e);
-            assertTrue(e.toString().contains("java.lang.ClassCastException: class java.lang.String cannot be cast to class java.util.Map (java.lang.String and java.util.Map are in module java.base of loader 'bootstrap')"));
-        }
-
-        try
-        {
-            task.fromJsonString(anyString());
-        }
-        catch (Exception e)
-        {
-            assertTrue(e.toString().contains("Unexpected token END OF FILE at position 0"));
-        }
+    @Test(expected = ClassCastException.class)
+    public void testFromJSONString()
+    {
+        task.fromJsonString(json);
     }
 
     @Test
-    public void testFromJson()
+    public void testFromJSON()
     {
-        assertNotNull(task.fromJson(jsonObj));
-        assertNotNull(task.fromJson(map));
+        JSONObject job = new JSONObject();
+        assertNull(task.fromJson(job));
+    }
+
+    @Test
+    public void testFromJSONMap()
+    {
+        Map<String, Object> map = new HashMap<>();
+        assertNull(task.fromJson(map));
+    }
+
+    @Test
+    public void testFromGraphqlClient()
+    {
+        atlas.ssaevent.crud.graphql.Event graphql = new atlas.ssaevent.crud.graphql.Event();
+        graphql.setEventUuid("eventUUID");
+        graphql.setClassificationMarking("classMark");
+        graphql.setPredecessorEventUuid("PreUUID");
+        graphql.setType(EventType.BREAKUP);
+        graphql.setName("name");
+        graphql.setStatus(EventStatus.ACTIVE);
+        graphql.setStartDt(OffsetDateTime.now());
+        graphql.setEndDt(OffsetDateTime.now());
+        graphql.setDescription("desc");
+        graphql.setInternalNotes("notes");
+        graphql.setEventPostingId("eventID");
+        List<atlas.ssaevent.crud.graphql.EventData> eventData = new ArrayList();
+        graphql.setEventData(eventData);
+        graphql.setCreateDate(OffsetDateTime.now());
+        graphql.setCreateOrigin("createOrigin");
+        graphql.setUpdateDate(OffsetDateTime.now());
+        graphql.setUpdateOrigin("updateOrigin");
+        assertNotNull(task.fromGraphqlClient(graphql));
+    }
+
+    @Test
+    public void testToGraphqlClient()
+    {
+        Map<String, Object> model = new HashMap<>();
+        model.put("classificationMarking", "classMark");
+        model.put("predecessorEventUuid", "eventUUID");
+        model.put("eventType", "DOCK");
+        model.put("eventName", "docking");
+        model.put("eventStatus", "PLANNED");
+        model.put("startDate", OffsetDateTime.now());
+        model.put("endDate", OffsetDateTime.now());
+        model.put("eventDesc", "desc");
+        model.put("internalNotes", "notes");
+        model.put("eventPostingId", "eventID");
+        model.put("version", 2L);
+        task.toGraphqlClient(model, true);
+        task.toGraphqlClient(model, false);
     }
 }
