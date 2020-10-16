@@ -27,6 +27,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -66,5 +67,12 @@ public class EventSatelliteParserTest
 
         Map<String, Object> finalMAP = MAP;
         task.fromJson(finalMAP);
+    }
+
+    @Test
+    public void testGraphql()
+    {
+        assertNull(task.fromGraphqlClient(new Object()));
+        assertNull(task.toGraphqlClient(new Object(),true));
     }
 }

@@ -21,6 +21,7 @@ import atlas.event.aggregation.exception.EventAggregateException;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
+import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,9 +59,25 @@ public class EventDetailParserTest
         assertNotNull(task.fromJson(fromJson));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testFromJson()
     {
+        map.put("type","DOCK");
+        map.put("name","name");
+        map.put("startDate", OffsetDateTime.now());
+        map.put("endDate", OffsetDateTime.now());
+        map.put("catalogObjectCount", 3L);
+        map.put("analystObjects", 4L);
+        map.put("candidateObjectCount", 5L);
+        map.put("promotableObjectCount", 6L);
+        map.put("typeName", "type");
         assertNotNull(task.fromJson(map));
+    }
+
+    @Test
+    public void testGraphqlClient()
+    {
+        assertNull(task.fromGraphqlClient(new Object()));
+        assertNull(task.toGraphqlClient(new Object(),true));
     }
 }

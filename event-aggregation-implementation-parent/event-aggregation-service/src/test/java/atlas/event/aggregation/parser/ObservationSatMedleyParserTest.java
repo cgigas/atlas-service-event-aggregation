@@ -58,4 +58,11 @@ public class ObservationSatMedleyParserTest
     {
         assertNotNull(task.fromJson(map));
     }
+
+    @Test
+    public void testGraphql()
+    {
+        assertNull(task.fromGraphqlClient(new Object()));
+        assertNull(task.toGraphqlClient(new Object(), true));
+    }
 }

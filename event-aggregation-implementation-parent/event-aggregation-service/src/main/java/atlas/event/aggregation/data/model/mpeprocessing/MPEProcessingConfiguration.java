@@ -111,4 +111,274 @@ public class MPEProcessingConfiguration extends Audited
     private Double catalogMinArgumentLatitude;
     private Integer analystMinReportingSensors;
     private Integer catalogMinReportingSensors;
+
+    public String getMpeProcessingConfigUuid()
+    {
+        return mpeProcessingConfigUuid;
+    }
+
+    public void setMpeProcessingConfigUuid(String mpeProcessingConfigUuid)
+    {
+        this.mpeProcessingConfigUuid = mpeProcessingConfigUuid;
+    }
+
+    public String getClassificationMarking()
+    {
+        return classificationMarking;
+    }
+
+    public void setClassificationMarking(String classificationMarking)
+    {
+        this.classificationMarking = classificationMarking;
+    }
+
+    public String getEventUuid()
+    {
+        return eventUuid;
+    }
+
+    public void setEventUuid(String eventUuid)
+    {
+        this.eventUuid = eventUuid;
+    }
+
+    public String getCandidateRsoReservationUuid()
+    {
+        return candidateRsoReservationUuid;
+    }
+
+    public void setCandidateRsoReservationUuid(String candidateRsoReservationUuid)
+    {
+        this.candidateRsoReservationUuid = candidateRsoReservationUuid;
+    }
+
+    public String getAnalystRsoReservationUuid()
+    {
+        return analystRsoReservationUuid;
+    }
+
+    public void setAnalystRsoReservationUuid(String analystRsoReservationUuid)
+    {
+        this.analystRsoReservationUuid = analystRsoReservationUuid;
+    }
+
+    public String getCatalogRsoReservationUuid()
+    {
+        return catalogRsoReservationUuid;
+    }
+
+    public void setCatalogRsoReservationUuid(String catalogRsoReservationUuid)
+    {
+        this.catalogRsoReservationUuid = catalogRsoReservationUuid;
+    }
+
+    public String getUcnReservationUuid()
+    {
+        return ucnReservationUuid;
+    }
+
+    public void setUcnReservationUuid(String ucnReservationUuid)
+    {
+        this.ucnReservationUuid = ucnReservationUuid;
+    }
+
+    public String getCandidateFormationParametersUuid()
+    {
+        return candidateFormationParametersUuid;
+    }
+
+    public void setCandidateFormationParametersUuid(String candidateFormationParametersUuid)
+    {
+        this.candidateFormationParametersUuid = candidateFormationParametersUuid;
+    }
+
+    public Integer getCurrentFlag()
+    {
+        return currentFlag;
+    }
+
+    public void setCurrentFlag(Integer currentFlag)
+    {
+        this.currentFlag = currentFlag;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    public Integer getAnalystMinTracksPerDay()
+    {
+        return analystMinTracksPerDay;
+    }
+
+    public void setAnalystMinTracksPerDay(Integer analystMinTracksPerDay)
+    {
+        this.analystMinTracksPerDay = analystMinTracksPerDay;
+    }
+
+    public Integer getCatalogMinTracksPerDay()
+    {
+        return catalogMinTracksPerDay;
+    }
+
+    public void setCatalogMinTracksPerDay(Integer catalogMinTracksPerDay)
+    {
+        this.catalogMinTracksPerDay = catalogMinTracksPerDay;
+    }
+
+    public Integer getAnalystMinTracksReceived()
+    {
+        return analystMinTracksReceived;
+    }
+
+    public void setAnalystMinTracksReceived(Integer analystMinTracksReceived)
+    {
+        this.analystMinTracksReceived = analystMinTracksReceived;
+    }
+
+    public Integer getCatalogMinTracksReceived()
+    {
+        return catalogMinTracksReceived;
+    }
+
+    public void setCatalogMinTracksReceived(Integer catalogMinTracksReceived)
+    {
+        this.catalogMinTracksReceived = catalogMinTracksReceived;
+    }
+
+    public Integer getAnalystMinOdSolutions()
+    {
+        return analystMinOdSolutions;
+    }
+
+    public void setAnalystMinOdSolutions(Integer analystMinOdSolutions)
+    {
+        this.analystMinOdSolutions = analystMinOdSolutions;
+    }
+
+    public Integer getCatalogMinOdSolutions()
+    {
+        return catalogMinOdSolutions;
+    }
+
+    public void setCatalogMinOdSolutions(Integer catalogMinOdSolutions)
+    {
+        this.catalogMinOdSolutions = catalogMinOdSolutions;
+    }
+
+    public Double getAnalystRmsTrendMean()
+    {
+        return analystRmsTrendMean;
+    }
+
+    public void setAnalystRmsTrendMean(Double analystRmsTrendMean)
+    {
+        this.analystRmsTrendMean = analystRmsTrendMean;
+    }
+
+    public Double getCatalogRmsTrendMean()
+    {
+        return catalogRmsTrendMean;
+    }
+
+    public void setCatalogRmsTrendMean(Double catalogRmsTrendMean)
+    {
+        this.catalogRmsTrendMean = catalogRmsTrendMean;
+    }
+
+    public Double getAnalystRmsTrendSd()
+    {
+        return analystRmsTrendSd;
+    }
+
+    public void setAnalystRmsTrendSd(Double analystRmsTrendSd)
+    {
+        this.analystRmsTrendSd = analystRmsTrendSd;
+    }
+
+    public Double getCatalogRmsTrendSd()
+    {
+        return catalogRmsTrendSd;
+    }
+
+    public void setCatalogRmsTrendSd(Double catalogRmsTrendSd)
+    {
+        this.catalogRmsTrendSd = catalogRmsTrendSd;
+    }
+
+    public Double getAnalystMinResidualAcceptance()
+    {
+        return analystMinResidualAcceptance;
+    }
+
+    public void setAnalystMinResidualAcceptance(Double analystMinResidualAcceptance)
+    {
+        this.analystMinResidualAcceptance = analystMinResidualAcceptance;
+    }
+
+    public Double getCatalogMinResidualAcceptance()
+    {
+        return catalogMinResidualAcceptance;
+    }
+
+    public void setCatalogMinResidualAcceptance(Double catalogMinResidualAcceptance)
+    {
+        this.catalogMinResidualAcceptance = catalogMinResidualAcceptance;
+    }
+
+    public Double getAnalystMinArgumentLatitude()
+    {
+        return analystMinArgumentLatitude;
+    }
+
+    public void setAnalystMinArgumentLatitude(Double analystMinArgumentLatitude)
+    {
+        this.analystMinArgumentLatitude = analystMinArgumentLatitude;
+    }
+
+    public Double getCatalogMinArgumentLatitude()
+    {
+        return catalogMinArgumentLatitude;
+    }
+
+    public void setCatalogMinArgumentLatitude(Double catalogMinArgumentLatitude)
+    {
+        this.catalogMinArgumentLatitude = catalogMinArgumentLatitude;
+    }
+
+    public Integer getAnalystMinReportingSensors()
+    {
+        return analystMinReportingSensors;
+    }
+
+    public void setAnalystMinReportingSensors(Integer analystMinReportingSensors)
+    {
+        this.analystMinReportingSensors = analystMinReportingSensors;
+    }
+
+    public Integer getCatalogMinReportingSensors()
+    {
+        return catalogMinReportingSensors;
+    }
+
+    public void setCatalogMinReportingSensors(Integer catalogMinReportingSensors)
+    {
+        this.catalogMinReportingSensors = catalogMinReportingSensors;
+    }
 }
