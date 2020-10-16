@@ -35,6 +35,7 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -105,6 +106,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             this.collector.addTypeWiring(this.provideRuntimeTypeWiring());
         }
     }
+
     /*
         public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
         {
@@ -274,10 +276,10 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             // convert Spring domain Sort to crud sort
 //            if (pageable.getSort() != Sort.unsorted())
 //            {
-                List<Order> orders = Lists.newArrayList();
+            List<Order> orders = Lists.newArrayList();
 //                for (Order order : pageable.getSort().toList())
 //                {
-                    //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
+            //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
 //                }
 //                Sort crudSort = null;//Sort.builder().withOrders(orders).build();
 //                pageInfo.setSort(crudSort);
@@ -291,6 +293,5 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         }
         return pageInfo;
     }
-
 
 }

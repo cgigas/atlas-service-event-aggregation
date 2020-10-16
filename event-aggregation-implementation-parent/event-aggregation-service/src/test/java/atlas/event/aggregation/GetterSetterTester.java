@@ -1,3 +1,20 @@
+/*
+ * ******************************************************************************
+ *  WARNING: EXPORT CONTROLLED - EAR
+ *  THESE ITEM(S) / TECHNICAL DATA CONTAIN INFORMATION SUBJECT TO U.S.
+ *  GOVERNMENT EXPORT CONTROL IN ACCORDANCE WITH THE EXPORT ADMINISTRATION
+ *  REGULATIONS (EAR), 15 CFR PARTS 730-774. EXPORT OF THIS DATA TO ANY
+ *  FOREIGN COUNTRY OR DISCLOSURE OF THIS DATA TO ANY NON-US PERSON MAY BE A
+ *  VIOLATION OF FEDERAL LAW.
+ * ******************************************************************************
+ *  Unlimited Government Rights
+ *  WARNING: Do Not Use On A Privately Funded Program Without Permission.
+ * ******************************************************************************
+ *  CLASSIFICATION:   Unclassified
+ *
+ *  LIMITATIONS:      None
+ * ******************************************************************************
+ */
 package atlas.event.aggregation;
 
 import com.google.common.collect.ImmutableMap;
@@ -45,7 +62,7 @@ public abstract class GetterSetterTester<T>
         mapperBuilder.put(int.class, () -> 0);
         mapperBuilder.put(double.class, () -> 0.0d);
         mapperBuilder.put(float.class, () -> 0.0f);
-        mapperBuilder.put(long.class, () -> 0l);
+        mapperBuilder.put(long.class, () -> 0L);
         mapperBuilder.put(boolean.class, () -> true);
         mapperBuilder.put(short.class, () -> (short) 0);
         mapperBuilder.put(byte.class, () -> (byte) 0);

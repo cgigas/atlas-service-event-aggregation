@@ -43,6 +43,8 @@ public class DigitalBaseTest
     ApplicationContext applicationContext;
     @Mock
     DigitalBase task = mock(DigitalBase.class, Mockito.CALLS_REAL_METHODS);
+    @Mock
+    ApplicationContext appCon = mock(ApplicationContext.class, Mockito.CALLS_REAL_METHODS);
 
     @Before
     public void setUp()
@@ -53,7 +55,11 @@ public class DigitalBaseTest
     @Test
     public void test()
     {
-        when(task.locateService(anyString())).thenReturn(new DigitalCache());
+        DigitalCache o = new DigitalCache();
+        when(appCon.getBean(anyString())).thenReturn(o);
+        appCon.getBean("digitalCache");
+        when(task.locateService("digitalCache")).thenReturn(o);
+        task.locateService("digitalCache");
         task.getDigitalCache();
         assertNull(task.getRequestPath(environment));
     }

@@ -17,59 +17,25 @@
  */
 package atlas.event.aggregation.data.model.candidateformation;
 
+import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class CandidateFormationParametersTest
 {
-    CandidateFormationParameters task = new CandidateFormationParameters();
-    String candidateFormationParametersUuid = "canFormParaUuid";
-    String classificationMarking = "classMark";
-    Float pdotCoeficients = Float.valueOf(3);
-    Float coplanarCheckThreshold = Float.valueOf(4);
-    Float periodThreshold = Float.valueOf(5);
-    Integer minimumTrackersPerCluster = 6;
-
     @Test
-    public void setCandidateFormationParametersUuid()
+    public void test() throws Exception
     {
-        task.setCandidateFormationParametersUuid(candidateFormationParametersUuid);
-        assertEquals(candidateFormationParametersUuid, task.getCandidateFormationParametersUuid());
-    }
-
-    @Test
-    public void setClassificationMarking()
-    {
-        task.setClassificationMarking(classificationMarking);
-        assertEquals(classificationMarking, task.getClassificationMarking());
-    }
-
-    @Test
-    public void setPdotCoeficients()
-    {
-        task.setPdotCoeficients(pdotCoeficients);
-        assertEquals(pdotCoeficients, task.getPdotCoeficients());
-    }
-
-    @Test
-    public void setMinimumTrackersPerCluster()
-    {
-        task.setMinimumTrackersPerCluster(minimumTrackersPerCluster);
-        assertEquals(minimumTrackersPerCluster, task.getMinimumTrackersPerCluster());
-    }
-
-    @Test
-    public void setCoplanarCheckThreshold()
-    {
-        task.setCoplanarCheckThreshold(coplanarCheckThreshold);
-        assertEquals(coplanarCheckThreshold, task.getCoplanarCheckThreshold());
-    }
-
-    @Test
-    public void setPeriodThreshold()
-    {
-        task.setPeriodThreshold(periodThreshold);
-        assertEquals(periodThreshold, task.getPeriodThreshold());
+        GetterSetterTester tester = new GetterSetterTester()
+        {
+            @Override
+            protected Object getInstance()
+            {
+                return new CandidateFormationParameters();
+            }
+        };
+        assertNotNull(tester);
+        tester.testGettersAndSetters();
     }
 }

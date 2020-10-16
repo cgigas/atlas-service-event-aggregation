@@ -18,59 +18,81 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import graphql.schema.DataFetchingEnvironment;
+import graphql.schema.idl.TypeRuntimeWiring;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.util.Collection;
 
 import static org.mockito.Mockito.mock;
 
 public class AbstractDataDispatchTest
 {
     @Mock
-    AbstractDataDispatch task = mock(AbstractDataDispatch.class, Mockito.CALLS_REAL_METHODS);
-
-    @Mock
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
+
+    AbstractDataDispatch abstractDataDispatch;
+
+    @Before
+    public void setUp()
+    {
+        abstractDataDispatch = new AbstractDataDispatch()
+        {
+            @Override
+            protected Object performFetch(DataFetchingEnvironment environment)
+            {
+                return null;
+            }
+
+            @Override
+            protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
+            {
+                return null;
+            }
+        };
+    }
 
     @Test
     public void initializeRuntimeTypeInformation()
     {
-        task.initializeRuntimeTypeInformation();
+        abstractDataDispatch.initializeRuntimeTypeInformation();
     }
 
     @Test
     public void get() throws Exception
     {
-        task.get(environment);
+        abstractDataDispatch.get(environment);
     }
 
     @Test
     public void getExtensions()
     {
-        task.getExtensions(environment);
+        abstractDataDispatch.getExtensions(environment);
     }
 
     @Test
     public void performFetch()
     {
-        task.performFetch(environment);
+        abstractDataDispatch.performFetch(environment);
     }
 
     @Test
     public void provideRuntimeTypeWiring()
     {
-        task.provideRuntimeTypeWiring();
+        abstractDataDispatch.provideRuntimeTypeWiring();
     }
 
     @Test
     public void addToLocalContext()
     {
-        task.addToLocalContext("user.country", "US");
+        abstractDataDispatch.addToLocalContext("user.country", "US");
     }
 
     @Test
     public void getPageRequestArgument()
     {
-        task.getPageRequestArgument(environment, "US");
+        abstractDataDispatch.getPageRequestArgument(environment, "US");
     }
 }

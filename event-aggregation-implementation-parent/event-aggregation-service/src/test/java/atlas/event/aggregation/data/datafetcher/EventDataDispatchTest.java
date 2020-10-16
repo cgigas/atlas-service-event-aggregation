@@ -18,14 +18,20 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 public class EventDataDispatchTest
 {
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     EventDataDispatch task = new EventDataDispatch(collector);
+    @Mock
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
     public void testProvideRuntimeTypeWiring()
@@ -36,5 +42,13 @@ public class EventDataDispatchTest
     @Test
     public void testPerformFetch()
     {
+        try
+        {
+            task.performFetch(environment);
+        }
+        catch (NullPointerException e)
+        {
+            assertNotNull(task);
+        }
     }
 }

@@ -133,5 +133,6 @@ public class EventTest
         task.setId(eventUuid);
         assertEquals(eventUuid, task.getId());
         assertEquals(serialVersionUID, Event.getSerialVersionUID());
+        assertEquals(eventUuid, task.getEventUuid());
     }
 }
