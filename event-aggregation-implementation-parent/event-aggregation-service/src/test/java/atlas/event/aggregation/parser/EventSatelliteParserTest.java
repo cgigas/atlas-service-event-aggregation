@@ -17,11 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.event.EventType;
-import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.satellite.crud.graphql.Satellite;
-import atlas.satellite.crud.graphql.SsaEventType;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -81,6 +77,6 @@ public class EventSatelliteParserTest
     public void testGraphql()
     {
         assertNull(task.fromGraphqlClient(new Object()));
-        assertNull(task.toGraphqlClient(new Object(),true));
+        assertNull(task.toGraphqlClient(new Object(), true));
     }
 }

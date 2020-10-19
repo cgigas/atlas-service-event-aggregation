@@ -70,7 +70,7 @@ public class TypeDefinitionRegistryBuilderTest
         fileList.add(new File("src/main/resources/graphql/eventFolder.graphql"));
         try
         {
-           task.buildRegistryFrom(fileList);
+            task.buildRegistryFrom(fileList);
         }
         catch (Exception e)
         {

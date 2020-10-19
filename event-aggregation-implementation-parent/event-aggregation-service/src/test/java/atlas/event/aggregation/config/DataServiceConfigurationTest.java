@@ -54,18 +54,21 @@ public class DataServiceConfigurationTest
         DataServiceConfiguration task = new DataServiceConfiguration();
         task.getEventCrudQueryExecutor();
     }
+
     @Test(expected = IllegalStateException.class)
     public void testSatQueryExecutors()
     {
         DataServiceConfiguration task = new DataServiceConfiguration();
         task.getSatelliteCrudQueryExecutor();
     }
+
     @Test(expected = IllegalStateException.class)
     public void testSensorQueryExecutors()
     {
         DataServiceConfiguration task = new DataServiceConfiguration();
         task.getSensorCrudQueryExecutor();
     }
+
     @Test(expected = IllegalStateException.class)
     public void testNotesQueryExecutors()
     {
@@ -79,18 +82,21 @@ public class DataServiceConfigurationTest
         DataServiceConfiguration task = new DataServiceConfiguration();
         task.getEventCrudMutationExecutor();
     }
+
     @Test(expected = IllegalStateException.class)
     public void testSatMutationExecutors()
     {
         DataServiceConfiguration task = new DataServiceConfiguration();
         task.getSatelliteCrudMutationExecutor();
     }
+
     @Test(expected = IllegalStateException.class)
     public void testSensorMutationExecutors()
     {
         DataServiceConfiguration task = new DataServiceConfiguration();
-        task.getSensorCrudMutationExecutor();;
+        task.getSensorCrudMutationExecutor();
     }
+
     @Test(expected = IllegalStateException.class)
     public void testNotesMutationExecutors()
     {

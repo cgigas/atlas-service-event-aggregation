@@ -20,8 +20,8 @@ package atlas.event.aggregation.data.model.ssaeventsat;
 import atlas.event.aggregation.data.model.event.Event;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class EventSatelliteTest
 {

@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.model;
 
 import org.junit.Test;
+
 import java.time.OffsetDateTime;
 
 import static org.junit.Assert.assertEquals;

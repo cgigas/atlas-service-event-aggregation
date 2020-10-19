@@ -62,8 +62,8 @@ public class EventDetailParserTest
     @Test
     public void testFromJson()
     {
-        map.put("type","DOCK");
-        map.put("name","name");
+        map.put("type", "DOCK");
+        map.put("name", "name");
         map.put("startDate", OffsetDateTime.now());
         map.put("endDate", OffsetDateTime.now());
         map.put("catalogObjectCount", 3L);
@@ -78,6 +78,6 @@ public class EventDetailParserTest
     public void testGraphqlClient()
     {
         assertNull(task.fromGraphqlClient(new Object()));
-        assertNull(task.toGraphqlClient(new Object(),true));
+        assertNull(task.toGraphqlClient(new Object(), true));
     }
 }

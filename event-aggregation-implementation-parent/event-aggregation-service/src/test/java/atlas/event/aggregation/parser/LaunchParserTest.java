@@ -61,6 +61,6 @@ public class LaunchParserTest
     public void testGraphql()
     {
         assertNull(task.fromGraphqlClient(new Object()));
-        assertNull(task.toGraphqlClient(new Object(),true));
+        assertNull(task.toGraphqlClient(new Object(), true));
     }
 }
