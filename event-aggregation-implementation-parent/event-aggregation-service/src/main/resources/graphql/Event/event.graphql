@@ -1,6 +1,6 @@
 type MPEServiceQuery {
     eventById(id: String!): Event
-    eventTypeSummariesByTimePeriod(input: EventTypeSummaryTimePeriod, pageRequest: PageInfo): EventTypeSummaryResults
+    eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
 }
 
@@ -50,10 +50,6 @@ type Event {
     updateDate: DateTime
     updateOrigin: String
     version: Long
-}
-
-input EventTypeSummaryTimePeriod {
-    timePeriod: TimePeriod
 }
 
 type EventData {

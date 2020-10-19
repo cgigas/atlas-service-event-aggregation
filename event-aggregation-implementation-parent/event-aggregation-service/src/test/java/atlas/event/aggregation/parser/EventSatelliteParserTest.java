@@ -19,6 +19,7 @@ package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
+import atlas.event.aggregation.parser.event.EventSatelliteParser;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;

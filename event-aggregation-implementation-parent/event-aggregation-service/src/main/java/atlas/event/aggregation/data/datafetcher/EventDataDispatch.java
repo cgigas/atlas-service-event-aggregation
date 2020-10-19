@@ -21,8 +21,10 @@ import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
-import atlas.event.aggregation.parser.EventDataParser;
-import atlas.event.aggregation.parser.EventParser;
+import atlas.event.aggregation.data.model.eventdata.EventTypeSummary;
+import atlas.event.aggregation.parser.event.EventDataParser;
+import atlas.event.aggregation.parser.event.EventParser;
+import atlas.event.aggregation.parser.event.EventTypeSummaryParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
 import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
@@ -54,6 +56,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     private EventParser eventParser;
     @Autowired
     private EventDataParser eventDataParser;
+    @Autowired
+    private EventTypeSummaryParser eventTypeSummaryParser;
 
     public EventDataDispatch(RuntimeWiringTypeCollector collector, GraphqlUtility graphqlUtility)
     {
@@ -82,9 +86,6 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     @Override
     protected Object performFetch(DataFetchingEnvironment environment)
     {
-        // extract query
-        //String partialQueryString = graphqlUtility.graphqlPartialQueryStringFromField(environment.getMergedField().getSingleField());
-
         String path = getRequestPath(environment);
         Object result = null;
         if (StringUtils.isNotBlank(path))
@@ -95,7 +96,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                     result = processEventByID(environment);
                     break;
                 case "/eventTypeSummariesByTimePeriod":
-                    result = null;
+                    result = processEventTypeSummariesByTimePeriod(environment);
                     break;
                 case "/getEventTypes":
                     result = null;
@@ -249,5 +250,19 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         }
 
         return event;
+    }
+
+    public EventTypeSummary processEventTypeSummariesByTimePeriod(DataFetchingEnvironment environment)
+    {
+        EventTypeSummary eventTypeSummary = new EventTypeSummary();
+        if (environment != null)
+        {
+            Map<String, Object> timePeriodMap = environment.getArgument("timePeriod");
+            Map<String, Object> pageRequestMap = environment.getArgument("pageRequest");
+            atlas.ssaevent.crud.graphql.PageInfo eventCrudPageInfo = (atlas.ssaevent.crud.graphql.PageInfo) eventParser.toPageInfo(pageRequestMap);
+            System.getProperty("");
+        }
+
+        return eventTypeSummary;
     }
 }

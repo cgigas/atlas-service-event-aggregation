@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.paging;
 
 import atlas.event.aggregation.data.paging.elements.Direction;
+import atlas.event.aggregation.data.paging.elements.Order;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -47,24 +48,5 @@ public class OrderTest
     public void testToString()
     {
         assertNotNull(task.toString());
-    }
-
-    @Test
-    public void builder()
-    {
-        assertNotNull(Order.builder());
-        Order.Builder builder = new Order.Builder();
-        assertNotNull(builder.withProperty(property));
-        assertNotNull(builder.withDirection(direction));
-        assertNotNull(builder.build());
-    }
-
-    @Test
-    public void field()
-    {
-        Order.Field propName = Order.Field.Property;
-        assertEquals(Order.Field.Property, propName);
-        Order.Field dirName = Order.Field.Direction;
-        assertEquals(Order.Field.Direction, dirName);
     }
 }

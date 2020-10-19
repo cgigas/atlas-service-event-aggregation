@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.parser.event.EventParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.junit.Test;

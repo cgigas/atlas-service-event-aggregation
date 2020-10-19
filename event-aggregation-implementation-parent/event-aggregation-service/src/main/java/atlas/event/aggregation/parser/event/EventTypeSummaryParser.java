@@ -15,8 +15,22 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.parser.event;
 
-public class Sort
+import org.springframework.stereotype.Component;
+
+@Component("eventTypeSummaryParser")
+public class EventTypeSummaryParser extends EventMasterParser
 {
+    @Override
+    public Object fromGraphqlClient(Object graphql)
+    {
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        return null;
+    }
 }

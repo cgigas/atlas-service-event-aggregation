@@ -17,44 +17,12 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.event.Launch;
+import atlas.event.aggregation.parser.event.EventMasterParser;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
 @Component("launchParser")
-public class LaunchParser implements IParser
+public class LaunchParser extends EventMasterParser
 {
-    @Override
-    public String toJSONString(Object fromJson)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJsonString(String json)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJson(Object json)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJson(Map<String, Object> map)
-    {
-        Launch launch = new Launch();
-        launch.setId(getItemAsString("id", map));
-        launch.setLaunchTimeStamp(getItemAsOffSetDate("launchTimestamp", map));
-        launch.setLaunchSite(getItemAsString("launchSite", map));
-        launch.setLaunchCountry(getItemAsString("launchCountry", map));
-        launch.setTypeName(getItemAsString("typeName", map));
-
-        return launch;
-    }
 
     @Override
     public Object fromGraphqlClient(Object graphql)

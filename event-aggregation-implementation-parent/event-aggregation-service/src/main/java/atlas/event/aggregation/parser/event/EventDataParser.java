@@ -15,40 +15,15 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.parser;
+package atlas.event.aggregation.parser.event;
 
 import atlas.event.aggregation.data.model.eventdata.EventData;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component("eventDataParser")
-public class EventDataParser implements IParser
+public class EventDataParser extends EventMasterParser
 {
-    @Override
-    public String toJSONString(Object fromJson)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJsonString(String json)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJson(Object json)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJson(Map<String, Object> map)
-    {
-        return null;
-    }
-
-    @Override
     public Object fromGraphqlClient(Object graphql)
     {
         EventData eventData = new EventData();
@@ -72,7 +47,6 @@ public class EventDataParser implements IParser
         return eventData;
     }
 
-    @Override
     public Object toGraphqlClient(Object model, Boolean inputMode)
     {
         Object resultItem = null;

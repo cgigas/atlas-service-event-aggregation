@@ -17,9 +17,8 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.data.paging.elements.PageInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONObject;
-
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -37,6 +36,10 @@ public interface IParser
     public Object fromGraphqlClient(Object graphql);
 
     public Object toGraphqlClient(Object model, Boolean inputMode);
+
+    public Object toPageInfo(Object model);
+
+    public PageInfo fromGraphqlPageInfo(Object graphqlPageInfo);
 
     default OffsetDateTime getItemAsOffSetDate(String elementName, Map<String, Object> map)
     {
@@ -77,12 +80,12 @@ public interface IParser
         return item;
     }
 
-    default Integer getItemAsInteger(String elementName, JSONObject json)
+    default Integer getItemAsInteger(String elementName, Map<String, Object> map)
     {
         Integer item = null;
-        if ((StringUtils.isNotBlank(elementName)) && (json != null))
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
         {
-            Object o = json.get(elementName);
+            Object o = map.get(elementName);
             if (o != null)
             {
                 item = (Integer) o;
@@ -91,6 +94,7 @@ public interface IParser
 
         return item;
     }
+
 
     default Long getItemAsLong(String elementName, Map<String, Object> map)
     {
@@ -117,37 +121,6 @@ public interface IParser
             if (o != null)
             {
                 item = (String) o;
-            }
-        }
-
-        return item;
-    }
-
-    default String getItemAsString(String elementName, JSONObject json)
-    {
-        String item = null;
-
-        if ((StringUtils.isNotBlank(elementName)) && (json != null))
-        {
-            Object o = json.get(elementName);
-            if (o != null)
-            {
-                item = (String) o;
-            }
-        }
-
-        return item;
-    }
-
-    default OffsetDateTime getItemAsOffSetDate(String elementName, JSONObject json)
-    {
-        OffsetDateTime item = null;
-        if ((StringUtils.isNotBlank(elementName)) && (json != null))
-        {
-            Object o = json.get(elementName);
-            if (o != null)
-            {
-                item = (OffsetDateTime) o;
             }
         }
 

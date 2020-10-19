@@ -15,18 +15,22 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.parser.event;
 
-import org.junit.Test;
+import org.springframework.stereotype.Component;
 
-import static org.junit.Assert.assertNotNull;
-
-public class SortTest
+@Component("eventDetailParser")
+public class EventDetailParser extends EventMasterParser
 {
-    @Test
-    public void test()
+    @Override
+    public Object fromGraphqlClient(Object graphql)
     {
-        Sort task = new Sort();
-        assertNotNull(task);
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        return null;
     }
 }

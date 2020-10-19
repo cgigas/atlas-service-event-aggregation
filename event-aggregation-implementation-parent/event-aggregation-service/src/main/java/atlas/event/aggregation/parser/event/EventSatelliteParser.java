@@ -15,66 +15,20 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.parser;
+package atlas.event.aggregation.parser.event;
 
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
-import atlas.event.aggregation.exception.EventAggregateException;
-import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component("eventSatelliteParser")
-public class EventSatelliteParser implements IParser
+public class EventSatelliteParser extends EventMasterParser
 {
     @Autowired
     private EventParser eventParser;
-
-    @Override
-    public String toJSONString(Object fromJson)
-    {
-        return null;
-    }
-
-    @Override
-    public Object fromJsonString(String json)
-    {
-        EventSatellite eventSatellite = null;
-
-        if (StringUtils.isNotBlank(json))
-        {
-            try
-            {
-                JSONObject jsonObject = (JSONObject) new JSONParser().parse(json);
-                eventSatellite = (EventSatellite) fromJson((Map) jsonObject.get("SsaEventSatellite"));
-            }
-            catch (ParseException pe)
-            {
-                throw new EventAggregateException(pe);
-            }
-        }
-
-        return eventSatellite;
-    }
-
-    @Override
-    public Object fromJson(Object json)
-    {
-        EventSatellite eventSatellite = null;
-        if (json != null)
-        {
-            JSONObject jsonObject = (JSONObject) json;
-            Map<String, Object> map = (Map) jsonObject.get("SsaEventSatellite");
-            eventSatellite = (EventSatellite) fromJson(map);
-        }
-
-        return eventSatellite;
-    }
 
     @Override
     public Object fromJson(Map<String, Object> map)
