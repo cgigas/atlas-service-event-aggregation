@@ -17,6 +17,10 @@
  */
 package atlas.event.aggregation.parser.event;
 
+import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.event.EventStatus;
+import atlas.event.aggregation.data.model.event.EventType;
+import atlas.event.aggregation.data.model.eventdata.EventData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -34,7 +38,37 @@ public class EventParser extends EventMasterParser
     @Override
     public Object fromGraphqlClient(Object graphql)
     {
-        return null;
+        Event event = new Event();
+        if (graphql instanceof atlas.ssaevent.crud.graphql.Event)
+        {
+            atlas.ssaevent.crud.graphql.Event clientEvent = (atlas.ssaevent.crud.graphql.Event) graphql;
+            event.setEventUuid(clientEvent.getEventUuid());
+            event.setClassificationMarking(clientEvent.getClassificationMarking());
+            event.setPredecessorEventUuid(clientEvent.getPredecessorEventUuid());
+            event.setEventType(EventType.valueOf(clientEvent.getType().name()));
+            event.setEventName(clientEvent.getName());
+            event.setEventStatus(EventStatus.valueOf(clientEvent.getStatus().name()));
+            event.setStartDate(clientEvent.getStartDt());
+            event.setEndDate(clientEvent.getEndDt());
+            event.setDescription(clientEvent.getDescription());
+            event.setInternalNotes(clientEvent.getInternalNotes());
+            event.setEventPostingId(clientEvent.getEventPostingId());
+            if (clientEvent.getEventData() != null)
+            {
+                for (atlas.ssaevent.crud.graphql.EventData clientEventData: clientEvent.getEventData())
+                {
+                    event.getEventData().add((EventData) eventDataParser.fromGraphqlClient(clientEventData));
+                }
+            }
+            event.setCreateDate(clientEvent.getCreateDate());
+            event.setCreateOrigin(clientEvent.getCreateOrigin());
+            event.setUpdateDate(clientEvent.getUpdateDate());
+            event.setUpdateOrigin(clientEvent.getUpdateOrigin());
+
+
+        }
+
+        return event;
     }
 
     public Object toGraphqlClient(Object model, Boolean inputMode)
