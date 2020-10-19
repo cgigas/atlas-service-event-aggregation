@@ -21,7 +21,7 @@ import atlas.event.aggregation.data.model.eventdata.EventData;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 
-@Component("eventDataParser")
+@Component
 public class EventDataParser extends EventMasterParser
 {
     public Object fromGraphqlClient(Object graphql)

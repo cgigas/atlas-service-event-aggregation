@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Component("eventSatelliteParser")
+@Component
 public class EventSatelliteParser extends EventMasterParser
 {
     @Autowired

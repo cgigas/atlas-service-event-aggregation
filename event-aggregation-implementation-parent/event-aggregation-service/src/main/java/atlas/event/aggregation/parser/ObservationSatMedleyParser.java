@@ -20,7 +20,7 @@ package atlas.event.aggregation.parser;
 import atlas.event.aggregation.parser.event.EventMasterParser;
 import org.springframework.stereotype.Component;
 
-@Component("observationSatMedleyParser")
+@Component
 public class ObservationSatMedleyParser extends EventMasterParser
 {
     @Override

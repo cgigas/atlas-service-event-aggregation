@@ -20,7 +20,7 @@ package atlas.event.aggregation.parser;
 import atlas.event.aggregation.parser.event.EventMasterParser;
 import org.springframework.stereotype.Component;
 
-@Component("configParser")
+@Component
 public class ConfigParser extends EventMasterParser
 {
     @Override

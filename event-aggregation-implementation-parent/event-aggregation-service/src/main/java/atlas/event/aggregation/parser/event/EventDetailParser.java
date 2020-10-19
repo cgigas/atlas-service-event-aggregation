@@ -19,7 +19,7 @@ package atlas.event.aggregation.parser.event;
 
 import org.springframework.stereotype.Component;
 
-@Component("eventDetailParser")
+@Component
 public class EventDetailParser extends EventMasterParser
 {
     @Override

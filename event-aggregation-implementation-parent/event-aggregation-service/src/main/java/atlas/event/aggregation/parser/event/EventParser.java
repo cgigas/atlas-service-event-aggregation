@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Component("eventParser")
+@Component
 public class EventParser extends EventMasterParser
 {
 
