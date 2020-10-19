@@ -89,7 +89,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return result;
     }
 
-    private EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
+    EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
     {
         EventSatellite eventSat = new EventSatellite();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
@@ -106,7 +106,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return eventSat;
     }
 
-    private List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
         List<Event> datalist = new ArrayList<>();
         Event event = new Event();
@@ -121,7 +121,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return datalist;
     }
 
-    private List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
+    List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
         List<EventSatellite> datalist = new ArrayList<>();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);

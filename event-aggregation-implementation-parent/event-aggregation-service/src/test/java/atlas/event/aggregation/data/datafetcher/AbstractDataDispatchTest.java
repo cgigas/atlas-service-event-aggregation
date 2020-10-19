@@ -99,4 +99,10 @@ public class AbstractDataDispatchTest
     {
         dispatch.getClientServiceLookup();
     }
+
+    @Test
+    public void testGetPageInfoArgument()
+    {
+        dispatch.getPageInfoArgument(environment);
+    }
 }

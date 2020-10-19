@@ -38,10 +38,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
@@ -66,16 +68,16 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceQuery")
-                .dataFetcher("eventById", this)
-                .dataFetcher("eventSummaries", this)
-                .dataFetcher("eventTypeSummariesByTimePeriod", this)
-                .dataFetcher("eventsByTimePeriodAndType", this));
+            .dataFetcher("eventById", this)
+            .dataFetcher("eventSummaries", this)
+            .dataFetcher("eventTypeSummariesByTimePeriod", this)
+            .dataFetcher("eventsByTimePeriodAndType", this));
         builders.add(newTypeWiring("MPEServiceMutation")
-                .dataFetcher("closeEvent", this)
-                .dataFetcher("deleteEvent", this)
-                .dataFetcher("updateEventType", this)
-                .dataFetcher("updateEventStatus", this)
-                .dataFetcher("createEvent", this));
+            .dataFetcher("closeEvent", this)
+            .dataFetcher("deleteEvent", this)
+            .dataFetcher("updateEventType", this)
+            .dataFetcher("updateEventStatus", this)
+            .dataFetcher("createEvent", this));
         return builders;
     }
 
@@ -83,7 +85,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     protected Object performFetch(DataFetchingEnvironment environment)
     {
         // extract query
-        //String partialQueryString = graphqlUtility.graphqlPartialQueryStringFromField(environment.getMergedField().getSingleField());
+        // String partialQueryString = graphqlUtility.graphqlPartialQueryStringFromField(environment.getMergedField().getSingleField());
 
         String path = getRequestPath(environment);
         Object result = null;
@@ -121,7 +123,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return result;
     }
 
-    private Event processEventByID(DataFetchingEnvironment environment)
+    Event processEventByID(DataFetchingEnvironment environment)
     {
         EventCrudQueryExecutor eventCrudQueryExecutor = null;
         Event event = new Event();
@@ -159,7 +161,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processCloseEvent(DataFetchingEnvironment environment)
+    Event processCloseEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         NotesCrudMutationExecutor notes = getClientServiceLookup().getNotesCrudMutationExecutor();
@@ -177,7 +179,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processDeleteEvent(DataFetchingEnvironment environment)
+    Event processDeleteEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
@@ -190,7 +192,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processUpdateEventStatus(DataFetchingEnvironment environment)
+    Event processUpdateEventStatus(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
@@ -204,7 +206,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processCreateEvent(DataFetchingEnvironment environment)
+    Event processCreateEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         EventCrudMutationExecutor eventCrudMutationExecutor = null;

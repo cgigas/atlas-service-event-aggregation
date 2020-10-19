@@ -27,13 +27,14 @@ import org.mockito.Mockito;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
+
 public class EventDataDispatchTest
 {
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
-    @Mock
-    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
     GraphqlUtility utility = new GraphqlUtility();
     EventDataDispatch task = new EventDataDispatch(collector, utility);
+    @Mock
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
     public void testProvideRuntimeTypeWiring()
@@ -52,5 +53,35 @@ public class EventDataDispatchTest
         {
             assertNotNull(task);
         }
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testProcessEventByID()
+    {
+        task.processEventByID(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testProcessCloseEvent()
+    {
+        task.processCloseEvent(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testProcessDeleteEvent()
+    {
+        task.processDeleteEvent(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testProcessUpdateEventStatus()
+    {
+        task.processUpdateEventStatus(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testProcessCreateEvent()
+    {
+        task.processCreateEvent(environment);
     }
 }

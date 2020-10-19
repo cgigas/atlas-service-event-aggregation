@@ -43,4 +43,22 @@ public class EventSatelliteDispatchTest
     {
         assertNull(task.performFetch(environment));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void testprocessAddSatelliteToEvent()
+    {
+        task.processAddSatelliteToEvent(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testprocessReleaseSatelliteFromEvent()
+    {
+        task.processReleaseSatelliteFromEvent(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testprocessPromoteEventSatellite()
+    {
+        task.processPromoteEventSatellite(environment);
+    }
 }

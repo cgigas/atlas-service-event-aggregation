@@ -234,8 +234,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         return PageableBuilder.from(environment.getArgument(argumentName));
     }
 
-
-    private PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
+    PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
     {
         PageInfo pageInfo = new PageInfo();
         Pageable pageable = null;

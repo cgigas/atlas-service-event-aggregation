@@ -18,6 +18,7 @@
 package atlas.event.aggregation.base;
 
 import atlas.event.aggregation.cache.DigitalCache;
+import com.google.common.annotations.VisibleForTesting;
 import graphql.schema.DataFetchingEnvironment;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class DigitalBase
         return cache;
     }
 
+    @VisibleForTesting
     protected String getRequestPath(DataFetchingEnvironment environment)
     {
         String requestPath = null;

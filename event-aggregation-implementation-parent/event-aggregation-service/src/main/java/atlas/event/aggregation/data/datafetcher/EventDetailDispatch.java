@@ -61,7 +61,6 @@ public class EventDetailDispatch extends AbstractDataDispatch<List<EventDetail>>
     @Autowired
     private ObservationSatMedleyParser observationSatMedleyParser;
 
-
     public EventDetailDispatch(RuntimeWiringTypeCollector collector)
     {
         this.collector = collector;
@@ -84,7 +83,7 @@ public class EventDetailDispatch extends AbstractDataDispatch<List<EventDetail>>
         return result;
     }
 
-    private EventDetail processEventDetail(DataFetchingEnvironment environment)
+    EventDetail processEventDetail(DataFetchingEnvironment environment)
     {
         EventDetail eventDetail = null;
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
