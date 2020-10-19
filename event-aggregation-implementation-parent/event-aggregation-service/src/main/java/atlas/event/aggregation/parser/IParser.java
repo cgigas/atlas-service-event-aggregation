@@ -122,35 +122,4 @@ public interface IParser
 
         return item;
     }
-
-    default String getItemAsString(String elementName, JSONObject json)
-    {
-        String item = null;
-
-        if ((StringUtils.isNotBlank(elementName)) && (json != null))
-        {
-            Object o = json.get(elementName);
-            if (o != null)
-            {
-                item = (String) o;
-            }
-        }
-
-        return item;
-    }
-
-    default OffsetDateTime getItemAsOffSetDate(String elementName, JSONObject json)
-    {
-        OffsetDateTime item = null;
-        if ((StringUtils.isNotBlank(elementName)) && (json != null))
-        {
-            Object o = json.get(elementName);
-            if (o != null)
-            {
-                item = (OffsetDateTime) o;
-            }
-        }
-
-        return item;
-    }
 }

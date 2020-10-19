@@ -17,82 +17,87 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.server.exception.EventAggregationQueryException;
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.idl.TypeRuntimeWiring;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import java.util.Collection;
+import java.util.Map;
 
+import static java.lang.System.getProperty;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 public class AbstractDataDispatchTest
 {
-    @Mock
+    AbstractDataDispatch dispatch = spy(AbstractDataDispatch.class);
+
+    Map<String, Object> localContext;
+    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
-
-    AbstractDataDispatch abstractDataDispatch;
-
-    @Before
-    public void setUp()
-    {
-        abstractDataDispatch = new AbstractDataDispatch()
-        {
-            @Override
-            protected Object performFetch(DataFetchingEnvironment environment)
-            {
-                return null;
-            }
-
-            @Override
-            protected Collection<TypeRuntimeWiring.Builder> provideRuntimeTypeWiring()
-            {
-                return null;
-            }
-        };
-    }
 
     @Test
     public void initializeRuntimeTypeInformation()
     {
-        abstractDataDispatch.initializeRuntimeTypeInformation();
+        dispatch.initializeRuntimeTypeInformation();
     }
 
     @Test
     public void get() throws Exception
     {
-        abstractDataDispatch.get(environment);
+        dispatch.get(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void buildErrorResult() throws Exception
+    {
+        dispatch.get(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void buildWarningResult()
+    {
+        EventAggregationQueryException e = mock(EventAggregationQueryException.class);
+        dispatch.buildWarningResult(environment, new Object(), e);
     }
 
     @Test
     public void getExtensions()
     {
-        abstractDataDispatch.getExtensions(environment);
+        assertNotNull(dispatch.getExtensions(environment));
     }
 
     @Test
     public void performFetch()
     {
-        abstractDataDispatch.performFetch(environment);
+        assertNull(dispatch.performFetch(environment));
     }
 
     @Test
     public void provideRuntimeTypeWiring()
     {
-        abstractDataDispatch.provideRuntimeTypeWiring();
+        assertNotNull(dispatch.provideRuntimeTypeWiring());
     }
 
     @Test
     public void addToLocalContext()
     {
-        abstractDataDispatch.addToLocalContext("user.country", "US");
+        dispatch.addToLocalContext("user.country", getProperty("user.country"));
     }
 
     @Test
     public void getPageRequestArgument()
     {
-        abstractDataDispatch.getPageRequestArgument(environment, "US");
+        dispatch.getPageRequestArgument(environment, "");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void getClientServiceLookup()
+    {
+        dispatch.getClientServiceLookup();
     }
 }

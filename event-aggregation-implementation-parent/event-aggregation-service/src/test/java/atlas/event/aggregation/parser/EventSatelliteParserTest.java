@@ -17,8 +17,11 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.exception.EventAggregateException;
+import atlas.satellite.crud.graphql.Satellite;
+import atlas.satellite.crud.graphql.SsaEventType;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +37,7 @@ import static org.junit.Assert.assertNull;
 public class EventSatelliteParserTest
 {
     EventSatelliteParser task = new EventSatelliteParser();
-    Object fromJson = new JSONObject();
+    JSONObject fromJson = new JSONObject();
     Object badObj = null;
 
     @Test
@@ -43,11 +46,16 @@ public class EventSatelliteParserTest
         assertNull(task.toJSONString(fromJson));
     }
 
-    @Test(expected = EventAggregateException.class)
+    @Test
+    public void testFromJsonStringNull()
+    {
+        assertNull(task.fromJsonString(null));
+    }
+
+    @Test(expected = ClassCastException.class)
     public void testFromJsonString()
     {
-        assertNull(task.fromJsonString(""));
-        task.fromJsonString("SsaEventSatellite");
+        assertNotNull(task.fromJsonString("{\"SsaEventSatellite\":\"ROUTINE\"}"));
     }
 
     @Test
