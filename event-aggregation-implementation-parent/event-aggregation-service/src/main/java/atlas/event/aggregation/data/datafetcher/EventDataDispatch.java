@@ -73,6 +73,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 .dataFetcher("eventById", this)
                 .dataFetcher("eventSummaries", this)
                 .dataFetcher("eventTypeSummariesByTimePeriod", this)
+                .dataFetcher("eventData", this)
+                .dataFetcher("deleteEvent", this)
                 .dataFetcher("eventsByTimePeriodAndType", this));
         builders.add(newTypeWiring("MPEServiceMutation")
                 .dataFetcher("closeEvent", this)
@@ -95,6 +97,12 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 case "/eventById":
                     result = processEventByID(environment);
                     break;
+                case "updateEvent":
+                    result = processUpdateEvent(environment);
+                    break;
+                case "/deleteEvent":
+                    result = processDeleteEvent(environment);
+                    break;
                 case "/eventTypeSummariesByTimePeriod":
                     result = processEventTypeSummariesByTimePeriod(environment);
                     break;
@@ -104,14 +112,14 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 case "/eventsByTimePeriodAndType":
                     result = null;
                     break;
+                case "/eventData":
+                    result = processEventData(environment);
+                    break;
                 case "/createEvent":
                     result = processCreateEvent(environment);
                     break;
                 case "/updateEventStatus":
                     result = processUpdateEventStatus(environment);
-                    break;
-                case "/deleteEvent":
-                    result = processDeleteEvent(environment);
                     break;
                 case "/closeEvent":
                     result = processCloseEvent(environment);
@@ -120,6 +128,41 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         }
 
         return result;
+    }
+
+    private Event processUpdateEvent(DataFetchingEnvironment environment)
+    {
+        Event event = new Event();
+
+        return event;
+    }
+
+    private EventData processEventData(DataFetchingEnvironment environment)
+    {
+        EventData eventData = new EventData();
+        EventCrudQueryExecutor eventCrudQueryExecutor;
+
+        if (environment != null)
+        {
+            eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
+            if (eventCrudQueryExecutor != null)
+            {
+                String eventDataUuid = environment.getArgument("eventDataUuid");
+                try
+                {
+                    StringBuffer queryString = new StringBuffer();
+                    atlas.ssaevent.crud.graphql.EventData clientEventData = eventCrudQueryExecutor.eventData(queryString.toString(), eventDataUuid);
+
+                    eventData = (EventData) eventDataParser.fromGraphqlClient(clientEventData);
+                }
+                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                {
+                    throw new DataAccessorException(e);
+                }
+            }
+        }
+
+        return eventData;
     }
 
     private Event processEventByID(DataFetchingEnvironment environment)
