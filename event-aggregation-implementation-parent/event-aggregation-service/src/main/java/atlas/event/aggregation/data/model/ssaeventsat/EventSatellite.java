@@ -20,6 +20,7 @@ package atlas.event.aggregation.data.model.ssaeventsat;
 import atlas.event.aggregation.data.model.Audited;
 import atlas.event.aggregation.data.model.GqlSchemaCommon;
 import atlas.event.aggregation.data.model.event.Event;
+
 import java.io.Serializable;
 
 public class EventSatellite extends Audited implements Serializable, GqlSchemaCommon
@@ -27,7 +28,18 @@ public class EventSatellite extends Audited implements Serializable, GqlSchemaCo
     private String eventSatUuid;
     private String satelliteUuid;
     private Event event;
-    private Long relationship;
+
+    public Relationship getRelationship()
+    {
+        return relationship;
+    }
+
+    public void setRelationship(Relationship relationship)
+    {
+        this.relationship = relationship;
+    }
+
+    private Relationship relationship;
     private Long ucn;
 
     public String getEventSatUuid()
@@ -60,15 +72,6 @@ public class EventSatellite extends Audited implements Serializable, GqlSchemaCo
         this.event = ssaEvent;
     }
 
-    public Long getRelationship()
-    {
-        return relationship;
-    }
-
-    public void setRelationship(Long relationship)
-    {
-        this.relationship = relationship;
-    }
 
     public Long getUcn()
     {

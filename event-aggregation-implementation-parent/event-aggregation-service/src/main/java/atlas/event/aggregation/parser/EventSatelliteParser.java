@@ -19,7 +19,9 @@ package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
+import atlas.event.aggregation.data.model.ssaeventsat.Relationship;
 import atlas.event.aggregation.exception.EventAggregateException;
+import atlas.ssaevent.crud.graphql.EventRelationship;
 import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -85,7 +87,7 @@ public class EventSatelliteParser implements IParser
             eventSatellite = new EventSatellite();
             eventSatellite.setEventSatUuid(getItemAsString("eventSatUuid", map));
             eventSatellite.setSatelliteUuid(getItemAsString("satelliteUuid", map));
-            eventSatellite.setRelationship(getItemAsLong("relationship", map));
+            eventSatellite.setRelationship(Relationship.valueOf((getItemAsString("relationship", map))));
             eventSatellite.setUcn(getItemAsLong("ucn", map));
             eventSatellite.setEvent((Event) eventParser.fromJson((Map) map.get("event")));
         }
@@ -96,12 +98,46 @@ public class EventSatelliteParser implements IParser
     @Override
     public Object fromGraphqlClient(Object graphql)
     {
-        return null;
+        EventSatellite eventSatellite = new EventSatellite();
+        if (graphql instanceof atlas.ssaevent.crud.graphql.EventSat)
+        {
+            atlas.ssaevent.crud.graphql.EventSat clientSat = (atlas.ssaevent.crud.graphql.EventSat) graphql;
+            eventSatellite.setEventSatUuid(clientSat.getEventSatUuid());
+            eventSatellite.setRelationship(Relationship.valueOf(clientSat.getRelationship().name()));
+            eventSatellite.setEvent((Event) eventParser.fromGraphqlClient(clientSat.getEvent()));
+            eventSatellite.setSatelliteUuid(clientSat.getSatelliteUuid());
+            eventSatellite.setUcn(clientSat.getUcn().longValue());
+        }
+        return eventSatellite;
     }
 
     @Override
     public Object toGraphqlClient(Object model, Boolean inputMode)
     {
-        return null;
+        Object resultItem = null;
+        if (model instanceof Map)
+        {
+            if (inputMode)
+            {
+                atlas.ssaevent.crud.graphql.EventSatInput clientInput = new atlas.ssaevent.crud.graphql.EventSatInput();
+                Map<String, Object> eventMap = (Map) model;
+                clientInput.setEventUuid(getItemAsString("eventUuid", eventMap));
+                clientInput.setRelationship(EventRelationship.valueOf((getItemAsString("relationship", eventMap))));
+                clientInput.setSatelliteUuid(getItemAsString("satelliteUuid", eventMap));
+                clientInput.setUcn(getItemAsInteger("ucn", eventMap));
+                resultItem = clientInput;
+            }
+            else
+            {
+                atlas.ssaevent.crud.graphql.EventSat clientInput = new atlas.ssaevent.crud.graphql.EventSat();
+                Map<String, Object> eventMap = (Map) model;
+                clientInput.setEventUuid(getItemAsString("eventUuid", eventMap));
+                clientInput.setRelationship(EventRelationship.valueOf((getItemAsString("relationship", eventMap))));
+                clientInput.setSatelliteUuid(getItemAsString("satelliteUuid", eventMap));
+                clientInput.setUcn(getItemAsInteger("ucn", eventMap));
+                resultItem = clientInput;
+            }
+        }
+        return resultItem;
     }
 }

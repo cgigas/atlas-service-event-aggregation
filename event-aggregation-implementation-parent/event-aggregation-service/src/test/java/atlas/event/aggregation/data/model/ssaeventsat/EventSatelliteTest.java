@@ -29,7 +29,7 @@ public class EventSatelliteTest
     String eventSatUuid = "event sat uuid";
     String satelliteUuid = "sat uuid";
     Event ssaEvent = new Event();
-    Long relationship = 2L;
+    Relationship relationship = Relationship.PARENT;
     Long ucn = 3L;
     Object o = new Object();
 

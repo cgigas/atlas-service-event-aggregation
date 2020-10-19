@@ -23,6 +23,7 @@ import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.parser.EventParser;
 import atlas.event.aggregation.parser.EventSatelliteParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
@@ -108,17 +109,16 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
 
     List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
-        List<Event> datalist = new ArrayList<>();
-        Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String eventId = environment.getArgument("eventId");
-        String satelliteUuid = environment.getArgument("satelliteUuid");
-        url += "/releaseSatelliteFromEvent/" + eventId + "/" + satelliteUuid;
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-
-        event = (Event) eventParser.fromJsonString(resultRequestedData);
-        datalist.add(event);
-        return datalist;
+        EventCrudMutationExecutor eventCrudMutationExecutor;
+        List<Map<String, Object>> eventSatList = environment.getArgument("input");
+        if (eventSatList != null)
+        {
+            Map<String, Object> eventSatMap = eventSatList.get(0);
+            String eventId = (String) eventSatMap.get("eventId");
+            String satelliteUuid = (String) eventSatMap.get("satelliteUuid");
+            System.out.println("party time");
+        }
+        return null;
     }
 
     List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)

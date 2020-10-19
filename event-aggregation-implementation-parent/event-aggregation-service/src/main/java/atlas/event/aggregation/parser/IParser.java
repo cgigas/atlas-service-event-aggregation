@@ -18,7 +18,6 @@
 package atlas.event.aggregation.parser;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.simple.JSONObject;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -77,18 +76,17 @@ public interface IParser
         return item;
     }
 
-    default Integer getItemAsInteger(String elementName, JSONObject json)
+    default Integer getItemAsInteger(String elementName, Map<String, Object> map)
     {
         Integer item = null;
-        if ((StringUtils.isNotBlank(elementName)) && (json != null))
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
         {
-            Object o = json.get(elementName);
+            Object o = map.get(elementName);
             if (o != null)
             {
                 item = (Integer) o;
             }
         }
-
         return item;
     }
 
