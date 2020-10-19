@@ -21,6 +21,7 @@ import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.eventdata.EventData;
 import atlas.event.aggregation.data.model.eventdata.EventTypeSummary;
 import atlas.event.aggregation.parser.event.EventDataParser;
 import atlas.event.aggregation.parser.event.EventParser;
