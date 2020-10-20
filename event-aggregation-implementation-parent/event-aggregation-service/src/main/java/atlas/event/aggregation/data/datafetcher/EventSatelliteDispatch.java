@@ -106,49 +106,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                 try
                 {
                     StringBuffer resultBuffer = new StringBuffer();
-                    resultBuffer.append("{ ");
-                    resultBuffer.append("eventSatUuid ");
-                    resultBuffer.append("satelliteUuid ");
-                    resultBuffer.append("eventUuid ");
-                    resultBuffer.append("relationship ");
-                    resultBuffer.append("ucn ");
-                    resultBuffer.append("version ");
-                    resultBuffer.append("event { ");
-                    resultBuffer.append("eventUuid ");
-                    resultBuffer.append("classificationMarking ");
-                    resultBuffer.append("predecessorEventUuid ");
-                    resultBuffer.append("type ");
-                    resultBuffer.append("name ");
-                    resultBuffer.append("status ");
-                    resultBuffer.append("startDt ");
-                    resultBuffer.append("endDt ");
-                    resultBuffer.append("description ");
-                    resultBuffer.append("internalNotes ");
-                    resultBuffer.append("eventPostingId ");
-
-                    resultBuffer.append("eventData { ");
-                    resultBuffer.append("eventUuid ");
-                    resultBuffer.append("classificationMarking ");
-                    resultBuffer.append("name ");
-                    resultBuffer.append("uri ");
-                    resultBuffer.append("type ");
-                    resultBuffer.append("supplementalData ");
-                    resultBuffer.append("createDate ");
-                    resultBuffer.append("createOrigin ");
-                    resultBuffer.append("updateDate ");
-                    resultBuffer.append("updateOrigin ");
-                    resultBuffer.append("version ");
-                    resultBuffer.append("} ");
-
-                    resultBuffer.append("createDate ");
-                    resultBuffer.append("createOrigin ");
-                    resultBuffer.append("updateDate ");
-                    resultBuffer.append("updateOrigin ");
-                    resultBuffer.append("version ");
-                    resultBuffer.append("} ");
-
-
-                    resultBuffer.append("} ");
+                    resultBuffer.append("{ eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { eventUuid classificationMarking name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version } }");
                     System.out.println(resultBuffer.toString());
                     atlas.ssaevent.crud.graphql.EventSat crudEventResult = eventCrudMutationExecutor.createEventSat(resultBuffer.toString(), crudEventSat);
 
@@ -208,52 +166,16 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                 if (eventSatPromoMapList != null)
                 {
                     eventSatelliteList = new ArrayList<>();
-                    StringBuffer returnBuffer = new StringBuffer();
-                    returnBuffer.append("{eventSatUuid \n");
-                    returnBuffer.append("satelliteUuid \n");
-                    returnBuffer.append("eventUuid \n");
-                    returnBuffer.append("relationship \n");
-                    returnBuffer.append("ucn \n");
-                    returnBuffer.append("version \n");
-                    returnBuffer.append("event { \n");
-                    returnBuffer.append("eventUuid \n");
-                    returnBuffer.append("classificationMarking \n");
-                    returnBuffer.append("predecessorEventUuid \n");
-                    returnBuffer.append("type \n");
-                    returnBuffer.append("name \n");
-                    returnBuffer.append("status \n");
-                    returnBuffer.append("startDt \n");
-                    returnBuffer.append("endDt \n");
-                    returnBuffer.append("description \n");
-                    returnBuffer.append("internalNotes \n");
-                    returnBuffer.append("eventPostingId \n");
-                    returnBuffer.append("eventData { \n");
-                    returnBuffer.append("eventUuid \n");
-                    returnBuffer.append("classificationMarking \n");
-                    returnBuffer.append("eventUuid \n");
-                    returnBuffer.append("name \n");
-                    returnBuffer.append("uri \n");
-                    returnBuffer.append("type \n");
-                    returnBuffer.append("supplementalData \n");
-                    returnBuffer.append("createDate \n");
-                    returnBuffer.append("createOrigin \n");
-                    returnBuffer.append("updateDate \n");
-                    returnBuffer.append("updateOrigin \n");
-                    returnBuffer.append("version \n");
-                    returnBuffer.append("} \n");
-                    returnBuffer.append("createDate \n");
-                    returnBuffer.append("createOrigin \n");
-                    returnBuffer.append("updateDate \n");
-                    returnBuffer.append("updateOrigin \n");
-                    returnBuffer.append("version \n");
-                    returnBuffer.append("} \n");
+                    StringBuffer resultBuffer = new StringBuffer();
+                    resultBuffer.append("{ eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version } } }");
+                    System.out.println(resultBuffer.toString());
                     for (Map<String, Object> eventSatPromotItem: eventSatPromoMapList)
                     {
                         String eventSatelliteUuid = getItemAsString("eventSatelliteUuid", eventSatPromotItem);
                         String relationship = getItemAsString("relationship", eventSatPromotItem);
                         try
                         {
-                            atlas.ssaevent.crud.graphql.EventSat crudEventSat = eventCrudMutationExecutor.updateEventSat("", eventSatelliteUuid, EventRelationship.valueOf(relationship));
+                            atlas.ssaevent.crud.graphql.EventSat crudEventSat = eventCrudMutationExecutor.updateEventSat(resultBuffer.toString(), eventSatelliteUuid, EventRelationship.valueOf(relationship));
                             EventSatellite eventSatellite = (EventSatellite) eventSatelliteParser.fromGraphqlClient(crudEventSat);
                             eventSatelliteList.add(eventSatellite);
                         }

@@ -21,7 +21,6 @@ import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
 import org.mockito.Mock;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -29,6 +28,7 @@ public class EventSatelliteDispatchTest
 {
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     EventSatelliteDispatch task = new EventSatelliteDispatch(collector);
+
     @Mock
     DataFetchingEnvironment environment;
 
@@ -50,15 +50,4 @@ public class EventSatelliteDispatchTest
         task.processAddSatelliteToEvent(environment);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testprocessReleaseSatelliteFromEvent()
-    {
-        task.processReleaseSatelliteFromEvent(environment);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testprocessPromoteEventSatellite()
-    {
-        task.processPromoteEventSatellite(environment);
-    }
 }
