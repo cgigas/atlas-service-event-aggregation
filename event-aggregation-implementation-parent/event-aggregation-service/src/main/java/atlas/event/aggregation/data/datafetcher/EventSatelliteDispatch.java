@@ -92,7 +92,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return result;
     }
 
-    private EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
+    EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
     {
         EventSatellite eventSat = new EventSatellite();
         EventCrudMutationExecutor eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
@@ -137,7 +137,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return null;
     }
 
-    private List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
+    List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
         List<EventSatellite> eventSatelliteList = null;
         EventCrudMutationExecutor eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
