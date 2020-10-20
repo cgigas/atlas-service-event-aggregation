@@ -73,18 +73,18 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceQuery")
-			.dataFetcher("eventById", this)
-			.dataFetcher("eventSummaries", this)
-			.dataFetcher("eventTypeSummariesByTimePeriod", this)
-			.dataFetcher("eventData", this)
-			.dataFetcher("deleteEvent", this)
-			.dataFetcher("eventsByTimePeriodAndType", this));
+                .dataFetcher("eventById", this)
+                .dataFetcher("eventSummaries", this)
+                .dataFetcher("eventTypeSummariesByTimePeriod", this)
+                .dataFetcher("eventData", this)
+                .dataFetcher("deleteEvent", this)
+                .dataFetcher("eventsByTimePeriodAndType", this));
         builders.add(newTypeWiring("MPEServiceMutation")
-            .dataFetcher("closeEvent", this)
-            .dataFetcher("deleteEvent", this)
-            .dataFetcher("updateEventType", this)
-            .dataFetcher("updateEventStatus", this)
-            .dataFetcher("createEvent", this));
+                .dataFetcher("closeEvent", this)
+                .dataFetcher("deleteEvent", this)
+                .dataFetcher("updateEventType", this)
+                .dataFetcher("updateEventStatus", this)
+                .dataFetcher("createEvent", this));
         return builders;
     }
 

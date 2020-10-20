@@ -17,7 +17,6 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
-import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;

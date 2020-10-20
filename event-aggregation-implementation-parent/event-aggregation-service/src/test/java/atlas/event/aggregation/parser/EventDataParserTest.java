@@ -17,6 +17,7 @@
  */
 package atlas.event.aggregation.parser;
 
+import atlas.event.aggregation.parser.event.EventDataParser;
 import atlas.ssaevent.crud.graphql.EventData;
 import org.junit.Test;
 
