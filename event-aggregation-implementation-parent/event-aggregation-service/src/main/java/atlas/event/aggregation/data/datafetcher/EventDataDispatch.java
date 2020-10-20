@@ -73,18 +73,18 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceQuery")
-                .dataFetcher("eventById", this)
-                .dataFetcher("eventSummaries", this)
-                .dataFetcher("eventTypeSummariesByTimePeriod", this)
-                .dataFetcher("eventData", this)
-                .dataFetcher("deleteEvent", this)
-                .dataFetcher("eventsByTimePeriodAndType", this));
+            .dataFetcher("eventById", this)
+            .dataFetcher("eventSummaries", this)
+            .dataFetcher("eventTypeSummariesByTimePeriod", this)
+            .dataFetcher("eventData", this)
+            .dataFetcher("deleteEvent", this)
+            .dataFetcher("eventsByTimePeriodAndType", this));
         builders.add(newTypeWiring("MPEServiceMutation")
-                .dataFetcher("closeEvent", this)
-                .dataFetcher("deleteEvent", this)
-                .dataFetcher("updateEventType", this)
-                .dataFetcher("updateEventStatus", this)
-                .dataFetcher("createEvent", this));
+            .dataFetcher("closeEvent", this)
+            .dataFetcher("deleteEvent", this)
+            .dataFetcher("updateEventType", this)
+            .dataFetcher("updateEventStatus", this)
+            .dataFetcher("createEvent", this));
         return builders;
     }
 
@@ -227,12 +227,46 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     Event processDeleteEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String id = environment.getArgument("id");
-        url += "/deleteSdaEvent/" + id;
 
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (Event) eventParser.fromJsonString(resultRequestedData);
+        EventCrudMutationExecutor eventCrudMutationExecutor;
+        if (environment != null)
+        {
+            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            Map<String, Object> eventData = environment.getArgument("eventData");
+            if (eventData != null)
+            {
+                atlas.ssaevent.crud.graphql.EventInput clientEvent = (atlas.ssaevent.crud.graphql.EventInput) eventParser.toGraphqlClient(eventData, Boolean.TRUE);
+                atlas.ssaevent.crud.graphql.EventDataInput clientEventData = null;
+
+                // check for Client Data
+                if (eventData.containsKey("eventData"))
+                {
+                    clientEventData = (atlas.ssaevent.crud.graphql.EventDataInput) eventDataParser.toGraphqlClient(eventData.get("eventData"), Boolean.TRUE);
+                    try
+                    {
+                        StringBuffer queryString = new StringBuffer();
+                        queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type createDate createOrigin\n");
+                        queryString.append(" updateDate\n");
+                        queryString.append(" updateOrigin\n");
+                        queryString.append(" version\n");
+                        queryString.append("}\n");
+                        queryString.append(" createDate\n");
+                        queryString.append(" createOrigin\n");
+                        queryString.append(" updateDate\n");
+                        queryString.append(" updateOrigin\n");
+                        queryString.append(" version\n");
+                        queryString.append("}\n");
+                        atlas.ssaevent.crud.graphql.Event clientEventDeleteResult = eventCrudMutationExecutor.deleteEvent(queryString.toString(), (String) eventData.get("eventUuid"), clientEventData);
+                        event = (Event) eventParser.fromGraphqlClient(clientEventDeleteResult);
+                    }
+                    catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                    {
+                        e.printStackTrace();
+                        throw new DataAccessorException(e);
+                    }
+                }
+            }
+        }
 
         return event;
     }
