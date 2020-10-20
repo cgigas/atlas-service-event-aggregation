@@ -132,7 +132,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
             List<String> eventSatList = environment.getArgument("eventSatUuid");
             if (eventSatList != null)
             {
-                String returnParams = "{\"eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version }}\"}";
+                String returnParams = "{eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version }}}";
                 eventSatelliteList = new ArrayList<>();
                 eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
                 for (String eventSatUuid: eventSatList)
