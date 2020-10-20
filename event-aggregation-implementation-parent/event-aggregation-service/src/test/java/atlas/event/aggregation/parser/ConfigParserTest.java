@@ -15,38 +15,58 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.paging.elements.Direction;
-import atlas.event.aggregation.data.paging.elements.Order;
+import org.json.JSONObject;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-public class OrderTest
+public class ConfigParserTest
 {
-    Order task = new Order();
-    String property = "property";
-    Direction direction = Direction.ASC;
+    ConfigParser task = new ConfigParser();
+    JSONObject fromJson = new JSONObject();
+    String json = "{\"random\":\"value\"}";
+    Map<String, Object> map = new HashMap<>();
 
-    @Test
-    public void setProperty()
+    @Test(expected = StackOverflowError.class)
+    public void toJSONString()
     {
-        task.setProperty(property);
-        assertEquals(property, task.getProperty());
+        assertNull(task.toJSONString(fromJson));
     }
 
     @Test
-    public void setDirection()
+    public void fromJsonString()
     {
-        task.setDirection(direction);
-        assertEquals(direction, task.getDirection());
+        assertNotNull(task.fromJsonString(json));
     }
 
     @Test
-    public void testToString()
+    public void fromJson()
     {
-        assertNotNull(task.toString());
+        JSONObject jsonObj = new JSONObject();
+        assertNull(task.fromJson(jsonObj));
+    }
+
+    @Test
+    public void testFromJson()
+    {
+        assertNotNull(task.fromJson(map));
+    }
+
+    @Test
+    public void fromGraphqlClient()
+    {
+        assertNull(task.fromGraphqlClient(fromJson));
+    }
+
+    @Test
+    public void toGraphqlClient()
+    {
+        assertNull(task.toGraphqlClient(fromJson, true));
     }
 }

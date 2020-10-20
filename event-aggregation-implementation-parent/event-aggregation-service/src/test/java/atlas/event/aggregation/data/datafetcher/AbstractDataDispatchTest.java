@@ -17,60 +17,92 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.server.exception.EventAggregationQueryException;
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.Map;
+
+import static java.lang.System.getProperty;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 
 public class AbstractDataDispatchTest
 {
-    @Mock
-    AbstractDataDispatch task = mock(AbstractDataDispatch.class, Mockito.CALLS_REAL_METHODS);
+    AbstractDataDispatch dispatch = spy(AbstractDataDispatch.class);
 
-    @Mock
+    Map<String, Object> localContext;
+    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
     public void initializeRuntimeTypeInformation()
     {
-        task.initializeRuntimeTypeInformation();
+        dispatch.initializeRuntimeTypeInformation();
     }
 
     @Test
     public void get() throws Exception
     {
-        task.get(environment);
+        dispatch.get(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void buildErrorResult() throws Exception
+    {
+        dispatch.get(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void buildWarningResult()
+    {
+        EventAggregationQueryException e = mock(EventAggregationQueryException.class);
+        dispatch.buildWarningResult(environment, new Object(), e);
     }
 
     @Test
     public void getExtensions()
     {
-        task.getExtensions(environment);
+        assertNotNull(dispatch.getExtensions(environment));
     }
 
     @Test
     public void performFetch()
     {
-        task.performFetch(environment);
+        assertNull(dispatch.performFetch(environment));
     }
 
     @Test
     public void provideRuntimeTypeWiring()
     {
-        task.provideRuntimeTypeWiring();
+        assertNotNull(dispatch.provideRuntimeTypeWiring());
     }
 
     @Test
     public void addToLocalContext()
     {
-        task.addToLocalContext("user.country", "US");
+        dispatch.addToLocalContext("user.country", getProperty("user.country"));
     }
 
     @Test
     public void getPageRequestArgument()
     {
-        task.getPageRequestArgument(environment, "US");
+        dispatch.getPageRequestArgument(environment, "");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void getClientServiceLookup()
+    {
+        dispatch.getClientServiceLookup();
+    }
+
+    @Test
+    public void testGetPageInfoArgument()
+    {
+        dispatch.getPageInfoArgument(environment);
     }
 }

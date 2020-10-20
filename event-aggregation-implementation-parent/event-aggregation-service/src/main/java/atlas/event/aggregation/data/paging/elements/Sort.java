@@ -20,10 +20,26 @@ package atlas.event.aggregation.data.paging.elements;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data @NoArgsConstructor
 public class Sort
 {
     private List<Order> orders;
+
+    public List<Order> getOrders()
+    {
+        if (orders == null)
+        {
+            orders = new ArrayList<>();
+        }
+
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders)
+    {
+        this.orders = orders;
+    }
 }

@@ -20,8 +20,8 @@ package atlas.event.aggregation.data.model.ssaeventsat;
 import atlas.event.aggregation.data.model.event.Event;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class EventSatelliteTest
 {
@@ -29,7 +29,7 @@ public class EventSatelliteTest
     String eventSatUuid = "event sat uuid";
     String satelliteUuid = "sat uuid";
     Event ssaEvent = new Event();
-    Long relationship = 2L;
+    Relationship relationship = Relationship.ACTOR;
     Long ucn = 3L;
     Object o = new Object();
 
@@ -57,7 +57,7 @@ public class EventSatelliteTest
     @Test
     public void setRelationship()
     {
-        task.setRelationship(relationship);
+        task.setRelationship(Relationship.ACTOR);
         assertEquals(relationship, task.getRelationship());
     }
 

@@ -15,8 +15,19 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.paging;
+package atlas.event.aggregation.data.datafetcher.mutation;
 
-public class Sort
+import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+
+public class EventFolderUpdaterTest
 {
+    EventFolderUpdater task = new EventFolderUpdater();
+
+    @Test
+    public void test()
+    {
+        assertNotNull(task);
+    }
 }

@@ -15,27 +15,25 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.candidateformation;
+package atlas.event.aggregation.data.datafetcher.mutation;
 
-import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-public class CandidateFormationParametersTest
+public class MPEProcessingConfigUpdaterTest
 {
+    MPEProcessingConfigUpdater task = new MPEProcessingConfigUpdater();
+
     @Test
-    public void test() throws Exception
+    public void provideRuntimeTypeWiring()
     {
-        GetterSetterTester tester = new GetterSetterTester()
-        {
-            @Override
-            protected Object getInstance()
-            {
-                return new CandidateFormationParameters();
-            }
-        };
-        assertNotNull(tester);
-        tester.testGettersAndSetters();
+        assertNull(task.provideRuntimeTypeWiring());
+    }
+
+    @Test
+    public void performFetch()
+    {
+        assertNull(task.performFetch(null));
     }
 }

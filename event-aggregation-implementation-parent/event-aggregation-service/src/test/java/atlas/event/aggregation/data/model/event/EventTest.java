@@ -18,8 +18,10 @@
 package atlas.event.aggregation.data.model.event;
 
 import org.junit.Test;
+
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+
 import static org.junit.Assert.assertEquals;
 
 public class EventTest
@@ -120,6 +122,9 @@ public class EventTest
     @Test
     public void setId()
     {
+        task.setId(eventUuid);
+        assertEquals(eventUuid, task.getId());
+        assertEquals(serialVersionUID, Event.getSerialVersionUID());
         task.setEventUuid(eventUuid);
         assertEquals(eventUuid, task.getEventUuid());
     }

@@ -21,8 +21,11 @@ import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
-import atlas.event.aggregation.parser.EventDataParser;
-import atlas.event.aggregation.parser.EventParser;
+import atlas.event.aggregation.data.model.eventdata.EventData;
+import atlas.event.aggregation.data.model.eventdata.EventTypeSummary;
+import atlas.event.aggregation.parser.event.EventDataParser;
+import atlas.event.aggregation.parser.event.EventParser;
+import atlas.event.aggregation.parser.event.EventTypeSummaryParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
 import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
@@ -38,10 +41,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
@@ -54,6 +59,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     private EventParser eventParser;
     @Autowired
     private EventDataParser eventDataParser;
+    @Autowired
+    private EventTypeSummaryParser eventTypeSummaryParser;
 
     public EventDataDispatch(RuntimeWiringTypeCollector collector, GraphqlUtility graphqlUtility)
     {
@@ -69,6 +76,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 .dataFetcher("eventById", this)
                 .dataFetcher("eventSummaries", this)
                 .dataFetcher("eventTypeSummariesByTimePeriod", this)
+                .dataFetcher("eventData", this)
+                .dataFetcher("deleteEvent", this)
                 .dataFetcher("eventsByTimePeriodAndType", this));
         builders.add(newTypeWiring("MPEServiceMutation")
                 .dataFetcher("closeEvent", this)
@@ -82,9 +91,6 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     @Override
     protected Object performFetch(DataFetchingEnvironment environment)
     {
-        // extract query
-        //String partialQueryString = graphqlUtility.graphqlPartialQueryStringFromField(environment.getMergedField().getSingleField());
-
         String path = getRequestPath(environment);
         Object result = null;
         if (StringUtils.isNotBlank(path))
@@ -94,8 +100,14 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 case "/eventById":
                     result = processEventByID(environment);
                     break;
+                case "updateEvent":
+                    result = processUpdateEvent(environment);
+                    break;
+                case "/deleteEvent":
+                    result = processDeleteEvent(environment);
+                    break;
                 case "/eventTypeSummariesByTimePeriod":
-                    result = null;
+                    result = processEventTypeSummariesByTimePeriod(environment);
                     break;
                 case "/getEventTypes":
                     result = null;
@@ -103,14 +115,14 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 case "/eventsByTimePeriodAndType":
                     result = null;
                     break;
+                case "/eventData":
+                    result = processEventData(environment);
+                    break;
                 case "/createEvent":
                     result = processCreateEvent(environment);
                     break;
                 case "/updateEventStatus":
                     result = processUpdateEventStatus(environment);
-                    break;
-                case "/deleteEvent":
-                    result = processDeleteEvent(environment);
                     break;
                 case "/closeEvent":
                     result = processCloseEvent(environment);
@@ -121,7 +133,42 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return result;
     }
 
-    private Event processEventByID(DataFetchingEnvironment environment)
+    private Event processUpdateEvent(DataFetchingEnvironment environment)
+    {
+        Event event = new Event();
+
+        return event;
+    }
+
+    private EventData processEventData(DataFetchingEnvironment environment)
+    {
+        EventData eventData = new EventData();
+        EventCrudQueryExecutor eventCrudQueryExecutor;
+
+        if (environment != null)
+        {
+            eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
+            if (eventCrudQueryExecutor != null)
+            {
+                String eventDataUuid = environment.getArgument("eventDataUuid");
+                try
+                {
+                    StringBuffer queryString = new StringBuffer();
+                    atlas.ssaevent.crud.graphql.EventData clientEventData = eventCrudQueryExecutor.eventData(queryString.toString(), eventDataUuid);
+
+                    eventData = (EventData) eventDataParser.fromGraphqlClient(clientEventData);
+                }
+                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                {
+                    throw new DataAccessorException(e);
+                }
+            }
+        }
+
+        return eventData;
+    }
+
+    Event processEventByID(DataFetchingEnvironment environment)
     {
         EventCrudQueryExecutor eventCrudQueryExecutor = null;
         Event event = new Event();
@@ -159,7 +206,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processCloseEvent(DataFetchingEnvironment environment)
+    Event processCloseEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         NotesCrudMutationExecutor notes = getClientServiceLookup().getNotesCrudMutationExecutor();
@@ -177,7 +224,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processDeleteEvent(DataFetchingEnvironment environment)
+    Event processDeleteEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
@@ -190,7 +237,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processUpdateEventStatus(DataFetchingEnvironment environment)
+    Event processUpdateEventStatus(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
@@ -204,7 +251,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    private Event processCreateEvent(DataFetchingEnvironment environment)
+    Event processCreateEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
         EventCrudMutationExecutor eventCrudMutationExecutor = null;
@@ -249,5 +296,19 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         }
 
         return event;
+    }
+
+    public EventTypeSummary processEventTypeSummariesByTimePeriod(DataFetchingEnvironment environment)
+    {
+        EventTypeSummary eventTypeSummary = new EventTypeSummary();
+        if (environment != null)
+        {
+            Map<String, Object> timePeriodMap = environment.getArgument("timePeriod");
+            Map<String, Object> pageRequestMap = environment.getArgument("pageRequest");
+            atlas.ssaevent.crud.graphql.PageInfo eventCrudPageInfo = (atlas.ssaevent.crud.graphql.PageInfo) eventParser.toPageInfo(pageRequestMap);
+            System.getProperty("");
+        }
+
+        return eventTypeSummary;
     }
 }

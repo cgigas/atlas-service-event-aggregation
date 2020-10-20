@@ -15,73 +15,23 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.parser;
+package atlas.event.aggregation.parser.event;
 
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.event.EventStatus;
 import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.data.model.eventdata.EventData;
-import atlas.event.aggregation.exception.EventAggregateException;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Component("eventParser")
-public class EventParser implements IParser
+@Component
+public class EventParser extends EventMasterParser
 {
-
     @Autowired
     private EventDataParser eventDataParser;
-
-    @Override
-    public String toJSONString(Object fromJson)
-    {
-        return toJSONString(fromJson);
-    }
-
-    @Override
-    public Object fromJsonString(String json)
-    {
-        Object result = null;
-        try
-        {
-            JSONObject jsonObject = (JSONObject) new JSONParser().parse(json);
-            result = fromJson((Map) jsonObject.get("event"));
-        }
-        catch (ParseException pe)
-        {
-            throw new EventAggregateException(pe);
-        }
-
-        return result;
-    }
-
-
-
-    @Override
-    public Object fromJson(Object json)
-    {
-        Event event = null;
-        if (json instanceof JSONObject)
-        {
-            JSONObject jsonObject = (JSONObject) json;
-            Map<String, Object> map = (Map)jsonObject.get("event");
-            event = (Event) fromJson(map);
-        }
-        return event;
-    }
-
-    @Override
-    public Object fromJson(Map<String, Object> map)
-    {
-        return null;
-    }
 
     public Object fromGraphqlClient(Object graphql)
     {
@@ -111,8 +61,6 @@ public class EventParser implements IParser
             event.setCreateOrigin(clientEvent.getCreateOrigin());
             event.setUpdateDate(clientEvent.getUpdateDate());
             event.setUpdateOrigin(clientEvent.getUpdateOrigin());
-
-
         }
 
         return event;

@@ -23,8 +23,8 @@ import atlas.event.aggregation.data.model.event.EventDetail;
 import atlas.event.aggregation.data.model.event.Launch;
 import atlas.event.aggregation.data.model.event.ObservationSatMedley;
 import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.parser.EventDetailParser;
-import atlas.event.aggregation.parser.EventParser;
+import atlas.event.aggregation.parser.event.EventDetailParser;
+import atlas.event.aggregation.parser.event.EventParser;
 import atlas.event.aggregation.parser.LaunchParser;
 import atlas.event.aggregation.parser.ObservationSatMedleyParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
@@ -61,7 +61,6 @@ public class EventDetailDispatch extends AbstractDataDispatch<List<EventDetail>>
     @Autowired
     private ObservationSatMedleyParser observationSatMedleyParser;
 
-
     public EventDetailDispatch(RuntimeWiringTypeCollector collector)
     {
         this.collector = collector;
@@ -84,7 +83,7 @@ public class EventDetailDispatch extends AbstractDataDispatch<List<EventDetail>>
         return result;
     }
 
-    private EventDetail processEventDetail(DataFetchingEnvironment environment)
+    EventDetail processEventDetail(DataFetchingEnvironment environment)
     {
         EventDetail eventDetail = null;
         String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);

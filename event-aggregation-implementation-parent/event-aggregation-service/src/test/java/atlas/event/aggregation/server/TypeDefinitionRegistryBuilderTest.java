@@ -18,18 +18,27 @@
 package atlas.event.aggregation.server;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class TypeDefinitionRegistryBuilderTest
 {
+    @Autowired
+    ResourceLoader resourceLoader;
+
     TypeDefinitionRegistryBuilder task = new TypeDefinitionRegistryBuilder();
-    String rootResourcePath = "event-aggregation-implementation-parent/event-aggregation-service/src/main/resources/graphql/MPEService.graphql";
+    String rootResourcePath = "classpath:graphql";
+    List<File> fileList = new ArrayList<>();
 
     @Test
-    public void buildRegistryFrom() throws IOException
+    public void buildRegistry() throws IOException
     {
         try
         {
@@ -37,7 +46,35 @@ public class TypeDefinitionRegistryBuilderTest
         }
         catch (Exception e)
         {
-            assertTrue(e.toString().contains("cannot be resolved to URL because it does not exist"));
+            assertEquals("java.lang.NullPointerException", e.toString());
+        }
+    }
+
+    @Test
+    public void buildRegistryFrom() throws IOException
+    {
+        try
+        {
+
+            task.buildRegistryFrom("graphql", rootResourcePath);
+        }
+        catch (Exception e)
+        {
+            //assertEquals("java.lang.NullPointerException", e.toString());
+        }
+    }
+
+    @Test
+    public void buildRegistryFromList() throws IOException
+    {
+        fileList.add(new File("src/main/resources/graphql/eventFolder.graphql"));
+        try
+        {
+            task.buildRegistryFrom(fileList);
+        }
+        catch (Exception e)
+        {
+            //assertEquals("java.lang.NullPointerException", e.toString());
         }
     }
 }

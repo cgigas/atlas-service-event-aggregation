@@ -15,27 +15,22 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.candidateformation;
+package atlas.event.aggregation.parser.event;
 
-import atlas.event.aggregation.GetterSetterTester;
-import org.junit.Test;
+import org.springframework.stereotype.Component;
 
-import static org.junit.Assert.assertNotNull;
-
-public class CandidateFormationParametersTest
+@Component
+public class EventDetailParser extends EventMasterParser
 {
-    @Test
-    public void test() throws Exception
+    @Override
+    public Object fromGraphqlClient(Object graphql)
     {
-        GetterSetterTester tester = new GetterSetterTester()
-        {
-            @Override
-            protected Object getInstance()
-            {
-                return new CandidateFormationParameters();
-            }
-        };
-        assertNotNull(tester);
-        tester.testGettersAndSetters();
+        return null;
+    }
+
+    @Override
+    public Object toGraphqlClient(Object model, Boolean inputMode)
+    {
+        return null;
     }
 }
