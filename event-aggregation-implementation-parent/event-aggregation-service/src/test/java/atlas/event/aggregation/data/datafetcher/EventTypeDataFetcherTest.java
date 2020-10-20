@@ -41,4 +41,6 @@ public class EventTypeDataFetcherTest
     {
         assertNull(task.performFetch(environment));
     }
+
+
 }

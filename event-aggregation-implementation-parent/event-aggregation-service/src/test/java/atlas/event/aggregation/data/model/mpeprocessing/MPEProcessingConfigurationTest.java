@@ -15,14 +15,14 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.candidateformation;
+package atlas.event.aggregation.data.model.mpeprocessing;
 
 import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class CandidateFormationParametersTest
+public class MPEProcessingConfigurationTest
 {
     @Test
     public void test() throws Exception
@@ -32,7 +32,7 @@ public class CandidateFormationParametersTest
             @Override
             protected Object getInstance()
             {
-                return new CandidateFormationParameters();
+                return new MPEProcessingConfiguration();
             }
         };
         assertNotNull(tester);

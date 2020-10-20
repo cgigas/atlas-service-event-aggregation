@@ -43,4 +43,10 @@ public class EventDetailDispatchTest
     {
         assertNotNull(task.provideRuntimeTypeWiring());
     }
+
+    @Test(expected = NullPointerException.class)
+    public void test()
+    {
+        task.processEventDetail(environment);
+    }
 }

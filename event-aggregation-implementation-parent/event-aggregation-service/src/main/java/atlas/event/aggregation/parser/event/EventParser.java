@@ -30,12 +30,9 @@ import java.util.Map;
 @Component
 public class EventParser extends EventMasterParser
 {
-
     @Autowired
     private EventDataParser eventDataParser;
 
-
-    @Override
     public Object fromGraphqlClient(Object graphql)
     {
         Event event = new Event();
@@ -64,8 +61,6 @@ public class EventParser extends EventMasterParser
             event.setCreateOrigin(clientEvent.getCreateOrigin());
             event.setUpdateDate(clientEvent.getUpdateDate());
             event.setUpdateOrigin(clientEvent.getUpdateOrigin());
-
-
         }
 
         return event;

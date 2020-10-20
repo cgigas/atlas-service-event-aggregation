@@ -15,47 +15,51 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model;
+package atlas.event.aggregation.parser;
 
+import atlas.ssaevent.crud.graphql.EventData;
 import org.junit.Test;
 
-import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-public class AuditedTest
+public class EventDataParserTest
 {
-    Audited task = new Audited();
-    OffsetDateTime createDate = OffsetDateTime.now();
-    OffsetDateTime updateDate = OffsetDateTime.now();
-    String createOrigin = "create";
-    String updateOrigin = "update";
+    EventDataParser task = new EventDataParser();
 
     @Test
-    public void setCreateDate()
+    public void toJSONString()
     {
-        task.setCreateDate(createDate);
-        assertEquals(createDate, task.getCreateDate());
+        assertNull(task.toJSONString(new Object()));
     }
 
     @Test
-    public void setCreateOrigin()
+    public void fromJsonString()
     {
-        task.setCreateOrigin(createOrigin);
-        assertEquals(createOrigin, task.getCreateOrigin());
+        assertNull(task.fromJsonString(""));
     }
 
     @Test
-    public void setUpdateDate()
+    public void fromJson()
     {
-        task.setUpdateDate(updateDate);
-        assertEquals(updateDate, task.getUpdateDate());
+        assertNull(task.fromJson(new Object()));
+        assertNull(task.fromJson(new HashMap<>()));
     }
 
     @Test
-    public void setUpdateOrigin()
+    public void fromGraphqlClient()
     {
-        task.setUpdateOrigin(updateOrigin);
-        assertEquals(updateOrigin, task.getUpdateOrigin());
+        atlas.ssaevent.crud.graphql.EventData graphql = new EventData();
+        task.fromGraphqlClient(graphql);
+    }
+
+    @Test
+    public void toGraphqlClient()
+    {
+        Map<String, Object> model = new HashMap<>();
+        task.toGraphqlClient(model, true);
+        task.toGraphqlClient(model, false);
     }
 }

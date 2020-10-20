@@ -15,27 +15,19 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.candidateformation;
+package atlas.event.aggregation.data.datafetcher.mutation;
 
-import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class CandidateFormationParametersTest
+public class EventFolderUpdaterTest
 {
+    EventFolderUpdater task = new EventFolderUpdater();
+
     @Test
-    public void test() throws Exception
+    public void test()
     {
-        GetterSetterTester tester = new GetterSetterTester()
-        {
-            @Override
-            protected Object getInstance()
-            {
-                return new CandidateFormationParameters();
-            }
-        };
-        assertNotNull(tester);
-        tester.testGettersAndSetters();
+        assertNotNull(task);
     }
 }

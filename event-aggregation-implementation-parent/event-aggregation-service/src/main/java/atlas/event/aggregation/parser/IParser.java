@@ -91,7 +91,6 @@ public interface IParser
                 item = (Integer) o;
             }
         }
-
         return item;
     }
 

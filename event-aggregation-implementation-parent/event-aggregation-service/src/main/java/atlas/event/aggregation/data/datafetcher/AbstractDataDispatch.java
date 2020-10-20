@@ -36,6 +36,7 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -73,6 +74,41 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             this.collector.addTypeWiring(this.provideRuntimeTypeWiring());
         }
     }
+
+
+    /*
+        public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
+        {
+            return processRequest(getRequestPath(environment), environment);
+        }
+
+        public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
+        {
+            Object result = null;
+            IDigitalHandler handler = null;
+            if (StringUtils.isNotBlank(path))
+            {
+                handler = getBusinessHandlerByPath(path);
+            }
+            else
+            {
+                throw new EventAggregateException("Path is required");
+            }
+
+            if (handler != null)
+            {
+                result = handler.processRequest(environment);
+            }
+            else
+            {
+                throw new EventAggregateException("No registered handler for path: " + path);
+            }
+            SsaEvent event = (SsaEvent) result;
+            result = Lists.newArrayList(event);
+            return result;
+        }
+    */
+
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
@@ -198,8 +234,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         return PageableBuilder.from(environment.getArgument(argumentName));
     }
 
-
-    private PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
+    PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
     {
         PageInfo pageInfo = new PageInfo();
         Pageable pageable = null;
@@ -211,10 +246,10 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
             // convert Spring domain Sort to crud sort
 //            if (pageable.getSort() != Sort.unsorted())
 //            {
-                List<Order> orders = Lists.newArrayList();
+            List<Order> orders = Lists.newArrayList();
 //                for (Order order : pageable.getSort().toList())
 //                {
-                    //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
+            //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
 //                }
 //                Sort crudSort = null;//Sort.builder().withOrders(orders).build();
 //                pageInfo.setSort(crudSort);

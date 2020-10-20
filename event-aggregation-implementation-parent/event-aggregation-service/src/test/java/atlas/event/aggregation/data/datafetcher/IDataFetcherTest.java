@@ -15,47 +15,55 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model;
+package atlas.event.aggregation.data.datafetcher;
 
+import org.json.simple.JSONObject;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-
-public class AuditedTest
+public class IDataFetcherTest
 {
-    Audited task = new Audited();
-    OffsetDateTime createDate = OffsetDateTime.now();
-    OffsetDateTime updateDate = OffsetDateTime.now();
-    String createOrigin = "create";
-    String updateOrigin = "update";
+    IDataFetcher spy = Mockito.spy(IDataFetcher.class);
+    String elementName = "element";
+    Map<String, Object> map = new HashMap<>();
+    JSONObject jsonObject = new JSONObject();
 
     @Test
-    public void setCreateDate()
+    public void getItemAsOffSetDate()
     {
-        task.setCreateDate(createDate);
-        assertEquals(createDate, task.getCreateDate());
+        spy.getItemAsOffSetDate(elementName, map);
     }
 
     @Test
-    public void setCreateOrigin()
+    public void getItemAsDouble()
     {
-        task.setCreateOrigin(createOrigin);
-        assertEquals(createOrigin, task.getCreateOrigin());
+        spy.getItemAsDouble("2.0", map);
     }
 
     @Test
-    public void setUpdateDate()
+    public void getItemAsInteger()
     {
-        task.setUpdateDate(updateDate);
-        assertEquals(updateDate, task.getUpdateDate());
+        spy.getItemAsInteger("1", new JSONObject());
     }
 
     @Test
-    public void setUpdateOrigin()
+    public void getItemAsLong()
     {
-        task.setUpdateOrigin(updateOrigin);
-        assertEquals(updateOrigin, task.getUpdateOrigin());
+        spy.getItemAsLong("3L", map);
+    }
+
+    @Test
+    public void getItemAsString()
+    {
+        spy.getItemAsString(elementName, map);
+    }
+
+    @Test
+    public void testGetItemAsOffSetDate()
+    {
+        spy.getItemAsOffSetDate(elementName, map);
     }
 }

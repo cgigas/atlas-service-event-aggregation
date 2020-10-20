@@ -17,13 +17,8 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.event.EventType;
-import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.parser.event.EventSatelliteParser;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,54 +26,47 @@ import java.util.Map;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-@RunWith(MockitoJUnitRunner.class)
-public class EventSatelliteParserTest
+public class ConfigParserTest
 {
-    EventSatelliteParser task = new EventSatelliteParser();
+    ConfigParser task = new ConfigParser();
     JSONObject fromJson = new JSONObject();
-    Object badObj = null;
+    String json = "{\"random\":\"value\"}";
+    Map<String, Object> map = new HashMap<>();
 
-    @Test
-    public void testToJSONString()
+    @Test(expected = StackOverflowError.class)
+    public void toJSONString()
     {
         assertNull(task.toJSONString(fromJson));
     }
 
     @Test
-    public void testFromJsonStringNull()
+    public void fromJsonString()
     {
-        assertNull(task.fromJsonString(null));
+        assertNotNull(task.fromJsonString(json));
     }
 
-    @Test(expected = ClassCastException.class)
-    public void testFromJsonString()
+    @Test
+    public void fromJson()
     {
-        assertNotNull(task.fromJsonString("{\"SsaEventSatellite\":\"ROUTINE\"}"));
+        JSONObject jsonObj = new JSONObject();
+        assertNull(task.fromJson(jsonObj));
     }
 
     @Test
     public void testFromJson()
     {
-        assertNull(task.fromJson(badObj));
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void testFromJsonMap()
-    {
-        Map<String, Object> MAP = null;
-        assertNull(task.fromJson(MAP));
-
-        MAP = new HashMap<>();
-        MAP.put("event", EventType.MANEUVER);
-
-        Map<String, Object> finalMAP = MAP;
-        task.fromJson(finalMAP);
+        assertNotNull(task.fromJson(map));
     }
 
     @Test
-    public void testGraphql()
+    public void fromGraphqlClient()
     {
-        assertNull(task.fromGraphqlClient(new Object()));
-        assertNull(task.toGraphqlClient(new Object(), true));
+        assertNull(task.fromGraphqlClient(fromJson));
+    }
+
+    @Test
+    public void toGraphqlClient()
+    {
+        assertNull(task.toGraphqlClient(fromJson, true));
     }
 }

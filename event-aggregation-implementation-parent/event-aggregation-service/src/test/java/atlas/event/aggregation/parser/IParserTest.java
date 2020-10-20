@@ -17,10 +17,9 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.exception.EventAggregateException;
-import atlas.event.aggregation.parser.event.EventDetailParser;
 import org.json.simple.JSONObject;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.time.OffsetDateTime;
 import java.util.HashMap;
@@ -29,56 +28,72 @@ import java.util.Map;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class EventDetailParserTest
+public class IParserTest
 {
-    EventDetailParser task = new EventDetailParser();
-    Object fromJson = new JSONObject();
-    String json = "{\"eventDetail\":\"detail\"}";
+    IParser spy = Mockito.spy(IParser.class);
+    JSONObject jsonObject = new JSONObject();
+    String jsonString = "{\"random\":\"value\"}";
     Map<String, Object> map = new HashMap<>();
+    Object graphql = new Object();
 
     @Test
     public void toJSONString()
     {
-        assertNull(task.toJSONString(fromJson));
+        assertNull(spy.toJSONString(jsonObject));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void fromJsonString()
     {
-        assertNotNull(task.fromJsonString(json));
-    }
-
-    @Test(expected = EventAggregateException.class)
-    public void fromJsonStringBad()
-    {
-        task.fromJsonString("");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void fromJson()
-    {
-        assertNotNull(task.fromJson(fromJson));
+        assertNull(spy.fromJsonString(jsonString));
+        assertNull(spy.fromJson(jsonObject));
+        assertNull(spy.fromJson(map));
     }
 
     @Test
-    public void testFromJson()
+    public void fromGraphqlClient()
     {
-        map.put("type", "DOCK");
-        map.put("name", "name");
-        map.put("startDate", OffsetDateTime.now());
-        map.put("endDate", OffsetDateTime.now());
-        map.put("catalogObjectCount", 3L);
-        map.put("analystObjects", 4L);
-        map.put("candidateObjectCount", 5L);
-        map.put("promotableObjectCount", 6L);
-        map.put("typeName", "type");
-        assertNotNull(task.fromJson(map));
+        assertNull(spy.fromGraphqlClient(graphql));
     }
 
     @Test
-    public void testGraphqlClient()
+    public void toGraphqlClient()
     {
-        assertNull(task.fromGraphqlClient(new Object()));
-        assertNull(task.toGraphqlClient(new Object(), true));
+        assertNull(spy.toGraphqlClient(graphql, true));
+    }
+
+    @Test
+    public void getItemAsOffSetDate()
+    {
+        map.put("now", OffsetDateTime.now());
+        assertNotNull(spy.getItemAsOffSetDate("now", map));
+    }
+
+    @Test
+    public void getItemAsDouble()
+    {
+        map.put("8.0", 8.0);
+        assertNotNull(spy.getItemAsDouble("8.0", map));
+    }
+
+    @Test
+    public void getItemAsInteger()
+    {
+        jsonObject.put("7", 7);
+        assertNotNull(spy.getItemAsInteger("7", jsonObject));
+    }
+
+    @Test
+    public void getItemAsLong()
+    {
+        map.put("6L", 6L);
+        assertNotNull(spy.getItemAsLong("6L", map));
+    }
+
+    @Test
+    public void testGetItemAsString()
+    {
+        map.put("string", "string");
+        assertNotNull(spy.getItemAsString("string", map));
     }
 }

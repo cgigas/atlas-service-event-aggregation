@@ -15,27 +15,33 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.candidateformation;
+package atlas.event.aggregation.data.datafetcher;
 
-import atlas.event.aggregation.GetterSetterTester;
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
-public class CandidateFormationParametersTest
+public class MPEProcessingConfigDispatchTest
 {
+    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
+    MPEProcessingConfigDispatch task = new MPEProcessingConfigDispatch(collector);
+    @Mock
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
+
     @Test
-    public void test() throws Exception
+    public void provideRuntimeTypeWiring()
     {
-        GetterSetterTester tester = new GetterSetterTester()
-        {
-            @Override
-            protected Object getInstance()
-            {
-                return new CandidateFormationParameters();
-            }
-        };
-        assertNotNull(tester);
-        tester.testGettersAndSetters();
+        assertNotNull(task.provideRuntimeTypeWiring());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void performFetch()
+    {
+        assertNotNull(task.performFetch(environment));
     }
 }

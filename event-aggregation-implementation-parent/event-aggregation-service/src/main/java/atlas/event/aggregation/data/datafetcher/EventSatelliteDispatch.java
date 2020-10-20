@@ -93,7 +93,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return result;
     }
 
-    private EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
+    EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
     {
         EventSatellite eventSat = new EventSatellite();
         EventCrudMutationExecutor eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
@@ -166,22 +166,21 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return eventSat;
     }
 
-    private List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
-        List<Event> datalist = new ArrayList<>();
-        Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String eventId = environment.getArgument("eventId");
-        String satelliteUuid = environment.getArgument("satelliteUuid");
-        url += "/releaseSatelliteFromEvent/" + eventId + "/" + satelliteUuid;
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-
-        event = (Event) eventParser.fromJsonString(resultRequestedData);
-        datalist.add(event);
-        return datalist;
+        EventCrudMutationExecutor eventCrudMutationExecutor;
+        List<Map<String, Object>> eventSatList = environment.getArgument("input");
+        if (eventSatList != null)
+        {
+            Map<String, Object> eventSatMap = eventSatList.get(0);
+            String eventId = (String) eventSatMap.get("eventId");
+            String satelliteUuid = (String) eventSatMap.get("satelliteUuid");
+            System.out.println("party time");
+        }
+        return null;
     }
 
-    private List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
+    List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
         List<EventSatellite> eventSatelliteList = null;
         EventCrudMutationExecutor eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
