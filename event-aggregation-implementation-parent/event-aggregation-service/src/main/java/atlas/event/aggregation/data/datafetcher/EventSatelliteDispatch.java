@@ -18,12 +18,17 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.constants.EventAggregationConstants;
+import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
 import atlas.event.aggregation.parser.event.EventParser;
 import atlas.event.aggregation.parser.event.EventSatelliteParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
+import atlas.ssaevent.crud.graphql.EventRelationship;
 import com.google.common.collect.Lists;
+import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
+import com.graphql_java_generator.exception.GraphQLRequestPreparationException;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +36,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -92,15 +96,71 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     private EventSatellite processAddSatelliteToEvent(DataFetchingEnvironment environment)
     {
         EventSatellite eventSat = new EventSatellite();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String eventId = environment.getArgument("eventId");
-        String satelliteUuid = environment.getArgument("satelliteUuid");
-        url += "/addSatelliteToEvent/" + eventId + "/" + satelliteUuid;
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-
-        if (StringUtils.isNotBlank(resultRequestedData))
+        EventCrudMutationExecutor eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+        if (environment != null)
         {
-            eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
+            Map<String, Object> eventSatMap = environment.getArgument("input");
+
+            if (eventSatMap != null)
+            {
+                atlas.ssaevent.crud.graphql.EventSatInput crudEventSat = (atlas.ssaevent.crud.graphql.EventSatInput) eventSatelliteParser.toGraphqlClient(eventSatMap, Boolean.TRUE);
+                try
+                {
+                    StringBuffer resultBuffer = new StringBuffer();
+                    resultBuffer.append("{ ");
+                    resultBuffer.append("eventSatUuid ");
+                    resultBuffer.append("satelliteUuid ");
+                    resultBuffer.append("eventUuid ");
+                    resultBuffer.append("relationship ");
+                    resultBuffer.append("ucn ");
+                    resultBuffer.append("version ");
+                    resultBuffer.append("event { ");
+                    resultBuffer.append("eventUuid ");
+                    resultBuffer.append("classificationMarking ");
+                    resultBuffer.append("predecessorEventUuid ");
+                    resultBuffer.append("type ");
+                    resultBuffer.append("name ");
+                    resultBuffer.append("status ");
+                    resultBuffer.append("startDt ");
+                    resultBuffer.append("endDt ");
+                    resultBuffer.append("description ");
+                    resultBuffer.append("internalNotes ");
+                    resultBuffer.append("eventPostingId ");
+
+                    resultBuffer.append("eventData { ");
+                    resultBuffer.append("eventUuid ");
+                    resultBuffer.append("classificationMarking ");
+                    resultBuffer.append("name ");
+                    resultBuffer.append("uri ");
+                    resultBuffer.append("type ");
+                    resultBuffer.append("supplementalData ");
+                    resultBuffer.append("createDate ");
+                    resultBuffer.append("createOrigin ");
+                    resultBuffer.append("updateDate ");
+                    resultBuffer.append("updateOrigin ");
+                    resultBuffer.append("version ");
+                    resultBuffer.append("} ");
+
+                    resultBuffer.append("createDate ");
+                    resultBuffer.append("createOrigin ");
+                    resultBuffer.append("updateDate ");
+                    resultBuffer.append("updateOrigin ");
+                    resultBuffer.append("version ");
+                    resultBuffer.append("} ");
+
+
+                    resultBuffer.append("} ");
+                    System.out.println(resultBuffer.toString());
+                    atlas.ssaevent.crud.graphql.EventSat crudEventResult = eventCrudMutationExecutor.createEventSat(resultBuffer.toString(), crudEventSat);
+
+                    eventSat = (EventSatellite) eventSatelliteParser.fromGraphqlClient(crudEventResult);
+                }
+                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                {
+                    e.printStackTrace();
+                    throw new DataAccessorException(e);
+                }
+            }
         }
 
         return eventSat;
@@ -123,21 +183,74 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
 
     private List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
     {
-        List<EventSatellite> datalist = new ArrayList<>();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        List<Map<String, Object>> parameterList = environment.getArgument("input");
-
-        String eventId = "abc";
-        String satelliteUuid = "xxx";
-        url += "/promoteEventSatellite/" + eventId + "/" + satelliteUuid;
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-
-        if (StringUtils.isNotBlank(resultRequestedData))
+        List<EventSatellite> eventSatelliteList = null;
+        EventCrudMutationExecutor eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+        if (environment != null)
         {
-            EventSatellite eventSat = (EventSatellite) eventSatelliteParser.fromJsonString(resultRequestedData);
-            datalist.add(eventSat);
+            List<Map<String, Object>> eventSatPromoMapList = environment.getArgument("eventSatellitePromotion");
+            if (eventSatPromoMapList != null)
+            {
+                if (eventSatPromoMapList != null)
+                {
+                    eventSatelliteList = new ArrayList<>();
+                    StringBuffer returnBuffer = new StringBuffer();
+                    returnBuffer.append("{eventSatUuid \n");
+                    returnBuffer.append("satelliteUuid \n");
+                    returnBuffer.append("eventUuid \n");
+                    returnBuffer.append("relationship \n");
+                    returnBuffer.append("ucn \n");
+                    returnBuffer.append("version \n");
+                    returnBuffer.append("event { \n");
+                    returnBuffer.append("eventUuid \n");
+                    returnBuffer.append("classificationMarking \n");
+                    returnBuffer.append("predecessorEventUuid \n");
+                    returnBuffer.append("type \n");
+                    returnBuffer.append("name \n");
+                    returnBuffer.append("status \n");
+                    returnBuffer.append("startDt \n");
+                    returnBuffer.append("endDt \n");
+                    returnBuffer.append("description \n");
+                    returnBuffer.append("internalNotes \n");
+                    returnBuffer.append("eventPostingId \n");
+                    returnBuffer.append("eventData { \n");
+                    returnBuffer.append("eventUuid \n");
+                    returnBuffer.append("classificationMarking \n");
+                    returnBuffer.append("eventUuid \n");
+                    returnBuffer.append("name \n");
+                    returnBuffer.append("uri \n");
+                    returnBuffer.append("type \n");
+                    returnBuffer.append("supplementalData \n");
+                    returnBuffer.append("createDate \n");
+                    returnBuffer.append("createOrigin \n");
+                    returnBuffer.append("updateDate \n");
+                    returnBuffer.append("updateOrigin \n");
+                    returnBuffer.append("version \n");
+                    returnBuffer.append("} \n");
+                    returnBuffer.append("createDate \n");
+                    returnBuffer.append("createOrigin \n");
+                    returnBuffer.append("updateDate \n");
+                    returnBuffer.append("updateOrigin \n");
+                    returnBuffer.append("version \n");
+                    returnBuffer.append("} \n");
+                    for (Map<String, Object> eventSatPromotItem: eventSatPromoMapList)
+                    {
+                        String eventSatelliteUuid = getItemAsString("eventSatelliteUuid", eventSatPromotItem);
+                        String relationship = getItemAsString("relationship", eventSatPromotItem);
+                        try
+                        {
+                            atlas.ssaevent.crud.graphql.EventSat crudEventSat = eventCrudMutationExecutor.updateEventSat("", eventSatelliteUuid, EventRelationship.valueOf(relationship));
+                            EventSatellite eventSatellite = (EventSatellite) eventSatelliteParser.fromGraphqlClient(crudEventSat);
+                            eventSatelliteList.add(eventSatellite);
+                        }
+                        catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                        {
+                            e.printStackTrace();
+                            throw new DataAccessorException(e);
+                        }
+                    }
+                }
+            }
         }
-
-        return datalist;
+        return eventSatelliteList;
     }
 }

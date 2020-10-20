@@ -29,7 +29,7 @@ public class EventSatelliteTest
     String eventSatUuid = "event sat uuid";
     String satelliteUuid = "sat uuid";
     Event ssaEvent = new Event();
-    Long relationship = 2L;
+    Relationship relationship = Relationship.ACTOR;
     Long ucn = 3L;
     Object o = new Object();
 
@@ -57,7 +57,7 @@ public class EventSatelliteTest
     @Test
     public void setRelationship()
     {
-        task.setRelationship(relationship);
+        task.setRelationship(Relationship.ACTOR);
         assertEquals(relationship, task.getRelationship());
     }
 
