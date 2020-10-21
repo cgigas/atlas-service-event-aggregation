@@ -17,9 +17,9 @@
  */
 package atlas.event.aggregation.parser;
 
-import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.parser.event.EventSatelliteParser;
-import org.json.simple.JSONObject;
+import atlas.ssaevent.crud.graphql.EventRelationship;
+import atlas.ssaevent.crud.graphql.EventSat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -28,56 +28,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventSatelliteParserTest
 {
     EventSatelliteParser task = new EventSatelliteParser();
-    JSONObject fromJson = new JSONObject();
-    Object badObj = null;
 
     @Test
-    public void testToJSONString()
+    public void testFromGraphql()
     {
-        assertNull(task.toJSONString(fromJson));
-    }
-
-    @Test
-    public void testFromJsonStringNull()
-    {
-        assertNull(task.fromJsonString(null));
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void testFromJsonString()
-    {
-        assertNotNull(task.fromJsonString("{\"SsaEventSatellite\":\"ROUTINE\"}"));
+        EventSat graphql = new EventSat();
+        graphql.setEventSatUuid("uuid");
+        graphql.setSatelliteUuid("sat uuid");
+        graphql.setUcn(1);
+        graphql.setRelationship(EventRelationship.ACTOR);
+        graphql.setVersion(2L);
+        assertNotNull(task.fromGraphqlClient(graphql));
     }
 
     @Test
-    public void testFromJson()
+    public void testToGraphql()
     {
-        assertNull(task.fromJson(badObj));
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void testFromJsonMap()
-    {
-        Map<String, Object> MAP = null;
-        assertNull(task.fromJson(MAP));
-
-        MAP = new HashMap<>();
-        MAP.put("event", EventType.MANEUVER);
-
-        Map<String, Object> finalMAP = MAP;
-        task.fromJson(finalMAP);
-    }
-
-    @Test
-    public void testGraphql()
-    {
-        assertNull(task.fromGraphqlClient(new Object()));
-        assertNull(task.toGraphqlClient(new Object(), true));
+        Map<String, Object> map = new HashMap<>();
+        map.put("satelliteUuid", "satelliteUuid");
+        map.put("eventUuid", "eventUuid");
+        map.put("relationship", "ACTOR");
+        map.put("ucn", 2);
+        map.put("version", 2L);
+        assertNotNull(task.toGraphqlClient(map, true));
     }
 }

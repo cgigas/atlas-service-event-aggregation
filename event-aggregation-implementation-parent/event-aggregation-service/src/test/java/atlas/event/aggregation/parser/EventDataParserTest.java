@@ -29,26 +29,7 @@ import static org.junit.Assert.assertNull;
 public class EventDataParserTest
 {
     EventDataParser task = new EventDataParser();
-
-    @Test
-    public void toJSONString()
-    {
-        assertNull(task.toJSONString(new Object()));
-    }
-
-    @Test
-    public void fromJsonString()
-    {
-        assertNull(task.fromJsonString(""));
-    }
-
-    @Test
-    public void fromJson()
-    {
-        assertNull(task.fromJson(new Object()));
-        assertNull(task.fromJson(new HashMap<>()));
-    }
-
+    
     @Test
     public void fromGraphqlClient()
     {

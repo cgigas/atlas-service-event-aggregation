@@ -17,46 +17,14 @@
  */
 package atlas.event.aggregation.parser;
 
-import org.json.JSONObject;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class LaunchParserTest
 {
     LaunchParser task = new LaunchParser();
-    Object fromJson = new JSONObject();
-    String json = "";
-    Map<String, Object> map = new HashMap<>();
-
-    @Test
-    public void toJSONString()
-    {
-        assertNull(task.toJSONString(fromJson));
-    }
-
-    @Test
-    public void fromJsonString()
-    {
-        assertNull(task.fromJsonString(json));
-    }
-
-    @Test
-    public void fromJson()
-    {
-        assertNull(task.fromJson(fromJson));
-    }
-
-    @Test
-    public void testFromJson()
-    {
-        assertNotNull(task.fromJson(map));
-    }
-
+    
     @Test
     public void testGraphql()
     {

@@ -49,14 +49,14 @@ public class ObservationSatMedleyParserTest
     @Test
     public void fromJson()
     {
-        fromJson.add(0, Map);
-        assertNotNull(task.fromJson(fromJson));
+        fromJson.add(0, map);
+        assertNull(task.fromJson(fromJson));
     }
 
     @Test
     public void testFromJson()
     {
-        assertNotNull(task.fromJson(map));
+        assertNull(task.fromJson(map));
     }
 
     @Test

@@ -33,7 +33,6 @@ public class EventSatelliteParser extends EventMasterParser
     @Autowired
     private EventParser eventParser;
 
-
     @Override
     public Object fromGraphqlClient(Object graphql)
     {

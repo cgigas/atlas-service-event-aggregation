@@ -35,35 +35,6 @@ import static org.junit.Assert.assertNull;
 public class EventParserTest
 {
     EventParser task = new EventParser();
-    Object fromJson = new JSONObject();
-    String json = "{\"event\":\"launch\"}";
-
-    @Test(expected = StackOverflowError.class)
-    public void testToJSONString()
-    {
-        assertNotNull(task);
-        task.toJSONString(fromJson);
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void testFromJSONString()
-    {
-        task.fromJsonString(json);
-    }
-
-    @Test
-    public void testFromJSON()
-    {
-        JSONObject job = new JSONObject();
-        assertNull(task.fromJson(job));
-    }
-
-    @Test
-    public void testFromJSONMap()
-    {
-        Map<String, Object> map = new HashMap<>();
-        assertNull(task.fromJson(map));
-    }
 
     @Test
     public void testFromGraphqlClient()
