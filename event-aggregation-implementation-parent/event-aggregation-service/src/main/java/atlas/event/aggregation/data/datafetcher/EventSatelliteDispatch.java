@@ -114,7 +114,6 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                 }
                 catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                 {
-                    e.printStackTrace();
                     throw new DataAccessorException(e);
                 }
             }
@@ -145,7 +144,6 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                     }
                     catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                     {
-                        e.printStackTrace();
                         throw new DataAccessorException(e);
                     }
                 }
@@ -181,7 +179,6 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                         }
                         catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                         {
-                            e.printStackTrace();
                             throw new DataAccessorException(e);
                         }
                     }

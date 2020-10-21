@@ -288,7 +288,6 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                     }
                     catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                     {
-                        e.printStackTrace();
                         throw new DataAccessorException(e);
                     }
                 }

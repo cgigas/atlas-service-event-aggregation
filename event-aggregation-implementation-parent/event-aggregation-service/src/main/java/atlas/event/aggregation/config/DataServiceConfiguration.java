@@ -273,19 +273,4 @@ public class DataServiceConfiguration
     {
         this.eventServiceUrl = eventServiceUrl;
     }
-
-    public static void main(String[] args) throws Exception
-    {
-        String url = "http://172.30.211.106:9203/notes-crud/graphql";
-        try
-        {
-            NotesCrudQueryExecutor executor = new NotesCrudQueryExecutor(url);
-            System.out.println("SDFSDF");
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
 }

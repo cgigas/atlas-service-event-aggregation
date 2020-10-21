@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.datafetcher.loader;
 
 import atlas.event.aggregation.base.DigitalBase;
+import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +68,7 @@ public final class DataLoader extends DigitalBase
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            throw new DataAccessorException(e);
         }
     }
 }
