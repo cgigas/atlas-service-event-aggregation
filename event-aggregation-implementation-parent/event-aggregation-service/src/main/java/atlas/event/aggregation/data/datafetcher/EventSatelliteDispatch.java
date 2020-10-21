@@ -54,7 +54,8 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     private EventSatelliteParser eventSatelliteParser;
     @Autowired
     private EventParser eventParser;
-    Logger log = LoggerFactory.getLogger(EventDataDispatch.class);
+
+    Logger log = LoggerFactory.getLogger(EventSatelliteDispatch.class);
 
     public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -149,6 +150,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                 {
                     log.error(e.toString());
                     throw new DataAccessorException(e);
+
                 }
             }
         }
