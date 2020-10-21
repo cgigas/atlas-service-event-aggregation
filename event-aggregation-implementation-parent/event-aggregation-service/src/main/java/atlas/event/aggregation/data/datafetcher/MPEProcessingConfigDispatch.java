@@ -106,7 +106,11 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            MPEProcessingConfiguration mpeConfig = environment.getArgument("configData");
+            if (mpeConfig != null)
+            {
 
+            }
         }
         return configuration;
     }
