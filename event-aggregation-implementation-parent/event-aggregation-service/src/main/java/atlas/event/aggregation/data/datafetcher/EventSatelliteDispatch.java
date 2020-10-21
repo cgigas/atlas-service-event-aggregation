@@ -32,6 +32,8 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -51,6 +53,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     private EventSatelliteParser eventSatelliteParser;
     @Autowired
     private EventParser eventParser;
+    Logger log = LoggerFactory.getLogger(EventSatelliteDispatch.class);
 
     public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -144,6 +147,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                     }
                     catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                     {
+                        log.error(e.toString());
                         throw new DataAccessorException(e);
                     }
                 }
