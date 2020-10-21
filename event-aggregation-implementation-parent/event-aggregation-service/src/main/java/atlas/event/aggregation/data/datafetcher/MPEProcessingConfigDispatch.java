@@ -20,6 +20,7 @@ package atlas.event.aggregation.data.datafetcher;
 import atlas.event.aggregation.data.model.mpeprocessing.MPEProcessingConfiguration;
 import atlas.event.aggregation.parser.ConfigParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import com.google.common.collect.Lists;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
@@ -100,6 +101,13 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
     private MPEProcessingConfiguration processCreateConfig(DataFetchingEnvironment environment)
     {
         MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
+        EventCrudMutationExecutor eventCrudMutationExecutor = null;
+        // MpeProcessingConfiguration createMpeProcessingConfiguration(String queryResponseDef, MpeProcessingConfigurationInput mpeProcessingConfiguration, Object... paramsAndValues) throws GraphQLRequestExecutionException, GraphQLRequestPreparationException
+        if (environment != null)
+        {
+            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+
+        }
         return configuration;
     }
 }
