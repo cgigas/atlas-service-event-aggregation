@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNull;
 public class LaunchParserTest
 {
     LaunchParser task = new LaunchParser();
-    
+
     @Test
     public void testGraphql()
     {

@@ -35,6 +35,8 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 
 import javax.annotation.PostConstruct;
@@ -49,7 +51,7 @@ import java.util.Map;
 @Slf4j
 public abstract class AbstractDataDispatch<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>, IDigitalDataDispatch, IDataFetcher
 {
-
+    Logger log = LoggerFactory.getLogger(AbstractDataDispatch.class);
     private static final String QUERY_SOURCE_TYPE = "queryParentType";
     private static final String QUERY_ARGUMENTS = "queryArguments";
     private static final String QUERY_TYPE = "queryType";
@@ -146,7 +148,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         }
         catch (RuntimeException e)
         {
-            e.printStackTrace();
+            log.error(e.toString());
             return buildErrorResult(environment, returnValue, e);
         }
     }
@@ -270,7 +272,7 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         Object o = locateService("clientServiceLookup");
         if (o != null)
         {
-            if (o instanceof  DataServiceConfiguration)
+            if (o instanceof DataServiceConfiguration)
             {
                 dataServiceConfiguration = (DataServiceConfiguration) o;
             }

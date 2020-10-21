@@ -28,6 +28,7 @@ import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
 
@@ -51,12 +52,12 @@ public class DataServiceConfiguration
     private SensorCrudMutationExecutor sensorCrudMutationExecutor;
     private SatelliteCrudMutationExecutor satelliteCrudMutationExecutor;
     private SatelliteCrudQueryExecutor satelliteCrudQueryExecutor;
-    
+
     @PostConstruct
     public void init()
     {
         String message = MessageFormat.format("The data services the UAS interacts with will be configured with the following URLs:\nSatellite-crud: {0}\nSensor-crud: {1}\nOrbital-crud: {2}\nObservation-data: {3}\nGraphql API Extension: {4}\n {5}Event-data",
-                satelliteServiceUrl, sensorServiceUrl, orbitalServiceUrl, observationServiceUrl, graphQlExtension, eventServiceUrl);
+            satelliteServiceUrl, sensorServiceUrl, orbitalServiceUrl, observationServiceUrl, graphQlExtension, eventServiceUrl);
     }
 
     public EventCrudQueryExecutor getEventCrudQueryExecutor()
@@ -272,20 +273,5 @@ public class DataServiceConfiguration
     public void setEventServiceUrl(String eventServiceUrl)
     {
         this.eventServiceUrl = eventServiceUrl;
-    }
-
-    public static void main(String[] args) throws Exception
-    {
-        String url = "http://172.30.211.106:9203/notes-crud/graphql";
-        try
-        {
-            NotesCrudQueryExecutor executor = new NotesCrudQueryExecutor(url);
-            System.out.println("SDFSDF");
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
     }
 }

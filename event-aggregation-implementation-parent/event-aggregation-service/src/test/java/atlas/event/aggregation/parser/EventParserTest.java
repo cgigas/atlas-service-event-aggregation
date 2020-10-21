@@ -18,7 +18,6 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.parser.event.EventParser;
-import org.json.simple.JSONObject;
 import atlas.ssaevent.crud.graphql.EventStatus;
 import atlas.ssaevent.crud.graphql.EventType;
 import org.junit.Test;
@@ -30,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 public class EventParserTest
 {

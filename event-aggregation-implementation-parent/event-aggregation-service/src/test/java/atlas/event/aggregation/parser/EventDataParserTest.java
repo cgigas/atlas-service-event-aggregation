@@ -24,12 +24,10 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertNull;
-
 public class EventDataParserTest
 {
     EventDataParser task = new EventDataParser();
-    
+
     @Test
     public void fromGraphqlClient()
     {

@@ -21,6 +21,7 @@ import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
 import org.mockito.Mock;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 

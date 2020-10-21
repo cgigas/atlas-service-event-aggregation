@@ -21,8 +21,11 @@ import atlas.event.aggregation.base.DigitalBase;
 import com.google.common.io.CharSource;
 import com.google.common.io.Resources;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.net.URL;
@@ -35,7 +38,8 @@ import java.util.List;
 @Profile("dev")
 public final class DataLoader extends DigitalBase
 {
- 
+    Logger log = LoggerFactory.getLogger(DataLoader.class);
+
     @PostConstruct
     public void init()
     {
@@ -67,7 +71,7 @@ public final class DataLoader extends DigitalBase
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e.toString());
         }
     }
 }
