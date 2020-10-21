@@ -25,8 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
+
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +50,8 @@ public class TypeDefinitionRegistryBuilder
      */
     public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
     {
-        TypeDefinitionRegistry typeRegistry = null;
         String resourceExtension = "graphql";
-        typeRegistry = buildRegistryFrom(resourceExtension, rootResourcePath);
-        return typeRegistry;
+        return buildRegistryFrom(resourceExtension, rootResourcePath);
     }
 
     public TypeDefinitionRegistry buildRegistryFrom(String resourceExtension, String...rootResourcePath) throws IOException
@@ -88,54 +86,37 @@ public class TypeDefinitionRegistryBuilder
      * The files in the named folder are assumed to be graphql schema definition files.
      * @param fileList The list of all the files in the directory and subdirectories.
      * @return a merged schema object.
-     * @throws IOException if files can't be read.
      */
-    public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList) throws IOException
+    public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList)
     {
-        try
-        {
-            SchemaParser parser = new SchemaParser();
-            TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
+        SchemaParser parser = new SchemaParser();
+        TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            for (File fileItem: fileList)
-            {
-                typeRegistry.merge(parser.parse(fileItem));
-            }
-            return typeRegistry;
-        }
-        catch (Throwable e)
+        for (File fileItem: fileList)
         {
-            throw new IllegalStateException(e);
+            typeRegistry.merge(parser.parse(fileItem));
         }
+        return typeRegistry;
     }
 
     private List<File> getFilesInDirectory(File directory, String fileExtension)
     {
-        List<File> fileList = null;
+        List<File> fileList = new ArrayList<>();
         if ((directory != null))
         {
-            File[] listOfFiles = directory.listFiles(new FilenameFilter()
-            {
-                @Override
-                public boolean accept(File dir, String name)
+            File[] listOfFiles = directory.listFiles((dir, name) -> {
+                if (dir.isDirectory())
                 {
-                    if (dir.isDirectory())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return name.toLowerCase().endsWith(fileExtension);
-                    }
+                    return true;
+                }
+                else
+                {
+                    return name.toLowerCase().endsWith(fileExtension);
                 }
             });
 
             if (listOfFiles != null)
             {
-                if (fileList == null)
-                {
-                    fileList = new ArrayList<>();
-                }
                 for (File fileItem: listOfFiles)
                 {
                     if (fileItem.isDirectory())
