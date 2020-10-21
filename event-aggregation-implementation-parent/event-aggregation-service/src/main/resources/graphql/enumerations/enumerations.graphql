@@ -49,16 +49,6 @@ enum EventType
     UNDOCK
 }
 
-enum EventSatelliteRelationship
-{
-    PARENT,
-    CHILD,
-    ACTOR,
-    TARGET,
-    PRIMARY,
-    SECONDARY
-}
-
 enum PredicateOperator {
     EQ
     NOT_EQ
@@ -69,4 +59,14 @@ enum PredicateOperator {
     LE
     LT
     IN
+}
+
+enum EventRelationship
+{
+    PARENT
+    CHILD
+    ACTOR
+    TARGET
+    PRIMARY
+    SECONDARY
 }

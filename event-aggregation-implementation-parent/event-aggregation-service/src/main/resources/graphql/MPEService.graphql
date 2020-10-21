@@ -2,3 +2,5 @@ schema {
     query: MPEServiceQuery
     mutation: MPEServiceMutation
 }
+type MPEServiceQuery {}
+type MPEServiceMutation {}
