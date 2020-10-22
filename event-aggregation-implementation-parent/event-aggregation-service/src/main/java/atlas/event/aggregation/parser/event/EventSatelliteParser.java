@@ -33,7 +33,6 @@ public class EventSatelliteParser extends EventMasterParser
     @Autowired
     private EventParser eventParser;
 
-
     @Override
     public Object fromGraphqlClient(Object graphql)
     {
@@ -62,12 +61,12 @@ public class EventSatelliteParser extends EventMasterParser
 
         if ((model != null) && (model instanceof Map))
         {
-            Map<String, Object> eventSatuMap = (Map) model;
-            crudEventSat.setSatelliteUuid(getItemAsString("satelliteUuid", eventSatuMap));
-            crudEventSat.setEventUuid(getItemAsString("eventUuid", eventSatuMap));
-            crudEventSat.setRelationship(EventRelationship.valueOf(getItemAsString("relationship", eventSatuMap)));
-            crudEventSat.setUcn(getItemAsInteger("ucn", eventSatuMap));
-            crudEventSat.setVersion(getItemAsLong("version", eventSatuMap));
+            Map<String, Object> eventSatMap = (Map) model;
+            crudEventSat.setSatelliteUuid(getItemAsString("satelliteUuid", eventSatMap));
+            crudEventSat.setEventUuid(getItemAsString("eventUuid", eventSatMap));
+            crudEventSat.setRelationship(EventRelationship.valueOf(getItemAsString("relationship", eventSatMap)));
+            crudEventSat.setUcn(getItemAsInteger("ucn", eventSatMap));
+            crudEventSat.setVersion(getItemAsLong("version", eventSatMap));
         }
 
         return crudEventSat;

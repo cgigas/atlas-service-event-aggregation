@@ -71,7 +71,7 @@ public class GraphQLService
         {
             // log the error and abort the application
             //log.error("Error initializing the Satellite Query GraphQL service. Aborting startup.", e);
-            throw new IllegalStateException("Unable to initialize the Satellite Query Service");
+            throw new IllegalStateException("Unable to initialize the MPE Service", e);
         }
     }
 

@@ -32,6 +32,8 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -51,6 +53,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     private EventSatelliteParser eventSatelliteParser;
     @Autowired
     private EventParser eventParser;
+    Logger log = LoggerFactory.getLogger(EventSatelliteDispatch.class);
 
     public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -123,18 +126,35 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
         return eventSat;
     }
 
-    List<Event> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
+    List<EventSatellite> processReleaseSatelliteFromEvent(DataFetchingEnvironment environment)
     {
+        List<EventSatellite> eventSatelliteList = null;
         EventCrudMutationExecutor eventCrudMutationExecutor;
-        List<Map<String, Object>> eventSatList = environment.getArgument("input");
-        if (eventSatList != null)
+        if (environment != null)
         {
-            Map<String, Object> eventSatMap = eventSatList.get(0);
-            String eventId = (String) eventSatMap.get("eventId");
-            String satelliteUuid = (String) eventSatMap.get("satelliteUuid");
-            System.out.println("party time");
+            List<String> eventSatList = environment.getArgument("eventSatUuid");
+            if (eventSatList != null)
+            {
+                String returnParams = "{eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version }}}";
+                eventSatelliteList = new ArrayList<>();
+                eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+                for (String eventSatUuid: eventSatList)
+                {
+                    try
+                    {
+                        atlas.ssaevent.crud.graphql.EventSat crudEventResult = eventCrudMutationExecutor.deleteEventSat(returnParams, eventSatUuid);
+                        EventSatellite eventSat = (EventSatellite) eventSatelliteParser.fromGraphqlClient(crudEventResult);
+                        eventSatelliteList.add(eventSat);
+                    }
+                    catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                    {
+                        log.error(e.toString());
+                        throw new DataAccessorException(e);
+                    }
+                }
+            }
         }
-        return null;
+        return eventSatelliteList;
     }
 
     List<EventSatellite> processPromoteEventSatellite(DataFetchingEnvironment environment)
