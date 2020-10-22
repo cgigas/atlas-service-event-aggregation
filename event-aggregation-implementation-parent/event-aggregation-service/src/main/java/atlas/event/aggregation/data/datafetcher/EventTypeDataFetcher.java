@@ -32,7 +32,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class EventTypeDataFetcher extends AbstractDataDispatch<List<Event>>
 {
     @Override

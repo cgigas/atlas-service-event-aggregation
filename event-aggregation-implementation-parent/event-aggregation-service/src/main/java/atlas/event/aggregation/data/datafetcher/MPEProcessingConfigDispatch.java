@@ -35,7 +35,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcessingConfiguration>
 {
     @Autowired
