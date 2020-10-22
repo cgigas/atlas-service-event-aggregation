@@ -17,19 +17,20 @@
  */
 package atlas.event.aggregation.server;
 
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
+//import org.junit.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.core.io.ResourceLoader;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+//import java.io.File;
+//import java.io.IOException;
+//import java.util.ArrayList;
+//import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 public class TypeDefinitionRegistryBuilderTest
 {
+/*
     @Autowired
     ResourceLoader resourceLoader;
 
@@ -77,4 +78,5 @@ public class TypeDefinitionRegistryBuilderTest
             //assertEquals("java.lang.NullPointerException", e.toString());
         }
     }
+*/
 }

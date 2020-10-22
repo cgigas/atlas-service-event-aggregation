@@ -44,14 +44,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>run-java-sh</artifactId>
-            <version>${io.fabric8.runjava.version}</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>event-aggregation-app</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>run-java-sh</artifactId>
+            <version>${io.fabric8.runjava.version}</version>
         </dependency>
     </dependencies>
 

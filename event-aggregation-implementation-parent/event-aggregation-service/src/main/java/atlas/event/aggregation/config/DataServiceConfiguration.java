@@ -27,12 +27,14 @@ import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
 
-@Component("clientServiceLookup")
+@Configuration
 @ConfigurationProperties(prefix = "data.service")
+@Profile("prod")
 @Slf4j
 public class DataServiceConfiguration
 {
