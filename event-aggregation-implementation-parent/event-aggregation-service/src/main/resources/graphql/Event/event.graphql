@@ -3,7 +3,7 @@ type MPEServiceQuery {
     eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
     eventData(eventDataUuid: String): EventData
-    deleteEvent(eventUuid: String!): Event
+    deleteEvent(eventUuid: String!): Eventd
 }
 
 type TypeQuery {
