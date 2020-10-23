@@ -85,43 +85,46 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
         {
             switch (path)
             {
-                case "/mpeConfigTemplateByName":
-                    result = null;
-                    break;
                 case "/createMpeProcessingConfiguration":
-                    result = processCreateConfig(environment);
+                    result = processCreateMpeProcessingConfiguration(environment);
                     break;
-                case "/deleteMpeConfig":
-                    result = processDeleteConfig(environment);
+                case "/deleteMpeProcessingConfiguration":
+                    result = processDeleteMpeProcessingConfiguration(environment);
                     break;
-                case "/updateMpeConfig":
-                    result = processUpdateConfig(environment);
+                case "/updateMpeProcessingConfiguration":
+                    result = processUpdateMpeProcessingConfiguration(environment);
+                    break;
+                case "/createMpeProcessingConfigTemplate":
+                    break;
+                case "/deleteMpeProcessingConfigTemplate":
+                    break;
+                case "/updateMpeProcessingConfigTemplate":
                     break;
             }
         }
         return result;
     }
 
-    private MPEProcessingConfiguration processDeleteConfig(DataFetchingEnvironment environment)
+    private MPEProcessingConfiguration processDeleteMpeProcessingConfiguration(DataFetchingEnvironment environment)
     {
         MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
         return configuration;
     }
 
-    private MPEProcessingConfiguration processUpdateConfig(DataFetchingEnvironment environment)
+    private MPEProcessingConfiguration processUpdateMpeProcessingConfiguration(DataFetchingEnvironment environment)
     {
         MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
         return configuration;
     }
 
-    private MPEProcessingConfiguration processCreateConfig(DataFetchingEnvironment environment)
+    private MPEProcessingConfiguration processCreateMpeProcessingConfiguration(DataFetchingEnvironment environment)
     {
         MPEProcessingConfiguration mpeProcessingConfiguration = new MPEProcessingConfiguration();
         EventCrudMutationExecutor eventCrudMutationExecutor = null;
 
         if (environment != null)
         {
-            //eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
             Map<String, Object> configData = environment.getArgument("configData");
             if (configData != null)
             {
@@ -144,8 +147,18 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
                         queryString.append(" catalogRsoReservationUuid\n");
                         queryString.append(" ucnReservationUuid\n");
                         queryString.append(" candidateFormationParametersUuid\n");
-                        queryString.append(" candidateFormationParameters\n");
-                        queryString.append(" currentFlag\n");
+                        queryString.append(" candidateFormationParameters{\n");
+                        queryString.append(" candidateFormationParametersUuid\n");
+                        queryString.append(" classificationMarking\n");
+                        queryString.append(" pdotCoefficients\n");
+                        queryString.append(" coplanarCheckThreshold\n");
+                        queryString.append(" periodAssociationThreshold\n");
+                        queryString.append(" minimumTracksPerCluster\n");
+                        queryString.append(" createDate\n");
+                        queryString.append(" createOrigin\n");
+                        queryString.append(" updateDate\n");
+                        queryString.append(" updateOrigin\n");
+                        queryString.append(" version}\n");
                         queryString.append(" name\n");
                         queryString.append(" description\n");
                         queryString.append(" analystMinTracksPerDay\n");

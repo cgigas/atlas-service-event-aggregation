@@ -1,5 +1,5 @@
 extend type MPEServiceMutation {
-    createMpeProcessingConfiguration(mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration!
+    createMpeProcessingConfiguration(mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
     deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
     updateMpeProcessingConfiguration(mpeProcessingConfigUuid: String! mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
     createMpeProcessingConfigTemplate(mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate!
@@ -54,9 +54,7 @@ type MpeProcessingConfiguration {
     version: Long
 }
 
-
-
-input CreateMpeConfig {
+input MpeProcessingConfigurationInput  {
     mpeProcessingConfigUuid: String!
     classificationMarking: String
     eventUUID: String!
@@ -91,7 +89,7 @@ input CreateMpeConfig {
     version: Long
 }
 
-type MPEProcessingConfigTemplate {
+type MpeProcessingConfigTemplate {
     mpeProcessingConfigUuid: String
     classificationMarking: String
     candidateRsoReservationUuid: String
@@ -123,7 +121,7 @@ type MPEProcessingConfigTemplate {
     version: Long
 }
 
-input ConfigTemplate {
+input MpeProcessingConfigTemplateInput {
     mpeProcessingConfigUUID: String
     classificationMarking: String
     candidateRsoReservationUuid: String
@@ -153,4 +151,69 @@ input ConfigTemplate {
     createDate: DateTime
     createOrigin: String
     version: Long
+}
+
+type MpeProcessingConfigurationPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [MpeProcessingConfiguration]
+}
+
+type MpeProcessingConfigTemplatePage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [MpeProcessingConfigTemplate]
+}
+
+input MpeProcessingConfigurationQueryExampleInput {
+    classificationMarking: String
+    eventUuid: String
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    catalogRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    currentFlag: Boolean
+    name: String
+    description: String
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
+}
+
+input MpeProcessingConfigTemplateQueryExampleInput {
+    classificationMarking: String
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    name: String
+    description: String
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
 }
