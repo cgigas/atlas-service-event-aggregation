@@ -1,9 +1,25 @@
 extend type MPEServiceMutation {
-    createMpeProcessingConfiguration(configData: CreateMpeConfig): MpeProcessingConfiguration
+    createMpeProcessingConfiguration(mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration!
     deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
-    updateMpeConfig(configData: CreateMpeConfig): MpeProcessingConfiguration
-    createMpeConfigFromTemplate(template: ConfigTemplate): MpeProcessingConfiguration
+    updateMpeProcessingConfiguration(mpeProcessingConfigUuid: String! mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
+    createMpeProcessingConfigTemplate(mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate!
+    deleteMpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!): MpeProcessingConfigTemplate
+    updateMpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate
 }
+
+extend type MPEServiceQuery {
+    mpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
+    mpeProcessingConfigurationPage(pageInfo: PageInfo!): MpeProcessingConfigurationPage!
+    mpeProcessingConfigurationPageById(mpeProcessingConfigUuids: [String!]! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
+    mpeProcessingConfigurationPageByExample(example: MpeProcessingConfigurationQueryExampleInput! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
+    mpeProcessingConfigurationPageByCriteria(criteriaQuery: CriteriaQuery! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
+    mpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!): MpeProcessingConfigTemplate
+    mpeProcessingConfigTemplatePage(pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
+    mpeProcessingConfigTemplatePageById(mpeProcessingConfigTemplateUuids: [String!]! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
+    mpeProcessingConfigTemplatePageByExample(example: MpeProcessingConfigTemplateQueryExampleInput! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
+    mpeProcessingConfigTemplatePageByCriteria(criteriaQuery: CriteriaQuery! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
+}
+
 type MpeProcessingConfiguration {
     mpeProcessingConfigUuid: String!
     classificationMarking: String!
@@ -37,9 +53,8 @@ type MpeProcessingConfiguration {
     updateOrigin: String
     version: Long
 }
-extend type MPEServiceQuery {
-    mpeConfigTemplateByName(name: String): MPEProcessingConfigTemplate
-}
+
+
 
 input CreateMpeConfig {
     mpeProcessingConfigUuid: String!

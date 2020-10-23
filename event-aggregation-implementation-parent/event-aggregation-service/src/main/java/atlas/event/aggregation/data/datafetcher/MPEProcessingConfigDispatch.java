@@ -56,11 +56,23 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceQuery")
-            .dataFetcher("mpeConfigTemplateByName", this));
+            .dataFetcher("mpeProcessingConfiguration", this)
+            .dataFetcher("mpeProcessingConfigurationPage", this)
+            .dataFetcher("mpeProcessingConfigurationPageById", this)
+            .dataFetcher("mpeProcessingConfigurationPageByExample", this)
+            .dataFetcher("mpeProcessingConfigurationPageByCriteria", this)
+            .dataFetcher("mpeProcessingConfigTemplate", this)
+            .dataFetcher("mpeProcessingConfigTemplatePage", this)
+            .dataFetcher("mpeProcessingConfigTemplatePageById", this)
+            .dataFetcher("mpeProcessingConfigTemplatePageByExample", this)
+            .dataFetcher("mpeProcessingConfigTemplatePageByCriteria", this));
         builders.add(newTypeWiring("MPEServiceMutation")
             .dataFetcher("createMpeProcessingConfiguration", this)
-            .dataFetcher("updateMpeConfig", this)
-            .dataFetcher("createMpeConfigFromTemplate", this));
+            .dataFetcher("deleteMpeProcessingConfiguration", this)
+            .dataFetcher("updateMpeProcessingConfiguration", this)
+            .dataFetcher("createMpeProcessingConfigTemplate", this)
+            .dataFetcher("deleteMpeProcessingConfigTemplate", this)
+            .dataFetcher("updateMpeProcessingConfigTemplate", this));
         return builders;
     }
 
@@ -109,7 +121,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
 
         if (environment != null)
         {
-            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            //eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
             Map<String, Object> configData = environment.getArgument("configData");
             if (configData != null)
             {
