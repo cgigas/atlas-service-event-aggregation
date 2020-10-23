@@ -32,6 +32,8 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -51,6 +53,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     private EventSatelliteParser eventSatelliteParser;
     @Autowired
     private EventParser eventParser;
+    Logger log = LoggerFactory.getLogger(EventSatelliteDispatch.class);
 
     public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -127,25 +130,28 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     {
         List<EventSatellite> eventSatelliteList = null;
         EventCrudMutationExecutor eventCrudMutationExecutor;
-        List<String> eventSatList = environment.getArgument("eventSatUuid");
-        if (eventSatList != null)
-        {
-            String returnParams = "{eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version }}}";
-            eventSatelliteList = new ArrayList<>();
-            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
-            for (String eventSatUuid : eventSatList)
-            {
-                try
-                {
-                    atlas.ssaevent.crud.graphql.EventSat crudEventResult = eventCrudMutationExecutor.deleteEventSat(returnParams, eventSatUuid);
-                    EventSatellite eventSat = (EventSatellite) eventSatelliteParser.fromGraphqlClient(crudEventResult);
-                    eventSatelliteList.add(eventSat);
-                }
-                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
-                {
-                    log.error(e.toString());
-                    throw new DataAccessorException(e);
 
+        if (environment != null)
+        {
+            List<String> eventSatList = environment.getArgument("eventSatUuid");
+            if (eventSatList != null)
+            {
+                String returnParams = "{eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version }}}";
+                eventSatelliteList = new ArrayList<>();
+                eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+                for (String eventSatUuid: eventSatList)
+                {
+                    try
+                    {
+                        atlas.ssaevent.crud.graphql.EventSat crudEventResult = eventCrudMutationExecutor.deleteEventSat(returnParams, eventSatUuid);
+                        EventSatellite eventSat = (EventSatellite) eventSatelliteParser.fromGraphqlClient(crudEventResult);
+                        eventSatelliteList.add(eventSat);
+                    }
+                    catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                    {
+                        log.error(e.toString());
+                        throw new DataAccessorException(e);
+                    }
                 }
             }
         }
