@@ -17,11 +17,16 @@
  */
 package atlas.event.aggregation.data.datafetcher;
 
+import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.mpeprocessing.MPEProcessingConfiguration;
 import atlas.event.aggregation.parser.ConfigParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
+import atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput;
 import com.google.common.collect.Lists;
+import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
+import com.graphql_java_generator.exception.GraphQLRequestPreparationException;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +36,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Map;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -52,11 +58,11 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceQuery")
-                .dataFetcher("mpeConfigTemplateByName", this));
+            .dataFetcher("mpeConfigTemplateByName", this));
         builders.add(newTypeWiring("MPEServiceMutation")
-                .dataFetcher("createMpeConfig", this)
-                .dataFetcher("updateMpeConfig", this)
-                .dataFetcher("createMpeConfigFromTemplate", this));
+            .dataFetcher("createMpeConfig", this)
+            .dataFetcher("updateMpeConfig", this)
+            .dataFetcher("createMpeConfigFromTemplate", this));
         return builders;
     }
 
@@ -100,18 +106,40 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
 
     private MPEProcessingConfiguration processCreateConfig(DataFetchingEnvironment environment)
     {
-        MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
+        MPEProcessingConfiguration mpeProcessingConfiguration = new MPEProcessingConfiguration();
         EventCrudMutationExecutor eventCrudMutationExecutor = null;
-        // MpeProcessingConfiguration createMpeProcessingConfiguration(String queryResponseDef, MpeProcessingConfigurationInput mpeProcessingConfiguration, Object... paramsAndValues) throws GraphQLRequestExecutionException, GraphQLRequestPreparationException
+
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
-            MPEProcessingConfiguration mpeConfig = environment.getArgument("configData");
-            if (mpeConfig != null)
+            Map<String, Object> configData = environment.getArgument("configData");
+            if (configData != null)
             {
+                atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfiguration) configParser.toGraphqlClient(configData, Boolean.TRUE);
+                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData = null;
 
+                // check for Config Data
+                if (configData.containsKey("configData"))
+                {
+                    clientEventData = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) configParser.toGraphqlClient(configData.get("configData"), Boolean.TRUE);
+                    try
+                    {
+                        StringBuffer queryString = new StringBuffer();
+                        queryString.append("{template {mpeProcessingConfigUuid classificationMarking candidateRsoReservationUuid analystRsoReservationUuid ucnReservationUuid candidateFormationParametersUuid name description analystMinTracksPerDay catalogMinTracksPerDay analystMinTracksReceived catalogMinTracksReceived analystMinOdSolutions catalogMinOdSolutions analystRmsTrendMean catalogRmsTrendMean analystRmsTrendSd catalogRmsTrendSd analystMinResidualAcceptance catalogMinResidualAcceptance analystMinArgumentLatitude catalogMinArgumentLatitude analystMinReportingSensors catalogMinReportingSensors updateDate updateOrigin createDate createOrigin version\n");
+                        queryString.append(" eventUUID\n");
+                        queryString.append(" catalogRsoReservationUUID\n");
+                        queryString.append("}\n");
+                        atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventCreateResult = eventCrudMutationExecutor.createMpeProcessingConfiguration(queryString.toString(), clientEventData, configEvent);
+                        mpeProcessingConfiguration = (MPEProcessingConfiguration) configParser.fromGraphqlClient(configEventCreateResult);
+                    }
+                    catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                    {
+                        e.printStackTrace();
+                        throw new DataAccessorException(e);
+                    }
+                }
             }
         }
-        return configuration;
+        return mpeProcessingConfiguration;
     }
 }
