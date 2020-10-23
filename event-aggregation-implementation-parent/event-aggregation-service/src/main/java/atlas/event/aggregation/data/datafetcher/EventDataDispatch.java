@@ -115,7 +115,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                     result = processEventData(environment);
                     break;
                 case "/createEvent":
-                    result = processCreateEvent(environment);s
+                    result = processCreateEvent(environment);
                     break;
                 case "/updateEventStatus":
                     result = processUpdateEventStatus(environment);
