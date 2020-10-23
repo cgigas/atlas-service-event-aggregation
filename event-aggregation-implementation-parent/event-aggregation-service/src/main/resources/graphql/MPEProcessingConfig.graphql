@@ -1,13 +1,41 @@
 extend type MPEServiceMutation {
-    createMpeProcessingConfiguration(configData: CreateMpeConfig): MpeProcessingConfig
-    deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfig
-    updateMpeConfig(configData: CreateMpeConfig): MpeProcessingConfig
-    createMpeConfigFromTemplate(template: ConfigTemplate): MpeProcessingConfig
+    createMpeProcessingConfiguration(configData: CreateMpeConfig): MpeProcessingConfiguration
+    deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
+    updateMpeConfig(configData: CreateMpeConfig): MpeProcessingConfiguration
+    createMpeConfigFromTemplate(template: ConfigTemplate): MpeProcessingConfiguration
 }
-type MpeProcessingConfig {
-    template: MPEProcessingConfigTemplate
-    eventUUID: String
-    catalogRsoReservationUUID: String
+type MpeProcessingConfiguration {
+    mpeProcessingConfigUuid: String!
+    classificationMarking: String!
+    eventUuid: String!
+    event: Event!
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    catalogRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    candidateFormationParameters: CandidateFormationParameters
+    currentFlag: Boolean!
+    name: String
+    description: String
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
 }
 extend type MPEServiceQuery {
     mpeConfigTemplateByName(name: String): MPEProcessingConfigTemplate

@@ -18,12 +18,10 @@
 package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
-import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.mpeprocessing.MPEProcessingConfiguration;
 import atlas.event.aggregation.parser.ConfigParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
-import atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput;
 import com.google.common.collect.Lists;
 import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
 import com.graphql_java_generator.exception.GraphQLRequestPreparationException;
@@ -116,7 +114,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
             if (configData != null)
             {
                 atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfiguration) configParser.toGraphqlClient(configData, Boolean.TRUE);
-                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData = null;
+                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData;
 
                 // check for Config Data
                 if (configData.containsKey("configData"))
