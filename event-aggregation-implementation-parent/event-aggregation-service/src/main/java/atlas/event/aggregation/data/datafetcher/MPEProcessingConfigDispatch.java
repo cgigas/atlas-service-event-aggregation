@@ -42,7 +42,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcessingConfiguration>
 {
     @Autowired
@@ -60,7 +60,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
         builders.add(newTypeWiring("MPEServiceQuery")
             .dataFetcher("mpeConfigTemplateByName", this));
         builders.add(newTypeWiring("MPEServiceMutation")
-            .dataFetcher("createMpeConfig", this)
+            .dataFetcher("createMpeProcessingConfiguration", this)
             .dataFetcher("updateMpeConfig", this)
             .dataFetcher("createMpeConfigFromTemplate", this));
         return builders;
@@ -78,7 +78,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
                 case "/mpeConfigTemplateByName":
                     result = null;
                     break;
-                case "/createMpeConfig":
+                case "/createMpeProcessingConfiguration":
                     result = processCreateConfig(environment);
                     break;
                 case "/deleteMpeConfig":

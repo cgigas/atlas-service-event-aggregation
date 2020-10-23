@@ -51,7 +51,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 {
     private final GraphqlUtility graphqlUtility;
