@@ -69,7 +69,6 @@ type EventData {
     version: Long
 }
 
-
 input EventDataInput {
     eventDataUuid: String
     classificationMarking: String
