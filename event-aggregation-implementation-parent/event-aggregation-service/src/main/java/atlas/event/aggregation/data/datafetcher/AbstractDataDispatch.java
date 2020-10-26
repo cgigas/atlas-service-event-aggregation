@@ -76,40 +76,6 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
         }
     }
 
-
-    /*
-        public Object processRequest(DataFetchingEnvironment environment) throws EventAggregateException
-        {
-            return processRequest(getRequestPath(environment), environment);
-        }
-
-        public Object processRequest(String path, DataFetchingEnvironment environment) throws EventAggregateException
-        {
-            Object result = null;
-            IDigitalHandler handler = null;
-            if (StringUtils.isNotBlank(path))
-            {
-                handler = getBusinessHandlerByPath(path);
-            }
-            else
-            {
-                throw new EventAggregateException("Path is required");
-            }
-
-            if (handler != null)
-            {
-                result = handler.processRequest(environment);
-            }
-            else
-            {
-                throw new EventAggregateException("No registered handler for path: " + path);
-            }
-            SsaEvent event = (SsaEvent) result;
-            result = Lists.newArrayList(event);
-            return result;
-        }
-    */
-
     @Override
     public DataFetcherResult<T> get(DataFetchingEnvironment environment) throws Exception
     {
@@ -248,7 +214,6 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
 
     protected DataServiceConfiguration getClientServiceLookup()
     {
-
         return dataServiceConfiguration;
     }
 }
