@@ -20,12 +20,10 @@ package atlas.event.aggregation.data.datafetcher;
 import atlas.event.aggregation.base.DigitalBase;
 import atlas.event.aggregation.config.DataServiceConfiguration;
 import atlas.event.aggregation.data.paging.PageableBuilder;
-import atlas.event.aggregation.data.paging.elements.Order;
 import atlas.event.aggregation.data.paging.elements.PageInfo;
 import atlas.event.aggregation.exception.EventAggregateException;
 import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import graphql.ErrorType;
 import graphql.GraphQLError;
@@ -35,12 +33,12 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,6 +55,9 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
     protected static final String ID_ARG = "id";
     protected Integer maxPageSize = 1000;
+    @Autowired
+    private DataServiceConfiguration dataServiceConfiguration;
+
 
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
@@ -237,44 +238,17 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
     PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
     {
         PageInfo pageInfo = new PageInfo();
-        Pageable pageable = null;
-        //getPageRequestArgument(dataFetchingEnvironment, "pageInfo");
-        if (pageable != null)
-        {
-            pageInfo.setPage(pageable.getPageNumber());
-            pageInfo.setSize(pageable.getPageSize());
-            // convert Spring domain Sort to crud sort
-//            if (pageable.getSort() != Sort.unsorted())
-//            {
-            List<Order> orders = Lists.newArrayList();
-//                for (Order order : pageable.getSort().toList())
-//                {
-            //orders.add(Order.builder().withProperty(order.getProperty()).withDirection(order.isAscending() ? Direction.ASC : Direction.DESC).build());
-//                }
-//                Sort crudSort = null;//Sort.builder().withOrders(orders).build();
-//                pageInfo.setSort(crudSort);
-//            }
-        }
-        else
-        {
-            // default pageInfo
-            pageInfo.setPage(0);
-            pageInfo.setSize(maxPageSize);
-        }
+
+        // default pageInfo
+        pageInfo.setPage(0);
+        pageInfo.setSize(maxPageSize);
+
         return pageInfo;
     }
 
     protected DataServiceConfiguration getClientServiceLookup()
     {
-        DataServiceConfiguration dataServiceConfiguration = null;
-        Object o = locateService("clientServiceLookup");
-        if (o != null)
-        {
-            if (o instanceof  DataServiceConfiguration)
-            {
-                dataServiceConfiguration = (DataServiceConfiguration) o;
-            }
-        }
+
         return dataServiceConfiguration;
     }
 }

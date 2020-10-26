@@ -34,7 +34,7 @@ public class ConfigParser extends EventMasterParser
             configuration.setAnalystMinArgumentLatitude(configurationInput.getAnalystMinArgumentLatitude());
             configuration.setAnalystMinOdSolutions(configurationInput.getAnalystMinOdSolutions());
             configuration.setAnalystMinReportingSensors(configurationInput.getAnalystMinReportingSensors());
-
+            configuration.setAnalystMinResidualAcceptance(configurationInput.getAnalystMinResidualAcceptance());
         }
         return configuration;
     }
