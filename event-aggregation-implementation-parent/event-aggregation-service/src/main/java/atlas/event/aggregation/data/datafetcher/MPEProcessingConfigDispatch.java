@@ -229,16 +229,13 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
-            Map<String, Object> configData = environment.getArgument("configData");
+            Map<String, Object> configData = environment.getArgument("mpeProcessingConfiguration");
             if (configData != null)
             {
-                atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfiguration) MPEProcessingConfigParser.toGraphqlClient(configData, Boolean.TRUE);
-                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData;
-
+                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) MPEProcessingConfigParser.toGraphqlClient(configData, Boolean.TRUE);
                 // check for Config Data
-                if (configData.containsKey("configData"))
+                if (configData.containsKey("mpeProcessingConfiguration"))
                 {
-                    clientEventData = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) MPEProcessingConfigParser.toGraphqlClient(configData.get("configData"), Boolean.TRUE);
                     try
                     {
                         StringBuffer queryString = new StringBuffer();
@@ -284,7 +281,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
                         queryString.append(" updateOrigin\n");
                         queryString.append(" version\n");
                         queryString.append("}\n");
-                        atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventCreateResult = eventCrudMutationExecutor.createMpeProcessingConfiguration(queryString.toString(), clientEventData, configEvent);
+                        atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventCreateResult = eventCrudMutationExecutor.createMpeProcessingConfiguration(queryString.toString(), configEvent, configEvent);
                         mpeProcessingConfiguration = (MPEProcessingConfiguration) MPEProcessingConfigParser.fromGraphqlClient(configEventCreateResult);
                     }
                     catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)

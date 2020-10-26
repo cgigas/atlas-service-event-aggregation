@@ -1,4 +1,4 @@
-type MPEServiceQuery {
+extend type MPEServiceQuery {
     eventById(id: String!): Event
     eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
@@ -10,7 +10,7 @@ type TypeQuery {
     getEventTypes: [EventType]
 }
 
-type MPEServiceMutation {
+extend type MPEServiceMutation {
     closeEvent(id: String, endDate: DateTime): Event
     deleteEvent(id: String): Event
     updateEventStatus(id: String, eventStatus: EventStatus!): Event
