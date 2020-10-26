@@ -17,10 +17,7 @@
  */
 package atlas.event.aggregation.config;
 
-import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Before;
-import org.junit.Test;
-
 import static org.junit.Assert.assertNotNull;
 
 public class DataServiceConfigurationTest
@@ -32,21 +29,4 @@ public class DataServiceConfigurationTest
         assertNotNull(task);
         task.init();
     }
-
-    @Test
-    public void testGettersSetters() throws Exception
-    {
-        GetterSetterTester tester = new GetterSetterTester()
-        {
-            @Override
-            protected Object getInstance()
-            {
-                return new DataServiceConfiguration();
-            }
-        };
-        assertNotNull(tester);
-        tester.testGettersAndSetters();
-    }
-
-
 }

@@ -38,6 +38,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +82,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 .dataFetcher("deleteEvent", this)
                 .dataFetcher("updateEventType", this)
                 .dataFetcher("updateEventStatus", this)
+                .dataFetcher("updateEvent", this)
                 .dataFetcher("createEvent", this));
         return builders;
     }
@@ -206,10 +209,13 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     {
         Event event = new Event();
         EventCrudMutationExecutor eventCrudMutationExecutor;
+        EventCrudQueryExecutor eventCrudQueryExecutor;
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
-            String eventUuid = environment.getArgument("id");
+            eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
+            String eventUuid = environment.getArgument("eventUuid");
+            OffsetDateTime endDate = environment.getArgument("endDate");
             try
             {
                 StringBuffer queryString = new StringBuffer();
@@ -224,8 +230,16 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 queryString.append(" updateOrigin\n");
                 queryString.append(" version\n");
                 queryString.append("}\n");
-                atlas.ssaevent.crud.graphql.Event clientEventCloseResult = eventCrudMutationExecutor.deleteEvent(queryString.toString(), eventUuid);
-                event = (Event) eventParser.fromGraphqlClient(clientEventCloseResult);
+                atlas.ssaevent.crud.graphql.Event clientEvent = eventCrudQueryExecutor.event(queryString.toString(), eventUuid);
+                if (clientEvent != null)
+                {
+                    clientEvent.setStatus(EventStatus.CLOSED);
+                    clientEvent.setEndDt(endDate);
+
+                    atlas.ssaevent.crud.graphql.EventInput clientEventInput = (atlas.ssaevent.crud.graphql.EventInput) eventParser.toGraphqlClient(clientEvent, Boolean.TRUE);
+                    clientEvent = eventCrudMutationExecutor.updateEvent(queryString.toString(), eventUuid, clientEventInput);
+                    event = (Event) eventParser.fromGraphqlClient(clientEvent);
+                }
             }
             catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
             {
