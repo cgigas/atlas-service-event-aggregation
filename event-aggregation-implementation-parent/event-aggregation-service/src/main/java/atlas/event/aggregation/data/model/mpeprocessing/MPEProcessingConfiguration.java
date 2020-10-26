@@ -98,7 +98,6 @@ public class MPEProcessingConfiguration extends Audited
      * Short description of the event processing configuration.
      */
     private String description;
-
     private Integer analystMinTracksPerDay;
     private Integer catalogMinTracksPerDay;
     private Integer analystMinTracksReceived;
@@ -115,5 +114,4 @@ public class MPEProcessingConfiguration extends Audited
     private Double catalogMinArgumentLatitude;
     private Integer analystMinReportingSensors;
     private Integer catalogMinReportingSensors;
-
 }

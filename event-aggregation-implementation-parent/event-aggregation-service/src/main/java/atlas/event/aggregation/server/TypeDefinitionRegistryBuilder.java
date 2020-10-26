@@ -22,12 +22,14 @@ import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
-
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Component
 public class TypeDefinitionRegistryBuilder
 {
-
+    Logger log = LoggerFactory.getLogger(TypeDefinitionRegistryBuilder.class);
     private final ResourceLoader resourceLoader;
 
     public TypeDefinitionRegistryBuilder(ResourceLoader resourceLoader)
@@ -80,6 +82,24 @@ public class TypeDefinitionRegistryBuilder
         }
     }
 
+
+    /**
+     * Factory method to create a GraphQLSchema from the files in a named resource path.
+     * The path is assumed to be on the classpath for the current class loader.
+     * The path will be recursively traversed.
+     * The files in the named folder are assumed to be graphql schema definition files.
+     * @param rootResourcePath the path to get files from with assumption file extension is 'graphql' by default
+     * @return a merged schema object.
+     * @throws IOException if files can't be read.
+    public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
+    {
+        log.info("TypeDefinitionRegistry.buildRegistryFrom(String)");
+        TypeDefinitionRegistry typeRegistry = null;
+        String resourceExtension = "graphql";
+        typeRegistry = buildRegistryFrom(resourceExtension, rootResourcePath);
+        return typeRegistry;
+    }
+     */
     public TypeDefinitionRegistry buildRegistryFrom(String resourceExtension, String...rootResourcePath) throws IOException
     {
         TypeDefinitionRegistry typeRegistry = null;
@@ -112,38 +132,54 @@ public class TypeDefinitionRegistryBuilder
      * The files in the named folder are assumed to be graphql schema definition files.
      * @param fileList The list of all the files in the directory and subdirectories.
      * @return a merged schema object.
+     * @throws IOException if files can't be read.
      */
-    public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList)
+    public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList) throws IOException
     {
-        SchemaParser parser = new SchemaParser();
-        TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
-
-        for (File fileItem: fileList)
+        try
         {
-            typeRegistry.merge(parser.parse(fileItem));
+            SchemaParser parser = new SchemaParser();
+            TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
+
+            for (File fileItem: fileList)
+            {
+                typeRegistry.merge(parser.parse(fileItem));
+            }
+            return typeRegistry;
         }
-        return typeRegistry;
+        catch (Throwable e)
+        {
+            throw new IllegalStateException(e);
+        }
     }
 
     private List<File> getFilesInDirectory(File directory, String fileExtension)
     {
-        List<File> fileList = new ArrayList<>();
+        List<File> fileList = null;
         if ((directory != null))
         {
-            File[] listOfFiles = directory.listFiles((dir, name) ->
+            File[] listOfFiles = directory.listFiles(new FilenameFilter()
             {
-                if (dir.isDirectory())
+                @Override
+                public boolean accept(File dir, String name)
                 {
-                    return true;
-                }
-                else
-                {
-                    return name.toLowerCase().endsWith(fileExtension);
+                    if (dir.isDirectory())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return name.toLowerCase().endsWith(fileExtension);
+                    }
                 }
             });
 
             if (listOfFiles != null)
             {
+                if (fileList == null)
+                {
+                    fileList = new ArrayList<>();
+                }
                 for (File fileItem: listOfFiles)
                 {
                     if (fileItem.isDirectory())
@@ -157,7 +193,6 @@ public class TypeDefinitionRegistryBuilder
                 }
             }
         }
-
         return fileList;
     }
 }
