@@ -34,16 +34,15 @@ type Launch {
 }
 
 type Event {
-    eventUuid: String
-    classificationMarking: String
+    eventUuid: String!
+    classificationMarking: String!
     predecessorEventUuid: String
-    eventType: EventType
-    eventName: String
-    eventStatus: EventStatus
-    eventState: EventState
-    startDate: DateTime
-    endDate: DateTime
-    eventDesc: String
+    type: EventType!
+    name: String!
+    status: EventStatus!
+    startDt: DateTime!
+    endDt: DateTime
+    description: String
     internalNotes: String
     eventPostingId: String
     eventData: [EventData!]
@@ -55,17 +54,17 @@ type Event {
 }
 
 type EventData {
-    eventDataUuid: String
-    classificationMarking: String
-    eventUuid: String
-    name: String
+    eventDataUuid: String!
+    classificationMarking: String!
+    eventUuid: String!
+    name: String!
     uri: String
     type: String
     supplementalData: String
     createDate: DateTime
-    createOrgin: String
+    createOrigin: String
     updateDate: DateTime
-    updateOrgin: String
+    updateOrigin: String
     version: Long
 }
 

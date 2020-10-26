@@ -19,7 +19,6 @@ package atlas.event.aggregation.data.model.mpeprocessing;
 
 import atlas.event.aggregation.data.model.Audited;
 import atlas.event.aggregation.data.model.candidateformation.CandidateFormationParameters;
-import atlas.event.aggregation.data.model.event.Event;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,6 +53,7 @@ public class MPEProcessingConfiguration extends Audited
     private String eventUuid;
 
     @NotNull
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private atlas.event.aggregation.data.model.event.Event event;
 
     /**
@@ -81,6 +81,7 @@ public class MPEProcessingConfiguration extends Audited
      */
     private String candidateFormationParametersUuid;
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private CandidateFormationParameters candidateFormationParameters;
     /**
      * Indicator as to whether the event processing configuration is the current configuration applicable to an event (True or False).

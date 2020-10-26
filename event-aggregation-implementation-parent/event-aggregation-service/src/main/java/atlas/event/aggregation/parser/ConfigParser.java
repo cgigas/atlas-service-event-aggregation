@@ -18,6 +18,7 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.parser.event.EventMasterParser;
+import atlas.ssaevent.crud.graphql.MpeProcessingConfiguration;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,7 +27,16 @@ public class ConfigParser extends EventMasterParser
     @Override
     public Object fromGraphqlClient(Object graphql)
     {
-        return null;
+        MpeProcessingConfiguration configuration = new MpeProcessingConfiguration();
+        if (graphql instanceof atlas.ssaevent.crud.graphql.MpeProcessingConfiguration)
+        {
+            atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput configurationInput = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) graphql;
+            configuration.setAnalystMinArgumentLatitude(configurationInput.getAnalystMinArgumentLatitude());
+            configuration.setAnalystMinOdSolutions(configurationInput.getAnalystMinOdSolutions());
+            configuration.setAnalystMinReportingSensors(configurationInput.getAnalystMinReportingSensors());
+
+        }
+        return configuration;
     }
 
     @Override
