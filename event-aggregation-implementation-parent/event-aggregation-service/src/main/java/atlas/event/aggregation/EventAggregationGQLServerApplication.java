@@ -19,10 +19,8 @@ package atlas.event.aggregation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("atlas")
 public class EventAggregationGQLServerApplication
 {
     public static void main(String[] args)

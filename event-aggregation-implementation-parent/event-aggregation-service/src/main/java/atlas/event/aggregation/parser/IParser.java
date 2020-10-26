@@ -125,4 +125,19 @@ public interface IParser
 
         return item;
     }
+
+    default Boolean getItemAsBoolean(String elementName, Map<String, Object> map)
+    {
+        Boolean item = null;
+        if ((StringUtils.isNotBlank(elementName)) && (map != null))
+        {
+            Object o = map.get(elementName);
+            if (o != null)
+            {
+                item = (Boolean) o;
+            }
+        }
+
+        return item;
+    }
 }

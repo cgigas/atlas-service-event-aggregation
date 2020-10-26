@@ -46,7 +46,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
 {
     @Autowired
@@ -130,6 +130,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     {
         List<EventSatellite> eventSatelliteList = null;
         EventCrudMutationExecutor eventCrudMutationExecutor;
+
         if (environment != null)
         {
             List<String> eventSatList = environment.getArgument("eventSatUuid");
