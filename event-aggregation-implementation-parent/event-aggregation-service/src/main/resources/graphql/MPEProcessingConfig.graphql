@@ -55,101 +55,85 @@ type MpeProcessingConfiguration {
 }
 
 input MpeProcessingConfigurationInput  {
-    mpeProcessingConfigUuid: String!
-    classificationMarking: String
-    eventUUID: String!
-    candidateRsoReservationUUID: String!
-    analystRsoReservationUUID: String!
-    catalogRsoReservationUUID: String!
-    ucnReservationUUID: String!
-    candidateFormationParametersUUID: String!
-    currentFlag: Long!
+    classificationMarking: String!
+    eventUuid: String!
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    catalogRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    currentFlag: Boolean!
     name: String
     description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
-    updateDate: DateTime
-    updateOrigin: String
-    createDate: DateTime!
-    createOrigin: String!
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
     version: Long
 }
 
 type MpeProcessingConfigTemplate {
-    mpeProcessingConfigUuid: String
-    classificationMarking: String
+    mpeProcessingConfigTemplateUuid: String!
+    classificationMarking: String!
     candidateRsoReservationUuid: String
     analystRsoReservationUuid: String
     ucnReservationUuid: String
     candidateFormationParametersUuid: String
+    candidateFormationParameters: CandidateFormationParameters
     name: String
     description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
+    createOrigin: String
     updateDate: DateTime
     updateOrigin: String
-    createDate: DateTime
-    createOrigin: String
     version: Long
 }
 
 input MpeProcessingConfigTemplateInput {
-    mpeProcessingConfigUUID: String
-    classificationMarking: String
+    classificationMarking: String!
     candidateRsoReservationUuid: String
     analystRsoReservationUuid: String
     ucnReservationUuid: String
     candidateFormationParametersUuid: String
     name: String
     description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
-    updateDate: DateTime
-    updateOrigin: String
-    createDate: DateTime
-    createOrigin: String
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
     version: Long
 }
 
