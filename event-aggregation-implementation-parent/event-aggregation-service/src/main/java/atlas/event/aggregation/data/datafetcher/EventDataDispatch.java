@@ -27,8 +27,6 @@ import atlas.event.aggregation.parser.event.EventDataParser;
 import atlas.event.aggregation.parser.event.EventParser;
 import atlas.event.aggregation.parser.event.EventTypeSummaryParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
-import atlas.notes.crud.graphql.NotesCrudMutationExecutor;
-import atlas.sensor.crud.graphql.SensorCrudMutationExecutor;
 import atlas.ssaevent.crud.graphql.*;
 import com.google.common.collect.Lists;
 import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
@@ -40,14 +38,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import java.time.OffsetDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.*;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 {
     private final GraphqlUtility graphqlUtility;
@@ -80,6 +82,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 .dataFetcher("deleteEvent", this)
                 .dataFetcher("updateEventType", this)
                 .dataFetcher("updateEventStatus", this)
+                .dataFetcher("updateEvent", this)
                 .dataFetcher("createEvent", this));
         return builders;
     }
@@ -173,7 +176,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
             eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
             if (eventCrudQueryExecutor != null)
             {
-                String id = environment.getArgument("id");
+                String id = environment.getArgument("eventUuid");
                 try
                 {
                     StringBuffer queryString = new StringBuffer();
@@ -205,31 +208,79 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
     Event processCloseEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        NotesCrudMutationExecutor notes = getClientServiceLookup().getNotesCrudMutationExecutor();
-        EventCrudQueryExecutor eventClientQuery = getClientServiceLookup().getEventCrudQueryExecutor();
-        EventCrudMutationExecutor eventClientMutation = getClientServiceLookup().getEventCrudMutationExecutor();
-        SensorCrudMutationExecutor sensorClientMutation = getClientServiceLookup().getSensorCrudMutationExecutor();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String id = environment.getArgument("id");
-        OffsetDateTime endDate = environment.getArgument("endDate");
-        url += "/closeSdaEvent/" + id + "/" + endDate;
+        EventCrudMutationExecutor eventCrudMutationExecutor;
+        EventCrudQueryExecutor eventCrudQueryExecutor;
+        if (environment != null)
+        {
+            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
+            String eventUuid = environment.getArgument("eventUuid");
+            OffsetDateTime endDate = environment.getArgument("endDate");
+            try
+            {
+                StringBuffer queryString = new StringBuffer();
+                queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type createDate createOrigin\n");
+                queryString.append(" updateDate\n");
+                queryString.append(" updateOrigin\n");
+                queryString.append(" version\n");
+                queryString.append("}\n");
+                queryString.append(" createDate\n");
+                queryString.append(" createOrigin\n");
+                queryString.append(" updateDate\n");
+                queryString.append(" updateOrigin\n");
+                queryString.append(" version\n");
+                queryString.append("}\n");
+                atlas.ssaevent.crud.graphql.Event clientEvent = eventCrudQueryExecutor.event(queryString.toString(), eventUuid);
+                if (clientEvent != null)
+                {
+                    clientEvent.setStatus(EventStatus.CLOSED);
+                    clientEvent.setEndDt(endDate);
 
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (Event) eventParser.fromJsonString(resultRequestedData);
-
+                    atlas.ssaevent.crud.graphql.EventInput clientEventInput = (atlas.ssaevent.crud.graphql.EventInput) eventParser.toGraphqlClient(clientEvent, Boolean.TRUE);
+                    clientEvent = eventCrudMutationExecutor.updateEvent(queryString.toString(), eventUuid, clientEventInput);
+                    event = (Event) eventParser.fromGraphqlClient(clientEvent);
+                }
+            }
+            catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+            {
+                log.error(e.toString());
+                throw new DataAccessorException(e);
+            }
+        }
         return event;
     }
 
     Event processDeleteEvent(DataFetchingEnvironment environment)
     {
         Event event = new Event();
-        String url = getDigitalCache().getExternalServiceUrl(EventAggregationConstants.EVENT_CRUD_URL);
-        String id = environment.getArgument("id");
-        url += "/deleteSdaEvent/" + id;
-
-        String resultRequestedData = sendHttpGetRestRequestAsString(url);
-        event = (Event) eventParser.fromJsonString(resultRequestedData);
-
+        EventCrudMutationExecutor eventCrudMutationExecutor;
+        if (environment != null)
+        {
+            eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+            String eventUuid = environment.getArgument("eventUuid");
+            try
+            {
+                StringBuffer queryString = new StringBuffer();
+                queryString.append("{eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData {eventDataUuid classificationMarking eventUuid name uri type createDate createOrigin\n");
+                queryString.append(" updateDate\n");
+                queryString.append(" updateOrigin\n");
+                queryString.append(" version\n");
+                queryString.append("}\n");
+                queryString.append(" createDate\n");
+                queryString.append(" createOrigin\n");
+                queryString.append(" updateDate\n");
+                queryString.append(" updateOrigin\n");
+                queryString.append(" version\n");
+                queryString.append("}\n");
+                atlas.ssaevent.crud.graphql.Event clientEventDeleteResult = eventCrudMutationExecutor.deleteEvent(queryString.toString(), eventUuid);
+                event = (Event) eventParser.fromGraphqlClient(clientEventDeleteResult);
+            }
+            catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+            {
+                log.error(e.toString());
+                throw new DataAccessorException(e);
+            }
+        }
         return event;
     }
 

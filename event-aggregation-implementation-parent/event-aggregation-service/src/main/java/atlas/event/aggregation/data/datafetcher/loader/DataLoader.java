@@ -32,7 +32,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public final class DataLoader extends DigitalBase
 {
  

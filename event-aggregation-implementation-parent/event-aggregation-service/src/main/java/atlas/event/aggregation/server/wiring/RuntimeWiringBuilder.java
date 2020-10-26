@@ -46,9 +46,12 @@ public class RuntimeWiringBuilder implements GraphQlRuntimeWiringBuilder
         wiringBuilder = wiringBuilder.scalar(ExtendedScalars.NonNegativeFloat);
         wiringBuilder = wiringBuilder.scalar(ExtendedScalars.PositiveInt);
         wiringBuilder = wiringBuilder.scalar(ExtendedScalars.PositiveFloat);
-        for (TypeRuntimeWiring.Builder builder : this.collector.getTypeBuilders())
+        if (this.collector != null)
         {
-            wiringBuilder = wiringBuilder.type(builder);
+            for (TypeRuntimeWiring.Builder builder : this.collector.getTypeBuilders())
+            {
+                wiringBuilder = wiringBuilder.type(builder);
+            }
         }
         return wiringBuilder.build();
     }

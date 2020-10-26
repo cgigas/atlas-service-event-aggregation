@@ -90,8 +90,6 @@ public abstract class EventMasterParser implements IParser
                         }
                     }
                 }
-                System.out.println("asdfasdf");
-
             }
         }
         return eventCrudPageInfo;

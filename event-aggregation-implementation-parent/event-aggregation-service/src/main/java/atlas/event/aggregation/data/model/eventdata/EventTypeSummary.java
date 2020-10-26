@@ -17,8 +17,20 @@
  */
 package atlas.event.aggregation.data.model.eventdata;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventTypeSummary
 {
+    @Id
     private String id;
     private String type;
     private Integer planned;

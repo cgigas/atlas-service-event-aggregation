@@ -18,9 +18,20 @@
 package atlas.event.aggregation.data.model.eventdata;
 
 import atlas.event.aggregation.data.model.Audited;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventData extends Audited
 {
+    @Id
     private String eventDataUuid;
     private String classificationMarking;
     private String eventUuid;

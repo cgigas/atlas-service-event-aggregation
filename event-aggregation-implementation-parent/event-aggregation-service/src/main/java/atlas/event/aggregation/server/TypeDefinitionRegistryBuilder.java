@@ -17,13 +17,14 @@
  */
 package atlas.event.aggregation.server;
 
+import com.google.common.io.Resources;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -31,27 +32,52 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 @Slf4j
 @Component
 public class TypeDefinitionRegistryBuilder
 {
 
-    @Autowired
-    ResourceLoader resourceLoader;
+    private final ResourceLoader resourceLoader;
+
+    public TypeDefinitionRegistryBuilder(ResourceLoader resourceLoader)
+    {
+        this.resourceLoader = resourceLoader;
+    }
 
     /**
      * Factory method to create a GraphQLSchema from the files in a named resource path.
      * The path is assumed to be on the classpath for the current class loader.
      * The path will be recursively traversed.
      * The files in the named folder are assumed to be graphql schema definition files.
-     * @param rootResourcePath the path to get files from with assumption file extension is 'graphql' by default
+     * @param rootResourcePath the path to get files from
      * @return a merged schema object.
      * @throws IOException if files can't be read.
      */
     public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
     {
-        String resourceExtension = "graphql";
-        return buildRegistryFrom(resourceExtension, rootResourcePath);
+        log.info("TypeDefinitionRegistry.buildRegistryFrom(String)");
+        try
+        {
+            log.info("Collecting graphql schema definition resources...");
+            Resource[] graphqlResources = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources(rootResourcePath);
+            SchemaParser parser = new SchemaParser();
+            TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
+
+            log.info("Creating graphql type registry from schema definition files.");
+            for (Resource resource: graphqlResources)
+            {
+                String schemaString = Resources.toString(resource.getURL(), UTF_8);
+                typeRegistry.merge(parser.parse(schemaString));
+            }
+            return typeRegistry;
+        }
+        catch (Throwable e)
+        {
+            log.error("Error configuring the Satellite Query GraphQL type registry", e);
+            throw new IllegalStateException(e);
+        }
     }
 
     public TypeDefinitionRegistry buildRegistryFrom(String resourceExtension, String...rootResourcePath) throws IOException
