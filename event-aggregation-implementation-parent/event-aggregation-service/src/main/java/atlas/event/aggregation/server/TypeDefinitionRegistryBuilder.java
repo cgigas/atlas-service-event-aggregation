@@ -104,7 +104,8 @@ public class TypeDefinitionRegistryBuilder
         List<File> fileList = new ArrayList<>();
         if ((directory != null))
         {
-            File[] listOfFiles = directory.listFiles((dir, name) -> {
+            File[] listOfFiles = directory.listFiles((dir, name) ->
+            {
                 if (dir.isDirectory())
                 {
                     return true;
