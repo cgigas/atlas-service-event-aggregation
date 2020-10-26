@@ -1,21 +1,46 @@
-type MpeProcessingConfig {
-    template: MPEProcessingConfigTemplate
-    eventUUID: String
-    catalogRsoReservationUUID: String
-}
-
 extend type MPEServiceMutation {
-    createMpeProcessingConfiguration(configData: CreateMpeConfig): MpeProcessingConfig
-    deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfig
-    updateMpeConfig(configData: CreateMpeConfig): MpeProcessingConfig
-    createMpeConfigFromTemplate(template: ConfigTemplate): MpeProcessingConfig
+    createMpeProcessingConfiguration(mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
 }
 
 extend type MPEServiceQuery {
-    mpeConfigTemplateByName(name: String): MPEProcessingConfigTemplate
+    mpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
 }
 
-input CreateMpeConfig {
+type MpeProcessingConfiguration {
+    mpeProcessingConfigUuid: String!
+    classificationMarking: String!
+    eventUuid: String!
+    event: Event!
+    candidateRsoReservationUuid: String
+    analystRsoReservationUuid: String
+    catalogRsoReservationUuid: String
+    ucnReservationUuid: String
+    candidateFormationParametersUuid: String
+    candidateFormationParameters: CandidateFormationParameters
+    currentFlag: Boolean!
+    name: String
+    description: String
+    analystMinTracksPerDay: PositiveInt
+    analystMinTracksReceived: PositiveInt
+    catalogMinTracksReceived: PositiveInt
+    analystMinOdSolutions: PositiveInt
+    catalogMinOdSolutions: PositiveInt
+    analystRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
+    analystMinReportingSensors: PositiveInt
+    catalogMinReportingSensors: PositiveInt
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+input MpeProcessingConfigurationInput  {
     mpeProcessingConfigUuid: String!
     classificationMarking: String
     eventUUID: String!
@@ -24,7 +49,7 @@ input CreateMpeConfig {
     catalogRsoReservationUUID: String!
     ucnReservationUUID: String!
     candidateFormationParametersUUID: String!
-    currentFlag: Long!
+    currentFlag: Boolean
     name: String
     description: String
     analystMinTracksPerDay: Int
@@ -33,83 +58,19 @@ input CreateMpeConfig {
     catalogMinTracksReceived: Int
     analystMinOdSolutions: Int
     catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
+    analystRmsTrendMean: PositiveFloat
+    catalogRmsTrendMean: PositiveFloat
+    analystRmsTrendSd: PositiveFloat
+    catalogRmsTrendSd: PositiveFloat
+    analystMinResidualAcceptance: PositiveFloat
+    catalogMinResidualAcceptance: PositiveFloat
+    analystMinArgumentLatitude: PositiveFloat
+    catalogMinArgumentLatitude: PositiveFloat
     analystMinReportingSensors: Int
     catalogMinReportingSensors: Int
     updateDate: DateTime
     updateOrigin: String
     createDate: DateTime!
     createOrigin: String!
-    version: Long
-}
-
-type MPEProcessingConfigTemplate {
-    mpeProcessingConfigUuid: String
-    classificationMarking: String
-    candidateRsoReservationUuid: String
-    analystRsoReservationUuid: String
-    ucnReservationUuid: String
-    candidateFormationParametersUuid: String
-    name: String
-    description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
-    updateDate: DateTime
-    updateOrigin: String
-    createDate: DateTime
-    createOrigin: String
-    version: Long
-}
-
-input ConfigTemplate {
-    mpeProcessingConfigUUID: String
-    classificationMarking: String
-    candidateRsoReservationUuid: String
-    analystRsoReservationUuid: String
-    ucnReservationUuid: String
-    candidateFormationParametersUuid: String
-    name: String
-    description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
-    updateDate: DateTime
-    updateOrigin: String
-    createDate: DateTime
-    createOrigin: String
     version: Long
 }

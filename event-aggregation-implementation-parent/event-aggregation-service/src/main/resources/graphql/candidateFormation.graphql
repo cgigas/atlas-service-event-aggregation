@@ -1,0 +1,37 @@
+type CandidateFormationParametersPage {
+    number: NonNegativeInt!
+    totalElements: Long!
+    totalPages: NonNegativeInt!
+    content: [CandidateFormationParameters]
+}
+
+type CandidateFormationParameters {
+    candidateFormationParametersUuid: String!
+    classificationMarking: String!
+    pdotCoefficients: Float!
+    coplanarCheckThreshold: NonNegativeFloat
+    periodAssociationThreshold: NonNegativeFloat
+    minimumTracksPerCluster: NonNegativeInt
+    createDate: DateTime
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+input CandidateFormationParametersInput {
+    classificationMarking: String!
+    pdotCoefficients: Float!
+    coplanarCheckThreshold: NonNegativeFloat
+    periodAssociationThreshold: NonNegativeFloat
+    minimumTracksPerCluster: NonNegativeInt
+    version: Long
+}
+
+input CandidateFormationParametersQueryExampleInput {
+    classificationMarking: String
+    pdotCoefficients: Float
+    coplanarCheckThreshold: NonNegativeFloat
+    periodAssociationThreshold: NonNegativeFloat
+    minimumTracksPerCluster: NonNegativeInt
+}
