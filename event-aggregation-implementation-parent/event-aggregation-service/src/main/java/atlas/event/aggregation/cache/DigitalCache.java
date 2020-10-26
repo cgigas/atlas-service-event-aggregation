@@ -19,6 +19,7 @@ package atlas.event.aggregation.cache;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 

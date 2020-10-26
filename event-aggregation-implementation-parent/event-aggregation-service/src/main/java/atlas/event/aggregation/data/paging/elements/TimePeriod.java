@@ -32,9 +32,15 @@ import java.time.temporal.TemporalAmount;
 public final class TimePeriod
 {
     @NonNull
-    private OffsetDateTime startTime;
+    private final OffsetDateTime startTime;
     @NonNull
-    private OffsetDateTime endTime;
+    private final OffsetDateTime endTime;
+
+    private TimePeriod(OffsetDateTime start, OffsetDateTime end)
+    {
+        this.startTime = start;
+        this.endTime = end;
+    }
 
     //Only allow creation through static factory methods
     public static TimePeriod ofStartAndEnd(OffsetDateTime start, OffsetDateTime end)
@@ -98,12 +104,6 @@ public final class TimePeriod
         {
             throw new IllegalArgumentException("Neither start time nor the duration may be null.");
         }
-    }
-
-    private TimePeriod(OffsetDateTime start, OffsetDateTime end)
-    {
-        this.startTime = start;
-        this.endTime = end;
     }
 
 /*    public double getStartTimeDays70()

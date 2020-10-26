@@ -28,6 +28,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -40,8 +41,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Component
 public class TypeDefinitionRegistryBuilder
 {
-    Logger log = LoggerFactory.getLogger(TypeDefinitionRegistryBuilder.class);
     private final ResourceLoader resourceLoader;
+    Logger log = LoggerFactory.getLogger(TypeDefinitionRegistryBuilder.class);
 
     public TypeDefinitionRegistryBuilder(ResourceLoader resourceLoader)
     {
@@ -53,6 +54,7 @@ public class TypeDefinitionRegistryBuilder
      * The path is assumed to be on the classpath for the current class loader.
      * The path will be recursively traversed.
      * The files in the named folder are assumed to be graphql schema definition files.
+     *
      * @param rootResourcePath the path to get files from
      * @return a merged schema object.
      * @throws IOException if files can't be read.
@@ -68,7 +70,7 @@ public class TypeDefinitionRegistryBuilder
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
             log.info("Creating graphql type registry from schema definition files.");
-            for (Resource resource: graphqlResources)
+            for (Resource resource : graphqlResources)
             {
                 String schemaString = Resources.toString(resource.getURL(), UTF_8);
                 typeRegistry.merge(parser.parse(schemaString));
@@ -88,25 +90,26 @@ public class TypeDefinitionRegistryBuilder
      * The path is assumed to be on the classpath for the current class loader.
      * The path will be recursively traversed.
      * The files in the named folder are assumed to be graphql schema definition files.
+     *
      * @param rootResourcePath the path to get files from with assumption file extension is 'graphql' by default
      * @return a merged schema object.
      * @throws IOException if files can't be read.
-    public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
-    {
-        log.info("TypeDefinitionRegistry.buildRegistryFrom(String)");
-        TypeDefinitionRegistry typeRegistry = null;
-        String resourceExtension = "graphql";
-        typeRegistry = buildRegistryFrom(resourceExtension, rootResourcePath);
-        return typeRegistry;
-    }
+     *                     public TypeDefinitionRegistry buildRegistryFrom(String rootResourcePath) throws IOException
+     *                     {
+     *                     log.info("TypeDefinitionRegistry.buildRegistryFrom(String)");
+     *                     TypeDefinitionRegistry typeRegistry = null;
+     *                     String resourceExtension = "graphql";
+     *                     typeRegistry = buildRegistryFrom(resourceExtension, rootResourcePath);
+     *                     return typeRegistry;
+     *                     }
      */
-    public TypeDefinitionRegistry buildRegistryFrom(String resourceExtension, String...rootResourcePath) throws IOException
+    public TypeDefinitionRegistry buildRegistryFrom(String resourceExtension, String... rootResourcePath) throws IOException
     {
         TypeDefinitionRegistry typeRegistry = null;
         List<File> fileList = null;
         if ((StringUtils.isNotBlank(resourceExtension)) && (rootResourcePath != null))
         {
-            for (String rootDirectory: rootResourcePath)
+            for (String rootDirectory : rootResourcePath)
             {
                 if (fileList == null)
                 {
@@ -130,6 +133,7 @@ public class TypeDefinitionRegistryBuilder
      * The path is assumed to be on the classpath for the current class loader.
      * The path will be recursively traversed.
      * The files in the named folder are assumed to be graphql schema definition files.
+     *
      * @param fileList The list of all the files in the directory and subdirectories.
      * @return a merged schema object.
      * @throws IOException if files can't be read.
@@ -141,7 +145,7 @@ public class TypeDefinitionRegistryBuilder
             SchemaParser parser = new SchemaParser();
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            for (File fileItem: fileList)
+            for (File fileItem : fileList)
             {
                 typeRegistry.merge(parser.parse(fileItem));
             }
@@ -180,7 +184,7 @@ public class TypeDefinitionRegistryBuilder
                 {
                     fileList = new ArrayList<>();
                 }
-                for (File fileItem: listOfFiles)
+                for (File fileItem : listOfFiles)
                 {
                     if (fileItem.isDirectory())
                     {

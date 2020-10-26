@@ -23,6 +23,7 @@ import atlas.event.aggregation.data.model.event.EventType;
 import atlas.event.aggregation.data.model.eventdata.EventData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class EventParser extends EventMasterParser
             event.setEventPostingId(clientEvent.getEventPostingId());
             if (clientEvent.getEventData() != null)
             {
-                for (atlas.ssaevent.crud.graphql.EventData clientEventData: clientEvent.getEventData())
+                for (atlas.ssaevent.crud.graphql.EventData clientEventData : clientEvent.getEventData())
                 {
                     event.getEventData().add((EventData) eventDataParser.fromGraphqlClient(clientEventData));
                 }
@@ -114,7 +115,7 @@ public class EventParser extends EventMasterParser
 
                 if (eventDataMap != null)
                 {
-                    atlas.ssaevent.crud.graphql.EventData clientEventDataSubItem = (atlas.ssaevent.crud.graphql.EventData)eventDataParser.toGraphqlClient(eventDataMap, inputMode);
+                    atlas.ssaevent.crud.graphql.EventData clientEventDataSubItem = (atlas.ssaevent.crud.graphql.EventData) eventDataParser.toGraphqlClient(eventDataMap, inputMode);
                     List<atlas.ssaevent.crud.graphql.EventData> clientEventDataList = new ArrayList<>();
                     clientEventDataList.add(clientEventDataSubItem);
                     clientEvent.setEventData(clientEventDataList);

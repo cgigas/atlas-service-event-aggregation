@@ -23,7 +23,8 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Sort
 {
     private List<Order> orders;

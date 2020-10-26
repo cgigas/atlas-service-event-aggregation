@@ -35,11 +35,12 @@ import java.util.Map;
 public class EventAggregationQueryException extends RuntimeException implements GraphQLError
 {
     private static final String EXCEPTION_TYPE = "exceptionType";
-    private Map<String, Object> extensions = Maps.newHashMap();
     private final EventAggregationExceptionCodes code;
+    private Map<String, Object> extensions = Maps.newHashMap();
 
     /**
      * Construct a basic warning exception with no extensions.
+     *
      * @param message the message to return to the client
      */
     public EventAggregationQueryException(String message)
@@ -58,7 +59,8 @@ public class EventAggregationQueryException extends RuntimeException implements 
 
     /**
      * Construct a warning exception (no cause)
-     * @param message The message to return to the client
+     *
+     * @param message    The message to return to the client
      * @param extensions optional map of additional information
      */
     public EventAggregationQueryException(String message, Map<String, Object> extensions)
@@ -79,13 +81,14 @@ public class EventAggregationQueryException extends RuntimeException implements 
 
     /**
      * Construct an error exception
-     * @param message the message to return to the client
-     * @param cause the exception related to the error
+     *
+     * @param message    the message to return to the client
+     * @param cause      the exception related to the error
      * @param extensions optional map of additional information
      */
     public EventAggregationQueryException(String message,
-            Throwable cause,
-            Map<String, Object> extensions)
+        Throwable cause,
+        Map<String, Object> extensions)
     {
         super(message, cause);
         this.extensions = extensions;

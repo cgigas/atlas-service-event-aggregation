@@ -18,7 +18,9 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.parser.event.EventMasterParser;
+import atlas.ssaevent.crud.graphql.MpeProcessingConfiguration;
 import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 @Component
@@ -27,7 +29,43 @@ public class MPEProcessingConfigParser extends EventMasterParser
     @Override
     public Object fromGraphqlClient(Object graphql)
     {
-        return null;
+        MpeProcessingConfiguration mpeProcessingConfiguration = new MpeProcessingConfiguration();
+        if (graphql instanceof atlas.ssaevent.crud.graphql.MpeProcessingConfiguration)
+        {
+            atlas.ssaevent.crud.graphql.MpeProcessingConfiguration clientConfig = new MpeProcessingConfiguration();
+            mpeProcessingConfiguration.setAnalystMinResidualAcceptance(clientConfig.getAnalystMinResidualAcceptance());
+            mpeProcessingConfiguration.setAnalystMinReportingSensors(clientConfig.getAnalystMinReportingSensors());
+            mpeProcessingConfiguration.setAnalystMinOdSolutions(clientConfig.getAnalystMinOdSolutions());
+            mpeProcessingConfiguration.setAnalystMinArgumentLatitude(clientConfig.getAnalystMinArgumentLatitude());
+            mpeProcessingConfiguration.setAnalystMinTracksPerDay(clientConfig.getAnalystMinTracksPerDay());
+            mpeProcessingConfiguration.setAnalystMinTracksReceived(clientConfig.getAnalystMinTracksReceived());
+            mpeProcessingConfiguration.setAnalystRmsTrendMean(clientConfig.getAnalystRmsTrendMean());
+            mpeProcessingConfiguration.setAnalystRmsTrendSd(clientConfig.getAnalystRmsTrendSd());
+            mpeProcessingConfiguration.setAnalystRsoReservationUuid(clientConfig.getAnalystRsoReservationUuid());
+            mpeProcessingConfiguration.setCandidateFormationParameters(clientConfig.getCandidateFormationParameters());
+            mpeProcessingConfiguration.setCandidateFormationParametersUuid(clientConfig.getCandidateFormationParametersUuid());
+            mpeProcessingConfiguration.setCandidateRsoReservationUuid(clientConfig.getCandidateRsoReservationUuid());
+            mpeProcessingConfiguration.setCatalogMinArgumentLatitude(clientConfig.getCatalogMinArgumentLatitude());
+            mpeProcessingConfiguration.setCatalogMinOdSolutions(clientConfig.getCatalogMinOdSolutions());
+            mpeProcessingConfiguration.setCatalogMinReportingSensors(clientConfig.getCatalogMinReportingSensors());
+            mpeProcessingConfiguration.setCatalogMinResidualAcceptance(clientConfig.getCatalogMinResidualAcceptance());
+            mpeProcessingConfiguration.setCatalogMinTracksReceived(clientConfig.getCatalogMinTracksReceived());
+            mpeProcessingConfiguration.setCatalogRmsTrendSd(clientConfig.getCatalogRmsTrendSd());
+            mpeProcessingConfiguration.setCatalogRsoReservationUuid(clientConfig.getCatalogRsoReservationUuid());
+            mpeProcessingConfiguration.setClassificationMarking(clientConfig.getClassificationMarking());
+            mpeProcessingConfiguration.setCreateOrigin(clientConfig.getCreateOrigin());
+            mpeProcessingConfiguration.setCurrentFlag(clientConfig.getCurrentFlag());
+            mpeProcessingConfiguration.setDescription(clientConfig.getDescription());
+            mpeProcessingConfiguration.setEvent(clientConfig.getEvent());
+            mpeProcessingConfiguration.setEventUuid(clientConfig.getEventUuid());
+            mpeProcessingConfiguration.setMpeProcessingConfigUuid(clientConfig.getMpeProcessingConfigUuid());
+            mpeProcessingConfiguration.setName(clientConfig.getName());
+            mpeProcessingConfiguration.setUcnReservationUuid(clientConfig.getUcnReservationUuid());
+            mpeProcessingConfiguration.setUpdateDate(clientConfig.getUpdateDate());
+            mpeProcessingConfiguration.setUpdateOrigin(clientConfig.getUpdateOrigin());
+            mpeProcessingConfiguration.setVersion(clientConfig.getVersion());
+        }
+        return mpeProcessingConfiguration;
     }
 
     @Override

@@ -19,14 +19,15 @@ package atlas.event.aggregation.data.model;
 
 /**
  * This interface is implemented by GraphQL models to provide a uniform interface.
- *
  */
 public interface GqlSchemaCommon<ID>
 {
     /**
      * Get the object ID
+     *
      * @return the UUID of the object
      */
     ID getId();
+
     void setId(ID id);
 }

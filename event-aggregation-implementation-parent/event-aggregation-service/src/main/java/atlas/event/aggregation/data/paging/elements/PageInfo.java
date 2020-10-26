@@ -23,12 +23,13 @@ import lombok.NoArgsConstructor;
 /*
 This class represents paging information in a query.
  */
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class PageInfo
 {
+    Sort sort;
     private Integer page;
     private Integer size;
-    Sort sort;
 
     public Integer getPage()
     {

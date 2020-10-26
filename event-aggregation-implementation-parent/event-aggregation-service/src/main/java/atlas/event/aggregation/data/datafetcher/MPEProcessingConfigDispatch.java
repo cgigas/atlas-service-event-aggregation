@@ -29,6 +29,8 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -45,7 +47,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
 {
     @Autowired
     private MPEProcessingConfigParser MPEProcessingConfigParser;
-
+    private Logger log = LoggerFactory.getLogger(MPEProcessingConfigDispatch.class);
     public MPEProcessingConfigDispatch(RuntimeWiringTypeCollector collector)
     {
         this.collector = collector;
@@ -122,98 +124,91 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
             Map<String, Object> configData = environment.getArgument("mpeProcessingConfiguration");
             if (configData != null)
             {
-                atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfiguration) MPEProcessingConfigParser.toGraphqlClient(configData, Boolean.TRUE);
-                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData;
-
-                // check for Config Data
-                //if (configData.containsKey("mpeProcessingConfiguration"))
-
-                clientEventData = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) MPEProcessingConfigParser.toGraphqlClient(configData.get("mpeProcessingConfiguration"), Boolean.TRUE);
+                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) MPEProcessingConfigParser.toGraphqlClient(configData, Boolean.TRUE);
                 String mpeProcessingConfigUuid = environment.getArgument("mpeProcessingConfigUuid");
                 try
                 {
                     StringBuffer queryString = new StringBuffer();
-                    queryString.append("{mpeProcessingConfigUuid\n" +
-                        "    classificationMarking\n" +
-                        "    eventUuid\n" +
-                        "    event {\n" +
-                        "      eventUuid\n" +
-                        "      classificationMarking\n" +
-                        "      predecessorEventUuid\n" +
-                        "      type\n" +
-                        "      name\n" +
-                        "      status\n" +
-                        "      startDt\n" +
-                        "      endDt\n" +
-                        "      description\n" +
-                        "      internalNotes\n" +
-                        "      eventPostingId\n" +
-                        "      eventData {\n" +
-                        "        eventDataUuid\n" +
-                        "        classificationMarking\n" +
-                        "        eventUuid\n" +
-                        "        name\n" +
-                        "        uri\n" +
-                        "        type\n" +
-                        "        supplementalData\n" +
-                        "        createDate\n" +
-                        "        createOrigin\n" +
-                        "        updateDate\n" +
-                        "        updateOrigin\n" +
-                        "        version\n" +
-                        "      }\n" +
-                        "      createDate\n" +
-                        "      createOrigin\n" +
-                        "      updateDate\n" +
-                        "      updateOrigin\n" +
-                        "      version\n" +
-                        "    }\n" +
-                        "    candidateRsoReservationUuid\n" +
-                        "    analystRsoReservationUuid\n" +
-                        "    catalogRsoReservationUuid\n" +
-                        "    ucnReservationUuid\n" +
-                        "    candidateFormationParametersUuid\n" +
-                        "    candidateFormationParameters {\n" +
-                        "      candidateFormationParametersUuid\n" +
-                        "      classificationMarking\n" +
-                        "      pdotCoefficients\n" +
-                        "      coplanarCheckThreshold\n" +
-                        "      periodAssociationThreshold\n" +
-                        "      minimumTracksPerCluster\n" +
-                        "      createDate\n" +
-                        "      createOrigin\n" +
-                        "      updateDate\n" +
-                        "      updateOrigin\n" +
-                        "      version\n" +
-                        "    }\n" +
-                        "    currentFlag\n" +
-                        "    name\n" +
-                        "    description\n" +
-                        "    analystMinTracksPerDay\n" +
-                        "    analystMinTracksReceived\n" +
-                        "    catalogMinTracksReceived\n" +
-                        "    analystMinOdSolutions\n" +
-                        "    catalogMinOdSolutions\n" +
-                        "    analystRmsTrendMean\n" +
-                        "    analystRmsTrendSd\n" +
-                        "    catalogRmsTrendSd\n" +
-                        "    analystMinResidualAcceptance\n" +
-                        "    catalogMinResidualAcceptance\n" +
-                        "    analystMinArgumentLatitude\n" +
-                        "    catalogMinArgumentLatitude\n" +
-                        "    analystMinReportingSensors\n" +
-                        "    catalogMinReportingSensors\n" +
-                        "    createOrigin\n" +
-                        "    updateDate\n" +
-                        "    updateOrigin\n" +
-                        "    version}");
-
-                    atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventUpdateResult = eventCrudMutationExecutor.updateMpeProcessingConfiguration(queryString.toString(), mpeProcessingConfigUuid, clientEventData, configEvent);
+                    queryString.append("{mpeProcessingConfigUuid\n");
+                    queryString.append("    classificationMarking\n");
+                    queryString.append("    eventUuid\n");
+                    queryString.append("    event {\n");
+                    queryString.append("      eventUuid\n");
+                    queryString.append("      classificationMarking\n");
+                    queryString.append("      predecessorEventUuid\n");
+                    queryString.append("      type\n");
+                    queryString.append("      name\n");
+                    queryString.append("      status\n");
+                    queryString.append("      startDt\n");
+                    queryString.append("      endDt\n");
+                    queryString.append("      description\n");
+                    queryString.append("      internalNotes\n");
+                    queryString.append("      eventPostingId\n");
+                    queryString.append("      eventData {\n");
+                    queryString.append("        eventDataUuid\n");
+                    queryString.append("        classificationMarking\n");
+                    queryString.append("        eventUuid\n");
+                    queryString.append("        name\n");
+                    queryString.append("        uri\n");
+                    queryString.append("        type\n");
+                    queryString.append("        supplementalData\n");
+                    queryString.append("        createDate\n");
+                    queryString.append("        createOrigin\n");
+                    queryString.append("        updateDate\n");
+                    queryString.append("        updateOrigin\n");
+                    queryString.append("        version\n");
+                    queryString.append("      }\n");
+                    queryString.append("      createDate\n");
+                    queryString.append("      createOrigin\n");
+                    queryString.append("      updateDate\n");
+                    queryString.append("      updateOrigin\n");
+                    queryString.append("      version\n");
+                    queryString.append("    }\n");
+                    queryString.append("    candidateRsoReservationUuid\n");
+                    queryString.append("    analystRsoReservationUuid\n");
+                    queryString.append("    catalogRsoReservationUuid\n");
+                    queryString.append("    ucnReservationUuid\n");
+                    queryString.append("    candidateFormationParametersUuid\n");
+                    queryString.append("    candidateFormationParameters {\n");
+                    queryString.append("      candidateFormationParametersUuid\n");
+                    queryString.append("      classificationMarking\n");
+                    queryString.append("      pdotCoefficients\n");
+                    queryString.append("      coplanarCheckThreshold\n");
+                    queryString.append("      periodAssociationThreshold\n");
+                    queryString.append("      minimumTracksPerCluster\n");
+                    queryString.append("      createDate\n");
+                    queryString.append("      createOrigin\n");
+                    queryString.append("      updateDate\n");
+                    queryString.append("      updateOrigin\n");
+                    queryString.append("      version\n");
+                    queryString.append("    }\n");
+                    queryString.append("    currentFlag\n");
+                    queryString.append("    name\n");
+                    queryString.append("    description\n");
+                    queryString.append("    analystMinTracksPerDay\n");
+                    queryString.append("    analystMinTracksReceived\n");
+                    queryString.append("    catalogMinTracksReceived\n");
+                    queryString.append("    analystMinOdSolutions\n");
+                    queryString.append("    catalogMinOdSolutions\n");
+                    queryString.append("    analystRmsTrendMean\n");
+                    queryString.append("    analystRmsTrendSd\n");
+                    queryString.append("    catalogRmsTrendSd\n");
+                    queryString.append("    analystMinResidualAcceptance\n");
+                    queryString.append("    catalogMinResidualAcceptance\n");
+                    queryString.append("    analystMinArgumentLatitude\n");
+                    queryString.append("    catalogMinArgumentLatitude\n");
+                    queryString.append("    analystMinReportingSensors\n");
+                    queryString.append("    catalogMinReportingSensors\n");
+                    queryString.append("    createOrigin\n");
+                    queryString.append("    updateDate\n");
+                    queryString.append("    updateOrigin\n");
+                    queryString.append("    version}");
+                    atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventUpdateResult = eventCrudMutationExecutor.updateMpeProcessingConfiguration(queryString.toString(), mpeProcessingConfigUuid, configEvent, configData);
                     mpeProcessingConfiguration = (MPEProcessingConfiguration) MPEProcessingConfigParser.fromGraphqlClient(configEventUpdateResult);
                 }
                 catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
                 {
-                    e.printStackTrace();
+                    log.error(e.toString());
                     throw new DataAccessorException(e);
                 }
             }
@@ -225,7 +220,6 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
     {
         MPEProcessingConfiguration mpeProcessingConfiguration = new MPEProcessingConfiguration();
         EventCrudMutationExecutor eventCrudMutationExecutor = null;
-
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
@@ -233,64 +227,61 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
             if (configData != null)
             {
                 atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) MPEProcessingConfigParser.toGraphqlClient(configData, Boolean.TRUE);
-                // check for Config Data
-                if (configData.containsKey("mpeProcessingConfiguration"))
+                try
                 {
-                    try
-                    {
-                        StringBuffer queryString = new StringBuffer();
-                        queryString.append(" mpeProcessingConfigUuid\n");
-                        queryString.append(" classificationMarking\n");
-                        queryString.append(" eventUuid\n");
-                        queryString.append(" event\n");
-                        queryString.append(" candidateRsoReservationUuid\n");
-                        queryString.append(" analystRsoReservationUuid\n");
-                        queryString.append(" catalogRsoReservationUuid\n");
-                        queryString.append(" ucnReservationUuid\n");
-                        queryString.append(" candidateFormationParametersUuid\n");
-                        queryString.append(" candidateFormationParameters{\n");
-                        queryString.append(" candidateFormationParametersUuid\n");
-                        queryString.append(" classificationMarking\n");
-                        queryString.append(" pdotCoefficients\n");
-                        queryString.append(" coplanarCheckThreshold\n");
-                        queryString.append(" periodAssociationThreshold\n");
-                        queryString.append(" minimumTracksPerCluster\n");
-                        queryString.append(" createDate\n");
-                        queryString.append(" createOrigin\n");
-                        queryString.append(" updateDate\n");
-                        queryString.append(" updateOrigin\n");
-                        queryString.append(" version}\n");
-                        queryString.append(" name\n");
-                        queryString.append(" description\n");
-                        queryString.append(" analystMinTracksPerDay\n");
-                        queryString.append(" analystMinTracksReceived\n");
-                        queryString.append(" catalogMinTracksReceived\n");
-                        queryString.append(" analystMinOdSolutions\n");
-                        queryString.append(" catalogMinOdSolutions\n");
-                        queryString.append(" analystRmsTrendMean\n");
-                        queryString.append(" analystRmsTrendSd\n");
-                        queryString.append(" catalogRmsTrendSd\n");
-                        queryString.append(" analystMinResidualAcceptance\n");
-                        queryString.append(" catalogMinResidualAcceptance\n");
-                        queryString.append(" analystMinArgumentLatitude\n");
-                        queryString.append(" catalogMinArgumentLatitude\n");
-                        queryString.append(" analystMinReportingSensors\n");
-                        queryString.append(" catalogMinReportingSensors\n");
-                        queryString.append(" createOrigin\n");
-                        queryString.append(" updateDate\n");
-                        queryString.append(" updateOrigin\n");
-                        queryString.append(" version\n");
-                        queryString.append("}\n");
-                        atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventCreateResult = eventCrudMutationExecutor.createMpeProcessingConfiguration(queryString.toString(), configEvent, configEvent);
-                        mpeProcessingConfiguration = (MPEProcessingConfiguration) MPEProcessingConfigParser.fromGraphqlClient(configEventCreateResult);
-                    }
-                    catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
-                    {
-                        e.printStackTrace();
-                        throw new DataAccessorException(e);
-                    }
+                    StringBuffer queryString = new StringBuffer();
+                    queryString.append("{ mpeProcessingConfigUuid\n");
+                    queryString.append(" classificationMarking\n");
+                    queryString.append(" eventUuid\n");
+                    queryString.append(" event\n");
+                    queryString.append(" candidateRsoReservationUuid\n");
+                    queryString.append(" analystRsoReservationUuid\n");
+                    queryString.append(" catalogRsoReservationUuid\n");
+                    queryString.append(" ucnReservationUuid\n");
+                    queryString.append(" candidateFormationParametersUuid\n");
+                    queryString.append(" candidateFormationParameters{\n");
+                    queryString.append(" candidateFormationParametersUuid\n");
+                    queryString.append(" classificationMarking\n");
+                    queryString.append(" pdotCoefficients\n");
+                    queryString.append(" coplanarCheckThreshold\n");
+                    queryString.append(" periodAssociationThreshold\n");
+                    queryString.append(" minimumTracksPerCluster\n");
+                    queryString.append(" createDate\n");
+                    queryString.append(" createOrigin\n");
+                    queryString.append(" updateDate\n");
+                    queryString.append(" updateOrigin\n");
+                    queryString.append(" version}\n");
+                    queryString.append(" name\n");
+                    queryString.append(" description\n");
+                    queryString.append(" analystMinTracksPerDay\n");
+                    queryString.append(" analystMinTracksReceived\n");
+                    queryString.append(" catalogMinTracksReceived\n");
+                    queryString.append(" analystMinOdSolutions\n");
+                    queryString.append(" catalogMinOdSolutions\n");
+                    queryString.append(" analystRmsTrendMean\n");
+                    queryString.append(" analystRmsTrendSd\n");
+                    queryString.append(" catalogRmsTrendSd\n");
+                    queryString.append(" analystMinResidualAcceptance\n");
+                    queryString.append(" catalogMinResidualAcceptance\n");
+                    queryString.append(" analystMinArgumentLatitude\n");
+                    queryString.append(" catalogMinArgumentLatitude\n");
+                    queryString.append(" analystMinReportingSensors\n");
+                    queryString.append(" catalogMinReportingSensors\n");
+                    queryString.append(" createOrigin\n");
+                    queryString.append(" updateDate\n");
+                    queryString.append(" updateOrigin\n");
+                    queryString.append(" version\n");
+                    queryString.append("}\n");
+                    atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventCreateResult = eventCrudMutationExecutor.createMpeProcessingConfiguration(queryString.toString(), configEvent, configEvent);
+                    mpeProcessingConfiguration = (MPEProcessingConfiguration) MPEProcessingConfigParser.fromGraphqlClient(configEventCreateResult);
+                }
+                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                {
+                    log.error(e.toString());
+                    throw new DataAccessorException(e);
                 }
             }
+
         }
         return mpeProcessingConfiguration;
     }

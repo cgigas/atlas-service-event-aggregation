@@ -34,7 +34,6 @@ import atlas.ssaevent.crud.graphql.EventCrudQueryExecutor;
 import atlas.ssaevent.crud.graphql.EventStatus;
 import atlas.ssaevent.crud.graphql.PredicateOperator;
 import atlas.ssaevent.crud.graphql.PropertyPredicate;
-import atlas.ssaevent.crud.graphql.*;
 import com.google.common.collect.Lists;
 import com.graphql_java_generator.exception.GraphQLRequestExecutionException;
 import com.graphql_java_generator.exception.GraphQLRequestPreparationException;
@@ -53,7 +52,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.*;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -63,13 +61,13 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
 {
     private final GraphqlUtility graphqlUtility;
+    Logger log = LoggerFactory.getLogger(EventDataDispatch.class);
     @Autowired
     private EventParser eventParser;
     @Autowired
     private EventDataParser eventDataParser;
     @Autowired
     private EventTypeSummaryParser eventTypeSummaryParser;
-    Logger log = LoggerFactory.getLogger(EventDataDispatch.class);
 
     public EventDataDispatch(RuntimeWiringTypeCollector collector, GraphqlUtility graphqlUtility)
     {

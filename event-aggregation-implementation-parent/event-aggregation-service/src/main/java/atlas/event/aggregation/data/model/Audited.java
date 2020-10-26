@@ -18,6 +18,7 @@
 package atlas.event.aggregation.data.model;
 
 import atlas.event.aggregation.data.model.event.Versioned;
+
 import java.time.OffsetDateTime;
 
 public class Audited extends Versioned

@@ -21,6 +21,7 @@ import atlas.event.aggregation.data.model.Audited;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -28,7 +29,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ValidityCriteria extends Audited 
+public class ValidityCriteria extends Audited
 {
     @Id
     private String validityCriteriaUuid;

@@ -47,7 +47,7 @@ public class EventTypeDataFetcher extends AbstractDataDispatch<List<Event>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("TypeQuery")
-                .dataFetcher("getEventTypes", this));
+            .dataFetcher("getEventTypes", this));
         return builders;
     }
 }

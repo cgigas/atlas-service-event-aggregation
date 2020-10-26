@@ -35,6 +35,7 @@ import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -47,23 +48,20 @@ import java.util.Map;
 public abstract class AbstractDataDispatch<T> extends DigitalBase implements DataFetcher<DataFetcherResult<T>>, IDigitalDataDispatch, IDataFetcher
 {
 
+    protected static final String ID_ARG = "id";
     private static final String QUERY_SOURCE_TYPE = "queryParentType";
     private static final String QUERY_ARGUMENTS = "queryArguments";
     private static final String QUERY_TYPE = "queryType";
     private static final Object SUBOBJECT_QUERY_TYPE = "subObjectQuery";
     private static final Object ROOT_QUERY_TYPE = "rootQuery";
-    protected static final String ID_ARG = "id";
     protected Integer maxPageSize = 1000;
-    @Autowired
-    private DataServiceConfiguration dataServiceConfiguration;
-
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
     // See https://www.graphql-java.com/blog/deep-dive-data-fetcher-results/
     protected Map<String, Object> localContext;
-
     protected RuntimeWiringTypeCollector collector;
-
+    @Autowired
+    private DataServiceConfiguration dataServiceConfiguration;
 
     @PostConstruct
     public void initializeRuntimeTypeInformation()

@@ -19,6 +19,7 @@ package atlas.event.aggregation.parser.event;
 
 import atlas.event.aggregation.data.model.eventdata.EventData;
 import org.springframework.stereotype.Component;
+
 import java.util.Map;
 
 @Component
@@ -43,7 +44,6 @@ public class EventDataParser extends EventMasterParser
             eventData.setUpdateDate(eventDataClient.getUpdateDate());
             eventData.setUpdateOrigin(eventDataClient.getUpdateOrigin());
         }
-
         return eventData;
     }
 

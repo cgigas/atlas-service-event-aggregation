@@ -19,5 +19,5 @@ package atlas.event.aggregation.data.datafetcher.mutation;
 
 public enum MutationOperation
 {
-    CREATE, UPDATE, DELETE;
+    CREATE, UPDATE, DELETE
 }

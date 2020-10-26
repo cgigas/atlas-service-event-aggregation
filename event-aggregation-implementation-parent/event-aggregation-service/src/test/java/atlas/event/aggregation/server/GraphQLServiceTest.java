@@ -23,8 +23,8 @@ package atlas.event.aggregation.server;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 //import static org.junit.Assert.assertNull;
 

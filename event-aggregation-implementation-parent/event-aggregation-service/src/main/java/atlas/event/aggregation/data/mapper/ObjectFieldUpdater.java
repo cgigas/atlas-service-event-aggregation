@@ -35,7 +35,7 @@ public class ObjectFieldUpdater
 {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Object updateFields(Object target,  Map<String, Object> fieldMap)
+    public Object updateFields(Object target, Map<String, Object> fieldMap)
     {
         Preconditions.checkNotNull(target, "The object to update may not be null.");
         Preconditions.checkNotNull(fieldMap, "The map of field values may not be null.");

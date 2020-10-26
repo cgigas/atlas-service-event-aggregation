@@ -19,5 +19,5 @@ package atlas.event.aggregation.server.exception;
 
 public enum EventAggregationExceptionCodes
 {
-    WARNING, ERROR;
+    WARNING, ERROR
 }

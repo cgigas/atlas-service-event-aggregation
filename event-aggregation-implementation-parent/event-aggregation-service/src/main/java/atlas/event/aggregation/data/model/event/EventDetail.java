@@ -17,9 +17,9 @@
  */
 package atlas.event.aggregation.data.model.event;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.OffsetDateTime;
 
 public class EventDetail
 {

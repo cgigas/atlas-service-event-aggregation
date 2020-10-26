@@ -20,7 +20,8 @@ package atlas.event.aggregation.data.paging.elements;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Order
 {
     private String property;

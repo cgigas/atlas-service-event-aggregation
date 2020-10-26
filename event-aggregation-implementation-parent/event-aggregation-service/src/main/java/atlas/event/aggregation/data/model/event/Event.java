@@ -23,6 +23,7 @@ import atlas.event.aggregation.data.model.eventdata.EventData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -110,6 +111,11 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     @OneToMany
     private List<EventData> eventData;
 
+    public static long getSerialVersionUID()
+    {
+        return serialVersionUID;
+    }
+
     public List<EventData> getEventData()
     {
         if (eventData == null)
@@ -123,11 +129,6 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     public void setEventData(List<EventData> eventData)
     {
         this.eventData = eventData;
-    }
-
-    public static long getSerialVersionUID()
-    {
-        return serialVersionUID;
     }
 
     public String getClassificationMarking()
@@ -165,6 +166,10 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
         return eventType;
     }
 
+    public void setEventType(EventType eventType)
+    {
+        this.eventType = eventType;
+    }
 
     public OffsetDateTime getStartDate()
     {
@@ -184,11 +189,6 @@ public class Event extends Audited implements Serializable, GqlSchemaCommon
     public void setEndDate(OffsetDateTime endDate)
     {
         this.endDate = endDate;
-    }
-
-    public void setEventType(EventType eventType)
-    {
-        this.eventType = eventType;
     }
 
     public String getEventName()

@@ -21,6 +21,7 @@ import atlas.event.aggregation.data.model.Audited;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -86,7 +87,7 @@ public class RsoReservation extends Audited
      * Upper bound of a satellite numbering range.
      */
     @NotNull
-    private Integer  maxSatNo;
+    private Integer maxSatNo;
 
     /**
      * Lower bound of a UCN included in this reservation.
@@ -123,7 +124,7 @@ public class RsoReservation extends Audited
     /**
      * Provides the recommended maximum classification range (U, C, S, TS) for ephemerides stored within this RSO range.
      */
-    private Integer  maxClassification;
+    private Integer maxClassification;
 
     public String getRsoReservationUuid()
     {

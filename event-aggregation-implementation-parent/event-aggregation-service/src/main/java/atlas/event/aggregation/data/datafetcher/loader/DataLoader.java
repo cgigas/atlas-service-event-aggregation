@@ -23,6 +23,7 @@ import com.google.common.io.Resources;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.net.URL;
@@ -35,7 +36,7 @@ import java.util.List;
 @Profile("prod")
 public final class DataLoader extends DigitalBase
 {
- 
+
     @PostConstruct
     public void init()
     {

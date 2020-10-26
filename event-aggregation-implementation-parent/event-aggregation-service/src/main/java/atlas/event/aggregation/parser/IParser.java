@@ -19,27 +19,28 @@ package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.paging.elements.PageInfo;
 import org.apache.commons.lang3.StringUtils;
+
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public interface IParser
 {
-    public String toJSONString(Object fromJson);
+    String toJSONString(Object fromJson);
 
-    public Object fromJsonString(String json);
+    Object fromJsonString(String json);
 
-    public Object fromJson(Object json);
+    Object fromJson(Object json);
 
-    public Object fromJson(Map<String, Object> map);
+    Object fromJson(Map<String, Object> map);
 
-    public Object fromGraphqlClient(Object graphql);
+    Object fromGraphqlClient(Object graphql);
 
-    public Object toGraphqlClient(Object model, Boolean inputMode);
+    Object toGraphqlClient(Object model, Boolean inputMode);
 
-    public Object toPageInfo(Object model);
+    Object toPageInfo(Object model);
 
-    public PageInfo fromGraphqlPageInfo(Object graphqlPageInfo);
+    PageInfo fromGraphqlPageInfo(Object graphqlPageInfo);
 
     default OffsetDateTime getItemAsOffSetDate(String elementName, Map<String, Object> map)
     {

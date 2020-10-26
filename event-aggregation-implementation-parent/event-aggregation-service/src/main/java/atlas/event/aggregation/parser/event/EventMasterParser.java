@@ -71,20 +71,20 @@ public abstract class EventMasterParser implements IParser
                 eventCrudPageInfo.setSize(getItemAsInteger("size", pageMap));
 
                 // now the sort
-                Map<String, Object> sortMap = (Map)pageMap.get("sort");
+                Map<String, Object> sortMap = (Map) pageMap.get("sort");
                 if (sortMap != null)
                 {
                     atlas.ssaevent.crud.graphql.Sort eventCrudSort = new atlas.ssaevent.crud.graphql.Sort();
                     List<atlas.ssaevent.crud.graphql.Order> eventCrudOrderList = new ArrayList<>();
                     eventCrudSort.setOrders(eventCrudOrderList);
                     eventCrudPageInfo.setSort(eventCrudSort);
-                    List<Map<String, Object>> orderList = (List)sortMap.get("orders");
+                    List<Map<String, Object>> orderList = (List) sortMap.get("orders");
                     if (orderList != null)
                     {
-                        for (Map<String, Object> orderItemMap: orderList)
+                        for (Map<String, Object> orderItemMap : orderList)
                         {
                             atlas.ssaevent.crud.graphql.Order order = new atlas.ssaevent.crud.graphql.Order();
-                            order.setDirection(atlas.ssaevent.crud.graphql.Direction.valueOf((String)orderItemMap.get("direction")));
+                            order.setDirection(atlas.ssaevent.crud.graphql.Direction.valueOf((String) orderItemMap.get("direction")));
                             order.setProperty(getItemAsString("direction", orderItemMap));
                             eventCrudOrderList.add(order);
                         }
@@ -118,7 +118,7 @@ public abstract class EventMasterParser implements IParser
                     atlas.ssaevent.crud.graphql.Sort eventCrudSort = eventCrudPageInfo.getSort();
                     if ((eventCrudSort != null) && (eventCrudSort.getOrders() != null))
                     {
-                        for (atlas.ssaevent.crud.graphql.Order eventCrudOrderItem: eventCrudSort.getOrders())
+                        for (atlas.ssaevent.crud.graphql.Order eventCrudOrderItem : eventCrudSort.getOrders())
                         {
                             Order order = new Order();
                             order.setDirection(Direction.valueOf(eventCrudOrderItem.getDirection().name()));
