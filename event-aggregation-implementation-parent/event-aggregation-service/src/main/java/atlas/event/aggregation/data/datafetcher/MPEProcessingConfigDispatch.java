@@ -113,8 +113,114 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
 
     private MPEProcessingConfiguration processUpdateMpeProcessingConfiguration(DataFetchingEnvironment environment)
     {
-        MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
-        return configuration;
+        {
+            MPEProcessingConfiguration mpeProcessingConfiguration = new MPEProcessingConfiguration();
+            EventCrudMutationExecutor eventCrudMutationExecutor = null;
+
+            if (environment != null)
+            {
+                eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+                Map<String, Object> configData = environment.getArgument("mpeProcessingConfiguration");
+                if (configData != null)
+                {
+                    atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEvent = (atlas.ssaevent.crud.graphql.MpeProcessingConfiguration) configParser.toGraphqlClient(configData, Boolean.TRUE);
+                    atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData;
+
+                    // check for Config Data
+                    //if (configData.containsKey("mpeProcessingConfiguration"))
+                    {
+                        clientEventData = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) configParser.toGraphqlClient(configData.get("mpeProcessingConfiguration"), Boolean.TRUE);
+                        try
+                        {
+                            StringBuffer queryString = new StringBuffer();
+                            queryString.append("{mpeProcessingConfigUuid\n" +
+                                "    classificationMarking\n" +
+                                "    eventUuid\n" +
+                                "    event {\n" +
+                                "      eventUuid\n" +
+                                "      classificationMarking\n" +
+                                "      predecessorEventUuid\n" +
+                                "      type\n" +
+                                "      name\n" +
+                                "      status\n" +
+                                "      startDt\n" +
+                                "      endDt\n" +
+                                "      description\n" +
+                                "      internalNotes\n" +
+                                "      eventPostingId\n" +
+                                "      eventData {\n" +
+                                "        eventDataUuid\n" +
+                                "        classificationMarking\n" +
+                                "        eventUuid\n" +
+                                "        name\n" +
+                                "        uri\n" +
+                                "        type\n" +
+                                "        supplementalData\n" +
+                                "        createDate\n" +
+                                "        createOrigin\n" +
+                                "        updateDate\n" +
+                                "        updateOrigin\n" +
+                                "        version\n" +
+                                "      }\n" +
+                                "      createDate\n" +
+                                "      createOrigin\n" +
+                                "      updateDate\n" +
+                                "      updateOrigin\n" +
+                                "      version\n" +
+                                "    }\n" +
+                                "    candidateRsoReservationUuid\n" +
+                                "    analystRsoReservationUuid\n" +
+                                "    catalogRsoReservationUuid\n" +
+                                "    ucnReservationUuid\n" +
+                                "    candidateFormationParametersUuid\n" +
+                                "    candidateFormationParameters {\n" +
+                                "      candidateFormationParametersUuid\n" +
+                                "      classificationMarking\n" +
+                                "      pdotCoefficients\n" +
+                                "      coplanarCheckThreshold\n" +
+                                "      periodAssociationThreshold\n" +
+                                "      minimumTracksPerCluster\n" +
+                                "      createDate\n" +
+                                "      createOrigin\n" +
+                                "      updateDate\n" +
+                                "      updateOrigin\n" +
+                                "      version\n" +
+                                "    }\n" +
+                                "    currentFlag\n" +
+                                "    name\n" +
+                                "    description\n" +
+                                "    analystMinTracksPerDay\n" +
+                                "    analystMinTracksReceived\n" +
+                                "    catalogMinTracksReceived\n" +
+                                "    analystMinOdSolutions\n" +
+                                "    catalogMinOdSolutions\n" +
+                                "    analystRmsTrendMean\n" +
+                                "    analystRmsTrendSd\n" +
+                                "    catalogRmsTrendSd\n" +
+                                "    analystMinResidualAcceptance\n" +
+                                "    catalogMinResidualAcceptance\n" +
+                                "    analystMinArgumentLatitude\n" +
+                                "    catalogMinArgumentLatitude\n" +
+                                "    analystMinReportingSensors\n" +
+                                "    catalogMinReportingSensors\n" +
+                                "    createOrigin\n" +
+                                "    updateDate\n" +
+                                "    updateOrigin\n" +
+                                "    version}");
+
+                            atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventUpdateResult = eventCrudMutationExecutor.updateMpeProcessingConfiguration(queryString.toString(), environment.getArgument("mpeProcessingConfigUuid"), clientEventData, configEvent);
+                            mpeProcessingConfiguration = (MPEProcessingConfiguration) configParser.fromGraphqlClient(configEventUpdateResult);
+                        }
+                        catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                        {
+                            e.printStackTrace();
+                            throw new DataAccessorException(e);
+                        }
+                    }
+                }
+            }
+            return mpeProcessingConfiguration;
+        }
     }
 
     private MPEProcessingConfiguration processCreateMpeProcessingConfiguration(DataFetchingEnvironment environment)
