@@ -77,9 +77,9 @@ input EventDataInput {
     type: String
     supplementalData: String
     createDate: DateTime
-    createOrgin: String
+    createOrigin: String
     updateDate: DateTime
-    updateOrgin: String
+    updateOrigin: String
     version: Long
 }
 
@@ -97,9 +97,9 @@ input CreateEvent {
     eventPostingId: String
     eventData: EventDataInput
     createDate: DateTime
-    createOrgin: String
+    createOrigin: String
     updateDate: DateTime
-    updateOrgin: String
+    updateOrigin: String
     version: Long
 }
 

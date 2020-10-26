@@ -25,13 +25,12 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -44,7 +43,7 @@ public class GraphQLService
     private final TypeDefinitionRegistryBuilder registryBuilder;
     private final GraphQlRuntimeWiringBuilder runtimeWiringBuilder;
     private GraphQL graphQL;
-    Logger log = LoggerFactory.getLogger(GraphQLService.class);
+
 
     @Autowired
     public GraphQLService(TypeDefinitionRegistryBuilder registryBuilder,
@@ -59,9 +58,9 @@ public class GraphQLService
     {
         try
         {
+
             RuntimeWiring runtimeWiring = runtimeWiringBuilder.buildRuntimeWiring();
             TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql/*.graphql");
-            //TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql");
             SchemaGenerator schemaGenerator = new SchemaGenerator();
 
             //log.info("Initializing graphql query and mutation processing engine.");
@@ -74,6 +73,7 @@ public class GraphQLService
         catch (IllegalStateException | IOException e)
         {
             // log the error and abort the application
+            //log.error("Error initializing the Satellite Query GraphQL service. Aborting startup.", e);
             log.error(e.getMessage(), e);
             throw new IllegalStateException("Unable to initialize the Satellite Query Service");
         }

@@ -38,25 +38,3 @@ input TimePeriod {
     duration: Int
     durationUnit: DurationUnits
 }
-
-input CriteriaQuery {
-    propertyPredicate: PropertyPredicate
-    andPredicate: AndPredicate
-    orPredicate: OrPredicate
-}
-
-input PropertyPredicate {
-    property: String!
-    operator: PredicateOperator!
-    value: String!
-}
-
-input AndPredicate {
-    propertyPredicates: [PropertyPredicate!]
-    orPredicates: [OrPredicate!]
-}
-
-input OrPredicate {
-    propertyPredicates: [PropertyPredicate!]
-    andPredicates: [AndPredicate!]
-}

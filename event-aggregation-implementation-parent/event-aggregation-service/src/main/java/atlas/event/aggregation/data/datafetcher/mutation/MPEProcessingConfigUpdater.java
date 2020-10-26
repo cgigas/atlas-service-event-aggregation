@@ -29,7 +29,7 @@ import java.util.Collection;
 
 @Slf4j
 @Component
-@Profile("dev")
+@Profile("prod")
 public class MPEProcessingConfigUpdater extends AbstractDataDispatch<MPEProcessingConfiguration>
 {
     @Override
