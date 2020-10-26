@@ -1,28 +1,18 @@
-<<<<<<< HEAD
-extend type MPEServiceQuery {
-    eventById(id: String!): Event
-=======
 type MPEServiceQuery {
-    eventById(eventUuid: String!): Event
->>>>>>> sddTest
+    eventById(id: String!): Event
     eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
     eventData(eventDataUuid: String): EventData
+    deleteEvent(eventUuid: String!): Eventd
 }
 
 type TypeQuery {
     getEventTypes: [EventType]
 }
 
-<<<<<<< HEAD
-extend type MPEServiceMutation {
+type MPEServiceMutation {
     closeEvent(id: String, endDate: DateTime): Event
     deleteEvent(id: String): Event
-=======
-type MPEServiceMutation {
-    closeEvent(eventUuid: String, endDate: DateTime): Event
-    deleteEvent(eventUuid: String!): Event
->>>>>>> sddTest
     updateEventStatus(id: String, eventStatus: EventStatus!): Event
     createEvent(eventData: CreateEvent): Event
 }
@@ -44,15 +34,16 @@ type Launch {
 }
 
 type Event {
-    eventUuid: String!
-    classificationMarking: String!
+    eventUuid: String
+    classificationMarking: String
     predecessorEventUuid: String
-    type: EventType!
-    name: String!
-    status: EventStatus!
-    startDt: DateTime!
-    endDt: DateTime
-    description: String
+    eventType: EventType
+    eventName: String
+    eventStatus: EventStatus
+    eventState: EventState
+    startDate: DateTime
+    endDate: DateTime
+    eventDesc: String
     internalNotes: String
     eventPostingId: String
     eventData: [EventData!]
@@ -64,10 +55,10 @@ type Event {
 }
 
 type EventData {
-    eventDataUuid: String!
-    classificationMarking: String!
-    eventUuid: String!
-    name: String!
+    eventDataUuid: String
+    classificationMarking: String
+    eventUuid: String
+    name: String
     uri: String
     type: String
     supplementalData: String
@@ -77,6 +68,7 @@ type EventData {
     updateOrigin: String
     version: Long
 }
+
 
 input EventDataInput {
     eventDataUuid: String

@@ -19,7 +19,7 @@ package atlas.event.aggregation.data.datafetcher;
 
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.model.mpeprocessing.MPEProcessingConfiguration;
-import atlas.event.aggregation.parser.ConfigParser;
+import atlas.event.aggregation.parser.MPEProcessingConfigParser;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import atlas.ssaevent.crud.graphql.EventCrudMutationExecutor;
 import com.google.common.collect.Lists;
@@ -44,7 +44,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcessingConfiguration>
 {
     @Autowired
-    private ConfigParser configParser;
+    private MPEProcessingConfigParser MPEProcessingConfigParser;
 
     public MPEProcessingConfigDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -56,6 +56,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceQuery")
+<<<<<<< HEAD
             .dataFetcher("mpeProcessingConfiguration", this)
             .dataFetcher("mpeProcessingConfigurationPage", this)
             .dataFetcher("mpeProcessingConfigurationPageById", this)
@@ -73,6 +74,25 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
             .dataFetcher("createMpeProcessingConfigTemplate", this)
             .dataFetcher("deleteMpeProcessingConfigTemplate", this)
             .dataFetcher("updateMpeProcessingConfigTemplate", this));
+=======
+                .dataFetcher("mpeProcessingConfiguration", this)
+                .dataFetcher("mpeProcessingConfigurationPage", this)
+                .dataFetcher("mpeProcessingConfigurationPageById", this)
+                .dataFetcher("mpeProcessingConfigurationPageByExample", this)
+                .dataFetcher("mpeProcessingConfigurationPageByCriteria", this)
+                .dataFetcher("mpeProcessingConfigTemplate", this)
+                .dataFetcher("mpeProcessingConfigTemplatePage", this)
+                .dataFetcher("mpeProcessingConfigTemplatePageById", this)
+                .dataFetcher("mpeProcessingConfigTemplatePageByExample", this)
+                .dataFetcher("mpeProcessingConfigTemplatePageByCriteria", this));
+        builders.add(newTypeWiring("MPEServiceMutation")
+                .dataFetcher("createMpeProcessingConfiguration", this)
+                .dataFetcher("deleteMpeProcessingConfiguration", this)
+                .dataFetcher("updateMpeProcessingConfiguration", this)
+                .dataFetcher("createMpeProcessingConfigTemplate", this)
+                .dataFetcher("deleteMpeProcessingConfigTemplate", this)
+                .dataFetcher("updateMpeProcessingConfigTemplate", this));
+>>>>>>> sddTest
         return builders;
     }
 
@@ -229,6 +249,7 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
         if (environment != null)
         {
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
+<<<<<<< HEAD
             Map<String, Object> configData = environment.getArgument("configData");
             if (configData != null)
             {
@@ -292,6 +313,25 @@ public class MPEProcessingConfigDispatch extends AbstractDataDispatch<MPEProcess
                         e.printStackTrace();
                         throw new DataAccessorException(e);
                     }
+=======
+            Map<String, Object> configData = environment.getArgument("mpeProcessingConfiguration");
+            if (configData != null)
+            {
+                atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput clientEventData;
+
+                clientEventData = (atlas.ssaevent.crud.graphql.MpeProcessingConfigurationInput) MPEProcessingConfigParser.toGraphqlClient(configData, Boolean.TRUE);
+                try
+                {
+                    StringBuffer buffer = new StringBuffer();
+                    buffer.append("{ mpeProcessingConfigUuid classificationMarking eventUuid event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { eventDataUuid classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version } candidateRsoReservationUuid analystRsoReservationUuid catalogRsoReservationUuid ucnReservationUuid candidateFormationParametersUuid candidateFormationParameters { candidateFormationParametersUuid classificationMarking pdotCoefficients coplanarCheckThreshold periodAssociationThreshold minimumTracksPerCluster createDate createOrigin updateDate updateOrigin version } currentFlag name description analystMinTracksPerDay analystMinTracksReceived catalogMinTracksReceived analystMinOdSolutions catalogMinOdSolutions analystRmsTrendMean analystRmsTrendSd catalogRmsTrendSd analystMinResidualAcceptance catalogMinResidualAcceptance analystMinArgumentLatitude catalogMinArgumentLatitude analystMinReportingSensors catalogMinReportingSensors createOrigin updateDate updateOrigin version }  }");
+                    atlas.ssaevent.crud.graphql.MpeProcessingConfiguration configEventCreateResult = eventCrudMutationExecutor.createMpeProcessingConfiguration(buffer.toString(), clientEventData);
+                    mpeProcessingConfiguration = (MPEProcessingConfiguration) MPEProcessingConfigParser.fromGraphqlClient(configEventCreateResult);
+                }
+                catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
+                {
+                    e.printStackTrace();
+                    throw new DataAccessorException(e);
+>>>>>>> sddTest
                 }
             }
         }

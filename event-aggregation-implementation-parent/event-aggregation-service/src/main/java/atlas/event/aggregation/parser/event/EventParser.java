@@ -123,6 +123,27 @@ public class EventParser extends EventMasterParser
                 resultItem = clientEvent;
             }
         }
+        else if (model instanceof atlas.ssaevent.crud.graphql.Event)
+        {
+            if (inputMode)
+            {
+                atlas.ssaevent.crud.graphql.EventInput clientEventInput = new atlas.ssaevent.crud.graphql.EventInput();
+                atlas.ssaevent.crud.graphql.Event crudClientEvent = (atlas.ssaevent.crud.graphql.Event) model;
+                clientEventInput.setClassificationMarking(crudClientEvent.getClassificationMarking());
+                clientEventInput.setPredecessorEventUuid(crudClientEvent.getPredecessorEventUuid());
+                clientEventInput.setType(atlas.ssaevent.crud.graphql.EventType.valueOf(crudClientEvent.getType().name()));
+                clientEventInput.setName(crudClientEvent.getName());
+                clientEventInput.setStatus(atlas.ssaevent.crud.graphql.EventStatus.valueOf(crudClientEvent.getStatus().name()));
+                clientEventInput.setStartDt(crudClientEvent.getStartDt());
+                clientEventInput.setEndDt(crudClientEvent.getEndDt());
+                clientEventInput.setDescription(crudClientEvent.getDescription());
+                clientEventInput.setInternalNotes(crudClientEvent.getInternalNotes());
+                clientEventInput.setEventPostingId(crudClientEvent.getEventPostingId());
+                clientEventInput.setVersion(crudClientEvent.getVersion());
+
+                resultItem = clientEventInput;
+            }
+        }
 
         return resultItem;
     }

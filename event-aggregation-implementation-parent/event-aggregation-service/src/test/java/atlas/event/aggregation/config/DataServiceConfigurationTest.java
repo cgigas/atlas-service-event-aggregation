@@ -15,18 +15,23 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.parser;
+package atlas.event.aggregation.config;
 
+<<<<<<< HEAD:event-aggregation-implementation-parent/event-aggregation-service/src/main/java/atlas/event/aggregation/parser/ConfigParser.java
 import atlas.event.aggregation.parser.event.EventMasterParser;
 import atlas.ssaevent.crud.graphql.MpeProcessingConfiguration;
 import org.springframework.stereotype.Component;
+=======
+import org.junit.Before;
+import static org.junit.Assert.assertNotNull;
+>>>>>>> sddTest:event-aggregation-implementation-parent/event-aggregation-service/src/test/java/atlas/event/aggregation/config/DataServiceConfigurationTest.java
 
-@Component
-public class ConfigParser extends EventMasterParser
+public class DataServiceConfigurationTest
 {
-    @Override
-    public Object fromGraphqlClient(Object graphql)
+    @Before
+    public void init()
     {
+<<<<<<< HEAD:event-aggregation-implementation-parent/event-aggregation-service/src/main/java/atlas/event/aggregation/parser/ConfigParser.java
         MpeProcessingConfiguration configuration = new MpeProcessingConfiguration();
         if (graphql instanceof atlas.ssaevent.crud.graphql.MpeProcessingConfiguration)
         {
@@ -37,11 +42,10 @@ public class ConfigParser extends EventMasterParser
             configuration.setAnalystMinResidualAcceptance(configurationInput.getAnalystMinResidualAcceptance());
         }
         return configuration;
-    }
-
-    @Override
-    public Object toGraphqlClient(Object model, Boolean inputMode)
-    {
-        return null;
+=======
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        assertNotNull(task);
+        task.init();
+>>>>>>> sddTest:event-aggregation-implementation-parent/event-aggregation-service/src/test/java/atlas/event/aggregation/config/DataServiceConfigurationTest.java
     }
 }

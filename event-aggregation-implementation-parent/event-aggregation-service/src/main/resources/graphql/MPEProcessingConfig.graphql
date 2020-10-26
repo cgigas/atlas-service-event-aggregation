@@ -1,14 +1,18 @@
 extend type MPEServiceMutation {
     createMpeProcessingConfiguration(mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
+<<<<<<< HEAD
     deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
     updateMpeProcessingConfiguration(mpeProcessingConfigUuid: String! mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
     createMpeProcessingConfigTemplate(mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate!
     deleteMpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!): MpeProcessingConfigTemplate
     updateMpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate
+=======
+>>>>>>> sddTest
 }
 
 extend type MPEServiceQuery {
     mpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
+<<<<<<< HEAD
     mpeProcessingConfigurationPage(pageInfo: PageInfo!): MpeProcessingConfigurationPage!
     mpeProcessingConfigurationPageById(mpeProcessingConfigUuids: [String!]! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
     mpeProcessingConfigurationPageByExample(example: MpeProcessingConfigurationQueryExampleInput! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
@@ -18,6 +22,8 @@ extend type MPEServiceQuery {
     mpeProcessingConfigTemplatePageById(mpeProcessingConfigTemplateUuids: [String!]! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
     mpeProcessingConfigTemplatePageByExample(example: MpeProcessingConfigTemplateQueryExampleInput! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
     mpeProcessingConfigTemplatePageByCriteria(criteriaQuery: CriteriaQuery! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
+=======
+>>>>>>> sddTest
 }
 
 type MpeProcessingConfiguration {
@@ -25,6 +31,7 @@ type MpeProcessingConfiguration {
     classificationMarking: String!
     eventUuid: String!
     event: Event!
+<<<<<<< HEAD
     candidateRsoReservationUuid: String
     analystRsoReservationUuid: String
     catalogRsoReservationUuid: String
@@ -57,11 +64,17 @@ type MpeProcessingConfiguration {
 input MpeProcessingConfigurationInput  {
     classificationMarking: String!
     eventUuid: String!
+=======
+>>>>>>> sddTest
     candidateRsoReservationUuid: String
     analystRsoReservationUuid: String
     catalogRsoReservationUuid: String
     ucnReservationUuid: String
     candidateFormationParametersUuid: String
+<<<<<<< HEAD
+=======
+    candidateFormationParameters: CandidateFormationParameters
+>>>>>>> sddTest
     currentFlag: Boolean!
     name: String
     description: String
@@ -79,6 +92,7 @@ input MpeProcessingConfigurationInput  {
     catalogMinArgumentLatitude: PositiveFloat
     analystMinReportingSensors: PositiveInt
     catalogMinReportingSensors: PositiveInt
+<<<<<<< HEAD
     version: Long
 }
 
@@ -98,17 +112,54 @@ type MpeProcessingConfigTemplate {
     analystMinOdSolutions: PositiveInt
     catalogMinOdSolutions: PositiveInt
     analystRmsTrendMean: PositiveFloat
+=======
+    createOrigin: String
+    updateDate: DateTime
+    updateOrigin: String
+    version: Long
+}
+
+input MpeProcessingConfigurationInput  {
+    mpeProcessingConfigUuid: String!
+    classificationMarking: String
+    eventUUID: String!
+    candidateRsoReservationUUID: String!
+    analystRsoReservationUUID: String!
+    catalogRsoReservationUUID: String!
+    ucnReservationUUID: String!
+    candidateFormationParametersUUID: String!
+    currentFlag: Boolean
+    name: String
+    description: String
+    analystMinTracksPerDay: Int
+    catalogMinTracksPerDay: Int
+    analystMinTracksReceived: Int
+    catalogMinTracksReceived: Int
+    analystMinOdSolutions: Int
+    catalogMinOdSolutions: Int
+    analystRmsTrendMean: PositiveFloat
+    catalogRmsTrendMean: PositiveFloat
+>>>>>>> sddTest
     analystRmsTrendSd: PositiveFloat
     catalogRmsTrendSd: PositiveFloat
     analystMinResidualAcceptance: PositiveFloat
     catalogMinResidualAcceptance: PositiveFloat
     analystMinArgumentLatitude: PositiveFloat
     catalogMinArgumentLatitude: PositiveFloat
+<<<<<<< HEAD
     analystMinReportingSensors: PositiveInt
     catalogMinReportingSensors: PositiveInt
     createOrigin: String
     updateDate: DateTime
     updateOrigin: String
+=======
+    analystMinReportingSensors: Int
+    catalogMinReportingSensors: Int
+    updateDate: DateTime
+    updateOrigin: String
+    createDate: DateTime!
+    createOrigin: String!
+>>>>>>> sddTest
     version: Long
 }
 

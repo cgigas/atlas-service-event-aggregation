@@ -35,7 +35,6 @@ import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -57,8 +56,11 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
     protected Integer maxPageSize = 1000;
     @Autowired
     private DataServiceConfiguration dataServiceConfiguration;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> sddTest
     // derived classes can set a localContext object which will be passed to child query fetchers.
     // Our convention is that the localContext keys are class simple names, and the objects are class instances, or arrays of instances.
     // See https://www.graphql-java.com/blog/deep-dive-data-fetcher-results/
@@ -204,7 +206,10 @@ public abstract class AbstractDataDispatch<T> extends DigitalBase implements Dat
     PageInfo getPageInfoArgument(DataFetchingEnvironment dataFetchingEnvironment)
     {
         PageInfo pageInfo = new PageInfo();
+<<<<<<< HEAD
 
+=======
+>>>>>>> sddTest
         // default pageInfo
         pageInfo.setPage(0);
         pageInfo.setSize(maxPageSize);

@@ -2,6 +2,7 @@ extend type MPEServiceMutation {
     addSatelliteToEvent(input: CreateEventSatelliteInput): EventSatellite
     promoteEventSatellite(eventSatellitePromotion: [PromoteSatelliteInput]): [EventSatellite]
     addEventProcessingConfiguration(eventId: String): String
+    releaseSatelliteFromEvent(eventSatUuid: [String!]): [EventSatellite]
 }
 
 type EventSatellite {
