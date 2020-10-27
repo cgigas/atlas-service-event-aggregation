@@ -15,41 +15,33 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.server;
+package atlas.event.aggregation.data.datafetcher;
 
-import atlas.event.aggregation.server.wiring.GraphQlRuntimeWiringBuilder;
-import graphql.schema.GraphQLSchema;
-import graphql.schema.idl.RuntimeWiring;
-import graphql.schema.idl.SchemaGenerator;
-import graphql.schema.idl.TypeDefinitionRegistry;
+import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
+import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
-
-import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-public class GraphQLServiceTest
+public class MPEProcessingConfigDispatchTest
 {
-    @Autowired
-    ResourceLoader resourceLoader;
-    TypeDefinitionRegistryBuilder registryBuilder = new TypeDefinitionRegistryBuilder(resourceLoader);
+    RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
+    MPEProcessingConfigDispatch task = new MPEProcessingConfigDispatch(collector);
     @Mock
-    GraphQlRuntimeWiringBuilder runtimeWiringBuilder = mock(GraphQlRuntimeWiringBuilder.class, Mockito.CALLS_REAL_METHODS);
-    GraphQLService task;
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
-    @Test(expected = NullPointerException.class)
-    public void test() throws IOException
+    @Test
+    public void provideRuntimeTypeWiring()
     {
-        task = new GraphQLService(registryBuilder, runtimeWiringBuilder);
-        assertNotNull(task);
-        task.init();
-        assertNotNull(task.getGraphQL());
+        assertNotNull(task.provideRuntimeTypeWiring());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void performFetch()
+    {
+        assertNotNull(task.performFetch(environment));
+    }
 }

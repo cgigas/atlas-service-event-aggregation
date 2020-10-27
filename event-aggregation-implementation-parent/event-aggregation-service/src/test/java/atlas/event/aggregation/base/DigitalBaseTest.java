@@ -15,41 +15,40 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.server;
+package atlas.event.aggregation.base;
 
-import atlas.event.aggregation.server.wiring.GraphQlRuntimeWiringBuilder;
-import graphql.schema.GraphQLSchema;
-import graphql.schema.idl.RuntimeWiring;
-import graphql.schema.idl.SchemaGenerator;
-import graphql.schema.idl.TypeDefinitionRegistry;
+import atlas.event.aggregation.SpringContextFactory;
+import graphql.schema.DataFetchingEnvironment;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
-
-import java.io.IOException;
+import org.springframework.context.ApplicationContext;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-public class GraphQLServiceTest
+@RunWith(MockitoJUnitRunner.Silent.class)
+public class DigitalBaseTest
 {
-    @Autowired
-    ResourceLoader resourceLoader;
-    TypeDefinitionRegistryBuilder registryBuilder = new TypeDefinitionRegistryBuilder(resourceLoader);
     @Mock
-    GraphQlRuntimeWiringBuilder runtimeWiringBuilder = mock(GraphQlRuntimeWiringBuilder.class, Mockito.CALLS_REAL_METHODS);
-    GraphQLService task;
+    DataFetchingEnvironment environment;
+    @Autowired
+    ApplicationContext applicationContext;
 
-    @Test(expected = NullPointerException.class)
-    public void test() throws IOException
+    @Before
+    public void setUp()
     {
-        task = new GraphQLService(registryBuilder, runtimeWiringBuilder);
-        assertNotNull(task);
-        task.init();
-        assertNotNull(task.getGraphQL());
+        SpringContextFactory.setContext(applicationContext);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void test()
+    {
+        DigitalBase task = new DigitalBase();
+        assertNotNull(task);
+        task.getDigitalCache();
+        task.getRequestPath(environment);
+    }
 }

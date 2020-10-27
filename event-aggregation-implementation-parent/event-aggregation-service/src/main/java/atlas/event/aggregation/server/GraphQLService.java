@@ -25,6 +25,8 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -43,7 +45,7 @@ public class GraphQLService
     private final TypeDefinitionRegistryBuilder registryBuilder;
     private final GraphQlRuntimeWiringBuilder runtimeWiringBuilder;
     private GraphQL graphQL;
-
+    Logger log = LoggerFactory.getLogger(GraphQLService.class);
 
     @Autowired
     public GraphQLService(TypeDefinitionRegistryBuilder registryBuilder,
@@ -58,7 +60,6 @@ public class GraphQLService
     {
         try
         {
-
             RuntimeWiring runtimeWiring = runtimeWiringBuilder.buildRuntimeWiring();
             TypeDefinitionRegistry registry = registryBuilder.buildRegistryFrom("classpath:graphql/*.graphql");
             SchemaGenerator schemaGenerator = new SchemaGenerator();

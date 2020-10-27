@@ -16,12 +16,13 @@
  * ******************************************************************************
  */
 package atlas.event.aggregation.parser.event;
-
-import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.EventSatellite;
+import atlas.event.aggregation.data.model.event.Event;
 import atlas.event.aggregation.data.model.ssaeventsat.Relationship;
 import atlas.ssaevent.crud.graphql.EventRelationship;
 import atlas.ssaevent.crud.graphql.EventSatInput;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

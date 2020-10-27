@@ -17,24 +17,24 @@
  */
 package atlas.event.aggregation.server;
 
-//import org.junit.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.core.io.ResourceLoader;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 
-//import java.io.File;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-//import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TypeDefinitionRegistryBuilderTest
 {
-/*
     @Autowired
     ResourceLoader resourceLoader;
 
-    TypeDefinitionRegistryBuilder task = new TypeDefinitionRegistryBuilder();
+    TypeDefinitionRegistryBuilder task = new TypeDefinitionRegistryBuilder(resourceLoader);
     String rootResourcePath = "classpath:graphql";
     List<File> fileList = new ArrayList<>();
 
@@ -47,7 +47,7 @@ public class TypeDefinitionRegistryBuilderTest
         }
         catch (Exception e)
         {
-            assertEquals("java.lang.NullPointerException", e.toString());
+            assertTrue(e.toString().contains("SchemaProblem"));
         }
     }
 
@@ -56,12 +56,11 @@ public class TypeDefinitionRegistryBuilderTest
     {
         try
         {
-
             task.buildRegistryFrom("graphql", rootResourcePath);
         }
         catch (Exception e)
         {
-            //assertEquals("java.lang.NullPointerException", e.toString());
+            assertTrue(e.toString().contains("NullPointerException"));
         }
     }
 
@@ -75,8 +74,7 @@ public class TypeDefinitionRegistryBuilderTest
         }
         catch (Exception e)
         {
-            //assertEquals("java.lang.NullPointerException", e.toString());
+            assertTrue(e.toString().contains("SchemaProblem"));
         }
     }
-*/
 }

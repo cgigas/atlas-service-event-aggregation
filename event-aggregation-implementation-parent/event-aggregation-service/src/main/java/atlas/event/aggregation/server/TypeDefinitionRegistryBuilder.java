@@ -22,6 +22,8 @@ import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternUtils;
@@ -38,7 +40,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Component
 public class TypeDefinitionRegistryBuilder
 {
-
+    Logger log = LoggerFactory.getLogger(TypeDefinitionRegistryBuilder.class);
     private final ResourceLoader resourceLoader;
 
     public TypeDefinitionRegistryBuilder(ResourceLoader resourceLoader)
