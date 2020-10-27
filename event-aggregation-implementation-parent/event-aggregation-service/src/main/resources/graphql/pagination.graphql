@@ -33,7 +33,7 @@ The time format is rfc3339 ISO Offset Date Time (yyyy-MM-ddTHH:mm:ssZ or yyy-MM-
 """
 input TimePeriod {
     type: TimePeriodType!
-    startref: DateTime
+    startref: DateTime!
     end: DateTime
     duration: Int
     durationUnit: DurationUnits

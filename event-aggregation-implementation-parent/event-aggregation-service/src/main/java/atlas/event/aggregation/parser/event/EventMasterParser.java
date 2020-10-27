@@ -17,12 +17,10 @@
  */
 package atlas.event.aggregation.parser.event;
 
-import atlas.event.aggregation.data.paging.elements.Direction;
-import atlas.event.aggregation.data.paging.elements.Order;
-import atlas.event.aggregation.data.paging.elements.PageInfo;
-import atlas.event.aggregation.data.paging.elements.Sort;
+import atlas.event.aggregation.data.paging.elements.*;
 import atlas.event.aggregation.parser.IParser;
-
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +56,36 @@ public abstract class EventMasterParser implements IParser
     @Override
     public abstract Object toGraphqlClient(Object model, Boolean inputMode);
 
+    public Object toTimePeriod(Object model)
+    {
+        Object result = null;
+
+        return result;
+    }
+
+    public TimePeriod fromGraphqlTimePeriod(Object graphqlTimePeriod)
+    {
+        TimePeriod timePeriod = null;
+
+        if (graphqlTimePeriod instanceof Map)
+        {
+            Map<String, Object> map = (Map) graphqlTimePeriod;
+            OffsetDateTime startDate = getItemAsOffSetDate("startref", map);
+            OffsetDateTime endDate = getItemAsOffSetDate("end", map);
+            String durationUnits = getItemAsString("durationUnit", map);
+            Integer durationAmount = getItemAsInteger("duration", map);
+            if (endDate == null)
+            {
+                endDate = startDate.plus(durationAmount, ChronoUnit.valueOf(durationUnits));
+            }
+
+            timePeriod = TimePeriod.ofStartAndEnd(startDate, endDate);
+
+        }
+
+        return timePeriod;
+    }
+
     public Object toPageInfo(Object model)
     {
         atlas.ssaevent.crud.graphql.PageInfo eventCrudPageInfo = null;
@@ -85,7 +113,7 @@ public abstract class EventMasterParser implements IParser
                         {
                             atlas.ssaevent.crud.graphql.Order order = new atlas.ssaevent.crud.graphql.Order();
                             order.setDirection(atlas.ssaevent.crud.graphql.Direction.valueOf((String)orderItemMap.get("direction")));
-                            order.setProperty(getItemAsString("direction", orderItemMap));
+                            order.setProperty(getItemAsString("property", orderItemMap));
                             eventCrudOrderList.add(order);
                         }
                     }

@@ -1,6 +1,6 @@
 type MPEServiceQuery {
     eventById(eventUuid: String!): Event
-    eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
+    eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): [EventTypeSummary]
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
     eventData(eventDataUuid: String): EventData
 }
@@ -16,9 +16,8 @@ type MPEServiceMutation {
     createEvent(eventData: CreateEvent): Event
 }
 
-type EventTypeSummaryResults {
-    id: String
-    type: String
+type EventTypeSummary {
+    type: EventType
     planned: Int
     active: Int
     typename: String

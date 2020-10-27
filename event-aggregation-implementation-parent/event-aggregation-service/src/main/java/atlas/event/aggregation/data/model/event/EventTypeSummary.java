@@ -15,50 +15,42 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.eventdata;
+package atlas.event.aggregation.data.model.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class EventTypeSummary
 {
-    @Id
-    private String id;
-    private String type;
-    private Integer planned;
-    private Integer active;
-    private String typeName;
+    private EventType type;
+    private Integer planned = 0;
+    private Integer active = 0;
+    private String typename;
 
-    public String getId()
+    public void addOneToPlanned()
     {
-        return id;
+        planned++;
     }
 
-    public void setId(String id)
+    public void addOneToActive()
     {
-        this.id = id;
+        active++;
     }
 
-    public String getType()
+    public EventType getType()
     {
         return type;
     }
 
-    public void setType(String type)
+    public void setType(EventType type)
     {
         this.type = type;
     }
 
     public Integer getPlanned()
     {
+        if (planned == null)
+        {
+            planned = 0;
+        }
+
         return planned;
     }
 
@@ -69,6 +61,11 @@ public class EventTypeSummary
 
     public Integer getActive()
     {
+        if (active == null)
+        {
+            active = 0;
+        }
+
         return active;
     }
 
@@ -77,13 +74,13 @@ public class EventTypeSummary
         this.active = active;
     }
 
-    public String getTypeName()
+    public String getTypename()
     {
-        return typeName;
+        return typename;
     }
 
-    public void setTypeName(String typeName)
+    public void setTypename(String typename)
     {
-        this.typeName = typeName;
+        this.typename = typename;
     }
 }

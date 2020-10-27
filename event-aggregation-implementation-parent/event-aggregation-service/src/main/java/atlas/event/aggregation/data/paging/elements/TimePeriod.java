@@ -17,18 +17,14 @@
  */
 package atlas.event.aggregation.data.paging.elements;
 
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NonNull;
-import lombok.Setter;
-
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.temporal.TemporalAmount;
 
 @Data
-@Setter(AccessLevel.NONE)
 public final class TimePeriod
 {
     @NonNull
@@ -98,6 +94,26 @@ public final class TimePeriod
         {
             throw new IllegalArgumentException("Neither start time nor the duration may be null.");
         }
+    }
+
+    public OffsetDateTime getStartTime()
+    {
+        return startTime;
+    }
+
+    public void setStartTime(OffsetDateTime startTime)
+    {
+        this.startTime = startTime;
+    }
+
+    public OffsetDateTime getEndTime()
+    {
+        return endTime;
+    }
+
+    public void setEndTime(OffsetDateTime endTime)
+    {
+        this.endTime = endTime;
     }
 
     private TimePeriod(OffsetDateTime start, OffsetDateTime end)

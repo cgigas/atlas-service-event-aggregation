@@ -18,6 +18,7 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.data.paging.elements.PageInfo;
+import atlas.event.aggregation.data.paging.elements.TimePeriod;
 import org.apache.commons.lang3.StringUtils;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +41,10 @@ public interface IParser
     public Object toPageInfo(Object model);
 
     public PageInfo fromGraphqlPageInfo(Object graphqlPageInfo);
+
+    public TimePeriod fromGraphqlTimePeriod(Object graphqlTimePeriod);
+
+    public Object toTimePeriod(Object model);
 
     default OffsetDateTime getItemAsOffSetDate(String elementName, Map<String, Object> map)
     {

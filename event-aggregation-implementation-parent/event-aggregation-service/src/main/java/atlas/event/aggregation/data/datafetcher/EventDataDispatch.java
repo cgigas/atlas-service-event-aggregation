@@ -21,8 +21,9 @@ import atlas.event.aggregation.constants.EventAggregationConstants;
 import atlas.event.aggregation.data.access.accessor.exception.DataAccessorException;
 import atlas.event.aggregation.data.datafetcher.util.GraphqlUtility;
 import atlas.event.aggregation.data.model.event.Event;
+import atlas.event.aggregation.data.model.event.EventTypeSummary;
 import atlas.event.aggregation.data.model.eventdata.EventData;
-import atlas.event.aggregation.data.model.eventdata.EventTypeSummary;
+import atlas.event.aggregation.data.paging.elements.TimePeriod;
 import atlas.event.aggregation.parser.event.EventDataParser;
 import atlas.event.aggregation.parser.event.EventParser;
 import atlas.event.aggregation.parser.event.EventTypeSummaryParser;
@@ -38,13 +39,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.*;
-
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Slf4j
@@ -345,105 +344,77 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
         return event;
     }
 
-    public EventTypeSummary processEventTypeSummariesByTimePeriod(DataFetchingEnvironment environment)
+    public List<EventTypeSummary> processEventTypeSummariesByTimePeriod(DataFetchingEnvironment environment)
     {
-        EventTypeSummary eventTypeSummary = new EventTypeSummary();
+        List<EventTypeSummary> eventTypeSummaryList = new ArrayList<>();
+        atlas.ssaevent.crud.graphql.PropertyPredicate startDatePredicate = null;
+        atlas.ssaevent.crud.graphql.PropertyPredicate endDatePredicate = null;
         EventCrudQueryExecutor eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
         if (environment != null)
         {
             Map<String, Object> timePeriodMap = environment.getArgument("timePeriod");
             Map<String, Object> pageRequestMap = environment.getArgument("pageRequest");
             atlas.ssaevent.crud.graphql.PageInfo eventCrudPageInfo = (atlas.ssaevent.crud.graphql.PageInfo) eventParser.toPageInfo(pageRequestMap);
+            TimePeriod timePeriod = (TimePeriod) eventParser.fromGraphqlTimePeriod(timePeriodMap);
 
-            PropertyPredicate startDateGE = PropertyPredicate.builder().withProperty("startDt").withOperator(PredicateOperator.GE).withValue("1970-10-15T17:36:17.788Z").build();
-            AndPredicate and = AndPredicate.builder().withPropertyPredicates(Arrays.asList(startDateGE)).build();
-            CriteriaQuery cq = CriteriaQuery.builder().withAndPredicate(and).build();
-/*            CriteriaQuery cq = CriteriaQuery.builder().withAndPredicate(
-                    AndPredicate.builder().withPropertyPredicates(
-                            Arrays.asList(
-                                    PropertyPredicate.builder().withProperty("startDt").withOperator(PredicateOperator.GE).withValue(
-                                            "1970-10-15T17:36:17.788Z").build(),
-                                    PropertyPredicate.builder().withProperty("startDt").withOperator(PredicateOperator.LE).withValue("2020-10-15T17:36:17.788Z").build())).build()).build();
-*/
-            String s = cq.toString();
+            OffsetDateTime startDate = timePeriod.getStartTime();
+            OffsetDateTime endDate = timePeriod.getEndTime();
+            List<PropertyPredicate> predicateList = new ArrayList<>();
+            if (startDate != null)
+            {
+                startDatePredicate = PropertyPredicate.builder().withProperty("startDt").withOperator(PredicateOperator.GE).withValue(startDate.toString()).build();
+                predicateList.add(startDatePredicate);
+            }
+            if (endDate != null)
+            {
+                endDatePredicate = PropertyPredicate.builder().withProperty("endDt").withOperator(PredicateOperator.LE).withValue(endDate.toString()).build();
+                predicateList.add(endDatePredicate);
+            }
+            AndPredicate and = AndPredicate.builder().withPropertyPredicates(Arrays.asList(endDatePredicate)).build();
+            CriteriaQuery cq = CriteriaQuery.builder().withPropertyPredicate(startDatePredicate).withAndPredicate(and).build();
+
             try
             {
-                Object o = eventCrudQueryExecutor.eventPageByCriteria("",  cq, eventCrudPageInfo);
-                System.out.println("SDFSDF");
-            }
-            catch (GraphQLRequestPreparationException | GraphQLRequestExecutionException e)
-            {
-                e.printStackTrace();
-                throw new DataAccessorException(e);
-            }
+                cq = CriteriaQuery.builder().withAndPredicate(AndPredicate.builder().withPropertyPredicates(predicateList).build()).build();
 
-            System.getProperty("");
-        }
+                StringBuffer colRetrieveBuffer = new StringBuffer();
+                colRetrieveBuffer.append("{number totalElements totalPages content {eventUuid name startDt endDt type status }}");
+                EventPage eventPage = eventCrudQueryExecutor.eventPageByCriteria(colRetrieveBuffer.toString(), cq, eventCrudPageInfo);
 
-        return eventTypeSummary;
-    }
-
-    public static void main(String[] args) throws Exception
-    {
-        EventCrudQueryExecutor eventCrudQueryExecutor = new EventCrudQueryExecutor("http://172.30.211.106:9210/ssaevent-crud/graphql");
-        atlas.ssaevent.crud.graphql.PageInfo pageInfo = new PageInfo();
-        Sort sort = new Sort();
-        List<Order> orderList = new ArrayList<>();
-        Order order = new Order();
-        order.setProperty("startDt");
-        order.setDirection(Direction.ASC);
-        orderList.add(order);
-        sort.setOrders(orderList);
-       pageInfo.setSort(sort);
-        pageInfo.setSize(1000);
-        pageInfo.setPage(0);
-
-
-/*        atlas.satellite.crud.graphql.PageInfo pageInfoSat = new atlas.satellite.crud.graphql.PageInfo();
-        atlas.satellite.crud.graphql.Sort sortSat = new atlas.satellite.crud.graphql.Sort();
-        List<atlas.satellite.crud.graphql.Order> orderListSat = new ArrayList<>();
-        atlas.satellite.crud.graphql.Order orderSat = new atlas.satellite.crud.graphql.Order();
-        orderSat.setProperty("satelliteUuid");
-        orderSat.setDirection(atlas.satellite.crud.graphql.Direction.ASC);
-        orderListSat.add(orderSat);
-        sortSat.setOrders(orderListSat);
-        pageInfoSat.setSort(sortSat);
-        pageInfoSat.setSize(1000);
-        pageInfoSat.setPage(0);
-*/
-
-
-/*        atlas.satellite.crud.graphql.PropertyPredicate startDate = atlas.satellite.crud.graphql.PropertyPredicate.builder().withProperty("catalogDate").withOperator(atlas.satellite.crud.graphql.PredicateOperator.GE).withValue("1970-10-15T17:36:17.788Z").build();
-        atlas.satellite.crud.graphql.CriteriaQuery cqSat = atlas.satellite.crud.graphql.CriteriaQuery.builder().withPropertyPredicate(startDate).build();
-        String resultSat = "{number totalElements totalPages content }";
-        SatelliteCrudQueryExecutor satelliteCrudQueryExecutor = new SatelliteCrudQueryExecutor("http://172.30.211.106:9205/satellite-crud/graphql");*/
-
-
-
-        PropertyPredicate startDateGE = PropertyPredicate.builder().withProperty("startDt").withOperator(PredicateOperator.GE).withValue("1970-10-15T17:36:17.788Z").build();
-        AndPredicate and = AndPredicate.builder().withPropertyPredicates(Arrays.asList(startDateGE)).build();
-        CriteriaQuery cq = CriteriaQuery.builder().withPropertyPredicate(startDateGE).build();
-        System.out.println(cq.toString());
-        String result = "{number totalElements totalPages content {eventUuid name startDt endDt }}";
-        try
-        {
-//          SatellitePage satResult = satelliteCrudQueryExecutor.satellitePageByCriteria(resultSat, csqSat, pageInfoSat);
-//          List<Satellite> datalist = satResult.getContent();
-//            System.out.println("SDFSDF");
-            EventPage eventPage = eventCrudQueryExecutor.eventPageByCriteria(result, cq, pageInfo);
-            List<atlas.ssaevent.crud.graphql.Event> eventList = eventPage.getContent();
-            if (eventList != null)
-            {
-                for (atlas.ssaevent.crud.graphql.Event item: eventList)
+                if (eventPage != null)
                 {
-                    System.out.println(item.getEventUuid());
+                    Map<String, EventTypeSummary> typeSummaryMap = new HashMap<>();
+                    for (atlas.ssaevent.crud.graphql.Event clientEventItem: eventPage.getContent())
+                    {
+                        String type = clientEventItem.getType().name();
+                        String status = clientEventItem.getStatus().name();
+                        EventTypeSummary summaryItem = typeSummaryMap.get(type);
+                        if (summaryItem == null)
+                        {
+                            summaryItem = new EventTypeSummary();
+                            summaryItem.setType(atlas.event.aggregation.data.model.event.EventType.valueOf(type));
+                            summaryItem.setTypename(clientEventItem.get__typename());
+                            typeSummaryMap.put(type, summaryItem);
+                        }
+
+                        if (status.equalsIgnoreCase("planned"))
+                        {
+                            summaryItem.addOneToPlanned();
+                        }
+                        else if (status.equalsIgnoreCase("active"))
+                        {
+                            summaryItem.addOneToActive();
+                        }
+                    }
+                    eventTypeSummaryList.addAll(typeSummaryMap.values());
                 }
             }
+            catch (Exception e)
+            {
+                throw new DataAccessorException(e);
+            }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
 
+        return eventTypeSummaryList;
+    }
 }

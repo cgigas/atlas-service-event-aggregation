@@ -9,6 +9,7 @@ enum DurationUnits {
     DAYS
     WEEKS
     MONTHS
+    YEARS
 }
 
 enum EventState
