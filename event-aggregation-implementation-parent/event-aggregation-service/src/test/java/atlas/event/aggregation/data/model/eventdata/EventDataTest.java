@@ -33,6 +33,9 @@ public class EventDataTest
         assertEquals("uri", task.getUri());
         task.setType("type");
         assertEquals("type", task.getType());
+        Byte[] supplementalData = new Byte[1];
+        task.setSupplementalData(supplementalData);
+        assertEquals(supplementalData, task.getSupplementalData());
 
         GetterSetterTester tester = new GetterSetterTester()
         {
@@ -44,6 +47,5 @@ public class EventDataTest
         };
         assertNotNull(tester);
         tester.testGettersAndSetters();
-
     }
 }

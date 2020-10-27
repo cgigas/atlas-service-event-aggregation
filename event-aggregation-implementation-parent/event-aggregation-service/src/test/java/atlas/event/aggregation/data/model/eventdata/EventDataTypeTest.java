@@ -15,29 +15,17 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.data.model.event;
+package atlas.event.aggregation.data.model.eventdata;
 
-import atlas.event.aggregation.GetterSetterTester;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.assertNotNull;
-
-public class EventTest
+public class EventDataTypeTest
 {
-    @Test(expected = InvocationTargetException.class)
-    public void test() throws Exception
+    @Test
+    public void values()
     {
-        GetterSetterTester tester = new GetterSetterTester()
-        {
-            @Override
-            protected Object getInstance()
-            {
-                return new Event();
-            }
-        };
-        assertNotNull(tester);
-        tester.testGettersAndSetters();
+        assertEquals(4, EventDataType.values().length);
     }
 }

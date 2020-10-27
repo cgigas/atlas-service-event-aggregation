@@ -29,17 +29,18 @@ import static org.junit.Assert.assertTrue;
 
 public class TimePeriodTest
 {
+    OffsetDateTime startTime = OffsetDateTime.now();
+    OffsetDateTime endTime = OffsetDateTime.of(2020, 11, 1, 1, 1, 1, 1, ZoneOffset.UTC);
+
     @Test
     public void ofStartAndEnd()
     {
-        OffsetDateTime start = OffsetDateTime.now();
-        OffsetDateTime end = OffsetDateTime.of(2020, 11, 1, 1, 1, 1, 1, ZoneOffset.UTC);
-        TimePeriod.ofStartAndEnd(start, end);
+        TimePeriod.ofStartAndEnd(startTime, endTime);
 
         try
         {
             OffsetDateTime badEnd = OffsetDateTime.of(2020, 1, 1, 1, 1, 1, 1, ZoneOffset.UTC);
-            TimePeriod.ofStartAndEnd(start, badEnd);
+            TimePeriod.ofStartAndEnd(startTime, badEnd);
         }
         catch (IllegalArgumentException e)
         {

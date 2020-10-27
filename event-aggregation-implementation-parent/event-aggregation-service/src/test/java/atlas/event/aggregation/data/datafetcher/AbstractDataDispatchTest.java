@@ -21,9 +21,12 @@ import atlas.event.aggregation.server.exception.EventAggregationQueryException;
 import atlas.event.aggregation.server.wiring.RuntimeWiringTypeCollector;
 import graphql.schema.DataFetchingEnvironment;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import java.util.Map;
+import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static java.lang.System.getProperty;
 import static org.junit.Assert.assertNotNull;
@@ -31,18 +34,22 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AbstractDataDispatchTest
 {
+    @Spy
     AbstractDataDispatch dispatch = spy(AbstractDataDispatch.class);
-
-    Map<String, Object> localContext;
+    @Autowired
     RuntimeWiringTypeCollector collector = new RuntimeWiringTypeCollector();
+    @Mock
     DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
 
     @Test
     public void initializeRuntimeTypeInformation()
     {
+        dispatch.collector = this.collector;
         dispatch.initializeRuntimeTypeInformation();
+        assertNotNull(dispatch);
     }
 
     @Test

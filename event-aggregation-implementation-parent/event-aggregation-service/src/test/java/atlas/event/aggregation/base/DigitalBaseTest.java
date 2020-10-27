@@ -23,17 +23,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class DigitalBaseTest
 {
     @Mock
-    DataFetchingEnvironment environment;
+    DataFetchingEnvironment environment = mock(DataFetchingEnvironment.class, Mockito.CALLS_REAL_METHODS);
     @Autowired
     ApplicationContext applicationContext;
 
@@ -48,7 +50,14 @@ public class DigitalBaseTest
     {
         DigitalBase task = new DigitalBase();
         assertNotNull(task);
-        task.getDigitalCache();
         task.getRequestPath(environment);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void tests()
+    {
+        DigitalBase task = new DigitalBase();
+        assertNotNull(task);
+        task.getDigitalCache();
     }
 }

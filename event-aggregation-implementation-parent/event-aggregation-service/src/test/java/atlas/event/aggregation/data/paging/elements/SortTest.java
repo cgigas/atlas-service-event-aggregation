@@ -22,16 +22,19 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class SortTest
 {
-    List<Order> orders = new ArrayList<>();
+    List<Order> orders;
+    Sort task = new Sort();
 
     @Test
     public void test()
     {
-        Sort task = new Sort();
         assertNotNull(task);
+        task.setOrders(orders);
+        assertEquals(new ArrayList<>(), task.getOrders());
     }
 }
