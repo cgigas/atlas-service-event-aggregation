@@ -18,6 +18,8 @@
 package atlas.event.aggregation.parser;
 
 import atlas.event.aggregation.parser.event.EventMasterParser;
+
+import atlas.event.aggregation.data.model.mpeprocessing.MPEProcessingConfiguration;
 import org.springframework.stereotype.Component;
 import java.util.Map;
 
@@ -27,7 +29,35 @@ public class MPEProcessingConfigParser extends EventMasterParser
     @Override
     public Object fromGraphqlClient(Object graphql)
     {
-        return null;
+        MPEProcessingConfiguration configuration = new MPEProcessingConfiguration();
+        if (graphql instanceof atlas.ssaevent.crud.graphql.MpeProcessingConfiguration)
+        {
+            atlas.ssaevent.crud.graphql.MpeProcessingConfiguration clientConfig = (atlas.ssaevent.crud.graphql.MpeProcessingConfiguration) graphql;
+            configuration.setAnalystMinResidualAcceptance(clientConfig.getAnalystMinResidualAcceptance());
+            configuration.setAnalystRsoReservationUuid(clientConfig.getAnalystRsoReservationUuid());
+            configuration.setAnalystRmsTrendSd(clientConfig.getAnalystRmsTrendSd());
+            configuration.setAnalystRmsTrendMean(clientConfig.getAnalystRmsTrendMean());
+            configuration.setAnalystMinTracksReceived(clientConfig.getAnalystMinTracksReceived());
+            configuration.setAnalystMinTracksPerDay(clientConfig.getAnalystMinTracksPerDay());
+            configuration.setAnalystMinArgumentLatitude(clientConfig.getAnalystMinArgumentLatitude());
+            configuration.setAnalystMinOdSolutions(clientConfig.getAnalystMinOdSolutions());
+            configuration.setAnalystMinReportingSensors(clientConfig.getAnalystMinReportingSensors());
+            configuration.setCurrentFlag(clientConfig.getCurrentFlag());
+            configuration.setCreateOrigin(clientConfig.getCreateOrigin());
+            configuration.setClassificationMarking(clientConfig.getClassificationMarking());
+            configuration.setCatalogRsoReservationUuid(clientConfig.getCatalogRsoReservationUuid());
+            configuration.setCatalogRmsTrendSd(clientConfig.getCatalogRmsTrendSd());
+            configuration.setCatalogMinTracksReceived(clientConfig.getCatalogMinTracksReceived());
+            configuration.setDescription(clientConfig.getDescription());
+            configuration.setEventUuid(clientConfig.getEventUuid());
+            configuration.setMpeProcessingConfigUuid(clientConfig.getMpeProcessingConfigUuid());
+            configuration.setName(clientConfig.getName());
+            configuration.setUpdateOrigin(clientConfig.getUpdateOrigin());
+            configuration.setUpdateDate(clientConfig.getUpdateDate());
+            configuration.setUcnReservationUuid(clientConfig.getUcnReservationUuid());
+            configuration.setVersion(clientConfig.getVersion());
+        }
+        return configuration;
     }
 
     @Override
@@ -94,7 +124,6 @@ public class MPEProcessingConfigParser extends EventMasterParser
 
                 result = mpeProcessingConfiguration;
             }
-
         }
         return result;
     }

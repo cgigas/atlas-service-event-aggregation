@@ -1,32 +1,17 @@
-<<<<<<< HEAD
 extend type MPEServiceQuery {
-    eventById(id: String!): Event
-    eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
-    eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
-    eventData(eventDataUuid: String): EventData
-    deleteEvent(eventUuid: String!): Eventd
-=======
-type MPEServiceQuery {
     eventById(eventUuid: String!): Event
     eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
     eventData(eventDataUuid: String): EventData
->>>>>>> master
 }
 
 type TypeQuery {
     getEventTypes: [EventType]
 }
 
-<<<<<<< HEAD
 extend type MPEServiceMutation {
-    closeEvent(id: String, endDate: DateTime): Event
-    deleteEvent(id: String): Event
-=======
-type MPEServiceMutation {
     closeEvent(eventUuid: String, endDate: DateTime): Event
     deleteEvent(eventUuid: String!): Event
->>>>>>> master
     updateEventStatus(id: String, eventStatus: EventStatus!): Event
     createEvent(eventData: CreateEvent): Event
 }
@@ -48,16 +33,15 @@ type Launch {
 }
 
 type Event {
-    eventUuid: String
-    classificationMarking: String
+    eventUuid: String!
+    classificationMarking: String!
     predecessorEventUuid: String
-    eventType: EventType
-    eventName: String
-    eventStatus: EventStatus
-    eventState: EventState
-    startDate: DateTime
-    endDate: DateTime
-    eventDesc: String
+    type: EventType!
+    name: String!
+    status: EventStatus!
+    startDt: DateTime!
+    endDt: DateTime
+    description: String
     internalNotes: String
     eventPostingId: String
     eventData: [EventData!]
@@ -69,10 +53,10 @@ type Event {
 }
 
 type EventData {
-    eventDataUuid: String
-    classificationMarking: String
-    eventUuid: String
-    name: String
+    eventDataUuid: String!
+    classificationMarking: String!
+    eventUuid: String!
+    name: String!
     uri: String
     type: String
     supplementalData: String
@@ -83,10 +67,6 @@ type EventData {
     version: Long
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 input EventDataInput {
     eventDataUuid: String
     classificationMarking: String

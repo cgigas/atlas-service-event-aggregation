@@ -33,9 +33,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
@@ -51,7 +48,7 @@ public class GraphQLService
 
     @Autowired
     public GraphQLService(TypeDefinitionRegistryBuilder registryBuilder,
-            GraphQlRuntimeWiringBuilder runtimeWiringBuilder)
+        GraphQlRuntimeWiringBuilder runtimeWiringBuilder)
     {
         this.registryBuilder = registryBuilder;
         this.runtimeWiringBuilder = runtimeWiringBuilder;
@@ -70,8 +67,8 @@ public class GraphQLService
             GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(registry, runtimeWiring);
             // Turn on instrumentation for query tracing in GraphQL Playground, etc.
             this.graphQL = GraphQL.newGraphQL(graphQLSchema)
-                    .instrumentation(new TracingInstrumentation())
-                    .build();
+                .instrumentation(new TracingInstrumentation())
+                .build();
         }
         catch (IllegalStateException | IOException e)
         {

@@ -1,27 +1,11 @@
 extend type MPEServiceMutation {
     createMpeProcessingConfiguration(mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
-<<<<<<< HEAD
     deleteMpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
     updateMpeProcessingConfiguration(mpeProcessingConfigUuid: String! mpeProcessingConfiguration: MpeProcessingConfigurationInput!): MpeProcessingConfiguration
-    createMpeProcessingConfigTemplate(mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate!
-    deleteMpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!): MpeProcessingConfigTemplate
-    updateMpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!mpeProcessingConfigTemplate: MpeProcessingConfigTemplateInput!): MpeProcessingConfigTemplate
-=======
->>>>>>> master
 }
 
 extend type MPEServiceQuery {
     mpeProcessingConfiguration(mpeProcessingConfigUuid: String!): MpeProcessingConfiguration
-<<<<<<< HEAD
-    mpeProcessingConfigurationPage(pageInfo: PageInfo!): MpeProcessingConfigurationPage!
-    mpeProcessingConfigurationPageById(mpeProcessingConfigUuids: [String!]! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
-    mpeProcessingConfigurationPageByExample(example: MpeProcessingConfigurationQueryExampleInput! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
-    mpeProcessingConfigurationPageByCriteria(criteriaQuery: CriteriaQuery! pageInfo: PageInfo!): MpeProcessingConfigurationPage!
-    mpeProcessingConfigTemplate(mpeProcessingConfigTemplateUuid: String!): MpeProcessingConfigTemplate
-    mpeProcessingConfigTemplatePage(pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
-    mpeProcessingConfigTemplatePageById(mpeProcessingConfigTemplateUuids: [String!]! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
-    mpeProcessingConfigTemplatePageByExample(example: MpeProcessingConfigTemplateQueryExampleInput! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
-    mpeProcessingConfigTemplatePageByCriteria(criteriaQuery: CriteriaQuery! pageInfo: PageInfo!): MpeProcessingConfigTemplatePage!
 }
 
 type MpeProcessingConfiguration {
@@ -59,58 +43,13 @@ type MpeProcessingConfiguration {
 }
 
 input MpeProcessingConfigurationInput  {
-    mpeProcessingConfigUuid: String!
-    classificationMarking: String
-    eventUUID: String!
-    candidateRsoReservationUUID: String!
-    analystRsoReservationUUID: String!
-    catalogRsoReservationUUID: String!
-    ucnReservationUUID: String!
-    candidateFormationParametersUUID: String!
-    currentFlag: Long!
-    name: String
-    description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: Long
-    catalogRmsTrendMean: Long
-    analystRmsTrendSd: Long
-    catalogRmsTrendSd: Long
-    analystMinResidualAcceptance: Long
-    catalogMinResidualAcceptance: Long
-    analystMinArgumentLatitude: Long
-    catalogMinArgumentLatitude: Long
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
-    updateDate: DateTime
-    updateOrigin: String
-    createDate: DateTime!
-    createOrigin: String!
-    version: Long
-}
-
-type MpeProcessingConfigTemplate {
-    mpeProcessingConfigUuid: String
-    classificationMarking: String
-=======
-}
-
-type MpeProcessingConfiguration {
-    mpeProcessingConfigUuid: String!
     classificationMarking: String!
     eventUuid: String!
-    event: Event!
->>>>>>> master
     candidateRsoReservationUuid: String
     analystRsoReservationUuid: String
     catalogRsoReservationUuid: String
     ucnReservationUuid: String
     candidateFormationParametersUuid: String
-    candidateFormationParameters: CandidateFormationParameters
     currentFlag: Boolean!
     name: String
     description: String
@@ -128,113 +67,5 @@ type MpeProcessingConfiguration {
     catalogMinArgumentLatitude: PositiveFloat
     analystMinReportingSensors: PositiveInt
     catalogMinReportingSensors: PositiveInt
-    createOrigin: String
-    updateDate: DateTime
-    updateOrigin: String
     version: Long
-}
-
-<<<<<<< HEAD
-input MpeProcessingConfigTemplateInput {
-    mpeProcessingConfigUUID: String
-=======
-input MpeProcessingConfigurationInput  {
-    mpeProcessingConfigUuid: String!
->>>>>>> master
-    classificationMarking: String
-    eventUUID: String!
-    candidateRsoReservationUUID: String!
-    analystRsoReservationUUID: String!
-    catalogRsoReservationUUID: String!
-    ucnReservationUUID: String!
-    candidateFormationParametersUUID: String!
-    currentFlag: Boolean
-    name: String
-    description: String
-    analystMinTracksPerDay: Int
-    catalogMinTracksPerDay: Int
-    analystMinTracksReceived: Int
-    catalogMinTracksReceived: Int
-    analystMinOdSolutions: Int
-    catalogMinOdSolutions: Int
-    analystRmsTrendMean: PositiveFloat
-    catalogRmsTrendMean: PositiveFloat
-    analystRmsTrendSd: PositiveFloat
-    catalogRmsTrendSd: PositiveFloat
-    analystMinResidualAcceptance: PositiveFloat
-    catalogMinResidualAcceptance: PositiveFloat
-    analystMinArgumentLatitude: PositiveFloat
-    catalogMinArgumentLatitude: PositiveFloat
-    analystMinReportingSensors: Int
-    catalogMinReportingSensors: Int
-    updateDate: DateTime
-    updateOrigin: String
-    createDate: DateTime!
-    createOrigin: String!
-    version: Long
-}
-
-type MpeProcessingConfigurationPage {
-    number: NonNegativeInt!
-    totalElements: Long!
-    totalPages: NonNegativeInt!
-    content: [MpeProcessingConfiguration]
-}
-
-type MpeProcessingConfigTemplatePage {
-    number: NonNegativeInt!
-    totalElements: Long!
-    totalPages: NonNegativeInt!
-    content: [MpeProcessingConfigTemplate]
-}
-
-input MpeProcessingConfigurationQueryExampleInput {
-    classificationMarking: String
-    eventUuid: String
-    candidateRsoReservationUuid: String
-    analystRsoReservationUuid: String
-    catalogRsoReservationUuid: String
-    ucnReservationUuid: String
-    candidateFormationParametersUuid: String
-    currentFlag: Boolean
-    name: String
-    description: String
-    analystMinTracksPerDay: PositiveInt
-    analystMinTracksReceived: PositiveInt
-    catalogMinTracksReceived: PositiveInt
-    analystMinOdSolutions: PositiveInt
-    catalogMinOdSolutions: PositiveInt
-    analystRmsTrendMean: PositiveFloat
-    analystRmsTrendSd: PositiveFloat
-    catalogRmsTrendSd: PositiveFloat
-    analystMinResidualAcceptance: PositiveFloat
-    catalogMinResidualAcceptance: PositiveFloat
-    analystMinArgumentLatitude: PositiveFloat
-    catalogMinArgumentLatitude: PositiveFloat
-    analystMinReportingSensors: PositiveInt
-    catalogMinReportingSensors: PositiveInt
-}
-
-input MpeProcessingConfigTemplateQueryExampleInput {
-    classificationMarking: String
-    candidateRsoReservationUuid: String
-    analystRsoReservationUuid: String
-    ucnReservationUuid: String
-    candidateFormationParametersUuid: String
-    name: String
-    description: String
-    analystMinTracksPerDay: PositiveInt
-    analystMinTracksReceived: PositiveInt
-    catalogMinTracksReceived: PositiveInt
-    analystMinOdSolutions: PositiveInt
-    catalogMinOdSolutions: PositiveInt
-    analystRmsTrendMean: PositiveFloat
-    analystRmsTrendSd: PositiveFloat
-    catalogRmsTrendSd: PositiveFloat
-    analystMinResidualAcceptance: PositiveFloat
-    catalogMinResidualAcceptance: PositiveFloat
-    analystMinArgumentLatitude: PositiveFloat
-    catalogMinArgumentLatitude: PositiveFloat
-    analystMinReportingSensors: PositiveInt
-    catalogMinReportingSensors: PositiveInt
 }

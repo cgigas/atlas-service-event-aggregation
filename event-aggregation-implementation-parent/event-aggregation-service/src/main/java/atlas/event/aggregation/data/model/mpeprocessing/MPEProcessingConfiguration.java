@@ -83,7 +83,7 @@ public class MPEProcessingConfiguration extends Audited
      * Indicator as to whether the event processing configuration is the current configuration applicable to an event (True or False).
      */
     @NotNull
-    private Integer currentFlag;
+    private Boolean currentFlag;
 
     /**
      * Name provided to the event processing configuration.
@@ -192,12 +192,12 @@ public class MPEProcessingConfiguration extends Audited
         this.candidateFormationParametersUuid = candidateFormationParametersUuid;
     }
 
-    public Integer getCurrentFlag()
+    public Boolean getCurrentFlag()
     {
         return currentFlag;
     }
 
-    public void setCurrentFlag(Integer currentFlag)
+    public void setCurrentFlag(Boolean currentFlag)
     {
         this.currentFlag = currentFlag;
     }
