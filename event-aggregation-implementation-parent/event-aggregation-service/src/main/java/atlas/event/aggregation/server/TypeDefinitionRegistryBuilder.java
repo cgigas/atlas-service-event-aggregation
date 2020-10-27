@@ -30,7 +30,6 @@ import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,8 @@ public class TypeDefinitionRegistryBuilder
             TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
             log.info("Creating graphql type registry from schema definition files.");
-            for (Resource resource : graphqlResources)
+            for (Resource resource: graphqlResources)
+
             {
                 String schemaString = Resources.toString(resource.getURL(), UTF_8);
                 typeRegistry.merge(parser.parse(schemaString));
@@ -137,55 +137,39 @@ public class TypeDefinitionRegistryBuilder
      *
      * @param fileList The list of all the files in the directory and subdirectories.
      * @return a merged schema object.
-     * @throws IOException if files can't be read.
      */
-    public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList) throws IOException
+    public TypeDefinitionRegistry buildRegistryFrom(List<File> fileList)
     {
-        try
-        {
-            SchemaParser parser = new SchemaParser();
-            TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
+        SchemaParser parser = new SchemaParser();
+        TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
 
-            for (File fileItem : fileList)
-            {
-                typeRegistry.merge(parser.parse(fileItem));
-            }
-            return typeRegistry;
-        }
-        catch (Throwable e)
+        for (File fileItem: fileList)
         {
-            throw new IllegalStateException(e);
+            typeRegistry.merge(parser.parse(fileItem));
         }
+        return typeRegistry;
     }
 
     private List<File> getFilesInDirectory(File directory, String fileExtension)
     {
-        List<File> fileList = null;
+        List<File> fileList = new ArrayList<>();
         if ((directory != null))
         {
-            File[] listOfFiles = directory.listFiles(new FilenameFilter()
+            File[] listOfFiles = directory.listFiles((dir, name) ->
             {
-                @Override
-                public boolean accept(File dir, String name)
+                if (dir.isDirectory())
                 {
-                    if (dir.isDirectory())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return name.toLowerCase().endsWith(fileExtension);
-                    }
+                    return true;
+                }
+                else
+                {
+                    return name.toLowerCase().endsWith(fileExtension);
                 }
             });
 
             if (listOfFiles != null)
             {
-                if (fileList == null)
-                {
-                    fileList = new ArrayList<>();
-                }
-                for (File fileItem : listOfFiles)
+                for (File fileItem: listOfFiles)
                 {
                     if (fileItem.isDirectory())
                     {
@@ -198,7 +182,6 @@ public class TypeDefinitionRegistryBuilder
                 }
             }
         }
-
         return fileList;
     }
 }

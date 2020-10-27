@@ -1,18 +1,32 @@
+<<<<<<< HEAD
 extend type MPEServiceQuery {
     eventById(id: String!): Event
     eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
     eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
     eventData(eventDataUuid: String): EventData
-    deleteEvent(eventUuid: String!): Event
+    deleteEvent(eventUuid: String!): Eventd
+=======
+type MPEServiceQuery {
+    eventById(eventUuid: String!): Event
+    eventTypeSummariesByTimePeriod(timePeriod: TimePeriod!, pageRequest: PageInfo): EventTypeSummaryResults
+    eventsByTimePeriodAndType(type: EventType!, timePeriod: TimePeriod!, pageRequest: PageInfo):[Event]
+    eventData(eventDataUuid: String): EventData
+>>>>>>> master
 }
 
 type TypeQuery {
     getEventTypes: [EventType]
 }
 
+<<<<<<< HEAD
 extend type MPEServiceMutation {
     closeEvent(id: String, endDate: DateTime): Event
     deleteEvent(id: String): Event
+=======
+type MPEServiceMutation {
+    closeEvent(eventUuid: String, endDate: DateTime): Event
+    deleteEvent(eventUuid: String!): Event
+>>>>>>> master
     updateEventStatus(id: String, eventStatus: EventStatus!): Event
     createEvent(eventData: CreateEvent): Event
 }
@@ -63,12 +77,16 @@ type EventData {
     type: String
     supplementalData: String
     createDate: DateTime
-    createOrgin: String
+    createOrigin: String
     updateDate: DateTime
-    updateOrgin: String
+    updateOrigin: String
     version: Long
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 input EventDataInput {
     eventDataUuid: String
     classificationMarking: String
@@ -78,9 +96,9 @@ input EventDataInput {
     type: String
     supplementalData: String
     createDate: DateTime
-    createOrgin: String
+    createOrigin: String
     updateDate: DateTime
-    updateOrgin: String
+    updateOrigin: String
     version: Long
 }
 
@@ -98,9 +116,9 @@ input CreateEvent {
     eventPostingId: String
     eventData: EventDataInput
     createDate: DateTime
-    createOrgin: String
+    createOrigin: String
     updateDate: DateTime
-    updateOrgin: String
+    updateOrigin: String
     version: Long
 }
 

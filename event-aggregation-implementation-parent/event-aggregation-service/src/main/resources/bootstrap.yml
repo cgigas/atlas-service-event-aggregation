@@ -1,3 +1,7 @@
 spring:
   application:
+<<<<<<< HEAD
     name: @project.artifactid@
+=======
+    name: @project.artifactid@
+>>>>>>> master

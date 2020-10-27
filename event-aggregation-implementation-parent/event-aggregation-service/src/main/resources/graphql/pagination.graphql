@@ -38,6 +38,7 @@ input TimePeriod {
     duration: Int
     durationUnit: DurationUnits
 }
+<<<<<<< HEAD
 
 input CriteriaQuery {
     propertyPredicate: PropertyPredicate
@@ -60,3 +61,5 @@ input OrPredicate {
     propertyPredicates: [PropertyPredicate!]
     andPredicates: [AndPredicate!]
 }
+=======
+>>>>>>> master

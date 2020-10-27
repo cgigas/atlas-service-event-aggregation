@@ -15,23 +15,18 @@
  *  LIMITATIONS:      None
  * ******************************************************************************
  */
-package atlas.event.aggregation.parser;
+package atlas.event.aggregation.config;
 
-import atlas.event.aggregation.parser.event.EventMasterParser;
-import org.springframework.stereotype.Component;
+import org.junit.Before;
+import static org.junit.Assert.assertNotNull;
 
-@Component
-public class ConfigParser extends EventMasterParser
+public class DataServiceConfigurationTest
 {
-    @Override
-    public Object fromGraphqlClient(Object graphql)
+    @Before
+    public void init()
     {
-        return null;
-    }
-
-    @Override
-    public Object toGraphqlClient(Object model, Boolean inputMode)
-    {
-        return null;
+        DataServiceConfiguration task = new DataServiceConfiguration();
+        assertNotNull(task);
+        task.init();
     }
 }

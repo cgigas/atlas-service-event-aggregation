@@ -1,12 +1,13 @@
 enum TimePeriodType {
-    RANGE, DURATION
+    RANGE
+    DURATION
 }
 enum DurationUnits {
-    SECONDS,
-    MINUTES,
-    HOURS,
-    DAYS,
-    WEEKS,
+    SECONDS
+    MINUTES
+    HOURS
+    DAYS
+    WEEKS
     MONTHS
 }
 
@@ -32,30 +33,30 @@ enum EventStatus
 
 enum EventType
 {
-    BREAKUP,
-    Multipayload,
-    CONJUNCTION,
-    DEORBIT,
-    DOCK,
-    EMI,
-    LAUNCH,
-    MANEUVER,
-    NUDET,
-    OTHER,
-    PROXIMITY,
-    REENTRY,
-    RENDEZVOUS,
-    SEPARATION,
+    BREAKUP
+    Multipayload
+    CONJUNCTION
+    DEORBIT
+    DOCK
+    EMI
+    LAUNCH
+    MANEUVER
+    NUDET
+    OTHER
+    PROXIMITY
+    REENTRY
+    RENDEZVOUS
+    SEPARATION
     UNDOCK
 }
 
 enum EventSatelliteRelationship
 {
-    PARENT,
-    CHILD,
-    ACTOR,
-    TARGET,
-    PRIMARY,
+    PARENT
+    CHILD
+    ACTOR
+    TARGET
+    PRIMARY
     SECONDARY
 }
 
@@ -69,4 +70,8 @@ enum PredicateOperator {
     LE
     LT
     IN
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
