@@ -1,0 +1,14 @@
+SATELLITE_SVC_URL=https://atlas-apps-play.pks.dev.km.spaceforce.mil/satellite-crud
+ORBITAL_SVC_URL=https://atlas-apps-play.pks.dev.km.spaceforce.mil/orbital-crud
+OBSERVATION_SVC_URL=https://atlas-apps-play.pks.dev.km.spaceforce.mil/observation-crud
+SENSOR_SVC_URL=https://atlas-apps-play.pks.dev.km.spaceforce.mil/sensor-crud
+NOTES_SVC_URL=https://atlas-apps-play.pks.dev.km.spaceforce.mil/notes-crud
+EVENT_SVC_URL=https://atlas-apps-play.pks.dev.km.spaceforce.mil/ssaevent-crud
+GRAPHQL_EXTENSION=/graphql
+KAFKA_BROKERS=atlas-kafka-cp-kafka-0-play.pks.dev.km.spaceforce.mil:9092
+SPRING_PROFILES_ACTIVE=prod
+MAX_ID_REQUEST_SIZE=215
+MAX_PAGE_SIZE=1000
+SYSTEM_HIGH_DUL=U
+SYSTEM_RELEASIBILITIES=USA
+SYSTEM_DISSEMINATIONS=FOUO
