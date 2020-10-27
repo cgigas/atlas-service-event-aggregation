@@ -30,9 +30,9 @@ public class EventDataTest
     {
         EventData task = new EventData();
         task.setUri("uri");
-        assertEquals("uri",task.getUri());
+        assertEquals("uri", task.getUri());
         task.setType("type");
-        assertEquals("type",task.getType());
+        assertEquals("type", task.getType());
 
         GetterSetterTester tester = new GetterSetterTester()
         {

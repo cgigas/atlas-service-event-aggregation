@@ -18,10 +18,6 @@
 package atlas.event.aggregation.server;
 
 import atlas.event.aggregation.server.wiring.GraphQlRuntimeWiringBuilder;
-import graphql.schema.GraphQLSchema;
-import graphql.schema.idl.RuntimeWiring;
-import graphql.schema.idl.SchemaGenerator;
-import graphql.schema.idl.TypeDefinitionRegistry;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -32,7 +28,6 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class GraphQLServiceTest
 {
