@@ -293,7 +293,8 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
             eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
             eventCrudQueryExecutor = getClientServiceLookup().getEventCrudQueryExecutor();
             String eventUuid = environment.getArgument("eventUuid");
-            atlas.ssaevent.crud.graphql.EventStatus eventStatus = environment.getArgument("eventStatus");
+            String status = environment.getArgument("eventStatus");
+            atlas.ssaevent.crud.graphql.EventStatus eventStatus = atlas.ssaevent.crud.graphql.EventStatus.valueOf(status);
             try
             {
                 StringBuffer queryString = new StringBuffer();
@@ -324,6 +325,7 @@ public class EventDataDispatch extends AbstractDataDispatch<List<Event>>
                 throw new DataAccessorException(e);
             }
         }
+
         return event;
     }
 

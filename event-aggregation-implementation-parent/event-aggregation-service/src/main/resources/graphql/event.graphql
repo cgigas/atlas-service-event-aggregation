@@ -12,7 +12,7 @@ type TypeQuery {
 type MPEServiceMutation {
     closeEvent(eventUuid: String, endDate: DateTime): Event
     deleteEvent(eventUuid: String!): Event
-    updateEventStatus(id: String, eventStatus: EventStatus!): Event
+    updateEventStatus(eventUuid: String!, eventStatus: EventStatus!): Event
     createEvent(eventData: CreateEvent): Event
 }
 
