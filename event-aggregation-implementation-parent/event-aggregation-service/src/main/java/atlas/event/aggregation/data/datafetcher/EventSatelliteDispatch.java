@@ -32,11 +32,10 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.idl.TypeRuntimeWiring;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +52,6 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     private EventSatelliteParser eventSatelliteParser;
     @Autowired
     private EventParser eventParser;
-    Logger log = LoggerFactory.getLogger(EventSatelliteDispatch.class);
 
     public EventSatelliteDispatch(RuntimeWiringTypeCollector collector)
     {
@@ -65,9 +63,9 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
     {
         Collection<TypeRuntimeWiring.Builder> builders = Lists.newArrayList();
         builders.add(newTypeWiring("MPEServiceMutation")
-                .dataFetcher("addSatelliteToEvent", this)
-                .dataFetcher("releaseSatelliteFromEvent", this)
-                .dataFetcher("promoteEventSatellite", this));
+            .dataFetcher("addSatelliteToEvent", this)
+            .dataFetcher("releaseSatelliteFromEvent", this)
+            .dataFetcher("promoteEventSatellite", this));
         return builders;
     }
 
@@ -139,7 +137,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                 String returnParams = "{eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version }}}";
                 eventSatelliteList = new ArrayList<>();
                 eventCrudMutationExecutor = getClientServiceLookup().getEventCrudMutationExecutor();
-                for (String eventSatUuid: eventSatList)
+                for (String eventSatUuid : eventSatList)
                 {
                     try
                     {
@@ -173,7 +171,7 @@ public class EventSatelliteDispatch extends AbstractDataDispatch<List<Event>>
                     StringBuffer resultBuffer = new StringBuffer();
                     resultBuffer.append("{ eventSatUuid satelliteUuid eventUuid relationship ucn version event { eventUuid classificationMarking predecessorEventUuid type name status startDt endDt description internalNotes eventPostingId eventData { classificationMarking eventUuid name uri type supplementalData createDate createOrigin updateDate updateOrigin version } createDate createOrigin updateDate updateOrigin version } } }");
                     System.out.println(resultBuffer.toString());
-                    for (Map<String, Object> eventSatPromotItem: eventSatPromoMapList)
+                    for (Map<String, Object> eventSatPromotItem : eventSatPromoMapList)
                     {
                         String eventSatelliteUuid = getItemAsString("eventSatelliteUuid", eventSatPromotItem);
                         String relationship = getItemAsString("relationship", eventSatPromotItem);
