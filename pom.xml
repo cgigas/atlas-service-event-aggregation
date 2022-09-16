@@ -48,7 +48,7 @@
         <google.guava.version>29.0-jre</google.guava.version>
         <atlas.astro.time.util.version>1.0.0-SNAPSHOT</atlas.astro.time.util.version>
         <classifier.service.version>1.0.0-SNAPSHOT</classifier.service.version>
-        <com.graphql-java.version>14.0</com.graphql-java.version>
+        <com.graphql-java.version>17.4</com.graphql-java.version>
         <com.graphql-java-spring-boot-starter.version>1.0</com.graphql-java-spring-boot-starter.version>
         <com.graphql-java-extended-scalars.version>1.1.0</com.graphql-java-extended-scalars.version>
         <com.graphql-java.kickstart.spring.boot.version>7.0.1</com.graphql-java.kickstart.spring.boot.version>
